@@ -1,6 +1,5 @@
 # Demonstration of a magnifier on a map
 
-from SimpleGUICS2Pygame import simpleguics2pygame
 # 1521x1818 pixel map of native American language
 # source - Gutenberg project
 
