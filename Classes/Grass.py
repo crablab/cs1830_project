@@ -1,8 +1,7 @@
 
 import os
-
+import json
 from Classes.Sprite import Sprite
-
 USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
 
 class Grass:
@@ -12,20 +11,32 @@ class Grass:
     image3= Sprite(cwd +'/img/grass/grass16.jpg')
     image4 = Sprite(cwd +'/img/grass/grass19.jpg')
 
-    def __init__(self, pos,id):
-        self.id=id
+    def __init__(self, pos,idP):
+        self.idP=idP
         self.pos=pos
+        self.id=2
 
     def draw(self,canvas,cam):
-        print (self.id)
-        if self.id==1:
+        if self.idP==1:
             image=self.image1
-        elif self.id==2:
+        elif self.idP==2:
             image=self.image2
-        elif self.id==3:
+        elif self.idP==3:
             image=self.image3
         else:
             image=self.image4
 
         image.draw(canvas, cam,self.pos)
 
+    def transform(self,cam):
+        #get Distance
+        dist=self.pos.copy()
+        dist.subtract(cam.origin)
+        #get ratio
+        ratio=dist.divideVector(cam.dim.copy().divide(2))
+        #multiply ration on real screen
+        self.pos=ratio.multiplyVector(cam.dimCanv.copy().divide(2))
+        self.pos.add(cam.dimCanv.copy().divide(2))
+
+    def encode(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)

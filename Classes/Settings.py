@@ -1,3 +1,12 @@
+'''
+Class Id's:
+1: Camera
+2: Grass
+3: Particle
+4: Player
+5: Vector
+'''
+
 CANVAS_WIDTH = 500
 CANVAS_HEIGHT = 500
 #polygons

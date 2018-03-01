@@ -3,12 +3,13 @@ import random
 import copy
 import pygame
 import math
+import json
 
 class Vector:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-
+        self.id=6
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
 
@@ -78,4 +79,5 @@ class Vector:
     def angle(self, other):
         return math.acos((self.dot(other)) / (self.length() * other.length()))
 
-
+    def encode(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)

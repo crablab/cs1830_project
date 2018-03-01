@@ -11,6 +11,7 @@ class Camera:
         self.moveRight=False
         self.moveUp=False
         self.moveDown=False
+        self.id=1
 
     def move(self):
         if self.moveUp==True:

@@ -1,11 +1,11 @@
-
+import json
 class Particle:
     def __init__(self, pos, vel, angle,radius):
         self.angle = angle
         self.pos = pos
         self.vel = vel
         self.radius = radius
-
+        self.id=3
     def draw(self, canvas,width):
         canvas.draw_circle(self.pos.getP(), self.radius/width, 1, "Pink", "Pink")
 
@@ -33,4 +33,6 @@ class Particle:
         self.pos=ratio.multiplyVector(cam.dimCanv.copy().divide(2))
         self.pos.add(cam.dimCanv.copy().divide(2))
 
+    def encode(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)
 

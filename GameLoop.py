@@ -3,8 +3,14 @@ from Classes.Camera import Camera
 from Classes.Grass import Grass
 from Classes.Particle import Particle
 from Classes.Vector import Vector
+from collections import namedtuple
+from Classes.Settings import CANVAS_WIDTH,CANVAS_HEIGHT
+from Transfer import JsonToObject
+import json
 import random
 import copy
+import time
+
 
 from Classes.Settings import PARTICLE_SIZE,CANVAS_WIDTH,CANVAS_HEIGHT
 class Interaction:
@@ -51,7 +57,7 @@ for i in range(0,400):
         x+=1
     g=Grass(Vector(x*200,(i%20)*200),random.randrange(0,4))
     grass_list.append(g)
-    print(str(i%20)+", "+ str(x))
+
 
 
 p = Particle(Vector(250, 250), Vector(random.randint(-3, 3), random.randint(-3, 3)), 0,PARTICLE_SIZE)
@@ -69,9 +75,17 @@ def draw(canvas):
     pd.transform(cam)
     pd1.draw(canvas,cam.dim.x)
     pd.draw(canvas,cam.dim.x)
+
     for grass in grass_list:
-        g1=copy.deepcopy(grass)
+        g1 = copy.deepcopy(grass)
+        g1.transform(cam)
         g1.draw(canvas,cam)
+        # if (g1.pos.getY()<CANVAS_HEIGHT+100000/cam.dim.getX() and g1.pos.getY()>-100000/cam.dim.getX()) and (g1.pos.getX()>-100000/cam.dim.getX() and g1.pos.getX()<CANVAS_WIDTH+100000/cam.dim.getX()):
+        #     print(cam.dim.getX())
+        #     g2=(g1.encode())
+        #     g3=JsonToObject.GetObject(g2)
+        #     g3.draw(canvas,cam)
+
 
 
 frame = simpleguics2pygame.create_frame('A convex polygon domain', CANVAS_WIDTH, CANVAS_HEIGHT)
