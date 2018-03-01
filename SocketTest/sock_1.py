@@ -1,17 +1,16 @@
-import socket, socketserver
+import socket
 
 class Sock:
-    def __init__(self, queue_recv):
-        self.recv_list = []
-        
+    def __init__(self, host, port, queue_send, queue_recv):
+        self.host = host
+        self.port = port
+
         ##Queue.queue object
+        self.queue_send = queue_send
         self.queue_recv = queue_recv
 
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.bind( (host, port) )
-
-    def addRecv(self, host, port):
-        self.queue_recv.append()
 
     def loopSend(self):
         while True:
@@ -33,15 +32,3 @@ class Sock:
                         break
             finally:
                 connection.close()
-
-class RecvServer(socketserver.ThreadingTCPServer):
-
-    def __init__(self, server_address, RequestHandlerClass, queue):
-        SocketServer.ThreadingTCPServer.__init__(self, server_address, RequestHandlerClass)
-        self.queue = queue
-
-class RecvServerHandler(socketserver.StreamRequestHandler):
-
-    def handle(self):
-        data = self.request.recv(1024).strip()
-        self.server.queue.put(data)
