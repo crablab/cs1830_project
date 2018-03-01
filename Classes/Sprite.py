@@ -1,21 +1,11 @@
-import SimpleGUICS2Pygame
 from SimpleGUICS2Pygame import simpleguics2pygame
-from Vector import Vector
-USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
-CANVAS_WIDTH = 500
-CANVAS_HEIGHT = 500
-#polygons
-ParticleSize=2500
-#Sprites:
-SpriteSize=200
-#CAMERA
-CamMinDist=200
-CAM_SENSITIVITY=5
+from Classes.Vector import Vector
+from Classes.Settings import SPRITE_SIZE
 class Sprite:
     def __init__(self, image):
         self.image = simpleguics2pygame.load_image(image)
 
-        self.dim = Vector(self.image.get_width()*SpriteSize,self.image.get_height()*SpriteSize)
+        self.dim = Vector(self.image.get_width()*SPRITE_SIZE,self.image.get_height()*SPRITE_SIZE)
 
 
     def draw(self, canvas, cam, pos):

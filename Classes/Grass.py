@@ -1,18 +1,10 @@
 
 import os
 
-from Sprite import Sprite
-import math
+from Classes.Sprite import Sprite
+
 USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
-CANVAS_WIDTH = 500
-CANVAS_HEIGHT = 500
-#polygons
-ParticleSize=2500
-#Sprites:
-SpriteSize=200
-#CAMERA
-CamMinDist=200
-CAM_SENSITIVITY=5
+
 class Grass:
     cwd = os.getcwd()
     image1= Sprite(cwd +'/img/grass/grass18.jpg')
@@ -20,18 +12,20 @@ class Grass:
     image3= Sprite(cwd +'/img/grass/grass16.jpg')
     image4 = Sprite(cwd +'/img/grass/grass19.jpg')
 
-    def __init__(self, pos):
-
+    def __init__(self, pos,id):
+        self.id=id
         self.pos=pos
 
-    def draw(self,canvas,id,cam):
-        if id==1:
+    def draw(self,canvas,cam):
+        print (self.id)
+        if self.id==1:
             image=self.image1
-        if id==2:
+        elif self.id==2:
             image=self.image2
-        if id==3:
+        elif self.id==3:
             image=self.image3
-        image=self.image4
+        else:
+            image=self.image4
 
         image.draw(canvas, cam,self.pos)
 

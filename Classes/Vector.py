@@ -1,21 +1,9 @@
 from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_keys, simplegui_lib_fps
-
 import random
 import copy
 import pygame
 import math
-USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
-CANVAS_WIDTH = 500
-CANVAS_HEIGHT = 500
-#polygons
-ParticleSize=2500
-#Sprites:
-SpriteSize=200
-#CAMERA
-CamMinDist=200
 
-CAM_SENSITIVITY=5
-#image = simpleguics2pygame.load_image("http://commondatastorage.googleapis.com/codeskulptor-assets/gutenberg.jpg")
 class Vector:
     def __init__(self, x, y):
         self.x = x

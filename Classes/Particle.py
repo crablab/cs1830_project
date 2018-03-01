@@ -1,14 +1,4 @@
 
-USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
-CANVAS_WIDTH = 500
-CANVAS_HEIGHT = 500
-#polygons
-ParticleSize=2500
-#Sprites:
-SpriteSize=200
-#CAMERA
-CamMinDist=200
-CAM_SENSITIVITY=5
 class Particle:
     def __init__(self, pos, vel, angle,radius):
         self.angle = angle
@@ -28,7 +18,7 @@ class Particle:
     def turn(self, angle):
         self.vel.rotate(self.angle + angle)
     def copy(self):
-        p=Particle(self.pos,self.vel,self.angle)
+        p=Particle(self.pos,self.vel,self.angle,self.radius)
         return(p)
     def transform(self,cam):
         #get Distance
