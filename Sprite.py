@@ -1,4 +1,5 @@
-from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_keys, simplegui_lib_fps
+import SimpleGUICS2Pygame
+from SimpleGUICS2Pygame import simpleguics2pygame
 from Vector import Vector
 USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
 CANVAS_WIDTH = 500
@@ -26,7 +27,7 @@ class Sprite:
         # multiply ration on real screen
         pos = ratio.multiplyVector(cam.dimCanv.copy().divide(2))
         pos.add(cam.dimCanv.copy().divide(2))
-     
+
         imgDim=(self.dim.copy().divide(cam.dim.x).getP())
         imgCenter = tuple(ti/2 for ti in imgDim)
         canLoc=pos.getP()

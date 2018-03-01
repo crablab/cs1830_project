@@ -1,4 +1,3 @@
-from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_keys, simplegui_lib_fps
 import Vector
 import random
 import copy

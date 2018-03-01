@@ -1,8 +1,6 @@
-from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_keys, simplegui_lib_fps
-import Vector
-import random
-import copy
-import pygame
+
+import os
+
 from Sprite import Sprite
 import math
 USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
@@ -16,11 +14,11 @@ SpriteSize=200
 CamMinDist=200
 CAM_SENSITIVITY=5
 class Grass:
-
-    image1= Sprite(USER_PATH+'img/grass/grass18.jpg')
-    image2 = Sprite(USER_PATH+'img/grass/grass17.jpg')
-    image3= Sprite(USER_PATH+'img/grass/grass16.jpg')
-    image4 = Sprite(USER_PATH+'img/grass/grass19.jpg')
+    cwd = os.getcwd()
+    image1= Sprite(cwd +'/img/grass/grass18.jpg')
+    image2 = Sprite(cwd +'/img/grass/grass17.jpg')
+    image3= Sprite(cwd +'/img/grass/grass16.jpg')
+    image4 = Sprite(cwd +'/img/grass/grass19.jpg')
 
     def __init__(self, pos):
 

@@ -1,4 +1,3 @@
-from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_keys, simplegui_lib_fps
 
 USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
 CANVAS_WIDTH = 500

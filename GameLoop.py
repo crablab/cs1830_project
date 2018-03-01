@@ -1,4 +1,6 @@
+import SimpleGUICS2Pygame
 from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_keys, simplegui_lib_fps
+
 from Camera import Camera
 from Sprite import Sprite
 from Grass import Grass
