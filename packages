@@ -1,2 +1,4 @@
-cherrypy
-ws4py
+asyncio
+websockets
+SimpleGUICS2Pygame
+pygame
