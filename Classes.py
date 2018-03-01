@@ -15,6 +15,7 @@ SpriteSize=200
 CamMinDist=200
 
 CAM_SENSITIVITY=5
+#image = simpleguics2pygame.load_image("http://commondatastorage.googleapis.com/codeskulptor-assets/gutenberg.jpg")
 class Vector:
     def __init__(self, x, y):
         self.x = x
@@ -25,7 +26,10 @@ class Vector:
 
     def getP(self):
         return (self.x, self.y)
-
+    def getX(self):
+        return self.x
+    def getY(self):
+        return self.y
     def copy(self):
         v = Vector(self.x, self.y)
         return v
@@ -137,12 +141,13 @@ class Sprite:
         # multiply ration on real screen
         pos = ratio.multiplyVector(cam.dimCanv.copy().divide(2))
         pos.add(cam.dimCanv.copy().divide(2))
+        print('yo')
         imgDim=(self.dim.copy().divide(cam.dim.x).getP())
         imgCenter = tuple(ti/2 for ti in imgDim)
+        canLoc=pos.getP()
+        canvas.draw_image(self.image,[self.image.get_width()//2,self.image.get_height()//2],[self.image.get_width(),self.image.get_width()], canLoc,imgDim)
 
-        canLoc=(pos.getP())
 
-        canvas.draw_image(self.image,imgCenter,imgDim, canLoc,imgDim)
 
 class Camera:
     def __init__(self, origin, dim):
@@ -179,10 +184,10 @@ class Camera:
 
 class Grass:
 
-    image1= Sprite(USER_PATH+'img/grassLight.jpg')
-    image2 = Sprite(USER_PATH+'img/grassDark.jpg')
-    image3= Sprite(USER_PATH+'img/grassWhite.jpg')
-    image4 = Sprite(USER_PATH+'img/grassBrown.jpg')
+    image1= Sprite(USER_PATH+'img/grass/grass18.jpg')
+    image2 = Sprite(USER_PATH+'img/grass/grass17.jpg')
+    image3= Sprite(USER_PATH+'img/grass/grass16.jpg')
+    image4 = Sprite(USER_PATH+'img/grass/grass19.jpg')
 
     def __init__(self, pos):
 
