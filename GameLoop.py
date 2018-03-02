@@ -1,4 +1,5 @@
-from SimpleGUICS2Pygame import simpleguics2pygame
+from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_fps
+
 from Classes.Camera import Camera
 from Classes.Grass import Grass
 from Classes.Particle import Particle
@@ -33,7 +34,10 @@ cam = Camera(Vector(250, 250), Vector(CANVAS_WIDTH, CANVAS_HEIGHT))
 player = Player(Vector(250, 250), Vector(0, 0), 0, 1)
 player_list.append(player)
 
-
+#initiate time
+fps= simplegui_lib_fps.FPS()
+fps.start()
+startTime=time.time()
 #interactions (if required later):
 class Interaction:
     def __init__(self, particle, line):
@@ -85,6 +89,9 @@ def keydown(key):
 
 #Game loop
 def draw(canvas):
+    print(round(time.time()-startTime))
+    fps.draw_fct(canvas)
+
     # adjust camera
     cam.zoom()
     cam.move()
@@ -105,7 +112,7 @@ def draw(canvas):
     for player in player_list:
         p = copy.deepcopy(player)
         p.transform(cam)
-        p.draw(canvas)
+        p.draw(canvas,cam)
 
 
 

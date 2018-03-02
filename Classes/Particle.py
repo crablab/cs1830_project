@@ -7,6 +7,7 @@ class Particle:
         self.radius = radius
         self.width=0
         self.id=3
+        self.time=0
     def draw(self, canvas):
         canvas.draw_circle(self.pos.getP(), self.radius/self.width, 1, "Pink", "Pink")
 

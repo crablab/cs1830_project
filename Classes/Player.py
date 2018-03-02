@@ -2,17 +2,22 @@ import json
 from Classes.Vector import Vector
 class Player:
     def __init__(self, pos, vel, angle,idP):
+        #id's
         self.id = 4
         self.idP = idP
+        #non-vectors (attributes)
         self.maxVel=10
         self.angle = angle
+        self.radius = 250  # multiply by 200
+        self.width = 0  # cam width.
+        #vectors
         self.pos = pos
         self.vel = vel
         self.nextPos=Vector(0,0)
-        self.radius = 2000  # multiply by 200
-        self.width=0 #cam width.
-    def draw(self, canvas):
-        canvas.draw_circle(self.pos.getP(), self.radius/self.width, 1, "White", "White")
+
+    def draw(self, canvas,cam):
+        print(self.width)
+        canvas.draw_circle(self.pos.getP(), self.radius, 1, "White", "White")
 
     def bounce(self, normal):
         self.vel.reflect(normal)
@@ -21,19 +26,11 @@ class Player:
         self.vel=self.pos.copy().subtract(pos).normalize().multiply(self.maxVel)
         self.vel.negate()
     def transform(self,cam):
-
-
         self.width=cam.dim.getX()
-        #get Distance
-
-        dist=self.pos.copy()
-        dist.subtract(cam.origin)
-
-        #get ratio
-        ratio=dist.divideVector(cam.dim.copy().divide(2))
-
-        #multiply ration on real screen
-        self.pos=ratio.multiplyVector(cam.dimCanv.copy().divide(2))
+        self.radius=self.radius * cam.dimCanv.copy().divideVector(cam.dim).getX()
+        self.pos.subtract(cam.origin)
+        ratio = cam.dimCanv.copy().divideVector(cam.dim)
+        self.pos.multiplyVector(ratio)
         self.pos.add(cam.dimCanv.copy().divide(2))
 
     def update(self):
