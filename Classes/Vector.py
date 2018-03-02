@@ -12,7 +12,8 @@ class Vector:
         self.id=6
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
-
+    def negate(self):
+        self.multiply(-1)
     def getP(self):
         return (self.x, self.y)
     def getX(self):
@@ -60,7 +61,8 @@ class Vector:
     # Returns the length of the vector
     def length(self):
         return math.sqrt(self.x ** 2 + self.y ** 2)
-
+    def size(self):
+        return self.x+self.y
     # Returns the squared length of the vector
     def lengthSq(self):
         return self.x ** 2 + self.y ** 2
@@ -78,6 +80,16 @@ class Vector:
         return self
     def angle(self, other):
         return math.acos((self.dot(other)) / (self.length() * other.length()))
+
+    def transform(self,cam):
+
+        self.subtract(cam.dimCanv.copy().divide(2))
+        ratio = cam.dim.copy().divideVector(cam.dimCanv)
+        self.multiplyVector(ratio)
+        self.add(cam.origin)
+
+
+        print("subtract : " + str(self.getP()))
 
     def encode(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)

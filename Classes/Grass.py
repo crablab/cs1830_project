@@ -15,6 +15,7 @@ class Grass:
         self.idP=idP
         self.pos=pos
         self.id=2
+        self.width=0
 
     def draw(self,canvas,cam):
         if self.idP==1:
@@ -26,17 +27,46 @@ class Grass:
         else:
             image=self.image4
 
-        image.draw(canvas, cam,self.pos)
+        image.draw(canvas,cam,self.pos)
 
     def transform(self,cam):
-        #get Distance
-        dist=self.pos.copy()
-        dist.subtract(cam.origin)
-        #get ratio
-        ratio=dist.divideVector(cam.dim.copy().divide(2))
-        #multiply ration on real screen
-        self.pos=ratio.multiplyVector(cam.dimCanv.copy().divide(2))
+        self.width=cam.dim.getX()
+
+
+
+        # #get Distance
+        # dist=self.copy()
+        # print("distance: " + str(dist))
+        # #get ratio
+        # ratio=camDim.divideVector(canvDim)
+        # print("ratio: "+str(ratio))
+        # #ratio*coords
+        # self.multiplyVector(ratio)
+        # print("mult ratio: " + str(self.getP()))
+        #
+        # #take away origin to adjust
+        # self.add(cam.origin)
+        # print("subtract : " + str(self.getP()))
+        #
+        #
+        # #get Distance
+        # dist=self.pos.copy()
+        # dist.subtract(cam.origin)
+        # #get ratio
+        # ratio=dist.divideVector(cam.dim.copy().divide(2))
+        # #multiply ration on real screen
+        # self.pos=ratio.multiplyVector(cam.dimCanv.copy().divide(2))
+        # self.pos.add(cam.dimCanv.copy().divide(2))
+
+
+
+        self.pos.subtract(cam.origin)
+        ratio=cam.dimCanv.copy().divideVector(cam.dim)
+        self.pos.multiplyVector(ratio)
         self.pos.add(cam.dimCanv.copy().divide(2))
+
+
+
 
     def encode(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)

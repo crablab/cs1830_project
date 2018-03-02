@@ -1,5 +1,5 @@
 from Classes.Vector import Vector
-from Classes.Settings import CAM_MIN_DIST,CAM_SENSITIVITY,CANVAS_HEIGHT,CANVAS_WIDTH
+from Classes.Settings import CAM_MIN_DIST,CAM_ZOOM_SENSITIVITY,CAM_MOVE_SENSITIVITY,CANVAS_HEIGHT,CANVAS_WIDTH
 class Camera:
     def __init__(self, origin, dim):
         self.origin = origin
@@ -15,21 +15,25 @@ class Camera:
 
     def move(self):
         if self.moveUp==True:
-            self.origin.add(Vector(0,-CAM_SENSITIVITY))
+            self.origin.add(Vector(0,-CAM_MOVE_SENSITIVITY))
         if self.moveDown==True:
-            self.origin.add(Vector(0,CAM_SENSITIVITY))
+            self.origin.add(Vector(0,CAM_MOVE_SENSITIVITY))
 
         if self.moveLeft == True:
-            self.origin.add(Vector(-CAM_SENSITIVITY,0))
+            self.origin.add(Vector(-CAM_MOVE_SENSITIVITY,0))
         if self.moveRight == True:
-            self.origin.add(Vector(CAM_SENSITIVITY,0))
+            self.origin.add(Vector(CAM_MOVE_SENSITIVITY,0))
 
 
     def zoom(self):
         if self.zoomOut == True:
-            self.dim.add(Vector(CAM_SENSITIVITY,CAM_SENSITIVITY ))
+
+            self.dim.add(self.dim.copy().multiply(CAM_ZOOM_SENSITIVITY))
+
         if self.zoomIn == True and self.dim.x>CAM_MIN_DIST and self.dim.y>CAM_MIN_DIST:
-            self.dim.add(Vector(-CAM_SENSITIVITY,-CAM_SENSITIVITY))
+
+            self.dim.add(self.dim.copy().multiply(-CAM_ZOOM_SENSITIVITY))
+
 
     def get(self):
         return(self.origin, self.dim.x)
