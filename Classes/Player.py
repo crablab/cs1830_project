@@ -6,17 +6,16 @@ class Player:
         self.id = 4
         self.idP = idP
         #non-vectors (attributes)
-        self.maxVel=10
+        self.maxVel=5
         self.angle = angle
-        self.radius = 250  # multiply by 200
-        self.width = 0  # cam width.
+        self.radius = 10  # multiply by 200
         #vectors
         self.pos = pos
         self.vel = vel
         self.nextPos=Vector(0,0)
 
-    def draw(self, canvas,cam):
-        print(self.width)
+    def draw(self, canvas):
+
         canvas.draw_circle(self.pos.getP(), self.radius, 1, "White", "White")
 
     def bounce(self, normal):

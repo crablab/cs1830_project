@@ -1,6 +1,6 @@
 from SimpleGUICS2Pygame import simpleguics2pygame
 from Classes.Vector import Vector
-from Classes.Settings import SPRITE_SIZE
+
 import math
 import json
 class Sprite:
