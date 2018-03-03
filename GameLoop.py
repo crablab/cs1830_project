@@ -1,85 +1,81 @@
-import SimpleGUICS2Pygame
-from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_keys, simplegui_lib_fps
+from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_fps
+import pygame
 
-from Camera import Camera
-from Sprite import Sprite
-from Grass import Grass
-from Particle import Particle
-from Vector import Vector
-from Player import Player
+from collections import namedtuple
+from Transfer import JsonToObject
+import json
+
+from Classes.Camera import Camera
+from Classes.Grass import Grass
+from Classes.Particle import Particle
+from Classes.Vector import Vector
+from Classes.Player import Player
+from Classes.Settings import CANVAS_WIDTH, CANVAS_HEIGHT
+from Classes.Objects import cam, grass_list, player_list, particle_set
+from Classes.KeyHandler import keydown, keyup
+from Classes.ClickHandler import checkClick
+
 import random
 import copy
-import pygame
-import math
-USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
-CANVAS_WIDTH = 500
-CANVAS_HEIGHT = 500
-ParticleSize=2500
-CAM_SENSITIVITY=5
+import time
+
+# initiate time
+fps = simplegui_lib_fps.FPS()
+fps.start()
+startTime = time.time()
 
 
+# interactions (if required later):
 class Interaction:
     def __init__(self, particle, line):
         self.particle = particle
         self.line = line
 
-grass = Grass(Vector(50,50))
-p = Particle(Vector(250, 250), Vector(random.randint(-3, 3), random.randint(-3, 3)), 0,ParticleSize)
-p1 = Particle(Vector(250, 100), Vector(random.randint(-3, 3), random.randint(-3, 3)), 0,ParticleSize)
-cam=Camera(Vector(250,250),Vector(1000,1000))
 
-
-
-def keyup(key):
-    if key == simpleguics2pygame.KEY_MAP['r']:
-        cam.zoomOut=False
-    elif key == simpleguics2pygame.KEY_MAP['e']:
-        cam.zoomIn=False
-    elif key == simpleguics2pygame.KEY_MAP['right']:
-        cam.moveRight=False
-    elif key == simpleguics2pygame.KEY_MAP['left']:
-        cam.moveLeft=False
-    elif key == simpleguics2pygame.KEY_MAP['up']:
-        cam.moveUp=False
-    elif key == simpleguics2pygame.KEY_MAP['down']:
-        cam.moveDown=False
-
-def keydown(key):
-    if key == simpleguics2pygame.KEY_MAP['r']:
-        cam.zoomOut=True
-    elif key == simpleguics2pygame.KEY_MAP['e']:
-        if cam.dim.x>100 and cam.dim.y>100:
-            cam.zoomIn=True
-        else:
-            cam.zoomIn=False
-    elif key == simpleguics2pygame.KEY_MAP['right']:
-        cam.moveRight = True
-    elif key == simpleguics2pygame.KEY_MAP['left']:
-        cam.moveLeft = True
-    elif key == simpleguics2pygame.KEY_MAP['up']:
-        cam.moveUp = True
-    elif key == simpleguics2pygame.KEY_MAP['down']:
-        cam.moveDown = True
-
-
-
+# Game loop
 def draw(canvas):
+    fps.draw_fct(canvas)
 
+    # adjust camera
     cam.zoom()
     cam.move()
-    pd1=copy.deepcopy(p1)
-    pd=copy.deepcopy(p)
-    pd1.transform(cam)
-    pd.transform(cam)
-    pd1.draw(canvas,cam.dim.x)
-    pd.draw(canvas,cam.dim.x)
-    g1=copy.deepcopy(grass)
-    g1.draw(canvas, 3,cam)
+
+    # updates
+    checkClick()
+
+    for player in player_list:
+        player.update()
+
+
+    for particle in particle_set:
+        particle.update()
+    # copy and draw Background Sprites/objects
+    for grass in grass_list:
+        g1 = copy.deepcopy(grass)
+        g1.transform(cam)
+        g1.draw(canvas, cam)
+
+    # copy and draw Forground Sprites/objects
+    for player in player_list:
+        p = copy.deepcopy(player)
+        p.transform(cam)
+        p.draw(canvas)
+
+    for particle in particle_set:
+        p = copy.deepcopy(particle)
+        p.transform(cam)
+        p.draw(canvas)
+
+    # if (g1.pos.getY()<CANVAS_HEIGHT+100000/cam.dim.getX() and g1.pos.getY()>-100000/cam.dim.getX()) and (g1.pos.getX()>-100000/cam.dim.getX() and g1.pos.getX()<CANVAS_WIDTH+100000/cam.dim.getX()):
+    #     print(cam.dim.getX())
+    #     g2=(g1.encode())
+    #     g3=JsonToObject.GetObject(g2)
+    #     g3.draw(canvas,cam)
 
 
 frame = simpleguics2pygame.create_frame('A convex polygon domain', CANVAS_WIDTH, CANVAS_HEIGHT)
 frame.set_draw_handler(draw)
-
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)
+
 frame.start()

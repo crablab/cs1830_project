@@ -1,29 +1,19 @@
 from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_keys, simplegui_lib_fps
-
 import random
 import copy
 import pygame
 import math
-USER_PATH = 'C:/Users/octav/Desktop/Programming/Games/cs1830/'
-CANVAS_WIDTH = 500
-CANVAS_HEIGHT = 500
-#polygons
-ParticleSize=2500
-#Sprites:
-SpriteSize=200
-#CAMERA
-CamMinDist=200
+import json
 
-CAM_SENSITIVITY=5
-#image = simpleguics2pygame.load_image("http://commondatastorage.googleapis.com/codeskulptor-assets/gutenberg.jpg")
 class Vector:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-
+        self.id=6
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
-
+    def negate(self):
+        self.multiply(-1)
     def getP(self):
         return (self.x, self.y)
     def getX(self):
@@ -71,7 +61,8 @@ class Vector:
     # Returns the length of the vector
     def length(self):
         return math.sqrt(self.x ** 2 + self.y ** 2)
-
+    def size(self):
+        return self.x+self.y
     # Returns the squared length of the vector
     def lengthSq(self):
         return self.x ** 2 + self.y ** 2
@@ -90,4 +81,13 @@ class Vector:
     def angle(self, other):
         return math.acos((self.dot(other)) / (self.length() * other.length()))
 
+    def transform(self,cam):
 
+        self.subtract(cam.dimCanv.copy().divide(2))
+        ratio = cam.dim.copy().divideVector(cam.dimCanv)
+        self.multiplyVector(ratio)
+        self.add(cam.origin)
+
+
+    def encode(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)
