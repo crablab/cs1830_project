@@ -1,4 +1,5 @@
 import json
+import time
 from Classes.Vector import Vector
 class Player:
     def __init__(self, pos, vel, angle,idP):
@@ -6,13 +7,16 @@ class Player:
         self.id = 4
         self.idP = idP
         #non-vectors (attributes)
-        self.maxVel=5
+        self.maxVel=100
         self.angle = angle
         self.radius = 10  # multiply by 200
         #vectors
         self.pos = pos
         self.vel = vel
         self.nextPos=Vector(0,0)
+        self.nextPosTime=0
+
+        self.time=0
 
     def draw(self, canvas):
 
@@ -22,7 +26,9 @@ class Player:
         self.vel.reflect(normal)
     def move(self,pos):
         self.nextPos=pos
-        self.vel=self.pos.copy().subtract(pos).normalize().multiply(self.maxVel)
+        self.timeTo()
+
+
         self.vel.negate()
     def transform(self,cam):
         self.width=cam.dim.getX()
@@ -33,13 +39,27 @@ class Player:
         self.pos.add(cam.dimCanv.copy().divide(2))
 
     def update(self):
-
         if self.pos.copy().subtract(self.nextPos).dot(self.vel)>0:
             self.vel.multiply(0)
-        self.pos.add(self.vel)
+        x, y = self.pos.copy().distanceToVector(self.nextPos)
+        dist = Vector(x, y)
+        dist.negate()
+
+
+        if self.nextPosTime-time.time()<0:
+            self.pos=self.nextPos
+        else:
+
+            self.vel = dist.divide(self.nextPosTime - time.time())
+            self.vel.multiply(time.time()-self.time)
+            self.pos.add(self.vel)
+        self.time=time.time()
 
     def turn(self, angle):
-        self.vel.rotate(self.angle + angle)
+        self.angle+=angle
+
+    def timeTo(self):
+        self.nextPosTime=time.time()+self.pos.copy().distanceTo(self.nextPos)/self.maxVel
 
 
     def encode(self):

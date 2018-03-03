@@ -3,7 +3,7 @@ from Classes.Particle import Particle
 from Classes.Vector import Vector
 from Classes.Objects import mouse, particle_set,player,player_list,cam,adjustment
 from Classes.Settings import PARTICLE_VELOCITY
-
+import time
 
 def checkClick():
     left, middle, right = pygame.mouse.get_pressed()
@@ -26,7 +26,9 @@ def checkClick():
             particleV.add(player.vel)
             particle=Particle(player.pos.copy(),particleV,player.angle,10)
             particle.pos.subtract(x.multiply(particle.radius*2))
+            particle.time=time.time()
             particle_set.add(particle)
+
 
 
     elif left:
