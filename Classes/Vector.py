@@ -66,7 +66,10 @@ class Vector:
     # Returns the squared length of the vector
     def lengthSq(self):
         return self.x ** 2 + self.y ** 2
-
+    def distanceTo(self,pos):
+        return math.sqrt((self.x-pos.x)**2 +(self.y-pos.y)**2)
+    def distanceToVector(self,pos):
+        return self.x-pos.x,self.y-pos.y
     # Reflect this vector on a normal
     def reflect(self, normal):
         n = normal.copy()

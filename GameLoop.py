@@ -65,7 +65,7 @@ def draw(canvas):
         p = copy.deepcopy(particle)
         p.transform(cam)
         p.draw(canvas)
-
+   # print(round(time.time()-startTime))
     # if (g1.pos.getY()<CANVAS_HEIGHT+100000/cam.dim.getX() and g1.pos.getY()>-100000/cam.dim.getX()) and (g1.pos.getX()>-100000/cam.dim.getX() and g1.pos.getX()<CANVAS_WIDTH+100000/cam.dim.getX()):
     #     print(cam.dim.getX())
     #     g2=(g1.encode())

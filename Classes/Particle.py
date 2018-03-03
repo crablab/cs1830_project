@@ -1,4 +1,5 @@
 import json
+import time
 class Particle:
     def __init__(self, pos, vel, angle, radius):
         self.angle = angle
@@ -15,7 +16,8 @@ class Particle:
         self.vel.reflect(normal)
 
     def update(self):
-        self.pos.add(self.vel)
+        self.pos.add(self.vel.copy().multiply(time.time()-self.time))
+        self.time=time.time()
 
     def turn(self, angle):
         self.vel.rotate(self.angle + angle)
