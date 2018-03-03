@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="535d3321-3371-455d-b0a1-9ee7583f198c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Classes/ClickHandler.py" afterPath="$PROJECT_DIR$/Classes/ClickHandler.py" />
-      <change beforePath="$PROJECT_DIR$/Classes/Particle.py" afterPath="$PROJECT_DIR$/Classes/Particle.py" />
-      <change beforePath="$PROJECT_DIR$/Classes/Player.py" afterPath="$PROJECT_DIR$/Classes/Player.py" />
-      <change beforePath="$PROJECT_DIR$/Classes/Settings.py" afterPath="$PROJECT_DIR$/Classes/Settings.py" />
-      <change beforePath="$PROJECT_DIR$/Classes/Vector.py" afterPath="$PROJECT_DIR$/Classes/Vector.py" />
-      <change beforePath="$PROJECT_DIR$/GameLoop.py" afterPath="$PROJECT_DIR$/GameLoop.py" />
-    </list>
+    <list default="true" id="535d3321-3371-455d-b0a1-9ee7583f198c" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,8 +74,8 @@
       <file leaf-file-name="Player.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Classes/Player.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="631">
-              <caret line="53" column="52" lean-forward="false" selection-start-line="53" selection-start-column="52" selection-end-line="53" selection-end-column="52" />
+            <state relative-caret-position="816">
+              <caret line="58" column="25" lean-forward="true" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -733,8 +725,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/Player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="631">
-          <caret line="53" column="52" lean-forward="false" selection-start-line="53" selection-start-column="52" selection-end-line="53" selection-end-column="52" />
+        <state relative-caret-position="816">
+          <caret line="58" column="25" lean-forward="true" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
