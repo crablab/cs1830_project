@@ -1,48 +1,51 @@
 import json
 import time
-from Classes.CharacterSprite import Character
+from Classes.Particle import Particle
 from Classes.Settings import SPRITE_FPS
 from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel, angle, idP):
+    def __init__(self, pos, vel, angle,dimensions,radius,spriteKey, idPlayer):
         # id's
-        self.id = 4
-        self.idP = idP
+        self.idClass = 4
+        self.idPlayer = idPlayer
         # non-vectors (attributes)
         self.maxVel = 100
-        self.angle = angle
-        self.radius = 10  # multiply by 200
+
         # vectors
-        self.pos = pos
-        self.vel = vel
-        self.nextPos = Vector(0, 0)
-        self.nextPosTime = 0
-        # sprites
-        self.character = Character(self.pos, 1)
-        self.action = 0
-        self.time = 0
-        self.updateTime=0
+        #Sprite Attributes
+        self.spriteState = 0
+        self.currentTime = 0
+        self.oldTime=0
+
+        #ParticleClass
+        self.particle=Particle(pos,vel,angle,dimensions,radius,spriteKey,self.maxVel,100,False,False)
 
     def walkUp(self):
 
-        self.character.setRow(9, 1, 9, 13, 21)
+        self.particle.sprite.setRow(9, 1, 9, 13, 21)
 
     def walkLeft(self):
-        self.character.setRow(10, 1, 9, 13, 21)
+        self.particle.sprite.setRow(10, 1, 9, 13, 21)
 
     def walkDown(self):
-        self.character.setRow(11, 1, 9, 13, 21)
+        self.particle.sprite.setRow(11, 1, 9, 13, 21)
 
     def walkRight(self):
-        self.character.setRow(12, 1, 9, 13, 21)
+        self.particle.sprite.setRow(12, 1, 9, 13, 21)
+
     def fireRight(self):
+        self.particle.sprite.setRow(20, 1, 9, 13, 21)
+    def fireDown(self):
+        self.particle.sprite.setRow(19, 1, 9, 13, 21)
+    def fireLeft(self):
+        self.particle.sprite.setRow(18, 1, 9, 13, 21)
+    def fireUp(self):
+        self.particle.sprite.setRow(17, 1, 9, 13, 21)
 
-        self.character.setRow(20, 1, 9, 13, 21)
-
-    def setAction(self, id):
-        self.action = id
+    def setSpriteState(self, id):
+        self.spriteState=id
         if id == 1:
             self.walkUp()
         elif id == 2:
@@ -53,68 +56,69 @@ class Player:
             self.walkRight()
         elif id == 5:
             self.fireRight()
-            self.action = id
+        elif id == 6:
+            self.fireDown()
+        elif id == 7:
+            self.fireLeft()
+        elif id == 8:
+            self.fireUp()
 
-    def draw(self, canvas, cam, actionId):
 
 
-        self.character.draw(canvas, cam,self.pos)
+    def draw(self, canvas, cam,spriteDictionary):
 
+        self.particle.draw(canvas, cam,spriteDictionary)
 
-    def bounce(self, normal):
-        self.vel.reflect(normal)
+    def move(self,pos):
+        self.particle.move(pos)
 
-    def move(self, pos):
-        self.nextPos = pos
-        self.timeTo()
-
-        self.vel.negate()
 
     def update(self):
-        if self.pos.copy().subtract(self.nextPos).dot(self.vel) > 0:
-            self.vel.multiply(0)
-        x, y = self.pos.copy().distanceToVector(self.nextPos)
-        dist = Vector(x, y)
-        dist.negate()
+        self.particle.update()
+        self.currentTime = time.time()
 
-        if self.nextPosTime - time.time() < 0:
-            self.pos = self.nextPos
-        else:
+        #CORRECT SPRITE ROW AND UPDATE FPS
+        if self.currentTime-self.oldTime>SPRITE_FPS:
 
-            self.vel = dist.divide(self.nextPosTime - time.time())
-            self.vel.multiply(time.time() - self.time)
-            self.pos.add(self.vel)
+            if (self.spriteState>0 and self.spriteState<5) and self.particle.vel.getX() !=0 and self.particle.vel.getY()!=0:
+                self.particle.sprite.update()
+            elif self.particle.sprite.hasLooped and self.spriteState>4:
+                self.defaultWalkingDirection()
 
-        self.time = time.time()
+            elif self.particle.sprite.column < self.particle.sprite.numPictures and self.spriteState>4:
+                self.particle.sprite.update()
 
-        if self.time-self.updateTime>SPRITE_FPS:
-            print(self.action)
-            if (self.action>0 and self.action<5) and self.vel.getX !=0 and self.vel.getY()!=0:
-                self.character.update()
-            elif self.character.column==self.character.numPictures-1 and self.action>4:
-                self.chooseWalkingDirection()
-            elif self.character.column < self.character.numPictures and self.action>4:
-                self.character.update()
+            self.oldTime=self.currentTime
 
-            self.updateTime=self.time
-    def chooseWalkingDirection(self):
-        x,y=self.pos.copy().distanceToVector(self.nextPos)
+    def defaultWalkingDirection(self):
+        x,y=self.particle.pos.copy().distanceToVector(self.particle.nextPos)
         if y < 0:
-            self.setAction(3)
+            self.setSpriteState(3)
         if y > 0:
-            self.setAction(1)
+            self.setSpriteState(1)
         if y != 0:
             if (x + y) / y > 2 and y < 0:
-                self.setAction(4)
-                pass
-            if (x + y) / y < 0 and y < 0:
-                self.setAction(2)
-                pass
-    def turn(self, angle):
-        self.angle += angle
+                self.setSpriteState(4)
 
-    def timeTo(self):
-        self.nextPosTime = time.time() + self.pos.copy().distanceTo(self.nextPos) / self.maxVel
+            if (x + y) / y < 0 and y < 0:
+                self.setSpriteState(2)
+
+    def defaultFireingDirection(self,pos):
+        x,y=self.particle.pos.copy().distanceToVector(pos)
+        if y < 0:
+            self.setSpriteState(6)
+        if y > 0:
+            self.setSpriteState(8)
+        if y != 0:
+            if (x + y) / y > 2 and y < 0:
+                self.setSpriteState(5)
+
+            if (x + y) / y < 0 and y < 0:
+                self.setSpriteState(7)
+    def turn(self, angle):
+        self.particle.angle += angle
+
+
 
     def encode(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)

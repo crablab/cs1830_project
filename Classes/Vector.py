@@ -9,7 +9,7 @@ class Vector:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.id=6
+        self.idClass=6
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
     def negate(self):
@@ -55,6 +55,8 @@ class Vector:
     def normalize(self):
         return self.divide(self.length())
 
+    def isEqual(self,other):
+        return self.x==other.x and self.y == other.y
     def dot(self, other):
         return self.x * other.x + self.y * other.y
 
@@ -81,8 +83,8 @@ class Vector:
         self.x = self.x * math.cos(angle) - self.y * math.sin(angle)
         self.y = self.x * math.sin(angle) + self.y * math.cos(angle)
         return self
-    def angle(self, other):
-        return math.acos((self.dot(other)) / (self.length() * other.length()))
+    def getAngle(self, other):
+        return math.acos(self.dot(other))
 
     def transformFromCam(self,cam):
 

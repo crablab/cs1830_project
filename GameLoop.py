@@ -1,23 +1,23 @@
 from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_fps
 import pygame
-
+import random
+import copy
+import time
 from collections import namedtuple
 from Transfer import JsonToObject
 import json
 
 from Classes.Camera import Camera
-from Classes.Grass import Grass
-from Classes.Particle import Particle
 from Classes.Vector import Vector
 from Classes.Player import Player
-from Classes.Settings import CANVAS_WIDTH, CANVAS_HEIGHT
-from Classes.Objects import cam, grass_list, player_list, particle_set
+
+
 from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
-import random
-import copy
-import time
+from Classes.Settings import CANVAS_WIDTH, CANVAS_HEIGHT
+from Classes.Objects import cam, player_list, particle_set, spriteDictionary
+
 
 # initiate time
 fps = simplegui_lib_fps.FPS()
@@ -49,28 +49,36 @@ def draw(canvas):
         player.update()
 
 
-    for particle in particle_set:
-        particle.update()
-    # copy and draw Background Sprites/objects
-    for grass in grass_list:
-        g1 = copy.deepcopy(grass)
 
-        g1.pos.transformToCam(cam)
-        g1.draw(canvas,cam)
+    for p in particle_set:
+        p.update()
+    # copy and draw Background Sprites/objects
 
     # copy and draw Forground Sprites/objects
-    for player in player_list:
-        p = copy.deepcopy(player)
-        p.pos.transformToCam(cam)
-        p.draw(canvas,cam,1)
 
     for particle in particle_set:
         p = copy.deepcopy(particle)
         p.pos.transformToCam(cam)
-        p.draw(canvas,cam)
+        p.draw(canvas,cam,spriteDictionary)
 
+    for player in player_list:
+        p = copy.deepcopy(player)
+        p.particle.pos.transformToCam(cam)
+        p.draw(canvas, cam, spriteDictionary)
 
-frame = simpleguics2pygame.create_frame('A convex polygon domain', CANVAS_WIDTH, CANVAS_HEIGHT)
+    #collect Garbage:
+    removal_set=set()
+    for particle in particle_set:
+
+        if particle.pos==particle.nextPos and particle.removeOnVelocity0:
+            removal_set.add(particle)
+        if particle.sprite.hasLooped and particle.removeOnAnimationLoop:
+            removal_set.add(particle)
+
+    particle_set.difference_update(removal_set)
+    removal_set.clear()
+
+frame = simpleguics2pygame.create_frame('Game', CANVAS_WIDTH, CANVAS_HEIGHT)
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)
