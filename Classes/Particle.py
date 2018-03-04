@@ -38,7 +38,9 @@ class Particle:
         dist = self.pos.copy().subtract(pos)
 
         dist.negate()
-        dist.normalize().multiply(self.maxRange)
+        if dist.length()!=0:
+            dist.normalize().multiply(self.maxRange)
+
         self.nextPos = self.pos.copy().add(dist)
 
         self.timeTo(self.maxVel)

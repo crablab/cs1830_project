@@ -29,7 +29,8 @@ def checkClick():
 
             dist = particle.pos.copy().subtract(vector)
             dist.negate()
-            dist.normalize()
+            if dist.length()!=0:
+                dist.normalize()
             particle.angle=dist.copy().getAngle(Vector(1,0))
             x, y = particle.pos.copy().distanceToVector(vector)
             if y>0:
