@@ -7,18 +7,18 @@ class Sprite:
     def __init__(self, image):
         self.image = simpleguics2pygame.load_image(image)
         self.dim = Vector(self.image.get_width(),self.image.get_height())
-        self.id=5
 
-    def draw(self, canvas, cam, pos):
+
+    def draw(self, canvas, cam,pos,numberColumns,numberRows,row,column,):
+
 
         ratio=cam.dimCanv.copy().divideVector(cam.dim)
-
-        imgDim=self.dim.copy().multiplyVector(ratio)
-
+        imgDimTrans=self.dim.copy().divideVector(Vector(numberColumns,numberRows)).multiplyVector(ratio)
         canLoc=pos.getP()
 
-        canvas.draw_image(self.image,[self.image.get_width()//2,self.image.get_height()//2],[self.image.get_width(),self.image.get_width()], canLoc,imgDim.getP())
 
+        imageCenter=Vector((self.image.get_width()/numberColumns)*column-(self.image.get_width()/numberRows)/2,(self.image.get_height()/numberRows)*row-(self.image.get_height()/numberRows)/2)
+        imageDimention=Vector(self.image.get_height()/numberRows,self.image.get_width()/numberColumns)
 
-    def encode(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)
+        canvas.draw_image(self.image,imageCenter.getP(),imageDimention.getP(), canLoc,imgDimTrans.getP())
+

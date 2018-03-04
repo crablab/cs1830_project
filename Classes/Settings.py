@@ -5,6 +5,7 @@ Class Id's:
 3: Particle
 4: Player
 5: Vector
+
 '''
 
 CANVAS_WIDTH = 1000
@@ -18,3 +19,6 @@ CAM_MIN_DIST=200
 
 #PARTICLE
 PARTICLE_VELOCITY= 200
+
+#SPRITE
+SPRITE_FPS=1/10

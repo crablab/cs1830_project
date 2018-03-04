@@ -33,7 +33,9 @@ class Interaction:
 
 
 # Game loop
+
 def draw(canvas):
+
     fps.draw_fct(canvas)
 
     # adjust camera
@@ -52,25 +54,20 @@ def draw(canvas):
     # copy and draw Background Sprites/objects
     for grass in grass_list:
         g1 = copy.deepcopy(grass)
-        g1.transform(cam)
-        g1.draw(canvas, cam)
+
+        g1.pos.transformToCam(cam)
+        g1.draw(canvas,cam)
 
     # copy and draw Forground Sprites/objects
     for player in player_list:
         p = copy.deepcopy(player)
-        p.transform(cam)
-        p.draw(canvas)
+        p.pos.transformToCam(cam)
+        p.draw(canvas,cam,1)
 
     for particle in particle_set:
         p = copy.deepcopy(particle)
-        p.transform(cam)
-        p.draw(canvas)
-   # print(round(time.time()-startTime))
-    # if (g1.pos.getY()<CANVAS_HEIGHT+100000/cam.dim.getX() and g1.pos.getY()>-100000/cam.dim.getX()) and (g1.pos.getX()>-100000/cam.dim.getX() and g1.pos.getX()<CANVAS_WIDTH+100000/cam.dim.getX()):
-    #     print(cam.dim.getX())
-    #     g2=(g1.encode())
-    #     g3=JsonToObject.GetObject(g2)
-    #     g3.draw(canvas,cam)
+        p.pos.transformToCam(cam)
+        p.draw(canvas,cam)
 
 
 frame = simpleguics2pygame.create_frame('A convex polygon domain', CANVAS_WIDTH, CANVAS_HEIGHT)

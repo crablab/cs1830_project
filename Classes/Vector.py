@@ -84,12 +84,20 @@ class Vector:
     def angle(self, other):
         return math.acos((self.dot(other)) / (self.length() * other.length()))
 
-    def transform(self,cam):
+    def transformFromCam(self,cam):
 
         self.subtract(cam.dimCanv.copy().divide(2))
         ratio = cam.dim.copy().divideVector(cam.dimCanv)
         self.multiplyVector(ratio)
         self.add(cam.origin)
+        return self
+
+    def transformToCam(self,cam):
+        self.subtract(cam.origin)
+        ratio=cam.dimCanv.copy().divideVector(cam.dim)
+        self.multiplyVector(ratio)
+        self.add(cam.dimCanv.copy().divide(2))
+        return self
 
 
     def encode(self):
