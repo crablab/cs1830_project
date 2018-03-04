@@ -1,4 +1,4 @@
-from vector import Vector
+from Classes.Vector import Vector
 
 """
 Assume that shape characyeristics dont change, but pos does
@@ -106,9 +106,9 @@ class CollisionHandler:
         edge_1 = a -> b
         edge_2 = c -> d
         """
-        det = determinant(b - a, c - d)
-        t = determinant(c - a, c - d) / det;
-        u = determinant(b - a, c - a) / det;
+        det = _determinant(b - a, c - d)
+        t = determinant(c - a, c - d) / det
+        u = determinant(b - a, c - a) / det
         return not ((t < 0) or (u < 0) or (t > 1) or (u > 1))
 
     collision_dict = {
