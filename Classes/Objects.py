@@ -46,7 +46,7 @@ spriteDictionary = {"elf_demo": elf_demo,"orc":orc, "grass01": grass01, "grass02
 # -----------------------MOVING OBJECTS-------------------
 
 #CAMERA
-cam = Camera(Vector(250, 250), Vector(CANVAS_WIDTH, CANVAS_HEIGHT))
+cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vector(CANVAS_WIDTH, CANVAS_HEIGHT))
 
 #PLAYER
 player = Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
@@ -69,7 +69,7 @@ adjustment = Vector(250, 25)
 
 #GRASS
 x = 0
-for i in range(0, 400):
+for i in range(0, 100):
     if i % 10 == 0:
         x += 1
     g = Particle(Vector(x * 500, (i % 10) * 500), Vector(0, 0), 0, Vector(500, 500), 30, 'grass02',spriteDictionary, 0, 0, False,

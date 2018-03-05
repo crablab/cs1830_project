@@ -35,7 +35,7 @@ class Interaction:
 #--------------GAME-----LOOP
 def draw(canvas):
 
-    fps.draw_fct(canvas)
+
 
 #-----CAM---UPDATE---
     cam.zoom()
@@ -68,8 +68,11 @@ def draw(canvas):
 
 
     for player in player_list:
+
         player.draw(canvas, cam, spriteDictionary)
 
+
+    fps.draw_fct(canvas)
 #--------COLLECT----MARKED---OBJECTS------------
     removal_set=set()
 
