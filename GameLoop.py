@@ -67,8 +67,8 @@ def draw(canvas):
 
     for ptop in particle_set_top:
         ptop.update()
-        print(ptop.vel)
         ptop.draw(canvas, cam, spriteDictionary)
+
 
 
     for player in player_list:

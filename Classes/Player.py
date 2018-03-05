@@ -6,7 +6,7 @@ from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel,maxVel, angle,dimensions,radius,spriteKey,spriteDictionary, idPlayer):
+    def __init__(self, pos, vel,maxVel, angle,dimensions,radius,spriteKey,spriteDictionary,spriteFps, idPlayer):
         # id's
         self.idClass = 4
         self.idPlayer = idPlayer
@@ -17,10 +17,10 @@ class Player:
         #Sprite Attributes
         self.spriteState = 0
         self.currentTime = 0
-        self.oldTime=0
+
 
         #ParticleClass
-        self.particle=Particle(pos,vel,angle,dimensions,radius,spriteKey,spriteDictionary,self.maxVel,100,False,False)
+        self.particle=Particle(pos,vel,maxVel,0,angle,radius,spriteKey,spriteDictionary,spriteFps,False,False)
 
     def walkUp(self):
 
@@ -78,17 +78,17 @@ class Player:
         self.currentTime = time.time()
 
         #CORRECT SPRITE ROW AND UPDATE FPS
-        if self.currentTime-self.oldTime>SPRITE_FPS:
 
-            if (self.spriteState>0 and self.spriteState<5) and self.particle.vel.getX() !=0 and self.particle.vel.getY()!=0:
-                self.particle.spriteSheet.update()
-            elif self.particle.spriteSheet.hasLooped and self.spriteState>4:
-                self.defaultWalkingDirection()
 
-            elif (self.particle.spriteSheet.currentColumn-self.particle.spriteSheet.startColumn) < (self.particle.spriteSheet.endColumn-self.particle.spriteSheet.startColumn)and self.spriteState>4:
-                self.particle.spriteSheet.update()
+        if (self.spriteState>0 and self.spriteState<5) and self.particle.vel.getX() !=0 and self.particle.vel.getY()!=0:
+            self.particle.spriteSheet.update()
+        elif self.particle.spriteSheet.hasLooped and self.spriteState>4:
+            self.defaultWalkingDirection()
 
-            self.oldTime=self.currentTime
+        elif (self.particle.spriteSheet.currentColumn-self.particle.spriteSheet.startColumn) < (self.particle.spriteSheet.endColumn-self.particle.spriteSheet.startColumn)and self.spriteState>4:
+            self.particle.spriteSheet.update()
+
+
 
     def defaultWalkingDirection(self):
         x,y=self.particle.pos.copy().distanceToVector(self.particle.nextPos)

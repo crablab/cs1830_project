@@ -9,7 +9,7 @@ from SimpleGUICS2Pygame import simplegui_lib_draw
 
 class Particle:
 
-    def __init__(self, pos, vel, angle, dim, radius, spriteKey, spriteDictionary, maxVel, maxRange, removeOnVelocity0,
+    def __init__(self, pos, vel, maxVel, maxRange, angle, radius, spriteKey, spriteDictionary,fps, removeOnVelocity0,
                  removeOnAnimationLoop):
         self.pos = pos
         self.vel = vel
@@ -20,14 +20,18 @@ class Particle:
         self.maxRange = maxRange
         self.angle = angle
 
-        self.radius = radius
+
         self.spriteKey = spriteKey
 
-        self.spriteSheet = SpriteSheet(self.pos, spriteDictionary.get(self.spriteKey, 'elf_demo'))
+        self.spriteSheet = SpriteSheet(self.pos, spriteDictionary.get(self.spriteKey, 'elf_demo'),fps)
         self.removeOnAnimationLoop = removeOnAnimationLoop
         self.removeOnVelocity0 = removeOnVelocity0
 
         self.dim = self.spriteSheet.animator.dimOriginal.copy()
+        self.radius = radius
+        if radius==0:
+            self.radius=self.dim.size()/4
+
 
         self.idClass = 2
         self.currentTime = time.time()
@@ -59,7 +63,7 @@ class Particle:
         ratio = cam.dimCanv.copy().divideVector(cam.dim).divideVector(Vector(self.spriteSheet.numColumns,self.spriteSheet.numRows))
 
         simplegui_lib_draw.draw_rect(canvas, self.pos.copy().transformToCam(cam).subtract(self.dim.copy().divide(2).multiplyVector(ratio)).getP(),
-                                     self.dim.copy().multiplyVector(ratio).getP(), 3, 'White', fill_color=None)
+                                     self.dim.copy().multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
         # ----------------
     def bounce(self, normal):
         self.vel.reflect(normal)

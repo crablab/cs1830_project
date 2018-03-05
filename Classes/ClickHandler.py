@@ -2,8 +2,9 @@ import pygame
 
 from Classes.Particle import Particle
 from Classes.Vector import Vector
-from Classes.Objects import mouse, particle_set_bottom,particle_set_middle,particle_set_top, player_list, cam, adjustment,spriteDictionary
-from Classes.Settings import PARTICLE_VELOCITY,PARTICLE_RADIUS,PARTICLE_MAX_RANGE
+from Classes.Objects import mouse, particle_set_bottom, particle_set_middle, particle_set_top, player_list, cam, \
+    adjustment, spriteDictionary
+from Classes.Settings import PARTICLE_VELOCITY, PARTICLE_RADIUS, PARTICLE_MAX_RANGE
 import time
 import math
 
@@ -22,26 +23,23 @@ def checkClick():
             vector.subtract(adjustment)  # simplegui-pygame screen position adjustment
             vector.transformFromCam(cam)
 
-            particle = Particle(player.particle.pos.copy(), player.particle.vel.copy(),
-                                      player.particle.angle,Vector(2*PARTICLE_RADIUS,2*PARTICLE_RADIUS), PARTICLE_RADIUS, 'arrow',spriteDictionary,
-                                      PARTICLE_VELOCITY, PARTICLE_MAX_RANGE,True,False)
+            particle = Particle(player.particle.pos.copy(), player.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False)
+
             particle.moveRange(vector)
-            particle.spriteSheet.setRow(1,1,1,1,1,1)
+            particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
             dist = particle.pos.copy().subtract(vector)
             dist.negate()
-            if dist.length()!=0:
+            if dist.length() != 0:
                 dist.normalize()
-            particle.angle=dist.copy().getAngle(Vector(1,0))
+            particle.angle = dist.copy().getAngle(Vector(1, 0))
             x, y = particle.pos.copy().distanceToVector(vector)
-            if y>0:
-                particle.angle*=-1
+            if y > 0:
+                particle.angle *= -1
 
-            dist.multiply(particle.radius*2)
+            dist.multiply(particle.radius * 2)
             particle.pos.add(dist)
 
             particle_set_middle.add(particle)
-
-
 
             player.defaultFireingDirection(particle.nextPos)
 
