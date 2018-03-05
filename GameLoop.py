@@ -16,67 +16,88 @@ from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
 from Classes.Settings import CANVAS_WIDTH, CANVAS_HEIGHT
-from Classes.Objects import cam, player_list, particle_set, spriteDictionary
+from Classes.Objects import cam, player_list, particle_set_middle,particle_set_top,particle_set_bottom, spriteDictionary
 
 
-# initiate time
+#-----START----GAME----CLOCK
 fps = simplegui_lib_fps.FPS()
 fps.start()
 startTime = time.time()
 
 
-# interactions (if required later):
+# -----INTERACTIONS?
 class Interaction:
     def __init__(self, particle, line):
         self.particle = particle
         self.line = line
 
 
-# Game loop
-
+#--------------GAME-----LOOP
 def draw(canvas):
 
     fps.draw_fct(canvas)
 
-    # adjust camera
+#-----CAM---UPDATE---
     cam.zoom()
     cam.move()
-
-    # updates
+#----CLICK---HANDLER---
     checkClick()
 
+#-----OBJECT---UPDATES-----
     for player in player_list:
         player.update()
-
-
-
-    for p in particle_set:
+    for p in particle_set_top:
         p.update()
-    # copy and draw Background Sprites/objects
+    for p in particle_set_middle:
+        p.update()
+    for p in particle_set_bottom:
+        p.update()
 
-    # copy and draw Forground Sprites/objects
 
-    for particle in particle_set:
-        p = copy.deepcopy(particle)
-        p.pos.transformToCam(cam)
-        p.draw(canvas,cam,spriteDictionary)
+#  --------DRAW---OBJECTS---BY---LAYER---PRIORITY
+
+    for pbot in particle_set_bottom:
+
+        pbot.draw(canvas,cam,spriteDictionary)
+
+    for pmid in particle_set_middle:
+        pmid.draw(canvas, cam, spriteDictionary)
+
+    for ptop in particle_set_top:
+        ptop.draw(canvas, cam, spriteDictionary)
+
 
     for player in player_list:
-        p = copy.deepcopy(player)
-        p.particle.pos.transformToCam(cam)
-        p.draw(canvas, cam, spriteDictionary)
+        player.draw(canvas, cam, spriteDictionary)
 
-    #collect Garbage:
+#--------COLLECT----MARKED---OBJECTS------------
     removal_set=set()
-    for particle in particle_set:
 
+    for particle in particle_set_top:
         if particle.pos==particle.nextPos and particle.removeOnVelocity0:
             removal_set.add(particle)
-        if particle.sprite.hasLooped and particle.removeOnAnimationLoop:
+        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
             removal_set.add(particle)
-
-    particle_set.difference_update(removal_set)
+    particle_set_top.difference_update(removal_set)
     removal_set.clear()
+
+    for particle in particle_set_middle:
+        if particle.pos==particle.nextPos and particle.removeOnVelocity0:
+            removal_set.add(particle)
+        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+            removal_set.add(particle)
+    particle_set_middle.difference_update(removal_set)
+    removal_set.clear()
+
+    for particle in particle_set_bottom:
+        if particle.pos==particle.nextPos and particle.removeOnVelocity0:
+            removal_set.add(particle)
+        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+            removal_set.add(particle)
+    particle_set_bottom.difference_update(removal_set)
+    removal_set.clear()
+
+
 
 frame = simpleguics2pygame.create_frame('Game', CANVAS_WIDTH, CANVAS_HEIGHT)
 frame.set_draw_handler(draw)

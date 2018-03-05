@@ -2,7 +2,7 @@ import pygame
 
 from Classes.Particle import Particle
 from Classes.Vector import Vector
-from Classes.Objects import mouse, particle_set, player_list, cam, adjustment
+from Classes.Objects import mouse, particle_set_bottom,particle_set_middle,particle_set_top, player_list, cam, adjustment,spriteDictionary
 from Classes.Settings import PARTICLE_VELOCITY,PARTICLE_RADIUS,PARTICLE_MAX_RANGE
 import time
 import math
@@ -16,14 +16,14 @@ def checkClick():
         mouse.pressL()
         for player in player_list:
 
-            player.particle.sprite.resetLoop()
+            player.particle.spriteSheet.resetLoop()
             x, y = pygame.mouse.get_pos()
             vector = Vector(x, y)
             vector.subtract(adjustment)  # simplegui-pygame screen position adjustment
             vector.transformFromCam(cam)
 
             particle = Particle(player.particle.pos.copy(), player.particle.vel.copy(),
-                                      player.particle.angle,Vector(2*PARTICLE_RADIUS,2*PARTICLE_RADIUS), PARTICLE_RADIUS, 'arrow',
+                                      player.particle.angle,Vector(2*PARTICLE_RADIUS,2*PARTICLE_RADIUS), PARTICLE_RADIUS, 'arrow',spriteDictionary,
                                       PARTICLE_VELOCITY, PARTICLE_MAX_RANGE,True,False)
             particle.moveRange(vector)
 
@@ -39,7 +39,7 @@ def checkClick():
             dist.multiply(particle.radius*2)
             particle.pos.add(dist)
 
-            particle_set.add(particle)
+            particle_set_middle.add(particle)
 
 
 

@@ -11,14 +11,21 @@ from Classes.Particle import Particle
 import os
 import random
 
-# simple gui to Pygame click adjustment Vector:
-adjustment = Vector(250, 25)
 
-# declare sets/lists
-particle_set = set()
+
+# ---------------------ANY SETS/LISTS-----------------------
+
+particle_set_bottom = set()
+particle_set_middle = set()
+particle_set_top = set()
 player_list = []
 
-# Sprites Jpg's
+
+
+
+
+#------------------ DICTIONARY OF ALL PICTURES LOCATIONS-----------------
+
 cwd = os.getcwd()
 elf_demo = SpriteAnimator(cwd + '/img/character/elf/demo.jpg')
 orc = SpriteAnimator(cwd + '/img/character/elf/orc.jpg')
@@ -31,28 +38,41 @@ grass04 = SpriteAnimator(cwd + '/img/grass/grass04.jpg')
 spriteDictionary = {"elf_demo": elf_demo,"orc":orc, "grass01": grass01, "grass02": grass02, "grass03": grass04, 'arrow': arrow,
                     "grass04": grass04}
 
-# initiate non-statics
+
+
+
+
+
+# -----------------------MOVING OBJECTS-------------------
+
+#CAMERA
 cam = Camera(Vector(250, 250), Vector(CANVAS_WIDTH, CANVAS_HEIGHT))
-# player = Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
-#                 Vector(PLAYER_INITIAL_VELOCITY_X, PLAYER_INITIAL_VELOCITY_Y), PLAYER_INITIAL_ANGLE,
-#                 Vector(PLAYER_DIMENSIONS_X, PLAYER_DIMENSIONS_Y), PLAYER_RADIUS, PLAYER_SPRITE, PLAYER_ID)
-# player.setSpriteState(3)
-player2= Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
+
+#PLAYER
+player = Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
                 Vector(PLAYER_INITIAL_VELOCITY_X, PLAYER_INITIAL_VELOCITY_Y), PLAYER_INITIAL_ANGLE,
-                Vector(PLAYER_DIMENSIONS_X, PLAYER_DIMENSIONS_Y), PLAYER_RADIUS, 'orc', PLAYER_ID)
-player2.setSpriteState(3)
-player_list.append(player2)
+                Vector(PLAYER_DIMENSIONS_X, PLAYER_DIMENSIONS_Y), PLAYER_RADIUS, PLAYER_SPRITE,spriteDictionary, PLAYER_ID)
+player.setSpriteState(3)
+player_list.append(player)
 
-
+#MOUSE HANDLER (PYGAME)(NO RIGHT/MIDDLE CLICKS ON SIMPLEGUI)
 mouse = Mouse()
+# CONVERSION OF SIMPLE GUI MOUSE LOCATION TO PYGAME LOCATION
+adjustment = Vector(250, 25)
 
-# initiate statics
+
+
+
+
+
+# -----------------------NON-MOVING OBJECTS------------------
+
+#GRASS
 x = 0
-for i in range(0, 100):
+for i in range(0, 400):
     if i % 10 == 0:
         x += 1
-
-    g = Particle(Vector(x * 500, (i % 10) * 500), Vector(0, 0), 0, Vector(500, 500), 30, 'grass02', 0, 0, False,
-                 False, )
-    g.sprite.setRow(1, 1, 1, 1, 1)
-    particle_set.add(g)
+    g = Particle(Vector(x * 500, (i % 10) * 500), Vector(0, 0), 0, Vector(500, 500), 30, 'grass02',spriteDictionary, 0, 0, False,
+                 False )
+    g.spriteSheet.setRow(1, 1, 1, 1, 1)
+    particle_set_bottom.add(g)

@@ -6,7 +6,7 @@ from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel, angle,dimensions,radius,spriteKey, idPlayer):
+    def __init__(self, pos, vel, angle,dimensions,radius,spriteKey,spriteDictionary, idPlayer):
         # id's
         self.idClass = 4
         self.idPlayer = idPlayer
@@ -20,29 +20,29 @@ class Player:
         self.oldTime=0
 
         #ParticleClass
-        self.particle=Particle(pos,vel,angle,dimensions,radius,spriteKey,self.maxVel,100,False,False)
+        self.particle=Particle(pos,vel,angle,dimensions,radius,spriteKey,spriteDictionary,self.maxVel,100,False,False)
 
     def walkUp(self):
 
-        self.particle.sprite.setRow(9, 1, 9, 13, 21)
+        self.particle.spriteSheet.setRow(9, 1, 9, 13, 21)
 
     def walkLeft(self):
-        self.particle.sprite.setRow(10, 1, 9, 13, 21)
+        self.particle.spriteSheet.setRow(10, 1, 9, 13, 21)
 
     def walkDown(self):
-        self.particle.sprite.setRow(11, 1, 9, 13, 21)
+        self.particle.spriteSheet.setRow(11, 1, 9, 13, 21)
 
     def walkRight(self):
-        self.particle.sprite.setRow(12, 1, 9, 13, 21)
+        self.particle.spriteSheet.setRow(12, 1, 9, 13, 21)
 
     def fireRight(self):
-        self.particle.sprite.setRow(20, 1, 9, 13, 21)
+        self.particle.spriteSheet.setRow(20, 1, 9, 13, 21)
     def fireDown(self):
-        self.particle.sprite.setRow(19, 1, 9, 13, 21)
+        self.particle.spriteSheet.setRow(19, 1, 9, 13, 21)
     def fireLeft(self):
-        self.particle.sprite.setRow(18, 1, 9, 13, 21)
+        self.particle.spriteSheet.setRow(18, 1, 9, 13, 21)
     def fireUp(self):
-        self.particle.sprite.setRow(17, 1, 9, 13, 21)
+        self.particle.spriteSheet.setRow(17, 1, 9, 13, 21)
 
     def setSpriteState(self, id):
         self.spriteState=id
@@ -81,12 +81,12 @@ class Player:
         if self.currentTime-self.oldTime>SPRITE_FPS:
 
             if (self.spriteState>0 and self.spriteState<5) and self.particle.vel.getX() !=0 and self.particle.vel.getY()!=0:
-                self.particle.sprite.update()
-            elif self.particle.sprite.hasLooped and self.spriteState>4:
+                self.particle.spriteSheet.update()
+            elif self.particle.spriteSheet.hasLooped and self.spriteState>4:
                 self.defaultWalkingDirection()
 
-            elif self.particle.sprite.column < self.particle.sprite.numPictures and self.spriteState>4:
-                self.particle.sprite.update()
+            elif self.particle.spriteSheet.column < self.particle.spriteSheet.numPictures and self.spriteState>4:
+                self.particle.spriteSheet.update()
 
             self.oldTime=self.currentTime
 
