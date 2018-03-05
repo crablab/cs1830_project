@@ -4,6 +4,7 @@ import os
 import json
 from Classes.SpriteSheet import SpriteSheet
 from Classes.Vector import Vector
+from SimpleGUICS2Pygame import simplegui_lib_draw
 
 
 class Particle:
@@ -18,13 +19,15 @@ class Particle:
 
         self.maxRange = maxRange
         self.angle = angle
-        self.dim = dim
+
         self.radius = radius
         self.spriteKey = spriteKey
 
         self.spriteSheet = SpriteSheet(self.pos, spriteDictionary.get(self.spriteKey, 'elf_demo'))
         self.removeOnAnimationLoop = removeOnAnimationLoop
         self.removeOnVelocity0 = removeOnVelocity0
+
+        self.dim = self.spriteSheet.animator.dimOriginal.copy()
 
         self.idClass = 2
         self.currentTime = time.time()
@@ -35,6 +38,7 @@ class Particle:
         # self.radius*=ratio.getX()
         # canvas.draw_circle(self.pos.getP(), self.radius, 1, 'White')
         # -------------------------------------------------
+
         pos = self.pos.copy()
         pictureSize = self.spriteSheet.animator.dimCamera.copy()
         origin = cam.origin.copy()
@@ -51,6 +55,12 @@ class Particle:
             self.spriteSheet.draw(canvas, cam, objectPos, self.angle)
             # cam.dim=Vector(1300,700)
 
+        # DEVELOPER OPTION:
+        ratio = cam.dimCanv.copy().divideVector(cam.dim).divideVector(Vector(self.spriteSheet.numColumns,self.spriteSheet.numRows))
+
+        simplegui_lib_draw.draw_rect(canvas, self.pos.copy().transformToCam(cam).subtract(self.dim.copy().divide(2).multiplyVector(ratio)).getP(),
+                                     self.dim.copy().multiplyVector(ratio).getP(), 3, 'White', fill_color=None)
+        # ----------------
     def bounce(self, normal):
         self.vel.reflect(normal)
 
