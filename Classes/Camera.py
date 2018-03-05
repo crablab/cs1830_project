@@ -11,7 +11,7 @@ class Camera:
         self.moveRight=False
         self.moveUp=False
         self.moveDown=False
-        self.id=1
+        self.idClass=1
 
     def move(self):
         if self.moveUp==True:
@@ -34,6 +34,11 @@ class Camera:
 
             self.dim.add(self.dim.copy().multiply(-CAM_ZOOM_SENSITIVITY))
 
+    def ratioToCam(self):
+        return(self.dimCanv.copy().divideVector(self.dim).getX())
+
+    def ratioToCanv(self):
+        return (self.dim.copy().divideVector(self.dimCanv).getX())
 
     def get(self):
         return(self.origin, self.dim.x)

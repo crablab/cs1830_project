@@ -1,66 +1,124 @@
 import json
 import time
+from Classes.Particle import Particle
+from Classes.Settings import SPRITE_FPS
 from Classes.Vector import Vector
+
+
 class Player:
-    def __init__(self, pos, vel, angle,idP):
-        #id's
-        self.id = 4
-        self.idP = idP
-        #non-vectors (attributes)
-        self.maxVel=100
-        self.angle = angle
-        self.radius = 10  # multiply by 200
-        #vectors
-        self.pos = pos
-        self.vel = vel
-        self.nextPos=Vector(0,0)
-        self.nextPosTime=0
+    def __init__(self, pos, vel, angle,dimensions,radius,spriteKey,spriteDictionary, idPlayer):
+        # id's
+        self.idClass = 4
+        self.idPlayer = idPlayer
+        # non-vectors (attributes)
+        self.maxVel = 100
 
-        self.time=0
+        # vectors
+        #Sprite Attributes
+        self.spriteState = 0
+        self.currentTime = 0
+        self.oldTime=0
 
-    def draw(self, canvas):
+        #ParticleClass
+        self.particle=Particle(pos,vel,angle,dimensions,radius,spriteKey,spriteDictionary,self.maxVel,100,False,False)
 
-        canvas.draw_circle(self.pos.getP(), self.radius, 1, "White", "White")
+    def walkUp(self):
 
-    def bounce(self, normal):
-        self.vel.reflect(normal)
+        self.particle.spriteSheet.setRow(9, 1, 9, 13, 21)
+
+    def walkLeft(self):
+        self.particle.spriteSheet.setRow(10, 1, 9, 13, 21)
+
+    def walkDown(self):
+        self.particle.spriteSheet.setRow(11, 1, 9, 13, 21)
+
+    def walkRight(self):
+        self.particle.spriteSheet.setRow(12, 1, 9, 13, 21)
+
+    def fireRight(self):
+        self.particle.spriteSheet.setRow(20, 1, 9, 13, 21)
+    def fireDown(self):
+        self.particle.spriteSheet.setRow(19, 1, 9, 13, 21)
+    def fireLeft(self):
+        self.particle.spriteSheet.setRow(18, 1, 9, 13, 21)
+    def fireUp(self):
+        self.particle.spriteSheet.setRow(17, 1, 9, 13, 21)
+
+    def setSpriteState(self, id):
+        self.spriteState=id
+        if id == 1:
+            self.walkUp()
+        elif id == 2:
+            self.walkLeft()
+        elif id == 3:
+            self.walkDown()
+        elif id == 4:
+            self.walkRight()
+        elif id == 5:
+            self.fireRight()
+        elif id == 6:
+            self.fireDown()
+        elif id == 7:
+            self.fireLeft()
+        elif id == 8:
+            self.fireUp()
+
+
+
+    def draw(self, canvas, cam,spriteDictionary):
+
+        self.particle.draw(canvas, cam,spriteDictionary)
+
     def move(self,pos):
-        self.nextPos=pos
-        self.timeTo()
+        self.particle.move(pos)
 
-
-        self.vel.negate()
-    def transform(self,cam):
-        self.width=cam.dim.getX()
-        self.radius=self.radius * cam.dimCanv.copy().divideVector(cam.dim).getX()
-        self.pos.subtract(cam.origin)
-        ratio = cam.dimCanv.copy().divideVector(cam.dim)
-        self.pos.multiplyVector(ratio)
-        self.pos.add(cam.dimCanv.copy().divide(2))
 
     def update(self):
-        if self.pos.copy().subtract(self.nextPos).dot(self.vel)>0:
-            self.vel.multiply(0)
-        x, y = self.pos.copy().distanceToVector(self.nextPos)
-        dist = Vector(x, y)
-        dist.negate()
+        self.particle.update()
+        self.currentTime = time.time()
 
+        #CORRECT SPRITE ROW AND UPDATE FPS
+        if self.currentTime-self.oldTime>SPRITE_FPS:
 
-        if self.nextPosTime-time.time()<0:
-            self.pos=self.nextPos
-        else:
+            if (self.spriteState>0 and self.spriteState<5) and self.particle.vel.getX() !=0 and self.particle.vel.getY()!=0:
+                self.particle.spriteSheet.update()
+            elif self.particle.spriteSheet.hasLooped and self.spriteState>4:
+                self.defaultWalkingDirection()
 
-            self.vel = dist.divide(self.nextPosTime - time.time())
-            self.vel.multiply(time.time()-self.time)
-            self.pos.add(self.vel)
-        self.time=time.time()
+            elif self.particle.spriteSheet.column < self.particle.spriteSheet.numPictures and self.spriteState>4:
+                self.particle.spriteSheet.update()
 
+            self.oldTime=self.currentTime
+
+    def defaultWalkingDirection(self):
+        x,y=self.particle.pos.copy().distanceToVector(self.particle.nextPos)
+        if y < 0:
+            self.setSpriteState(3)
+        if y > 0:
+            self.setSpriteState(1)
+        if y != 0:
+            if (x + y) / y > 2 and y < 0:
+                self.setSpriteState(4)
+
+            if (x + y) / y < 0 and y < 0:
+                self.setSpriteState(2)
+
+    def defaultFireingDirection(self,pos):
+        x,y=self.particle.pos.copy().distanceToVector(pos)
+        if y < 0:
+            self.setSpriteState(6)
+        if y > 0:
+            self.setSpriteState(8)
+        if y != 0:
+            if (x + y) / y > 2 and y < 0:
+                self.setSpriteState(5)
+
+            if (x + y) / y < 0 and y < 0:
+                self.setSpriteState(7)
     def turn(self, angle):
-        self.angle+=angle
+        self.particle.angle += angle
 
-    def timeTo(self):
-        self.nextPosTime=time.time()+self.pos.copy().distanceTo(self.nextPos)/self.maxVel
 
 
     def encode(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
