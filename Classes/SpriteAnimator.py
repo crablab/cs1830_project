@@ -13,7 +13,6 @@ class SpriteAnimator:
 
     def draw(self, canvas, cam, pos, numberColumns, numberRows, row, column, angle):
         ratio = cam.dimCanv.copy().divideVector(cam.dim)
-
         self.dimCamera = self.dimOriginal.copy().divideVector(Vector(numberColumns, numberRows)).multiplyVector(ratio)
         canLoc = pos.getP()
 

@@ -26,7 +26,7 @@ def checkClick():
                                       player.particle.angle,Vector(2*PARTICLE_RADIUS,2*PARTICLE_RADIUS), PARTICLE_RADIUS, 'arrow',spriteDictionary,
                                       PARTICLE_VELOCITY, PARTICLE_MAX_RANGE,True,False)
             particle.moveRange(vector)
-
+            particle.spriteSheet.setRow(1,1,1,1,1,1)
             dist = particle.pos.copy().subtract(vector)
             dist.negate()
             if dist.length()!=0:

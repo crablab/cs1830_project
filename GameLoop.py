@@ -25,12 +25,12 @@ fps.start()
 startTime = time.time()
 
 
-# -----INTERACTIONS?
-class Interaction:
-    def __init__(self, particle, line):
-        self.particle = particle
-        self.line = line
-
+# # -----INTERACTIONS?
+# class Interaction:
+#     def __init__(self, particle, line):
+#         self.particle = particle
+#         self.line = line
+#
 
 #--------------GAME-----LOOP
 def draw(canvas):
@@ -48,6 +48,7 @@ def draw(canvas):
         player.update()
     for p in particle_set_top:
         p.update()
+        p.spriteSheet.update()
     for p in particle_set_middle:
         p.update()
     for p in particle_set_bottom:
@@ -57,13 +58,16 @@ def draw(canvas):
 #  --------DRAW---OBJECTS---BY---LAYER---PRIORITY
 
     for pbot in particle_set_bottom:
-
+        pbot.update()
         pbot.draw(canvas,cam,spriteDictionary)
 
     for pmid in particle_set_middle:
+        pmid.update()
         pmid.draw(canvas, cam, spriteDictionary)
 
     for ptop in particle_set_top:
+        ptop.update()
+        print(ptop.vel)
         ptop.draw(canvas, cam, spriteDictionary)
 
 
