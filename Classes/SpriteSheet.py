@@ -1,11 +1,11 @@
 import os
 import json
 from Classes.SpriteAnimator import SpriteAnimator
-
+import time
 
 class SpriteSheet:
 
-    def __init__(self, pos, spriteAnimator):
+    def __init__(self, pos, spriteAnimator,spriteFps):
         self.animator = spriteAnimator
         self.pos = pos
 
@@ -23,6 +23,9 @@ class SpriteSheet:
 
 
         self.hasLooped = False
+        self.currentTime=time.time()
+        self.oldTime=time.time()
+        self.fps=spriteFps
 
     def draw(self, canvas, cam, pos, angle):
         self.pos = pos
@@ -43,20 +46,23 @@ class SpriteSheet:
         self.hasLooped = False
 
     def update(self):
-        self.currentColumn+=1
-        if self.endColumn - self.startColumn>0:
-            if (self.currentColumn-self.startColumn)%(self.endColumn-self.startColumn)==0:
-                self.currentRow+=1
-                self.currentColumn=self.startColumn
-                if self.endRow-self.startRow>0:
-                    if (self.currentRow-self.startRow)%(self.endRow-self.startRow)==0:
-                        self.hasLooped=True
+        if self.currentTime - self.oldTime > 1/self.fps:
+            self.oldTime=self.currentTime
+            self.currentColumn+=1
+            if self.endColumn - self.startColumn>0:
+                if (self.currentColumn-self.startColumn)%(self.endColumn-self.startColumn)==0:
+                    self.currentRow+=1
+                    self.currentColumn=self.startColumn
+                    if self.endRow-self.startRow>0:
+                        if (self.currentRow-self.startRow)%(self.endRow-self.startRow)==0:
+                            self.hasLooped=True
+                            self.currentRow=self.startRow
+                    else:
                         self.currentRow=self.startRow
-                else:
-                    self.currentRow=self.startRow
-                    self.hasLooped=True
-        else:
-            self.hasLooped=True
-            self.currentColumn=self.startColumn
+                        self.hasLooped=True
+            else:
+                self.hasLooped=True
+                self.currentColumn=self.startColumn
+        self.currentTime=time.time()
     def encode(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
