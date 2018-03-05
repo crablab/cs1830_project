@@ -8,7 +8,7 @@ from Classes.Vector import Vector
 
 class Particle:
 
-    def __init__(self, pos, vel, angle, dim, radius, spriteKey,spriteDictionary, maxVel, maxRange, removeOnVelocity0,
+    def __init__(self, pos, vel, angle, dim, radius, spriteKey, spriteDictionary, maxVel, maxRange, removeOnVelocity0,
                  removeOnAnimationLoop):
         self.pos = pos
         self.vel = vel
@@ -22,32 +22,32 @@ class Particle:
         self.radius = radius
         self.spriteKey = spriteKey
 
-        self.spriteSheet =SpriteSheet(self.pos,spriteDictionary.get(self.spriteKey,'elf_demo'))
+        self.spriteSheet = SpriteSheet(self.pos, spriteDictionary.get(self.spriteKey, 'elf_demo'))
         self.removeOnAnimationLoop = removeOnAnimationLoop
         self.removeOnVelocity0 = removeOnVelocity0
 
         self.idClass = 2
         self.currentTime = time.time()
 
-
     def draw(self, canvas, cam, spriteDictionary):
+        # ---------TESTING PURPOSES-----DO NOT REMOVE------
         # ratio = cam.dimCanv.copy().divideVector(cam.dim)
         # self.radius*=ratio.getX()
         # canvas.draw_circle(self.pos.getP(), self.radius, 1, 'White')
-
-        pos=self.pos.copy()
-        pictureSize=self.spriteSheet.animator.dimCamera.copy()
-        origin=cam.origin.copy()
-        distance=origin.copy().subtract(pos)
-        if distance.getX()<0:
-            distance.x*=-1
-        if distance.getY()<0:
-            distance.y*=-1
+        # -------------------------------------------------
+        pos = self.pos.copy()
+        pictureSize = self.spriteSheet.animator.dimCamera.copy()
+        origin = cam.origin.copy()
+        distance = origin.copy().subtract(pos)
+        if distance.getX() < 0:
+            distance.x *= -1
+        if distance.getY() < 0:
+            distance.y *= -1
         distance.subtract(pictureSize.multiply(2))
-        if distance.getX()<cam.dim.getX()/2 and distance.getY()<cam.dim.getY()/2:
+        if distance.getX() < cam.dim.getX() / 2 and distance.getY() < cam.dim.getY() / 2:
+            # --------TESTING PURPOSES----DO NOT REMOVE-------------
             # cam.dim = Vector(2600*2, 1400*2)
-            objectPos=self.pos.copy().transformToCam(cam)
-
+            objectPos = self.pos.copy().transformToCam(cam)
             self.spriteSheet.draw(canvas, cam, objectPos, self.angle)
             # cam.dim=Vector(1300,700)
 
