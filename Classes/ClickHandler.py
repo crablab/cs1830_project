@@ -41,8 +41,6 @@ def checkClick():
 
             particle_set_middle.add(particle)
 
-            player.defaultFireingDirection(particle.nextPos)
-
 
     elif left:
         pass

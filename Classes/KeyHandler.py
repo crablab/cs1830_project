@@ -22,10 +22,8 @@ def keydown(key):
     if key == simpleguics2pygame.KEY_MAP['r']:
         cam.zoomOut = True
     elif key == simpleguics2pygame.KEY_MAP['e']:
-        if cam.dim.x > 100 and cam.dim.y > 100:
-            cam.zoomIn = True
-        else:
-            cam.zoomIn = False
+        cam.zoomIn = True
+
     elif key == simpleguics2pygame.KEY_MAP['right']:
         cam.moveRight = True
     elif key == simpleguics2pygame.KEY_MAP['left']:
