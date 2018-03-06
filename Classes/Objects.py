@@ -27,17 +27,20 @@ elf_demo = SpriteAnimator(cwd + '/img/character/elf/demo.jpg')
 orc = SpriteAnimator(cwd + '/img/character/elf/orc.jpg')
 arrow = SpriteAnimator(cwd + '/img/character/elf/arrow.jpg')
 whiteDragon=SpriteAnimator(cwd+'/img/character/monsters/whiteDragon.jpg')
+greenDragon=SpriteAnimator(cwd+'/img/character/monsters/greenDragon.jpg')
 grass01 = SpriteAnimator(cwd + '/img/grass/grass01.jpg')
 dog = SpriteAnimator(cwd + '/img/character/animals/dog.jpg')
 grass02 = SpriteAnimator(cwd + '/img/grass/grass02.jpg')
 grass03 = SpriteAnimator(cwd + '/img/grass/grass03.jpg')
 grass04 = SpriteAnimator(cwd + '/img/grass/grass04.jpg')
 fireTorch = SpriteAnimator(cwd + '/img/character/elf/fire.jpg')
-fireBall = SpriteAnimator(cwd + '/img/character/elf/fire2.jpg', )
+fireBall = SpriteAnimator(cwd + '/img/character/elf/fire2.jpg')
+tree=SpriteAnimator(cwd + '/img/Trees/tree.png' )
 
 spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass02": grass02, "grass03": grass04,
                     'arrow': arrow,
-                    "grass04": grass04, "fireBall": fireBall, "dog": dog,'whiteDragon':whiteDragon}
+                    "grass04": grass04, "fireBall": fireBall, "dog": dog,'whiteDragon':whiteDragon,'greenDragon':greenDragon,
+                    "tree":tree}
 
 # -----------------------MOVING OBJECTS-------------------
 
@@ -72,12 +75,16 @@ for i in range(0, 400):
 
     particle_set_bottom.add(g)
 
-dragon=Particle(Vector(2500,2500),Vector(0,100),200,0,0,0,'whiteDragon',spriteDictionary,20,False,False)
+dragon=Particle(Vector(0,2500),Vector(0,150),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False)
 dragon.spriteSheet.setRow(5,4,1,1,5,4)
-
-image = simpleguics2pygame.load_image(cwd+'/img/character/monsters/whiteDragon.jpg')
-print(image.get_height())
-print(image.get_width())
 dragon.move(Vector(10000,2500))
 particle_set_top.add(dragon)
+dragon2=Particle(Vector(0,2000),Vector(0,150),150,0,0,0,'greenDragon',spriteDictionary,25,False,False)
+dragon2.spriteSheet.setRow(5,4,1,1,5,4)
 
+dragon2.move(Vector(10000,2500))
+particle_set_top.add(dragon2)
+tree=Particle(Vector(2500,2500),Vector(0,0),200,0,0,0,'tree',spriteDictionary,0.1,False,False)
+tree.spriteSheet.setRow(4,15,1,1,4,15)
+
+particle_set_top.add(tree)

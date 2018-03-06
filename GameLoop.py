@@ -51,8 +51,10 @@ def draw(canvas):
         p.spriteSheet.update()
     for p in particle_set_middle:
         p.update()
+        p.spriteSheet.update()
     for p in particle_set_bottom:
         p.update()
+        p.spriteSheet.update()
 
 
 #  --------DRAW---OBJECTS---BY---LAYER---PRIORITY
