@@ -7,11 +7,11 @@ from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel,maxVel, angle,radius,spriteKey,spriteDictionary,spriteFps, idObject):
+    def __init__(self, pos, vel,maxVel, angle,radius,spriteKey,spriteDictionary,spriteFps, idObject,idPlayer):
         # id's
         self.remove=False
         self.idClass = 3
-
+        self.idPlayer=idPlayer
         self.idObject=idObject
         #print(self.idObject)
         # non-vectors (attributes)
@@ -134,5 +134,5 @@ class Player:
     def encode(self):
         data = {'idObject':self.idObject,'idClass':self.idClass,'pos': {'x':self.particle.pos.x,'y': self.particle.pos.y}, 'vel': {'x':self.particle.vel.x, 'y':self.particle.vel.y}, 'maxVel': self.maxVel,
                 'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,'currentTime':self.currentTime,
-                'spriteFps': self.particle.spriteSheet.fps,'remove':self.remove,'updateSprite':self.particle.updateSprite}
+                'spriteFps': self.particle.spriteSheet.fps,'remove':self.remove,'updateSprite':self.particle.updateSprite,'idPlayer':self.idPlayer}
         return json.dumps(data)

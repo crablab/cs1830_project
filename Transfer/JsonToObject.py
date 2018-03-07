@@ -24,8 +24,8 @@ def particle(arr):
 
 
 def getPlayer(arr):
-    print("hello"+str(arr.particle.pos))
-    player2.recieve(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject))
+    if arr.idPlayer==2:
+        player2.recieve(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject,arr.idPlayer))
 
 
 
