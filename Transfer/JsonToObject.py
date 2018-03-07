@@ -40,11 +40,20 @@ def updateAllObjects():
                 existsLocal = True
         if not existsLocal:
             player_list.append(remote)
+
     for local in player_list:
         for remote in recieved_player_list:
             if remote.remove==True and local.remove==False:
+                print("player removed")
                 local.remove=True
 
+    for remote in recieved_player_list:
+        playerLoaded = False
+        for local in recieved_player_list:
+            if remote.idObject== local:
+                playerLoaded=True
+        if not playerLoaded:
+            recieved_player_list.append(remote)
 def getCam(arr):
     obj=Camera(Vector(arr.origin.x,arr.origin.y),Vector(arr.dim.x,arr.dim.y))
     cam.recieve(obj)
