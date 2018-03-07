@@ -35,6 +35,7 @@ def getPlayer(arr):
         if player.idObject == arr.idObject and arr.idObject != playerId:
             player.recieve(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject))
             print("changed")
+            break
         else:
             print("unchanged")
 
@@ -46,6 +47,7 @@ def getVector(arr):
 
 def getObject(j):
     arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
+
     print(arr.idClass)
     if arr.idClass==1:
         getCam(arr)
