@@ -236,15 +236,14 @@ b = CollisionRectangle(Vector(70,70), 5, 80)
 c = CollisionCircle(Vector(70,70), 10)
 d = CollisionLine(Vector(70,90),Vector(90,70))
 e = CollisionLine(Vector(200,200),Vector(10,10))
-#print(a.doesCollide(b))
-#print(a.doesCollide(c))
-#print(b.doesCollide(c))
+
+"""
 print(d.doesCollide(e))
 print(e.doesCollide(d))
 print(d.doesCollide(a))
 print(d.doesCollide(b))
 print(d.doesCollide(c))
-
+"""
 
 
 
