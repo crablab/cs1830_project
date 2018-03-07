@@ -71,6 +71,7 @@ def draw(canvas):
 
 
     for player in player_list:
+
         player.update()
         player.draw(canvas, cam, spriteDictionary)
 

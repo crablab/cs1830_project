@@ -8,9 +8,9 @@ from Classes.Objects import moving_set, player_list
 from Classes.Objects import cam
 from collections import namedtuple
 import json
+import time
 recieved_player_list=[]
 recieved_particle_set=set()
-
 ### If exists local: update   if does not exist local: add      if boolean: remove  and on local then set boolean to False
 
 def updateAllObjects():

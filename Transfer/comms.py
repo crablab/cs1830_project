@@ -124,7 +124,7 @@ def communicate(object):
 
     if currentTime - oldTime > 1 / 5:
         oldTime = currentTime
-       
+
         for objectS in object:
             print(objectS.encode())
             com.send.put(objectS.encode())

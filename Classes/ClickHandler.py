@@ -3,7 +3,7 @@ import pygame
 from Classes.Particle import Particle
 from Classes.Vector import Vector
 from Classes.Objects import mouse, particle_set_bottom, particle_set_middle, particle_set_top, player_list, cam, \
-    adjustment, spriteDictionary
+    adjustment, spriteDictionary,moving_set
 from Classes.Settings import PARTICLE_VELOCITY, PARTICLE_RADIUS, PARTICLE_MAX_RANGE
 import time
 import math
@@ -39,7 +39,7 @@ def checkClick():
             dist.multiply(particle.radius * 2)
             particle.pos.add(dist)
 
-            particle_set_middle.add(particle)
+            moving_set.add(particle)
 
 
     elif left:
