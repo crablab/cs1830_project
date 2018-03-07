@@ -17,20 +17,28 @@ recieved_particle_set=set()
 def updateAllObjects():
     exists=False
     for player in recieved_player_list:
-        if player_list.__len__()==1:
-            player_list.append(player)
-        else:
-            player_list[1].recieve(player)
-   # print(player_list.__len__())
-    for particle in recieved_particle_set:
-        print(recieved_particle_set.__len__())
-        for p in moving_set_external:
-            if particle.idObject == p.idObject:
+        for p in player_list:
+            if p.idObject==player.idObject:
                 exists=True
-                p.recieve(particle)
         if not exists:
-            print("added")
-            moving_set_external.add(particle)
+            player_list.append(player)
+    if player_list.__len__()==2:
+        for player in recieved_player_list:
+            player_list[1].recieve(player)
+
+
+
+   # # print(player_list.__len__())
+   #  exists=False
+   #  for particle in recieved_particle_set:
+   #      print(recieved_particle_set.__len__())
+   #      for p in moving_set_external:
+   #          if particle.idObject == p.idObject:
+   #              exists=True
+   #              p.recieve(particle)
+   #      if not exists:
+   #          print("added")
+   #          moving_set_external.add(particle)
 def getCam(arr):
     obj=Camera(Vector(arr.origin.x,arr.origin.y),Vector(arr.dim.x,arr.dim.y))
     cam.recieve(obj)
