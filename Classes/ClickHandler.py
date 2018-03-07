@@ -17,31 +17,31 @@ def checkClick():
     # LEFT KEY
     if left and mouse.releasedL:
         mouse.pressL()
-        for player in player_list:
+        player=player_list[0]
 
-            player.particle.spriteSheet.resetLoop()
-            x, y = pygame.mouse.get_pos()
-            vector = Vector(x, y)
-            vector.subtract(adjustment)  # simplegui-pygame screen position adjustment
-            vector.transformFromCam(cam)
+        player.particle.spriteSheet.resetLoop()
+        x, y = pygame.mouse.get_pos()
+        vector = Vector(x, y)
+        vector.subtract(adjustment)  # simplegui-pygame screen position adjustment
+        vector.transformFromCam(cam)
 
-            particle = Particle(True,player.particle.pos.copy(), player.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()))
+        particle = Particle(True,player.particle.pos.copy(), player.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()))
 
-            particle.moveRange(vector)
-            particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
-            dist = particle.pos.copy().subtract(vector)
-            dist.negate()
-            if dist.length() != 0:
-                dist.normalize()
-            particle.angle = dist.copy().getAngle(Vector(1, 0))
-            x, y = particle.pos.copy().distanceToVector(vector)
-            if y > 0:
-                particle.angle *= -1
+        particle.moveRange(vector)
+        particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
+        dist = particle.pos.copy().subtract(vector)
+        dist.negate()
+        if dist.length() != 0:
+            dist.normalize()
+        particle.angle = dist.copy().getAngle(Vector(1, 0))
+        x, y = particle.pos.copy().distanceToVector(vector)
+        if y > 0:
+            particle.angle *= -1
 
-            dist.multiply(particle.radius * 2)
-            particle.pos.add(dist)
+        dist.multiply(particle.radius * 2)
+        particle.pos.add(dist)
 
-            moving_set.add(particle)
+        moving_set.add(particle)
 
 
     elif left:

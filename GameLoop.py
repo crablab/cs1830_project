@@ -73,7 +73,7 @@ def draw(canvas):
         pe.update()
         pe.draw(canvas,cam,spriteDictionary)
     for player in player_list:
-
+        print(player.particle.pos)
         player.update()
         player.draw(canvas, cam, spriteDictionary)
 

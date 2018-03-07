@@ -18,12 +18,15 @@ def updateAllObjects():
     exists=False
     for player in recieved_player_list:
         for p in player_list:
+           # print(p.idObject)
             if p.idObject==player.idObject:
+              #  print(p.idObject)
                 exists=True
                 p.recieve(player)
         if not exists:
             player_list.append(player)
     exists=False
+   # print(player_list.__len__())
     for particle in recieved_particle_set:
         for p in moving_set_external:
             if particle.idObject == p.idObject:
