@@ -7,6 +7,8 @@ from Classes.Objects import mouse, particle_set_bottom, particle_set_middle, par
 from Classes.Settings import PARTICLE_VELOCITY, PARTICLE_RADIUS, PARTICLE_MAX_RANGE
 import time
 import math
+import uuid
+
 
 
 def checkClick():
@@ -23,7 +25,7 @@ def checkClick():
             vector.subtract(adjustment)  # simplegui-pygame screen position adjustment
             vector.transformFromCam(cam)
 
-            particle = Particle(True,player.particle.pos.copy(), player.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False)
+            particle = Particle(True,player.particle.pos.copy(), player.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()))
 
             particle.moveRange(vector)
             particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)

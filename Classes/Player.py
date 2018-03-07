@@ -7,12 +7,12 @@ from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel,maxVel, angle,radius,spriteKey,spriteDictionary,spriteFps, idPlayer):
+    def __init__(self, pos, vel,maxVel, angle,radius,spriteKey,spriteDictionary,spriteFps, idObject):
         # id's
         self.remove=False
         self.idClass = 3
-        self.idPlayer = idPlayer
-        self.idObject=str(uuid.uuid4())
+
+        self.idObject=idObject
         print(self.idObject)
         # non-vectors (attributes)
         self.maxVel = maxVel
@@ -24,8 +24,8 @@ class Player:
 
 
         #ParticleClass
-        self.particle=Particle(True,pos,vel,maxVel,0,angle,radius,spriteKey,spriteDictionary,spriteFps,False,False)
-    def receive(self,other):
+        self.particle=Particle(True,pos,vel,maxVel,0,angle,radius,spriteKey,spriteDictionary,spriteFps,False,False,self.idObject)
+    def recieve(self,other):
         self.maxVel=other.maxVel
         self.spriteState=other.spriteState
         self.currentTime=other.currentTime
@@ -134,5 +134,5 @@ class Player:
     def encode(self):
         data = {'idObject':self.idObject,'idClass':self.idClass,'pos': {'x':self.particle.pos.x,'y': self.particle.pos.y}, 'vel': {'x':self.particle.vel.x, 'y':self.particle.vel.y}, 'maxVel': self.maxVel,
                 'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,
-                'spriteFps': self.particle.spriteSheet.fps,'idPlayer':self.idPlayer ,'remove':self.remove,'updateSprite':self.particle.updateSprite}
+                'spriteFps': self.particle.spriteSheet.fps,'remove':self.remove,'updateSprite':self.particle.updateSprite}
         return json.dumps(data)

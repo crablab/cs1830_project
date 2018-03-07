@@ -15,48 +15,22 @@ recieved_particle_set=set()
 ### If exists local: update   if does not exist local: add      if boolean: remove  and on local then set boolean to False
 
 def updateAllObjects():
-    add_set=set()
-
-    for remote in recieved_particle_set:
-        existsLocal=False
-        for local in moving_set_external:
-            if local.idObject == remote.idObject:
-                local.receive(remote)
-                existsLocal = True
-        if not existsLocal:
-            add_set.add(remote)
-    for a in add_set:
-        moving_set_external.add(a)
-
-
-    for local in moving_set_external:
-        for remote in recieved_particle_set:
-            if remote.remove==True and local.remove==False:
-                local.remove=True
-
-    for remote in recieved_player_list:
-        existsLocal=False
-        for local in player_list:
-            if local.idObject == remote.idObject:
-                local.receive(remote)
-                existsLocal = True
-        if not existsLocal:
-            player_list.append(remote)
-
-    for local in player_list:
-        for remote in recieved_player_list:
-            if remote.remove==True and local.remove==False:
-
-                local.remove=True
-
-    for remote in recieved_player_list:
-        playerLoaded = False
-        for local in recieved_player_list:
-            if remote.idObject== local:
-                playerLoaded=True
-                local.receive(remote)
-        if not playerLoaded:
-            player_list.append(remote)
+    exists=False
+    for player in recieved_player_list:
+        for p in player_list:
+            if p.idObject==player.idObject:
+                exists=True
+                p.recieve(player)
+        if not exists:
+            player_list.append(player)
+    exists=False
+    for particle in recieved_particle_set:
+        for p in moving_set_external:
+            if particle.idObject == p.idObject:
+                exists=True
+                p.recieve(particle)
+        if not exists:
+            moving_set_external.add(particle)
 def getCam(arr):
     obj=Camera(Vector(arr.origin.x,arr.origin.y),Vector(arr.dim.x,arr.dim.y))
     cam.recieve(obj)
@@ -64,15 +38,15 @@ def getCam(arr):
 def particle(arr):
     obj = Particle(arr.updateSprite,Vector(arr.pos.x, arr.pos.y), Vector(arr.vel.x, arr.vel.y), arr.maxVel, arr.maxRange, arr.angle,
                    arr.radius, arr.spriteKey, spriteDictionary, arr.fps, arr.removeOnVelocity0,
-                   arr.removeOnAnimationLoop)
+                   arr.removeOnAnimationLoop,arr.idObject)
     recieved_particle_set.add(obj)
 
 
 
 def getPlayer(arr):
-    obj = Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idPlayer)
+    obj = Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject)
     recieved_player_list.append(obj)
-    print(obj.idObject)
+
 
 
 def getVector(arr):
@@ -81,7 +55,7 @@ def getVector(arr):
 
 def getObject(j):
     arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
-    print(arr.idClass)
+
     if arr.idClass==1:
         return getCam(arr)
     elif arr.idClass==2:

@@ -12,10 +12,10 @@ from Classes.Settings import *
 class Particle:
 
     def __init__(self, updateSprite,pos, vel, maxVel, maxRange, angle, radius, spriteKey, spriteDictionary,fps, removeOnVelocity0,
-                 removeOnAnimationLoop):
+                 removeOnAnimationLoop,idObject):
         self.remove=False
         self.idClass = 2
-        self.idObject= str(uuid.uuid4())
+        self.idObject= idObject
 
         self.pos = pos
         self.vel = vel
@@ -42,7 +42,7 @@ class Particle:
 
         self.currentTime = time.time()
 
-    def receive(self, other):
+    def recieve(self, other):
         self.pos = other.pos
         self.vel = other.vel
         self.nextPos = other.pos

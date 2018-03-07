@@ -7,6 +7,7 @@ from Classes.Mouse import Mouse
 from Classes.SpriteAnimator import SpriteAnimator
 from Classes.Player import Player
 from Classes.Particle import Particle
+import uuid
 
 import SimpleGUICS2Pygame
 from SimpleGUICS2Pygame import simpleguics2pygame
@@ -53,7 +54,7 @@ cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vecto
 
 player = Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
                 Vector(PLAYER_INITIAL_VELOCITY_X, PLAYER_INITIAL_VELOCITY_Y), PLAYER_MAX_VELOCITY, PLAYER_INITIAL_ANGLE, PLAYER_RADIUS, PLAYER_SPRITE, spriteDictionary,PLAYER_SPRITE_FPS,
-                PLAYER_ID)
+                str(uuid.uuid4()))
 player.setSpriteState(3)
 
 player_list.append(player)
@@ -71,21 +72,21 @@ x = 0
 for i in range(0, 400):
     if i % 20 == 0:
         x += 1
-    g = Particle(False,Vector(x * 500, (i % 20) * 500), Vector(0, 0),0,0,0,0,'grass01',spriteDictionary,0.0001,False,False)
+    g = Particle(False,Vector(x * 500, (i % 20) * 500), Vector(0, 0),0,0,0,0,'grass01',spriteDictionary,0.0001,False,False,str(uuid.uuid4()))
 
     g.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
 
     particle_set_bottom.add(g)
 
-dragon=Particle(True,Vector(0,2500),Vector(0,150),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False)
+dragon=Particle(True,Vector(0,2500),Vector(0,150),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False,str(uuid.uuid4()))
 dragon.spriteSheet.setRow(5,4,1,1,5,4)
 dragon.move(Vector(10000,2500))
 moving_set.add(dragon)
 
-dragon2=Particle(True,Vector(0,2000),Vector(0,150),150,0,0,0,'greenDragon',spriteDictionary,25,False,False)
+dragon2=Particle(True,Vector(0,2000),Vector(0,150),150,0,0,0,'greenDragon',spriteDictionary,25,False,False,str(uuid.uuid4()))
 dragon2.spriteSheet.setRow(5,4,1,1,5,4)
 dragon2.move(Vector(10000,2500))
 
 
-tree=Particle(True,Vector(2500,2500),Vector(0,0),200,0,0,0,'tree',spriteDictionary,0.1,False,False)
+tree=Particle(True,Vector(2500,2500),Vector(0,0),200,0,0,0,'tree',spriteDictionary,0.1,False,False,str(uuid.uuid4()))
 tree.spriteSheet.setRow(4,15,1,1,4,15)
