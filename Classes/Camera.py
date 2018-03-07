@@ -2,6 +2,7 @@ from Classes.Vector import Vector
 from Classes.Settings import CAM_MIN_DIST,CAM_ZOOM_SENSITIVITY,CAM_MOVE_SENSITIVITY,CANVAS_HEIGHT,CANVAS_WIDTH
 import json
 import uuid
+import time
 class Camera:
     def __init__(self, origin, dim):
         self.idClass = 1
@@ -17,8 +18,11 @@ class Camera:
         self.moveUp=False
         self.moveDown=False
 
+        self.currentTime=time.time()
+
 
     def move(self):
+        self.currentTime=time.time()
         if self.moveUp==True:
             self.origin.add(Vector(0,-CAM_MOVE_SENSITIVITY))
         if self.moveDown==True:
