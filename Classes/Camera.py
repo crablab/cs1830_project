@@ -1,5 +1,6 @@
 from Classes.Vector import Vector
 from Classes.Settings import CAM_MIN_DIST,CAM_ZOOM_SENSITIVITY,CAM_MOVE_SENSITIVITY,CANVAS_HEIGHT,CANVAS_WIDTH
+import json
 class Camera:
     def __init__(self, origin, dim):
         self.origin = origin
@@ -44,3 +45,6 @@ class Camera:
 
     def get(self):
         return(self.origin, self.dim.x)
+
+    def encode(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)

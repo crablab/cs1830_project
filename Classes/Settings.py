@@ -1,18 +1,19 @@
 '''
 Class Id's:
 1: Camera
-2: particleSquare
-3: particleCircle
-4: Player
-5: Vector
-
+2: particle
+3: Player
+4: Vector
 '''
 #FOR MULTIPLAYER MAKE SURE EACH PLAYER ID IS DIFFERENT, 1-4
 
 
-CANVAS_WIDTH = 1300
-CANVAS_HEIGHT = 700
+CANVAS_WIDTH = 720
+CANVAS_HEIGHT = 480
 
+#NETWORKING
+CONFIG_TYPE = 'server'
+CLIENT_IP = ""
 
 #CAMERA
 CAM_MOVE_SENSITIVITY=60

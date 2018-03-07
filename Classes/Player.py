@@ -8,7 +8,7 @@ from Classes.Vector import Vector
 class Player:
     def __init__(self, pos, vel,maxVel, angle,dimensions,radius,spriteKey,spriteDictionary,spriteFps, idPlayer):
         # id's
-        self.idClass = 4
+        self.idClass = 3
         self.idPlayer = idPlayer
         # non-vectors (attributes)
         self.maxVel = maxVel

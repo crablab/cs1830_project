@@ -4,7 +4,7 @@ import random
 import copy
 import time
 from collections import namedtuple
-from Transfer import JsonToObject
+from Transfer import JsonToObject, comms
 import json
 
 from Classes.Camera import Camera
@@ -15,7 +15,7 @@ from Classes.Player import Player
 from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
-from Classes.Settings import CANVAS_WIDTH, CANVAS_HEIGHT
+from Classes.Settings import *
 from Classes.Objects import cam, player_list, particle_set_middle,particle_set_top,particle_set_bottom, spriteDictionary
 
 
@@ -32,10 +32,15 @@ startTime = time.time()
 #         self.line = line
 #
 
+##-----NETWORKING
+if(CONFIG_TYPE == "server"):
+    com = comms.server()
+elif(CONFIG_TYPE == "client"):
+    com = comms.client(CLIENT_IP, 5027)
+
 #--------------GAME-----LOOP
 def draw(canvas):
-
-
+    com.send.put(cam.encode())
 
 #-----CAM---UPDATE---
     cam.zoom()
