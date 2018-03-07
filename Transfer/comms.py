@@ -32,6 +32,7 @@ class FlaskAppWrapper(object):
         server = com
         #get the dictionary of the message
         jsonData = request.get_json(force=True)
+        print(jsonData)
         #seperate into the queue
         for value in jsonData:
             server.recieved.put(value)
