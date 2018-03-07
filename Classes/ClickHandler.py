@@ -19,12 +19,17 @@ def checkClick():
         mouse.pressL()
 
         for player1 in player_list:
+
+
             if playerId==player1.idObject:
-                player1.particle.spriteSheet.resetLoop()
                 x, y = pygame.mouse.get_pos()
-                vector = Vector(x, y)
-                vector.subtract(adjustment)  # simplegui-pygame screen position adjustment
-                vector.transformFromCam(cam)
+                player1.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)
+                player1.hasFired=True
+                player1.particle.spriteSheet.resetLoop()
+                player1.setCorrectAnimation()
+                vector= player1.clickPosition.copy()
+                 # simplegui-pygame screen position adjustment
+
 
                 particle = Particle(True,player1.particle.pos.copy(), player1.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()))
 
@@ -53,14 +58,17 @@ def checkClick():
     # RIGHT KEY
     if right and mouse.releasedR:
         mouse.pressR()
+
         for player1 in player_list:
+
             if player1.idObject==playerId:
                 x, y = pygame.mouse.get_pos()
-                vector = Vector(x, y)
-                vector.subtract(adjustment)
-                vector.transformFromCam(cam)
+                player1.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)
+                player1.setCorrectAnimation()
+                vector = player1.clickPosition.copy()
                 player1.move(vector)
-                player1.defaultWalkingDirection()
+
+
 
     elif right:
         pass

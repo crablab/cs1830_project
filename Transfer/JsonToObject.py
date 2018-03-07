@@ -30,13 +30,14 @@ def getPlayer(arr):
         if player.idObject==arr.idObject:
             exists=True
     if not exists:
-        player_list.append(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject))
+        player_list.append(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject,arr.hasFired))
 
     for player in player_list:
         if player.idObject == arr.idObject and arr.idObject != playerId:
             player_list.remove(player)
-            player_list.append(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject))
-    print(player_list.__len__())
+            player_list.append(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject,arr.hasFired))
+
+
 
 
 
@@ -47,7 +48,6 @@ def getVector(arr):
 def getObject(j):
     arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
 
-    print(arr.idClass)
     if arr.idClass==1:
         getCam(arr)
     elif arr.idClass==2:
