@@ -52,12 +52,15 @@ cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vecto
 
 # PLAYER
 
-player = Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
+player1 = Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
                 Vector(PLAYER_INITIAL_VELOCITY_X, PLAYER_INITIAL_VELOCITY_Y), PLAYER_MAX_VELOCITY, PLAYER_INITIAL_ANGLE, PLAYER_RADIUS, 'orc', spriteDictionary,PLAYER_SPRITE_FPS,
                 str(uuid.uuid4()))
-player.setSpriteState(3)
+player1.setSpriteState(3)
 
-player_list.append(player)
+player2=Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
+                Vector(PLAYER_INITIAL_VELOCITY_X, PLAYER_INITIAL_VELOCITY_Y), PLAYER_MAX_VELOCITY, PLAYER_INITIAL_ANGLE, PLAYER_RADIUS, 'orc', spriteDictionary,PLAYER_SPRITE_FPS,
+                str(uuid.uuid4()))
+player2.setSpriteState(3)
 
 # MOUSE HANDLER (PYGAME)(NO RIGHT/MIDDLE CLICKS ON SIMPLEGUI)
 mouse = Mouse()

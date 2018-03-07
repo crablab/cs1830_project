@@ -3,7 +3,7 @@ import pygame
 from Classes.Particle import Particle
 from Classes.Vector import Vector
 from Classes.Objects import mouse, particle_set_bottom, particle_set_middle, particle_set_top, player_list, cam, \
-    adjustment, spriteDictionary,moving_set
+    adjustment, spriteDictionary,moving_set,player1
 from Classes.Settings import PARTICLE_VELOCITY, PARTICLE_RADIUS, PARTICLE_MAX_RANGE
 import time
 import math
@@ -17,15 +17,15 @@ def checkClick():
     # LEFT KEY
     if left and mouse.releasedL:
         mouse.pressL()
-        player=player_list[0]
 
-        player.particle.spriteSheet.resetLoop()
+
+        player1.particle.spriteSheet.resetLoop()
         x, y = pygame.mouse.get_pos()
         vector = Vector(x, y)
         vector.subtract(adjustment)  # simplegui-pygame screen position adjustment
         vector.transformFromCam(cam)
 
-        particle = Particle(True,player.particle.pos.copy(), player.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()))
+        particle = Particle(True,player1.particle.pos.copy(), player1.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()))
 
         particle.moveRange(vector)
         particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
@@ -52,13 +52,13 @@ def checkClick():
     # RIGHT KEY
     if right and mouse.releasedR:
         mouse.pressR()
-        player = player_list[0]
+
         x, y = pygame.mouse.get_pos()
         vector = Vector(x, y)
         vector.subtract(adjustment)
         vector.transformFromCam(cam)
-        player.move(vector)
-        player.defaultWalkingDirection()
+        player1.move(vector)
+        player1.defaultWalkingDirection()
 
     elif right:
         pass

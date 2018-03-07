@@ -26,7 +26,7 @@ from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
 from Classes.Settings import *
-from Classes.Objects import cam, player_list, particle_set_middle,particle_set_top,particle_set_bottom, spriteDictionary, moving_set,moving_set_external
+from Classes.Objects import cam, particle_set_middle,particle_set_top,particle_set_bottom, spriteDictionary, moving_set,moving_set_external,player1,player2
 
 
 #-----START----GAME----CLOCK
@@ -42,8 +42,7 @@ oldTime=time.time()
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
     #NETWORKING
-    communicate(moving_set)
-    communicatePlayer(player_list[0])
+    communicatePlayer(player1)
     updateAllObjects()
 #-----CAM---UPDATE---
     cam.zoom()
@@ -72,11 +71,11 @@ def draw(canvas):
     for pe in moving_set_external:
         pe.update()
         pe.draw(canvas,cam,spriteDictionary)
-    for player in player_list:
 
-        player.update()
-        player.draw(canvas, cam, spriteDictionary)
-
+    player1.update()
+    player1.draw(canvas,cam,spriteDictionary)
+    player2.update()
+    player2.draw(canvas, cam, spriteDictionary)
 
     fps.draw_fct(canvas)
 #--------COLLECT----MARKED---OBJECTS------------

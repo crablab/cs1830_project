@@ -122,7 +122,6 @@ def communicatePlayer(object):
     global oldTime
     currentTime=time.time()
 
-
     oldTime = currentTime
     object.send = time.time()
     com.send.put(object.encode())

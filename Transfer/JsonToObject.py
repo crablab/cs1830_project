@@ -1,7 +1,7 @@
 #to read data into dictionary: data = json.loads(<json File>, object_hook=lambda d: namedtuple('<Object Name For Reference>', d.keys())(*d.values()))
 from Classes.Camera import Camera
 from Classes.Vector import Vector
-from Classes.Objects import spriteDictionary
+from Classes.Objects import spriteDictionary,player2
 from Classes.Particle import Particle
 from Classes.Player import Player
 from Classes.Objects import moving_set_external,moving_set, player_list
@@ -14,46 +14,19 @@ recieved_player_list=[]
 recieved_particle_set=set()
 ### If exists local: update   if does not exist local: add      if boolean: remove  and on local then set boolean to False
 
-def updateAllObjects():
-    exists=False
-    for player in recieved_player_list:
-        for p in player_list:
-            if p.idObject==player.idObject:
-                exists=True
-        if not exists:
-            player_list.append(player)
-    if player_list.__len__()==2:
-        for player in recieved_player_list:
-            player_list[1].recieve(player)
 
-    recieved_player_list.clear()
-
-   # # print(player_list.__len__())
-   #  exists=False
-   #  for particle in recieved_particle_set:
-   #      print(recieved_particle_set.__len__())
-   #      for p in moving_set_external:
-   #          if particle.idObject == p.idObject:
-   #              exists=True
-   #              p.recieve(particle)
-   #      if not exists:
-   #          print("added")
-   #          moving_set_external.add(particle)
 def getCam(arr):
     obj=Camera(Vector(arr.origin.x,arr.origin.y),Vector(arr.dim.x,arr.dim.y))
     cam.recieve(obj)
 
 def particle(arr):
-    obj = Particle(arr.updateSprite,Vector(arr.pos.x, arr.pos.y), Vector(arr.vel.x, arr.vel.y), arr.maxVel, arr.maxRange, arr.angle,
-                   arr.radius, arr.spriteKey, spriteDictionary, arr.fps, arr.removeOnVelocity0,
-                   arr.removeOnAnimationLoop,arr.idObject)
-    recieved_particle_set.add(obj)
-
+  pass
 
 
 def getPlayer(arr):
-    obj = Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject)
-    recieved_player_list.append(obj)
+    player2.recieve(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject))
+
+
 
 
 
