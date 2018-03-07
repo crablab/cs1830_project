@@ -56,3 +56,7 @@ class Camera:
 
     def encode(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    def recieve(self,other):
+        self.currentTime=other.currentTime
+        self.origin=other.origin
+        self.dim=other.dim
