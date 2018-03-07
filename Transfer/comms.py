@@ -142,6 +142,6 @@ def communicate(object):
         oldTime=currentTime
     while (not com.recieved.empty()):
         obj = com.recieved.get()
-        print("recieved with delay: " + str(time.time() - obj.send))
+        print("recieved with delay: " + str(time.time() - obj.currentTime))
         getObject(obj)
 
