@@ -52,13 +52,13 @@ def checkClick():
     # RIGHT KEY
     if right and mouse.releasedR:
         mouse.pressR()
-        for player in player_list:
-            x, y = pygame.mouse.get_pos()
-            vector = Vector(x, y)
-            vector.subtract(adjustment)
-            vector.transformFromCam(cam)
-            player.move(vector)
-            player.defaultWalkingDirection()
+        player = player_list[0]
+        x, y = pygame.mouse.get_pos()
+        vector = Vector(x, y)
+        vector.subtract(adjustment)
+        vector.transformFromCam(cam)
+        player.move(vector)
+        player.defaultWalkingDirection()
 
     elif right:
         pass
