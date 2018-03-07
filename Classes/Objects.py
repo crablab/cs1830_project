@@ -13,6 +13,7 @@ from SimpleGUICS2Pygame import simpleguics2pygame
 import os
 import random
 
+
 # ---------------------ANY SETS/LISTS-----------------------
 
 particle_set_bottom = set()
@@ -66,6 +67,7 @@ adjustment = Vector(250, 25)
 
 # GRASS
 x = 0
+
 for i in range(0, 400):
     if i % 20 == 0:
         x += 1

@@ -7,6 +7,7 @@
                                           
 
 import queue, threading, time, pycurl, json, io
+from Classes.Objects import com as server
 from flask import Flask, request, Response
 
 class FlaskAppWrapper(object):
@@ -19,7 +20,7 @@ class FlaskAppWrapper(object):
 
     def run(self):
         print("Flask starting...")
-        self.app.run("localhost", 5027)
+        self.app.run("", 5027)
 
     def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
         self.app.add_url_rule(endpoint, endpoint_name, handler, methods=["POST"])
