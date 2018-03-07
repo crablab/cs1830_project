@@ -34,8 +34,8 @@ def getPlayer(arr):
 
     for player in player_list:
         if player.idObject == arr.idObject and arr.idObject != playerId:
-            player.recieve(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject))
-
+            player_list.remove(player)
+            player_list.append(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject))
     print(player_list.__len__())
 
 
