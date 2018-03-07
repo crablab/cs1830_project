@@ -125,7 +125,7 @@ def communicatePlayer(object):
     oldTime = currentTime
     object.send = time.time()
     com.send.put(object.encode())
-   
+
     oldTime=currentTime
     while (not com.recieved.empty()):
         obj = com.recieved.get()
