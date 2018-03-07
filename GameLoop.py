@@ -21,7 +21,7 @@ from Classes.Camera import Camera
 from Classes.Vector import Vector
 from Classes.Player import Player
 from Transfer.JsonToObject import updateAllObjects
-from Transfer.comms import communicate
+from Transfer.comms import communicate, communicatePlayer
 from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
@@ -43,7 +43,7 @@ oldTime=time.time()
 def draw(canvas):
     #NETWORKING
     communicate(moving_set)
-    communicate(player_list[0])
+    communicatePlayer(player_list[0])
     updateAllObjects()
 #-----CAM---UPDATE---
     cam.zoom()
@@ -115,7 +115,7 @@ def draw(canvas):
             removal_set.add(particle)
     moving_set_external.difference_update(removal_set)
     removal_set.clear()
-s
+
 frame = simpleguics2pygame.create_frame('Game', CANVAS_WIDTH, CANVAS_HEIGHT)
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(keydown)

@@ -118,6 +118,17 @@ elif (CONFIG_TYPE == "client"):
 currentTime=time.time()
 oldTime=time.time()
 
+def communicatePlayer(object):
+    global oldTime
+    currentTime=time.time()
+
+    if currentTime - oldTime > 1 / 5:
+        oldTime = currentTime
+        com.send.put(object.encode())
+        oldTime=currentTime
+
+
+
 def communicate(object):
     global oldTime
     currentTime=time.time()
