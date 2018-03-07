@@ -7,8 +7,11 @@
                                           
 
 import queue, threading, time, pycurl, json, io
-from Classes.Objects import com as server
+
+from Classes.Settings import CONFIG_TYPE,CLIENT_IP
 from flask import Flask, request, Response
+from Transfer.JsonToObject import getObject
+
 
 class FlaskAppWrapper(object):
     app = None
@@ -26,6 +29,7 @@ class FlaskAppWrapper(object):
         self.app.add_url_rule(endpoint, endpoint_name, handler, methods=["POST"])
 
     def action():
+        server = com
         #get the dictionary of the message
         jsonData = request.get_json(force=True)
         #seperate into the queue
@@ -43,6 +47,7 @@ class FlaskAppWrapper(object):
 class server:
 
     def __init__(self):
+
         print("Starting server...")
         #init queues
         self.recieved = queue.Queue()
@@ -101,3 +106,15 @@ class client:
                 print(content)
                 for value in content:
                     self.recieved.put(value)
+
+# def startSerever():
+if (CONFIG_TYPE == "server"):
+    com = server()
+elif (CONFIG_TYPE == "client"):
+    com = client(CLIENT_IP, 5027)
+
+def communicate(object):
+    for objectS in object:
+        com.send.put(objectS.encode())
+    while (not com.recieved.empty()):
+        getObject(com.recieved.get())

@@ -1,15 +1,19 @@
 import json
 import time
+import uuid
 from Classes.Particle import Particle
 from Classes.Settings import SPRITE_FPS
 from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel,maxVel, angle,dimensions,radius,spriteKey,spriteDictionary,spriteFps, idPlayer):
+    def __init__(self, pos, vel,maxVel, angle,radius,spriteKey,spriteDictionary,spriteFps, idPlayer):
         # id's
+        self.remove=False
         self.idClass = 3
         self.idPlayer = idPlayer
+        self.idObject=str(uuid.uuid4())
+        print(self.idObject)
         # non-vectors (attributes)
         self.maxVel = maxVel
 
@@ -20,8 +24,12 @@ class Player:
 
 
         #ParticleClass
-        self.particle=Particle(pos,vel,maxVel,0,angle,radius,spriteKey,spriteDictionary,spriteFps,False,False)
-
+        self.particle=Particle(True,pos,vel,maxVel,0,angle,radius,spriteKey,spriteDictionary,spriteFps,False,False)
+    def receive(self,other):
+        self.maxVel=other.maxVel
+        self.spriteState=other.spriteState
+        self.currentTime=other.currentTime
+        self.particle=other.particle
     def walkUp(self):
 
         self.particle.spriteSheet.setRow(21,13,9,1,9,9)
@@ -74,21 +82,24 @@ class Player:
 
 
     def update(self):
-        self.particle.update()
-        self.currentTime = time.time()
 
         #CORRECT SPRITE ROW AND UPDATE FPS
 
-
+        if  self.particle.vel.getX()==0 and self.particle.vel.getY()==0 and self.spriteState<5:
+            self.particle.updateSprite=False
         if (self.spriteState>0 and self.spriteState<5) and self.particle.vel.getX() !=0 and self.particle.vel.getY()!=0:
-            self.particle.spriteSheet.update()
-        elif self.particle.spriteSheet.hasLooped and self.spriteState>4:
+            self.particle.updateSprite=True
+
+        if self.particle.spriteSheet.hasLooped and self.spriteState>4:
             self.defaultWalkingDirection()
 
-        elif (self.particle.spriteSheet.currentColumn-self.particle.spriteSheet.startColumn) < (self.particle.spriteSheet.endColumn-self.particle.spriteSheet.startColumn)and self.spriteState>4:
-            self.particle.spriteSheet.update()
+        if self.spriteState>4 and self.particle.spriteSheet.hasLooped==False:
+            self.particle.updateSprite=True
 
 
+
+        self.particle.update()
+        self.currentTime = time.time()
 
     def defaultWalkingDirection(self):
         x,y=self.particle.pos.copy().distanceToVector(self.particle.nextPos)
@@ -121,4 +132,7 @@ class Player:
 
 
     def encode(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        data = {'idObject':self.idObject,'idClass':self.idClass,'pos': {'x':self.particle.pos.x,'y': self.particle.pos.y}, 'vel': {'x':self.particle.vel.x, 'y':self.particle.vel.y}, 'maxVel': self.maxVel,
+                'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,
+                'spriteFps': self.particle.spriteSheet.fps,'idPlayer':self.idPlayer ,'remove':self.remove,'updateSprite':self.particle.updateSprite}
+        return json.dumps(data)

@@ -4,20 +4,64 @@ from Classes.Vector import Vector
 from Classes.Objects import spriteDictionary
 from Classes.Particle import Particle
 from Classes.Player import Player
-
+from Classes.Objects import moving_set, player_list
+from Classes.Objects import cam
 from collections import namedtuple
 import json
+recieved_player_list=[]
+recieved_particle_set=set()
+
+### If exists local: update   if does not exist local: add      if boolean: remove  and on local then set boolean to False
+
+def updateAllObjects():
+    add_set=set()
+    for remote in recieved_particle_set:
+        existsLocal=False
+        for local in moving_set:
+            if local.idObject == remote.idObject:
+                local.receive(remote)
+                existsLocal = True
+        if not existsLocal:
+            add_set.add(remote)
+    for a in add_set:
+        moving_set.add(a)
+
+
+    for local in moving_set:
+        for remote in recieved_particle_set:
+            if remote.remove==True and local.remove==False:
+                local.remove=True
+
+    for remote in recieved_player_list:
+        existsLocal=False
+        for local in player_list:
+            if local.idObject == remote.idObject:
+                local.receive(remote)
+                existsLocal = True
+        if not existsLocal:
+            player_list.append(remote)
+    for local in player_list:
+        for remote in recieved_player_list:
+            if remote.remove==True and local.remove==False:
+                local.remove=True
 
 def getCam(arr):
     obj=Camera(Vector(arr.origin.x,arr.origin.y),Vector(arr.dim.x,arr.dim.y))
-    return obj
+    cam.recieve(obj)
+
 def particle(arr):
-    obj = Particle(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.maxRange,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.fps,arr.removeOnVelocity0,arr.removeOnAnimationLoop)
-    return obj
+    obj = Particle(arr.updateSprite,Vector(arr.pos.x, arr.pos.y), Vector(arr.vel.x, arr.vel.y), arr.maxVel, arr.maxRange, arr.angle,
+                   arr.radius, arr.spriteKey, spriteDictionary, arr.fps, arr.removeOnVelocity0,
+                   arr.removeOnAnimationLoop)
+    recieved_particle_set.add(obj)
+
+
 
 def getPlayer(arr):
     obj = Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idPlayer)
-    return obj
+    recieved_player_list.append(obj)
+
+
 def getVector(arr):
     obj = Vector(arr.x,arr.y)
     return obj

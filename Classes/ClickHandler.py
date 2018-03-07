@@ -23,7 +23,7 @@ def checkClick():
             vector.subtract(adjustment)  # simplegui-pygame screen position adjustment
             vector.transformFromCam(cam)
 
-            particle = Particle(player.particle.pos.copy(), player.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False)
+            particle = Particle(True,player.particle.pos.copy(), player.particle.vel.copy(),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False)
 
             particle.moveRange(vector)
             particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
