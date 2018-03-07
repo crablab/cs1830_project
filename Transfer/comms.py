@@ -122,8 +122,9 @@ def communicatePlayer(object):
     global oldTime
     currentTime=time.time()
 
-    if currentTime - oldTime > 1 / 5:
+    if currentTime - oldTime > 1 / 20:
         oldTime = currentTime
+        object.send = time.time()
         com.send.put(object.encode())
         oldTime=currentTime
 
@@ -133,13 +134,14 @@ def communicate(object):
     global oldTime
     currentTime=time.time()
 
-    if currentTime - oldTime > 1 / 5:
+    if currentTime - oldTime > 1 / 20:
         oldTime = currentTime
         for objectS in object:
+            objectS.send = time.time()
             com.send.put(objectS.encode())
         oldTime=currentTime
     while (not com.recieved.empty()):
-        print("recieved")
         obj = com.recieved.get()
+        print("recieved with delay: " + str(time.time() - obj.send))
         getObject(obj)
 
