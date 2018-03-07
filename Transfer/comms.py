@@ -126,20 +126,10 @@ def communicatePlayer(object):
     object.send = time.time()
     com.send.put(object.encode())
     oldTime=currentTime
-
-
-
-def communicate(object):
-    global oldTime
-    currentTime=time.time()
-
-    oldTime = currentTime
-    for objectS in object:
-        objectS.send = time.time()
-        com.send.put(objectS.encode())
-    oldTime=currentTime
     while (not com.recieved.empty()):
         obj = com.recieved.get()
        # print("recieved with delay: " + str(time.time() - json.loads(obj)['currentTime']))
         getObject(obj)
+
+
 

@@ -20,8 +20,8 @@ import json
 from Classes.Camera import Camera
 from Classes.Vector import Vector
 from Classes.Player import Player
-from Transfer.JsonToObject import updateAllObjects
-from Transfer.comms import communicate, communicatePlayer
+
+from Transfer.comms import communicatePlayer
 from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
@@ -41,9 +41,10 @@ startTime = time.time()
 oldTime=time.time()
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
+    print(player2.particle.pos)
     #NETWORKING
     communicatePlayer(player1)
-    updateAllObjects()
+
 #-----CAM---UPDATE---
     cam.zoom()
     cam.move()

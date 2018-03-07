@@ -24,6 +24,7 @@ def particle(arr):
 
 
 def getPlayer(arr):
+    print("hello"+str(arr.particle.pos))
     player2.recieve(Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idObject))
 
 
@@ -36,7 +37,7 @@ def getVector(arr):
 
 def getObject(j):
     arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
-
+    print(arr.idClass)
     if arr.idClass==1:
         return getCam(arr)
     elif arr.idClass==2:
