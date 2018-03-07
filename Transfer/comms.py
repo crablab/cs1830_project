@@ -33,7 +33,7 @@ class FlaskAppWrapper(object):
         server = com
         #get the dictionary of the message
         jsonData = request.get_json(force=True)
-        print(jsonData)
+        # print(jsonData)
         #seperate into the queue
         for value in jsonData:
             server.recieved.put(value)
@@ -100,12 +100,12 @@ class client:
                 c.setopt(pycurl.POSTFIELDS, body)
 
                 c.perform()
-                print(c.getinfo(pycurl.RESPONSE_CODE))
+                # print(c.getinfo(pycurl.RESPONSE_CODE))
                 c.close()
 
                 #get the json
                 content = json.loads(storage.getvalue().decode('UTF-8'))
-                print(content)
+                # print(content)
                 for value in content:
                     self.recieved.put(value)
 
