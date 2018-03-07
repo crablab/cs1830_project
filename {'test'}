@@ -1,7 +1,0 @@
-HTTP/1.0 405 METHOD NOT ALLOWED
-Content-Type: text/html
-Allow: POST, OPTIONS
-Content-Length: 178
-Server: Werkzeug/0.14.1 Python/3.6.3
-Date: Tue, 06 Mar 2018 23:05:11 GMT
-

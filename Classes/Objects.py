@@ -13,8 +13,9 @@ from SimpleGUICS2Pygame import simpleguics2pygame
 import os
 import random
 
-# ---------------------ANY SETS/LISTS-----------------------
 
+# ---------------------ANY SETS/LISTS-----------------------
+moving_set = set()
 particle_set_bottom = set()
 particle_set_middle = set()
 particle_set_top = set()
@@ -50,8 +51,7 @@ cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vecto
 # PLAYER
 
 player = Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
-                Vector(PLAYER_INITIAL_VELOCITY_X, PLAYER_INITIAL_VELOCITY_Y), PLAYER_MAX_VELOCITY, PLAYER_INITIAL_ANGLE,
-                Vector(PLAYER_DIMENSIONS_X, PLAYER_DIMENSIONS_Y), PLAYER_RADIUS, PLAYER_SPRITE, spriteDictionary,PLAYER_SPRITE_FPS,
+                Vector(PLAYER_INITIAL_VELOCITY_X, PLAYER_INITIAL_VELOCITY_Y), PLAYER_MAX_VELOCITY, PLAYER_INITIAL_ANGLE, PLAYER_RADIUS, PLAYER_SPRITE, spriteDictionary,PLAYER_SPRITE_FPS,
                 PLAYER_ID)
 player.setSpriteState(3)
 
@@ -66,25 +66,25 @@ adjustment = Vector(250, 25)
 
 # GRASS
 x = 0
+
 for i in range(0, 400):
     if i % 20 == 0:
         x += 1
-    g = Particle(Vector(x * 500, (i % 20) * 500), Vector(0, 0),0,0,0,0,'grass01',spriteDictionary,0.0001,False,False)
+    g = Particle(False,Vector(x * 500, (i % 20) * 500), Vector(0, 0),0,0,0,0,'grass01',spriteDictionary,0.0001,False,False)
 
     g.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
 
     particle_set_bottom.add(g)
 
-dragon=Particle(Vector(0,2500),Vector(0,150),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False)
+dragon=Particle(True,Vector(0,2500),Vector(0,150),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False)
 dragon.spriteSheet.setRow(5,4,1,1,5,4)
 dragon.move(Vector(10000,2500))
-particle_set_top.add(dragon)
-dragon2=Particle(Vector(0,2000),Vector(0,150),150,0,0,0,'greenDragon',spriteDictionary,25,False,False)
+moving_set.add(dragon)
+
+dragon2=Particle(True,Vector(0,2000),Vector(0,150),150,0,0,0,'greenDragon',spriteDictionary,25,False,False)
 dragon2.spriteSheet.setRow(5,4,1,1,5,4)
-
 dragon2.move(Vector(10000,2500))
-particle_set_top.add(dragon2)
-tree=Particle(Vector(2500,2500),Vector(0,0),200,0,0,0,'tree',spriteDictionary,0.1,False,False)
-tree.spriteSheet.setRow(4,15,1,1,4,15)
 
-particle_set_top.add(tree)
+
+tree=Particle(True,Vector(2500,2500),Vector(0,0),200,0,0,0,'tree',spriteDictionary,0.1,False,False)
+tree.spriteSheet.setRow(4,15,1,1,4,15)

@@ -1,7 +1,12 @@
 from Classes.Vector import Vector
 from Classes.Settings import CAM_MIN_DIST,CAM_ZOOM_SENSITIVITY,CAM_MOVE_SENSITIVITY,CANVAS_HEIGHT,CANVAS_WIDTH
+import json
+import uuid
 class Camera:
     def __init__(self, origin, dim):
+        self.idClass = 1
+        self.idObject = uuid.uuid4()
+
         self.origin = origin
         self.dim = dim
         self.dimCanv=Vector(CANVAS_WIDTH,CANVAS_HEIGHT)
@@ -11,7 +16,7 @@ class Camera:
         self.moveRight=False
         self.moveUp=False
         self.moveDown=False
-        self.idClass=1
+
 
     def move(self):
         if self.moveUp==True:
@@ -44,3 +49,6 @@ class Camera:
 
     def get(self):
         return(self.origin, self.dim.x)
+
+    def encode(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
