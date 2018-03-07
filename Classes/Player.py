@@ -7,11 +7,10 @@ from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel,maxVel, angle,radius,spriteKey,spriteDictionary,spriteFps, idObject,idPlayer):
+    def __init__(self, pos, vel,maxVel, angle,radius,spriteKey,spriteDictionary,spriteFps, idObject):
         # id's
         self.remove=False
         self.idClass = 3
-        self.idPlayer=idPlayer
         self.idObject=idObject
         #print(self.idObject)
         # non-vectors (attributes)
