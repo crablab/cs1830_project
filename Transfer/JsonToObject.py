@@ -4,31 +4,32 @@ from Classes.Vector import Vector
 from Classes.Objects import spriteDictionary
 from Classes.Particle import Particle
 from Classes.Player import Player
-from Classes.Objects import moving_set, player_list
+from Classes.Objects import moving_set_external,moving_set, player_list
 from Classes.Objects import cam
 from collections import namedtuple
 import json
 import time
+
 recieved_player_list=[]
 recieved_particle_set=set()
 ### If exists local: update   if does not exist local: add      if boolean: remove  and on local then set boolean to False
 
 def updateAllObjects():
     add_set=set()
-    print("updating all objects")
+
     for remote in recieved_particle_set:
         existsLocal=False
-        for local in moving_set:
+        for local in moving_set_external:
             if local.idObject == remote.idObject:
                 local.receive(remote)
                 existsLocal = True
         if not existsLocal:
             add_set.add(remote)
     for a in add_set:
-        moving_set.add(a)
+        moving_set_external.add(a)
 
 
-    for local in moving_set:
+    for local in moving_set_external:
         for remote in recieved_particle_set:
             if remote.remove==True and local.remove==False:
                 local.remove=True

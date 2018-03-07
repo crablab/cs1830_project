@@ -16,6 +16,7 @@ import random
 
 # ---------------------ANY SETS/LISTS-----------------------
 moving_set = set()
+moving_set_external=set()
 particle_set_bottom = set()
 particle_set_middle = set()
 particle_set_top = set()

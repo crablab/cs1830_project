@@ -128,6 +128,7 @@ def communicate(object):
             com.send.put(objectS.encode())
         oldTime=currentTime
     while (not com.recieved.empty()):
+        print("recieved")
         obj = com.recieved.get()
         getObject(obj)
 

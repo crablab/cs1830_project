@@ -26,7 +26,7 @@ from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
 from Classes.Settings import *
-from Classes.Objects import cam, player_list, particle_set_middle,particle_set_top,particle_set_bottom, spriteDictionary, moving_set
+from Classes.Objects import cam, player_list, particle_set_middle,particle_set_top,particle_set_bottom, spriteDictionary, moving_set,moving_set_external
 
 
 #-----START----GAME----CLOCK
@@ -43,7 +43,7 @@ oldTime=time.time()
 def draw(canvas):
     #NETWORKING
     communicate(moving_set)
-    communicate(player_list)
+    communicate(player_list[0])
     updateAllObjects()
 #-----CAM---UPDATE---
     cam.zoom()
@@ -69,7 +69,9 @@ def draw(canvas):
         pm.update()
         pm.draw(canvas,cam,spriteDictionary)
 
-
+    for pe in moving_set_external:
+        pe.update()
+        pe.draw(canvas,cam,spriteDictionary)
     for player in player_list:
 
         player.update()
@@ -108,7 +110,12 @@ def draw(canvas):
             removal_set.add(particle)
     moving_set.difference_update(removal_set)
     removal_set.clear()
-
+    for particle in moving_set_external:
+        if particle.remove:
+            removal_set.add(particle)
+    moving_set_external.difference_update(removal_set)
+    removal_set.clear()
+s
 frame = simpleguics2pygame.create_frame('Game', CANVAS_WIDTH, CANVAS_HEIGHT)
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(keydown)

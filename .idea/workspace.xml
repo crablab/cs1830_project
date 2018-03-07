@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="535d3321-3371-455d-b0a1-9ee7583f198c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Classes/Objects.py" afterPath="$PROJECT_DIR$/Classes/Objects.py" />
+      <change beforePath="$PROJECT_DIR$/GameLoop.py" afterPath="$PROJECT_DIR$/GameLoop.py" />
       <change beforePath="$PROJECT_DIR$/Transfer/JsonToObject.py" afterPath="$PROJECT_DIR$/Transfer/JsonToObject.py" />
       <change beforePath="$PROJECT_DIR$/Transfer/comms.py" afterPath="$PROJECT_DIR$/Transfer/comms.py" />
     </list>
@@ -17,7 +18,7 @@
     <SUITE FILE_PATH="coverage/cs1830$GameLoop.coverage" NAME="GameLoop Coverage Results" MODIFIED="1519919847962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cs1830$test.coverage" NAME="test Coverage Results" MODIFIED="1519869864557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cs1830$ScriptTest.coverage" NAME="ScriptTest Coverage Results" MODIFIED="1519925090499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../.." />
-    <SUITE FILE_PATH="coverage/cs1830$GameLoop__1_.coverage" NAME="GameLoop (1) Coverage Results" MODIFIED="1520436620894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cs1830$GameLoop__1_.coverage" NAME="GameLoop (1) Coverage Results" MODIFIED="1520436880463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cs1830$JsonToObject.coverage" NAME="JsonToObject Coverage Results" MODIFIED="1519925717525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Transfer" />
     <SUITE FILE_PATH="coverage/cs1830$Classes.coverage" NAME="Classes Coverage Results" MODIFIED="1519869300078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -33,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameLoop.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameLoop.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1101">
-              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+            <state relative-caret-position="1041">
+              <caret line="117" column="1" lean-forward="false" selection-start-line="117" selection-start-column="1" selection-end-line="117" selection-end-column="1" />
               <folding>
                 <element signature="e#244#291#0" expanded="true" />
               </folding>
@@ -72,8 +73,8 @@
       <file leaf-file-name="Objects.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Classes/Objects.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1345">
-              <caret line="88" column="19" lean-forward="false" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
+            <state relative-caret-position="87">
+              <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -114,8 +115,8 @@
       <file leaf-file-name="JsonToObject.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Transfer/JsonToObject.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <state relative-caret-position="902">
+              <caret line="72" column="30" lean-forward="false" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
               <folding>
                 <element signature="e#150#183#0" expanded="true" />
               </folding>
@@ -123,11 +124,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="comms.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="comms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Transfer/comms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1108">
-              <caret line="131" column="0" lean-forward="false" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+            <state relative-caret-position="4046">
+              <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
               <folding>
                 <element signature="e#288#335#0" expanded="true" />
               </folding>
@@ -146,7 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>clock</find>
       <find>character</find>
       <find>self.</find>
       <find>self.particleSquare.vel</find>
@@ -176,6 +176,7 @@
       <find>com</find>
       <find>update</find>
       <find>print</find>
+      <find>moving_set</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -210,14 +211,14 @@
         <option value="$PROJECT_DIR$/Classes/KeyHandler.py" />
         <option value="$PROJECT_DIR$/Classes/Vector.py" />
         <option value="$PROJECT_DIR$/Classes/Camera.py" />
-        <option value="$PROJECT_DIR$/Classes/Objects.py" />
         <option value="$PROJECT_DIR$/Classes/ClickHandler.py" />
         <option value="$PROJECT_DIR$/Classes/Settings.py" />
         <option value="$PROJECT_DIR$/Classes/Player.py" />
         <option value="$PROJECT_DIR$/Classes/Particle.py" />
-        <option value="$PROJECT_DIR$/GameLoop.py" />
-        <option value="$PROJECT_DIR$/Transfer/JsonToObject.py" />
         <option value="$PROJECT_DIR$/Transfer/comms.py" />
+        <option value="$PROJECT_DIR$/Classes/Objects.py" />
+        <option value="$PROJECT_DIR$/Transfer/JsonToObject.py" />
+        <option value="$PROJECT_DIR$/GameLoop.py" />
       </list>
     </option>
   </component>
@@ -739,26 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Objects.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1345">
-          <caret line="88" column="19" lean-forward="false" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GameLoop.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1101">
-          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding>
-            <element signature="e#244#291#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Classes/Player.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="952">
@@ -769,22 +750,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Transfer/comms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4046">
+          <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <folding>
+            <element signature="e#288#335#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Objects.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Transfer/JsonToObject.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        <state relative-caret-position="902">
+          <caret line="72" column="30" lean-forward="false" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
           <folding>
             <element signature="e#150#183#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Transfer/comms.py">
+    <entry file="file://$PROJECT_DIR$/GameLoop.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1108">
-          <caret line="131" column="0" lean-forward="false" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+        <state relative-caret-position="1041">
+          <caret line="117" column="1" lean-forward="false" selection-start-line="117" selection-start-column="1" selection-end-line="117" selection-end-column="1" />
           <folding>
-            <element signature="e#288#335#0" expanded="true" />
+            <element signature="e#244#291#0" expanded="true" />
           </folding>
         </state>
       </provider>
