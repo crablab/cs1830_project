@@ -15,6 +15,7 @@ recieved_particle_set=set()
 
 def updateAllObjects():
     add_set=set()
+    print("updating all objects")
     for remote in recieved_particle_set:
         existsLocal=False
         for local in moving_set:
@@ -44,7 +45,7 @@ def updateAllObjects():
     for local in player_list:
         for remote in recieved_player_list:
             if remote.remove==True and local.remove==False:
-                print("player removed")
+
                 local.remove=True
 
     for remote in recieved_player_list:
@@ -54,7 +55,7 @@ def updateAllObjects():
                 playerLoaded=True
                 local.receive(remote)
         if not playerLoaded:
-            recieved_player_list.append(remote)
+            player_list.append(remote)
 def getCam(arr):
     obj=Camera(Vector(arr.origin.x,arr.origin.y),Vector(arr.dim.x,arr.dim.y))
     cam.recieve(obj)
@@ -70,6 +71,7 @@ def particle(arr):
 def getPlayer(arr):
     obj = Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idPlayer)
     recieved_player_list.append(obj)
+    print(obj.idObject)
 
 
 def getVector(arr):
@@ -78,6 +80,7 @@ def getVector(arr):
 
 def getObject(j):
     arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
+    print(arr.idClass)
     if arr.idClass==1:
         return getCam(arr)
     elif arr.idClass==2:
