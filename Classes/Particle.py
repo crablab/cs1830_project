@@ -145,7 +145,7 @@ class Particle:
     def encode(self):
         data = {'updateSprite':self.updateSprite,'idObject': self.idObject, 'idClass': self.idClass,'remove':self.remove,
                 'pos': {'x': self.pos.x, 'y': self.pos.y},
-                'vel': {'x': self.vel.x, 'y': self.vel.y}, 'maxVel': self.maxVel,
+                'vel': {'x': self.vel.x, 'y': self.vel.y}, 'maxVel': self.maxVel,'maxRange':self.maxRange,
                 'angle': self.angle, 'radius': self.radius, 'spriteKey': self.spriteKey,
                 'spriteFps': self.spriteSheet.fps,'removeOnVelocity0':self.removeOnVelocity0,'removeOnAnimationLoop':self.removeOnAnimationLoop}
 
