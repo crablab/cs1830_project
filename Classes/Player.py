@@ -13,7 +13,7 @@ class Player:
         self.idClass = 3
 
         self.idObject=idObject
-        print(self.idObject)
+        #print(self.idObject)
         # non-vectors (attributes)
         self.maxVel = maxVel
 

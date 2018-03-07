@@ -26,7 +26,7 @@ def updateAllObjects():
         for player in recieved_player_list:
             player_list[1].recieve(player)
 
-
+    recieved_player_list.clear()
 
    # # print(player_list.__len__())
    #  exists=False
