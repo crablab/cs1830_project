@@ -11,6 +11,7 @@ import queue, threading, time, pycurl, json, io
 from Classes.Settings import CONFIG_TYPE,CLIENT_IP
 from flask import Flask, request, Response
 from Transfer.JsonToObject import getObject
+import time
 
 
 class FlaskAppWrapper(object):
@@ -114,8 +115,17 @@ if (CONFIG_TYPE == "server"):
 elif (CONFIG_TYPE == "client"):
     com = client(CLIENT_IP, 5027)
 
+currentTime=time.time()
+oldTime=time.time()
+
 def communicate(object):
-    for objectS in object:
-        com.send.put(objectS.encode())
+    global oldTime
+    if currentTime - oldTime > 1 / 5:
+        oldTime = currentTime
+        for objectS in object:
+            #print(objectS.encode())
+            com.send.put(objectS.encode())
+
+            oldTime=time.time()
     while (not com.recieved.empty()):
         getObject(com.recieved.get())
