@@ -43,6 +43,7 @@ oldTime=time.time()
 def draw(canvas):
     for player in player_list:
         if player.idObject==playerId:
+            #print(player.particle.vel)
             communicatePlayer(player)
 
 
