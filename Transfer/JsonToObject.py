@@ -52,6 +52,7 @@ def updateAllObjects():
         for local in recieved_player_list:
             if remote.idObject== local:
                 playerLoaded=True
+                local.receive(remote)
         if not playerLoaded:
             recieved_player_list.append(remote)
 def getCam(arr):
