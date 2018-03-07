@@ -143,7 +143,7 @@ class Particle:
         self.nextPosTime = time.time() + self.pos.copy().distanceTo(self.nextPos) / maxVel
 
     def encode(self):
-        data = {'idObject': self.idObject, 'idClass': self.idClass,'remove':self.remove,
+        data = {'updateSprite':self.updateSprite,'idObject': self.idObject, 'idClass': self.idClass,'remove':self.remove,
                 'pos': {'x': self.pos.x, 'y': self.pos.y},
                 'vel': {'x': self.vel.x, 'y': self.vel.y}, 'maxVel': self.maxVel,
                 'angle': self.angle, 'radius': self.radius, 'spriteKey': self.spriteKey,
