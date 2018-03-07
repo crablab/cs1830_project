@@ -76,7 +76,7 @@ def draw(canvas):
 
     for player in player_list:
         player.update()
-        player.draw()
+        player.draw(canvas,cam,spriteDictionary)
         print(player.particle.pos)
 
     fps.draw_fct(canvas)

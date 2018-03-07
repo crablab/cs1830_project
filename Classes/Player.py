@@ -133,5 +133,5 @@ class Player:
     def encode(self):
         data = {'idObject':self.idObject,'idClass':self.idClass,'pos': {'x':self.particle.pos.x,'y': self.particle.pos.y}, 'vel': {'x':self.particle.vel.x, 'y':self.particle.vel.y}, 'maxVel': self.maxVel,
                 'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,'currentTime':self.currentTime,
-                'spriteFps': self.particle.spriteSheet.fps,'remove':self.remove,'updateSprite':self.particle.updateSprite,'idPlayer':self.idPlayer}
+                'spriteFps': self.particle.spriteSheet.fps,'remove':self.remove,'updateSprite':self.particle.updateSprite}
         return json.dumps(data)
