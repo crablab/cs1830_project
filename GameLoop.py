@@ -43,7 +43,7 @@ oldTime=time.time()
 def draw(canvas):
     #NETWORKING
     communicate(moving_set)
-    communicatePlayer(cam)
+    communicatePlayer(player_list[0])
     updateAllObjects()
 #-----CAM---UPDATE---
     cam.zoom()
