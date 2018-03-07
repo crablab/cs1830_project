@@ -120,12 +120,14 @@ oldTime=time.time()
 
 def communicate(object):
     global oldTime
+    currentTime=time.time()
+
     if currentTime - oldTime > 1 / 5:
         oldTime = currentTime
+       
         for objectS in object:
-            #print(objectS.encode())
+            print(objectS.encode())
             com.send.put(objectS.encode())
-
-            oldTime=time.time()
+        oldTime=currentTime
     while (not com.recieved.empty()):
         getObject(com.recieved.get())
