@@ -6,6 +6,7 @@ import uuid
 from Classes.SpriteSheet import SpriteSheet
 from Classes.Vector import Vector
 from SimpleGUICS2Pygame import simplegui_lib_draw
+from Classes.Settings import * 
 
 
 class Particle:
@@ -84,10 +85,11 @@ class Particle:
                 # cam.dim=Vector(1300,700)
 
             # DEVELOPER OPTION:
-            ratio = cam.dimCanv.copy().divideVector(cam.dim).divideVector(Vector(self.spriteSheet.numColumns,self.spriteSheet.numRows))
+            if(DEVELOPER_OPTIONS):
+                ratio = cam.dimCanv.copy().divideVector(cam.dim).divideVector(Vector(self.spriteSheet.numColumns,self.spriteSheet.numRows))
 
-            simplegui_lib_draw.draw_rect(canvas, self.pos.copy().transformToCam(cam).subtract(self.dim.copy().divide(2).multiplyVector(ratio)).getP(),
-                                         self.dim.copy().multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
+                simplegui_lib_draw.draw_rect(canvas, self.pos.copy().transformToCam(cam).subtract(self.dim.copy().divide(2).multiplyVector(ratio)).getP(),
+                                             self.dim.copy().multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
             # ----------------
     def bounce(self, normal):
         self.vel.reflect(normal)
