@@ -26,7 +26,7 @@ def getCam(arr):
 def particle(arr):
     exists=False
     for particle in moving_set_external:
-        if particle.idObject== arr.idObject:
+        if particle.idObject== arr['idObject']:
             exists=True
     if not exists:
         moving_set_external.add(Particle(arr['updateSprite'],Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
@@ -36,7 +36,7 @@ def particle(arr):
                                          arr['startColumn'],arr['endRow'],arr['endColumn']))
 
     for particle in moving_set_external:
-        if particle.idObject==arr.idObject:
+        if particle.idObject==arr['idObject']:
             particle.recieve(Vector(arr['nextPos']['x'], arr['nextPos']['y']),
                              arr['nextPosTime'],arr['maxVel'],arr['maxRange'],arr['angle'],
                              arr['updateSprite'],arr['spriteKey'],arr['fps'],arr['numRows'],
@@ -48,7 +48,7 @@ def getPlayer(arr):
     exists = False
     for player in player_list:
 
-        if player.idObject == arr.idObject:
+        if player.idObject == arr['idObject']:
             exists = True
     if not exists:
         player_list.append(
@@ -61,7 +61,7 @@ def getPlayer(arr):
                            arr['endRow'],arr['endColumn']))
 
     for player in player_list:
-        if player.idObject == arr.idObject and arr.idObject != playerId:
+        if player.idObject == arr['idObject'] and arr['idObject'] != playerId:
             player.recieve(arr['hasFired'],Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],
                            arr['maxRange'], arr['angle'], arr['updateSprite'], arr['spriteKey'],
                 arr['fps'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'], arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary)
@@ -73,11 +73,11 @@ def getVector(arr):
 
 def getObject(j):
     print("------------------------")
-    print(j['idClass'])
-    #arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
-    # if(DEVELOPER_OPTIONS): print(arr)
     arr = json.loads(j)
+    if (DEVELOPER_OPTIONS): print(arr)
+
     if(DEVELOPER_OPTIONS): print(arr)
+    print(arr['idClass'])
     if arr['idClass'] == 1:
         getCam(arr)
     elif arr['idClass'] == 2:
