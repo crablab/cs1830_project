@@ -32,12 +32,9 @@ from Classes.Objects import cam, particle_set_middle,particle_set_top,particle_s
 fps = simplegui_lib_fps.FPS()
 fps.start()
 startTime = time.time()
-
-
-
-
-
 oldTime=time.time()
+
+
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
     if(DEVELOPER_OPTIONS): print("External list length: " + str(moving_set_external.__len__()))

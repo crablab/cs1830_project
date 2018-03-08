@@ -8,11 +8,10 @@
 
 import queue, threading, time, pycurl, json, io
 
-from Classes.Settings import CONFIG_TYPE,CLIENT_IP, LOGGING, LOGGING_LEVEL
+from Classes.Settings import CONFIG_TYPE,CLIENT_IP, LOGGING, LOGGING_LEVEL, DEVELOPER_OPTIONS
 from flask import Flask, request, Response
 from Transfer.JsonToObject import getObject
-import time
-
+import time, sys
 
 class FlaskAppWrapper(object):
     app = None
@@ -117,7 +116,9 @@ class client:
                     #if(LOGGING and LOGGING_LEVEL == "high"): print(value)
                     self.recieved.put(value)
 
-# def startSerever():
+#Override settings when testing (to make it easier to run multiple instances)
+if(DEVELOPER_OPTIONS and sys.argv[1]): CONFIG_TYPE = sys.argv[1]
+
 if (CONFIG_TYPE == "server"):
     com = server()
 elif (CONFIG_TYPE == "client"):
@@ -127,7 +128,7 @@ currentTime=time.time()
 oldTime=time.time()
 
 def ping():
-    com.send.put({'idClass': 0})
+    com.send.put(json.dumps({'idClass': 0}))
 def communicate(object):
     com.send.put(object.encode())
 
