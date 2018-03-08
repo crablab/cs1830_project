@@ -6,6 +6,7 @@ from Classes.Particle import Particle
 from Classes.Player import Player
 from Classes.Objects import moving_set_external, moving_set, player_list
 from Classes.Objects import cam
+from Classes.Settings import DEVELOPER_OPTIONS
 from collections import namedtuple
 import json
 import time
@@ -59,7 +60,8 @@ def getVector(arr):
 
 def getObject(j):
     arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
-    print("class: " +str(arr.idClass))
+    if(DEVELOPER_OPTIONS): print(arr)
+    if(DEVELOPER_OPTIONS): print("class: " +str(arr.idClass))
     if arr.idClass == 1:
         getCam(arr)
     elif arr.idClass == 2:
@@ -69,4 +71,4 @@ def getObject(j):
     elif arr.idClass == 4:
         getVector(arr)
     else:
-        return "error"
+        return "No class for ID"

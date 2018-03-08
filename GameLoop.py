@@ -20,7 +20,7 @@ from Classes.Camera import Camera
 from Classes.Vector import Vector
 from Classes.Player import Player
 
-from Transfer.comms import communicate,recieve
+from Transfer.comms import communicate, recieve, ping
 from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
@@ -40,15 +40,15 @@ startTime = time.time()
 oldTime=time.time()
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
-    print(moving_set_external.__len__())
+    if(DEVELOPER_OPTIONS): print("External list length: " + str(moving_set_external.__len__()))
+
+    ping()
 
     #Threading for adding to queues
     def movingSetSend():
-        print("Starting to send sets " + str(time.time()))
         global moving_set
         for object in moving_set:
             communicate(object)
-        print("Finished sending sets " + str(time.time()))
 
     #start the threads
     t_mss = threading.Thread(target=movingSetSend)
@@ -123,15 +123,15 @@ def draw(canvas):
             removal_set.add(particle)
     particle_set_bottom.difference_update(removal_set)
     removal_set.clear()
-    #
-    # for particle in moving_set:
-    #     if particle.pos == particle.nextPos and particle.removeOnVelocity0:
-    #         removal_set.add(particle)
-    #     if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-    #         removal_set.add(particle)
-    # moving_set.difference_update(removal_set)
-    # removal_set.clear()
-    #
+    
+    for particle in moving_set:
+        if particle.pos == particle.nextPos and particle.removeOnVelocity0:
+            removal_set.add(particle)
+        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+            removal_set.add(particle)
+    moving_set.difference_update(removal_set)
+    removal_set.clear()
+    
     for particle in moving_set_external:
         if particle.pos == particle.nextPos and particle.removeOnVelocity0:
             removal_set.add(particle)

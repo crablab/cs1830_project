@@ -8,7 +8,7 @@
 
 import queue, threading, time, pycurl, json, io
 
-from Classes.Settings import CONFIG_TYPE,CLIENT_IP
+from Classes.Settings import CONFIG_TYPE,CLIENT_IP, LOGGING, LOGGING_LEVEL
 from flask import Flask, request, Response
 from Transfer.JsonToObject import getObject
 import time
@@ -33,17 +33,19 @@ class FlaskAppWrapper(object):
         server = com
         #get the dictionary of the message
         jsonData = request.get_json(force=True)
-        # print(jsonData)
+        if(LOGGING and LOGGING_LEVEL == "high"): print(jsonData)
         #seperate into the queue
         for value in jsonData:
             server.recieved.put(value)
         #set the body to empty
         body = json.dumps([])
 
+        if(LOGGING and LOGGING_LEVEL == "high"): print("Amalgmating response at " + str(time.time()))
         while(not server.send.empty()):
             data = json.loads(body)
             data.append(server.send.get())
             body = json.dumps(data)
+        if(LOGGING and LOGGING_LEVEL == "high"): print("Sending response " + str(time.time()))
         return Response(body, status=200, headers={})
 
 class server:
@@ -72,6 +74,7 @@ class client:
         self.recieved = queue.Queue()
         self.send = queue.Queue()
 
+        if(LOGGING): print("Threading cURL at " + str(time.time()))
         #start the curl stuff in a thread we can control
         self.t = threading.Thread(target=self.makeRequest)
         self.t.start()
@@ -80,6 +83,8 @@ class client:
         while(1 == 1):
             #only start a curl if we actually have something to send
             if(not self.send.empty()):
+                if(LOGGING and LOGGING_LEVEL == "high"): print("Starting cURL at " + str(time.time()))
+                
                 c = pycurl.Curl()
                 storage = io.BytesIO()
 
@@ -91,22 +96,25 @@ class client:
 
                 #set the body to empty
                 body = json.dumps([])
-
+                if(LOGGING and LOGGING_LEVEL == "high"): print("Amalgmating cURL at " + str(time.time()))
                 while(not self.send.empty()):
                     data = json.loads(body)
                     data.append(self.send.get())
                     body = json.dumps(data)
 
                 c.setopt(pycurl.POSTFIELDS, body)
-
+                if(LOGGING and LOGGING_LEVEL == "high"): print("Making cURL at " + str(time.time()))
                 c.perform()
-                # print(c.getinfo(pycurl.RESPONSE_CODE))
+                if(LOGGING and LOGGING_LEVEL == "high"): print(c.getinfo(pycurl.RESPONSE_CODE))
                 c.close()
 
                 #get the json
                 content = json.loads(storage.getvalue().decode('UTF-8'))
-                # print(content)
+                
+                if(LOGGING and LOGGING_LEVEL == "high"): print("Pushing to queue at " + str(time.time()))
                 for value in content:
+                    value = json.dumps(value)
+                    #if(LOGGING and LOGGING_LEVEL == "high"): print(value)
                     self.recieved.put(value)
 
 # def startSerever():
@@ -118,20 +126,14 @@ elif (CONFIG_TYPE == "client"):
 currentTime=time.time()
 oldTime=time.time()
 
-
-
+def ping():
+    com.send.put({'idClass': 0})
 def communicate(object):
-    global oldTime
-    object.send = time.time()
-
     com.send.put(object.encode())
-    oldTime=currentTime
 def recieve():
-
     while (not com.recieved.empty()):
         obj = com.recieved.get()
         print(json.loads(obj))
-        #print("recieved with delay: " + str(time.time() - json.loads(obj)['currentTime']))
         getObject(obj)
 
 
