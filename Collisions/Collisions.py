@@ -1,5 +1,6 @@
-from vector import Vector
+from Classes.Vector import Vector
 import math
+
 """
 Assume that shape characyeristics dont change, but pos does
 """
