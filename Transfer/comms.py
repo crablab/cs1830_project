@@ -40,7 +40,7 @@ class FlaskAppWrapper(object):
         body = json.dumps([])
 
         if(LOGGING and LOGGING_LEVEL == "high"): print("Amalgmating response at " + str(time.time()))
-        while(not server.send.empty()):
+        while server.send.empty():
             data = json.loads(body)
             data.append(server.send.get())
             body = json.dumps(data)
@@ -55,7 +55,6 @@ class server:
         #init queues
         self.recieved = queue.Queue()
         self.send = queue.Queue()
-
         self.a = FlaskAppWrapper('wrap', self.recieved)
         self.a.add_endpoint(endpoint='/', endpoint_name='root', handler=FlaskAppWrapper.action)
 
@@ -68,11 +67,9 @@ class client:
         print("Starting client...")
         self.peer = peer 
         self.port = port
-
         #init queues
         self.recieved = queue.Queue()
         self.send = queue.Queue()
-
         if(LOGGING): print("Threading cURL at " + str(time.time()))
         #start the curl stuff in a thread we can control
         self.t = threading.Thread(target=self.makeRequest)
@@ -133,9 +130,14 @@ def communicate(object):
     com.send.put(object.encode())
 
 def recieve():
-    while (not com.recieved.empty()):
+    print("the sise of the qeue is:"+str(com.recieved.qsize()))
+
+    while not com.recieved.empty():
+
+        print("waiting")
+        obj=com.recieved.get()
+        print(obj)
         if(LOGGING): print("Pulling from queue at " + str(time.time()))
-        obj = com.recieved.get()
 
         getObject(obj)
 

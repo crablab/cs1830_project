@@ -72,16 +72,16 @@ def getVector(arr):
 
 
 def getObject(j):
-    print("---------RECIEVED JSON---------------")
-    print(j)
-    print("-------------------------------------")
-    print("------------DECODED JSON-------------")
-    print(json.loads(j))
-    print("-------------------------------------")
+    # print("---------RECIEVED JSON---------------")
+    # print(j)
+    # print("-------------------------------------")
+    # print("------------DECODED JSON-------------")
+    # print(json.loads(j))
+    # print("-------------------------------------")
     arr = json.loads(j)
 
 
-    if(DEVELOPER_OPTIONS): print(arr)
+    #if(DEVELOPER_OPTIONS): print(arr)
     print(arr['idClass'])
     if arr['idClass'] == 1:
         getCam(arr)

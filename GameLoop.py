@@ -42,14 +42,16 @@ def draw(canvas):
     ping()
 
     #Threading for adding to queues
-    def movingSetSend():
-        global moving_set
-        for object in moving_set:
-            communicate(object)
+    # def movingSetSend():
+    #     global moving_set
+    for object in moving_set:
+        communicate(object)
 
-    #start the threads
-    t_mss = threading.Thread(target=movingSetSend)
-    t_mss.start()
+
+
+    # #start the threads
+    # t_mss = threading.Thread(target=movingSetSend)
+    # t_mss.start()
 
     #we don't to thread this as it is a small set
     for player in player_list:

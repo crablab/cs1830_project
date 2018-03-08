@@ -44,6 +44,7 @@ class Particle:
         self.currentTime = time.time()
 
     def recieve(self, nextPos,nextPosTime,maxVel,maxRange,angle,updateSprite,spriteKey,fps,numRows,numColumns,startRow,startColumn,endRow,endColumn,radius,spriteDictionary):
+        print("recieved"+str(nextPos)+str(nextPosTime)+str(numRows))
         self.nextPos=nextPos
         self.nextPosTime= nextPosTime
         self.maxVel=maxVel
@@ -56,7 +57,7 @@ class Particle:
         if self.spriteSheet.numRows!=numRows or self.spriteSheet.numColumns!= numColumns or self.spriteSheet.startRow!=startRow or self.spriteSheet.startColumn!=startColumn or self.spriteSheet.endRow!=endRow or self.spriteSheet.endColumn!=endColumn:
             self.spriteSheet.setRow(numRows,numColumns,startRow,startColumn,endRow,endColumn)
             print(numRows,numColumns,startRow,startColumn,endRow,endColumn)
-
+        print("numRows: "+str(self.spriteSheet.numRows))
     def draw(self, canvas, cam):
             # ---------TESTING PURPOSES-----DO NOT REMOVE------
             # ratio = cam.dimCanv.copy().divideVector(cam.dim)
