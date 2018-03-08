@@ -11,7 +11,7 @@ from Classes.Settings import *
 
 class Particle:
 
-    def __init__(self, updateSprite,pos, vel, maxVel, maxRange, angle, radius, spriteKey, spriteDictionary,fps, removeOnVelocity0,
+    def __init__(self, updateSprite,pos, vel,nextPosTime,nextPos, maxVel, maxRange, angle, radius, spriteKey, spriteDictionary,fps, removeOnVelocity0,
                  removeOnAnimationLoop,idObject):
         self.remove=False
         self.idClass = 2
@@ -19,8 +19,8 @@ class Particle:
 
         self.pos = pos
         self.vel = vel
-        self.nextPos = pos
-        self.nextPosTime = 0
+        self.nextPos = nextPos
+        self.nextPosTime = nextPosTime
         self.maxVel = maxVel
 
         self.maxRange = maxRange
@@ -29,7 +29,7 @@ class Particle:
         self.updateSprite=updateSprite
         self.spriteKey = spriteKey
 
-        self.spriteSheet = SpriteSheet(self.pos, spriteDictionary.get(self.spriteKey, 'elf_demo'),fps)
+        self.spriteSheet = SpriteSheet( spriteDictionary.get(self.spriteKey, 'elf_demo'),fps)
         self.removeOnAnimationLoop = removeOnAnimationLoop
         self.removeOnVelocity0 = removeOnVelocity0
 
@@ -42,20 +42,20 @@ class Particle:
 
         self.currentTime = time.time()
 
-    def recieve(self, other):
-        self.pos = other.pos
-        self.vel = other.vel
-        self.nextPos = other.pos
-        self.nextPosTime = other.nextPosTime
-        self.maxVel = other.maxVel
+    def recieve(self, other,spriteDictionary):
+        self.updateSprite=other.updateSprite
+        if self.nextPos!=other.nextPos:
 
+            self.nextPos = other.nextPos
+            self.nextPosTime = other.nextPosTime
+        self.maxVel = other.maxVel
         self.maxRange = other.maxRange
         self.angle = other.angle
-        self.spriteKey = other.spriteKey
 
-        self.spriteSheet = other.spriteSheet
-        self.removeOnAnimationLoop = other.removeOnAnimationLoop
-        self.removeOnVelocity0 = other.removeOnVelocity0
+        if self.spriteKey!=other.spriteKey:
+            self.spriteKey=other.spriteKey
+            self.spriteSheet = SpriteSheet(spriteDictionary.get(self.spriteKey, 'elf_demo'), other.fps)
+
 
         self.dim = self.spriteSheet.animator.dimOriginal.copy()
         self.radius = other.radius
@@ -111,11 +111,11 @@ class Particle:
         self.vel.negate()
 
     def update(self):
-
         if self.updateSprite:
             self.spriteSheet.update()
         if self.pos.copy().subtract(self.nextPos).dot(self.vel) > 0:
             self.vel.multiply(0)
+
         if self.pos != self.nextPos:
             x, y = self.pos.copy().distanceToVector(self.nextPos)
             dist = Vector(x, y)
@@ -146,7 +146,7 @@ class Particle:
         data = {'updateSprite':self.updateSprite,'idObject': self.idObject, 'idClass': self.idClass,'remove':self.remove,
                 'pos': {'x': self.pos.x, 'y': self.pos.y},
                 'vel': {'x': self.vel.x, 'y': self.vel.y}, 'maxVel': self.maxVel,'maxRange':self.maxRange,'currentTime':self.currentTime,
-                'angle': self.angle, 'radius': self.radius, 'spriteKey': self.spriteKey,
+                'angle': self.angle, 'radius': self.radius, 'spriteKey': self.spriteKey,'nextPosTime':self.nextPosTime,'nextPos':{self.nextPos.x,self.nextPos.y},
                 'fps': self.spriteSheet.fps,'removeOnVelocity0':self.removeOnVelocity0,'removeOnAnimationLoop':self.removeOnAnimationLoop}
 
         return json.dumps(data)

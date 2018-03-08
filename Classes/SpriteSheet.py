@@ -5,9 +5,8 @@ import time
 
 class SpriteSheet:
 
-    def __init__(self, pos, spriteAnimator,spriteFps):
+    def __init__(self, spriteAnimator,spriteFps):
         self.animator = spriteAnimator
-        self.pos = pos
 
         self.currentRow=0
         self.currentColumn=0
@@ -28,8 +27,7 @@ class SpriteSheet:
         self.fps=spriteFps
 
     def draw(self, canvas, cam, pos, angle):
-        self.pos = pos
-        self.animator.draw(canvas, cam, self.pos, self.numColumns, self.numRows, self.currentRow, self.currentColumn, angle)
+        self.animator.draw(canvas, cam, pos, self.numColumns, self.numRows, self.currentRow, self.currentColumn, angle)
 
     def setRow(self, numRows, numColumns,startRow, startColumn,endRow,endColumn):
         self.numRows=numRows

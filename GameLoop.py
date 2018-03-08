@@ -76,8 +76,7 @@ def draw(canvas):
         pe.draw(canvas,cam,spriteDictionary)
 
     for player in player_list:
-        if player.idObject!=playerId:
-            print(player.particle.pos)
+
         player.update()
         player.draw(canvas,cam,spriteDictionary)
 

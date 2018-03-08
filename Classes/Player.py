@@ -8,70 +8,69 @@ from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel,maxVel, angle,radius,spriteKey,spriteDictionary,spriteFps, idObject,hasFired):
+    def __init__(self, pos, vel,nextPosTime,nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps, idObject, hasFired,
+                 clickPosition, spriteState):
         # id's
-        self.remove=False
+        self.remove = False
         self.idClass = 3
-        self.idObject=idObject
+        self.idObject = idObject
 
-        #print(self.idObject)
+        # print(self.idObject)
         # non-vectors (attributes)
         self.maxVel = maxVel
 
         # vectors
-        self.clickPosition=Vector(0,0)
-        #Sprite Attributes
-        self.spriteState = 0
+        self.clickPosition = clickPosition
+        # Sprite Attributes
+        self.spriteState = spriteState
         self.currentTime = 0
-        self.hasFired = False
+        self.hasFired = hasFired
 
-        #ParticleClass
-        self.particle=Particle(True,pos,vel,maxVel,0,angle,radius,spriteKey,spriteDictionary,spriteFps,False,False,self.idObject)
+        # ParticleClass
 
+        self.particle = Particle(True, pos,vel,nextPosTime,nextPos , maxVel, 0, angle, radius, spriteKey, spriteDictionary, spriteFps,
+                                 False, False, self.idObject)
 
+    def recieve(self, other,spriteDictionary):
 
-    def recieve(self,other):
-        self.maxVel=other.maxVel
-        self.spriteState=other.spriteState
-        self.currentTime=other.currentTime
-        self.particle=other.particle
+        self.hasFired = other.hasFired
+        self.clickPosition = other.clickPosition
+        self.maxVel = other.maxVel
 
+        if self.spriteState != other.spriteState:
 
+            self.setSpriteState(other.spriteState)
 
-    def draw(self, canvas, cam,spriteDictionary):
+        self.particle.recieve(other.particle,spriteDictionary)
 
-        self.particle.draw(canvas, cam,spriteDictionary)
+    def draw(self, canvas, cam, spriteDictionary):
 
-    def move(self,pos):
+        self.particle.draw(canvas, cam, spriteDictionary)
+
+    def move(self, pos):
         self.particle.move(pos)
-
 
     def update(self):
         self.particle.update()
+
         self.currentTime = time.time()
 
-        if self.spriteState==0:
-            self.setCorrectAnimation()
-        print(self.clickPosition)
-        #CORRECT SPRITE ROW AND UPDATE FPS
-        if self.hasFired and self.particle.spriteSheet.hasLooped:
-            print("finished Firing")
-            self.hasFired=False
-            self.setCorrectAnimation()
-        if self.particle.vel.getX()==0 and self.particle.vel.getY()==0 and not self.hasFired:
-            self.particle.spriteSheet.currentColumn=1
+        if self.spriteState == 0:
 
+            self.setCorrectAnimation()
+        # CORRECT SPRITE ROW AND UPDATE FPS
+        if self.hasFired and self.particle.spriteSheet.hasLooped:
+            self.hasFired = False
+            self.setCorrectAnimation()
+        if self.particle.vel.getX() == 0 and self.particle.vel.getY() == 0 and not self.hasFired:
+            # print("set column 1")
+            self.particle.spriteSheet.currentColumn = 1
 
     def setCorrectAnimation(self):
-        print(self.clickPosition)
-        x,y=self.particle.pos.copy().distanceToVector(self.clickPosition)
-        print(x)
-        print("called")
-        print(self.hasFired)
+        x, y = self.particle.pos.copy().distanceToVector(self.clickPosition)
         if y < 0:
             if self.hasFired:
                 self.setSpriteState(6)
-                print("fired")
 
             else:
                 self.setSpriteState(3)
@@ -144,10 +143,17 @@ class Player:
     def turn(self, angle):
         self.particle.angle += angle
 
-
-
     def encode(self):
-        data = {'hasFired':self.hasFired,'idObject':self.idObject,'idClass':self.idClass,'pos': {'x':self.particle.pos.x,'y': self.particle.pos.y}, 'vel': {'x':self.particle.vel.x, 'y':self.particle.vel.y}, 'maxVel': self.maxVel,
-                'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,'currentTime':self.currentTime,
-                'spriteFps': self.particle.spriteSheet.fps,'remove':self.remove,'updateSprite':self.particle.updateSprite}
+
+        data = {'spriteState': self.spriteState,
+                'clickPosition': {'x': self.clickPosition.x, 'y': self.clickPosition.y}, 'hasFired': self.hasFired,
+                'idObject': self.idObject, 'idClass': self.idClass,
+                'pos': {'x': self.particle.pos.x, 'y': self.particle.pos.y},
+                'vel': {'x': self.particle.vel.x, 'y': self.particle.vel.y}, 'maxVel': self.maxVel,
+                'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,
+                'currentTime': self.currentTime,'nextPos':{'x':self.particle.nextPos.x,'y':self.particle.nextPos.y},'nextPosTime':self.particle.nextPosTime,
+                'spriteFps': self.particle.spriteSheet.fps, 'remove': self.remove,
+                'updateSprite': self.particle.updateSprite,'maxRange':self.particle.maxRange}
+
+
         return json.dumps(data)
