@@ -19,7 +19,7 @@ recieved_particle_set = set()
 
 
 def getCam(arr):
-    obj = Camera(Vector(arr.origin.x, arr.origin.y), Vector(arr.dim.x, arr.dim.y))
+    obj = Camera(Vector(arr['origin']['x'], arr['origin']['y']), Vector(arr['dim']['x'], arr['dim']['y']))
     cam.recieve(obj)
 
 
@@ -29,11 +29,19 @@ def particle(arr):
         if particle.idObject== arr.idObject:
             exists=True
     if not exists:
-        moving_set_external.add(Particle(arr.updateSprite,Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.y,arr.vel.x),arr.nextPosTime,Vector(arr.nextPos.x, arr.nextPos.y), arr.maxVel,arr.maxRange, arr.angle, arr.radius,arr.spriteKey,spriteDictionary,arr.fps,arr.removeOnVelocity0,arr.removeOnAnimationLoop,arr.idObject,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn))
+        moving_set_external.add(Particle(arr['updateSprite'],Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
+                                         arr['nextPosTime'],Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],arr['maxRange'],
+                                         arr['angle'], arr['radius'],arr['spriteKey'],spriteDictionary,arr['fps'],arr['removeOnVelocity0'],
+                                         arr['removeOnAnimationLoop'],arr['idObject'],arr['numRows'],arr['numColumns'],arr['startRow'],
+                                         arr['startColumn'],arr['endRow'],arr['endColumn']))
 
     for particle in moving_set_external:
         if particle.idObject==arr.idObject:
-            particle.recieve(Vector(arr.nextPos.x,arr.nextPos.y),arr.nextPosTime,arr.maxVel,arr.maxRange,arr.angle,arr.updateSprite,arr.spriteKey,arr.fps,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn,arr.radius,spriteDictionary)
+            particle.recieve(Vector(arr['nextPos']['x'], arr['nextPos']['y']),
+                             arr['nextPosTime'],arr['maxVel'],arr['maxRange'],arr['angle'],
+                             arr['updateSprite'],arr['spriteKey'],arr['fps'],arr['numRows'],
+                             arr['numColumns'],arr['startRow'],arr['startColumn'],
+                             arr['endRow'],arr['endColumn'],arr['radius'],spriteDictionary)
 
 
 def getPlayer(arr):
@@ -44,14 +52,19 @@ def getPlayer(arr):
             exists = True
     if not exists:
         player_list.append(
-            Player(Vector(arr.pos.x, arr.pos.y), Vector(arr.vel.x, arr.vel.y),arr.nextPosTime,Vector(arr.nextPos.x, arr.nextPos.y), arr.maxVel, arr.angle, arr.radius,
-                   arr.spriteKey, spriteDictionary, arr.fps, arr.idObject, arr.hasFired,
-                   Vector(arr.clickPosition.x, arr.clickPosition.y), arr.spriteState,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn))
+            Player(Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
+                           arr['nextPosTime'],Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],
+                           arr['angle'], arr['radius'], arr['spriteKey'], spriteDictionary,
+                           arr['fps'],arr['idObject'], arr['hasFired'],
+                           Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),
+                           arr['spriteState'],arr['numRows'],arr['numColumns'],arr['startRow'],arr['startColumn'],
+                           arr['endRow'],arr['endColumn']))
 
     for player in player_list:
         if player.idObject == arr.idObject and arr.idObject != playerId:
-            player.recieve(arr.hasFired, Vector(arr.clickPosition.x,arr.clickPosition.y), Vector(arr.nextPos.x,arr.nextPos.y), arr.nextPosTime, arr.maxVel, arr.maxRange, arr.angle, arr.updateSprite, arr.spriteKey,
-                arr.fps, arr.numRows, arr.numColumns, arr.startRow, arr.startColumn, arr.endRow, arr.endColumn, arr.radius, spriteDictionary)
+            player.recieve(arr['hasFired'],Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],
+                           arr['maxRange'], arr['angle'], arr['updateSprite'], arr['spriteKey'],
+                arr['fps'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'], arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary)
 
 def getVector(arr):
     obj = Vector(arr.x, arr.y)
@@ -59,16 +72,19 @@ def getVector(arr):
 
 
 def getObject(j):
-    arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
+    print("------------------------")
+    print(j['idClass'])
+    #arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
+    # if(DEVELOPER_OPTIONS): print(arr)
+    arr = json.loads(j)
     if(DEVELOPER_OPTIONS): print(arr)
-    if(DEVELOPER_OPTIONS): print("class: " +str(arr.idClass))
-    if arr.idClass == 1:
+    if arr['idClass'] == 1:
         getCam(arr)
-    elif arr.idClass == 2:
+    elif arr['idClass'] == 2:
         particle(arr)
-    elif arr.idClass == 3:
+    elif arr['idClass']== 3:
         getPlayer(arr)
-    elif arr.idClass == 4:
+    elif arr['idClass'] == 4:
         getVector(arr)
     else:
         return "No class for ID"

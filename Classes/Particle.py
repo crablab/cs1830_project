@@ -162,5 +162,6 @@ class Particle:
                 'startRow':self.spriteSheet.startRow,
                 'endRow':self.spriteSheet.endRow,
                 'endColumn':self.spriteSheet.endColumn}
-
-        return json.dumps(data)
+        a=json.dumps(data)
+        print(a)
+        return a

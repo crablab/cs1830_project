@@ -36,7 +36,7 @@ class FlaskAppWrapper(object):
         if(LOGGING and LOGGING_LEVEL == "high"): print(jsonData)
         #seperate into the queue
         for value in jsonData:
-            server.recieved.put(value)
+            server.recieved.put(json.dumps(value))
         #set the body to empty
         body = json.dumps([])
 
