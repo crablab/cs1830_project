@@ -79,15 +79,16 @@ class Particle:
             distance.subtract(pictureSize.multiply(2))
             if distance.getX() < cam.dim.getX() / 2 and distance.getY() < cam.dim.getY() / 2:
                 # --------TESTING PURPOSES----DO NOT REMOVE-------------
-                # cam.dim = Vector(2600*2, 1400*2)
+                #cam.dim = Vector(2600*2, 1400*2)
                 objectPos = self.pos.copy().transformToCam(cam)
                 self.spriteSheet.draw(canvas, cam, objectPos, self.angle)
-                # cam.dim=Vector(1300,700)
+                #cam.dim=Vector(1300,700)
 
             # DEVELOPER OPTION:
             if(DEVELOPER_OPTIONS):
                 ratio = cam.dimCanv.copy().divideVector(cam.dim).divideVector(Vector(self.spriteSheet.numColumns,self.spriteSheet.numRows))
-
+                a=self.radius*ratio.getX()
+                canvas.draw_circle(self.pos.copy().transformToCam(cam).getP(), a, 1, 'White')
                 simplegui_lib_draw.draw_rect(canvas, self.pos.copy().transformToCam(cam).subtract(self.dim.copy().divide(2).multiplyVector(ratio)).getP(),
                                              self.dim.copy().multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
             # ----------------

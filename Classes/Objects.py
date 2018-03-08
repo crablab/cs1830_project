@@ -87,7 +87,9 @@ moving_set.add(dragon)
 dragon2=Particle(True,Vector(0,2000),Vector(0,150),0,Vector(0,2000),150,0,0,0,'greenDragon',spriteDictionary,25,False,False,str(uuid.uuid4()))
 dragon2.spriteSheet.setRow(5,4,1,1,5,4)
 dragon2.move(Vector(10000,2500))
+moving_set.add(dragon2)
 
+tree=Particle(True,Vector(2500,2500),Vector(0,0),0,Vector(2500,2500),200,0,0,0,'tree',spriteDictionary,5,False,False,str(uuid.uuid4()))
 
-tree=Particle(True,Vector(2500,2500),Vector(0,0),0,Vector(2500,2500),200,0,0,0,'tree',spriteDictionary,0.1,False,False,str(uuid.uuid4()))
 tree.spriteSheet.setRow(4,15,1,1,4,15)
+particle_set_middle.add(tree)

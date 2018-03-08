@@ -63,7 +63,7 @@ class Player:
             self.hasFired = False
             self.setCorrectAnimation()
         if self.particle.vel.getX() == 0 and self.particle.vel.getY() == 0 and not self.hasFired:
-            # print("set column 1")
+            # `("set column 1")
             self.particle.spriteSheet.currentColumn = 1
 
     def setCorrectAnimation(self):
