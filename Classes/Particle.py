@@ -1,13 +1,10 @@
-import json
-import time
-import os
-import json
-import uuid
+import json, time, os, json, uuid, configparser
 from Classes.SpriteSheet import SpriteSheet
 from Classes.Vector import Vector
 from SimpleGUICS2Pygame import simplegui_lib_draw
 from Classes.Settings import * 
-
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 
 class Particle:
 
@@ -33,7 +30,7 @@ class Particle:
         self.spriteSheet.setRow(numRows, numColumns, startRow, startColumn, endRow, endColumn)
         self.removeOnAnimationLoop = removeOnAnimationLoop
         self.removeOnVelocity0 = removeOnVelocity0
-
+        print(dir(self.spriteSheet))
         self.dim = self.spriteSheet.animator.dimOriginal.copy()
         self.radius = radius
         if radius==0:

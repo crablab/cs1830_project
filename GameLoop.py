@@ -3,19 +3,22 @@
 #  #      "#mmm    #    "mmmm"   mmm" #  m #
 #  #          "#   #    #   "#     "# #    #
 #   "mmm" "mmm#" mm#mm  "#mmm" "mmm#"  #mm#
-# Networking class
 
-
-import queue, threading, time, pycurl, json, io
+#LOADING LIBRARIES
+import queue, threading, time, pycurl, json, io, sys, pygame, random, copy, configparser
 from flask import Flask, request, Response
-
 from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_fps
-import pygame
-import random
-import copy
-import time
 from collections import namedtuple
-import json
+
+#LOADING SETTINGS
+from Classes.Settings import *
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
+#Override settings when testing (to make it easier to run multiple instances)
+if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and sys.argv[1]): config['NETWORKING']['CONFIG_TYPE'] = sys.argv[1]
+print(config['NETWORKING']['CONFIG_TYPE'])
+
+#LOAD INTERNAL CLASSES
 from Classes.Camera import Camera
 from Classes.Vector import Vector
 from Classes.Player import Player
@@ -24,7 +27,7 @@ from Transfer.comms import communicate, recieve, ping
 from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
-from Classes.Settings import *
+
 from Classes.Objects import cam, particle_set_middle,particle_set_top,particle_set_bottom, spriteDictionary, moving_set,moving_set_external,player_list,playerId
 
 
@@ -35,23 +38,22 @@ startTime = time.time()
 oldTime=time.time()
 
 
+
+time.sleep(5)
+
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
     #if(DEVELOPER_OPTIONS): print("External list length: " + str(moving_set_external.__len__()))
-
-    ping()
+    
+    #if we're a client make sure we Ping
+    if(config['NETWORKING']['CONFIG_TYPE'] == 'client'):
+        ping()
 
     #Threading for adding to queues
-    # def movingSetSend():
-    #     global moving_set
+    def movingSetSend():
+        global moving_set
     for object in moving_set:
         communicate(object)
-
-
-
-    # #start the threads
-    # t_mss = threading.Thread(target=movingSetSend)
-    # t_mss.start()
 
     #we don't to thread this as it is a small set
     for player in player_list:
@@ -59,6 +61,7 @@ def draw(canvas):
             #print(player.particle.vel)
             communicate(player)
     # print("size:"+str(moving_set_external.__len__()))
+    
     recieve()
 
 #-----CAM---UPDATE---
@@ -141,7 +144,7 @@ def draw(canvas):
     removal_set.clear()
 
 
-frame = simpleguics2pygame.create_frame('Game', CANVAS_WIDTH, CANVAS_HEIGHT)
+frame = simpleguics2pygame.create_frame('Game', config['CANVAS']['CANVAS_WIDTH'], config['CANVAS']['CANVAS_HEIGHT'])
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)

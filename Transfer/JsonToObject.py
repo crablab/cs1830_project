@@ -6,7 +6,10 @@ from Classes.Particle import Particle
 from Classes.Player import Player
 from Classes.Objects import moving_set_external, moving_set, player_list
 from Classes.Objects import cam
-from Classes.Settings import DEVELOPER_OPTIONS
+import configparser
+from Classes.Settings import DEVELOPER_OPTIONS, LOGGING_LEVEL
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 from collections import namedtuple
 import json
 import time
@@ -72,17 +75,11 @@ def getVector(arr):
 
 
 def getObject(j):
-    # print("---------RECIEVED JSON---------------")
-    # print(j)
-    # print("-------------------------------------")
-    # print("------------DECODED JSON-------------")
-    # print(json.loads(j))
-    # print("-------------------------------------")
     arr = json.loads(j)
 
+    if(config['DEVELOPER']['DEVELOPER_OPTIONS']): print("Class ID:" + str(arr['idClass']))
+    if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(arr)
 
-    #if(DEVELOPER_OPTIONS): print(arr)
-    print(arr['idClass'])
     if arr['idClass'] == 1:
         getCam(arr)
     elif arr['idClass'] == 2:

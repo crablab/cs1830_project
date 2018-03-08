@@ -1,4 +1,7 @@
 from Classes.Settings import *
+import configparser, json, uuid, os, random
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 from Classes.Vector import Vector
 
 from Classes.Camera import Camera
@@ -7,12 +10,10 @@ from Classes.Mouse import Mouse
 from Classes.SpriteAnimator import SpriteAnimator
 from Classes.Player import Player
 from Classes.Particle import Particle
-import uuid
+
 
 import SimpleGUICS2Pygame
 from SimpleGUICS2Pygame import simpleguics2pygame
-import os
-import random
 
 
 # ---------------------ANY SETS/LISTS-----------------------
@@ -46,14 +47,13 @@ spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass
                     "tree":tree}
 
 # -----------------------MOVING OBJECTS-------------------
-
 # CAMERA
-cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vector(CANVAS_WIDTH, CANVAS_HEIGHT))
+cam = Camera(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']), Vector(config['CANVAS']['CANVAS_WIDTH'], config['CANVAS']['CANVAS_HEIGHT']))
 
 # PLAYER
 
-player1 = Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
-                Vector(PLAYER_INITIAL_VELOCITY_X, PLAYER_INITIAL_VELOCITY_Y),0,Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), PLAYER_MAX_VELOCITY, PLAYER_INITIAL_ANGLE, PLAYER_RADIUS, PLAYER_SPRITE, spriteDictionary,PLAYER_SPRITE_FPS,
+player1 = Player(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']),
+                Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']),0,Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']), config['PLAYER']['PLAYER_MAX_VELOCITY'], config['PLAYER']['PLAYER_INITIAL_ANGLE'], config['PLAYER']['PLAYER_RADIUS'], config['PLAYER']['PLAYER_SPRITE'], spriteDictionary,config['PLAYER']['PLAYER_SPRITE_FPS'],
                 str(uuid.uuid4()),False,Vector(0,0),1,21, 13, 11, 1, 9, 9)
 player1.setSpriteState(3)
 player_list.append(player1)

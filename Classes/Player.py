@@ -1,9 +1,9 @@
-import json
-import time
-import uuid
+import json, time, uuid, configparser
 
 from Classes.Particle import Particle
-from Classes.Settings import SPRITE_FPS
+from Classes.Settings import SPRITE_FPS #this never seems to be used?
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 from Classes.Vector import Vector
 
 

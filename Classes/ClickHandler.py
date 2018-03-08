@@ -5,6 +5,8 @@ from Classes.Vector import Vector
 from Classes.Objects import mouse, particle_set_bottom, particle_set_middle, particle_set_top, player_list, cam, \
     adjustment, spriteDictionary,moving_set,playerId
 from Classes.Settings import PARTICLE_VELOCITY, PARTICLE_RADIUS, PARTICLE_MAX_RANGE
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 import time
 import math
 import uuid
@@ -31,7 +33,7 @@ def checkClick():
                  # simplegui-pygame screen position adjustment
 
 
-                particle = Particle(True,player1.particle.pos.copy(), player1.particle.vel.copy(),0,Vector(0,0),PARTICLE_VELOCITY,PARTICLE_MAX_RANGE,0,PARTICLE_RADIUS,'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()),1,1,1,1,1,1)
+                particle = Particle(True,player1.particle.pos.copy(), player1.particle.vel.copy(),0,Vector(0,0),config['PARTICLE']['PARTICLE_VELOCITY'],config['PARTICLE']['PARTICLE_MAX_RANGE'],0,config['PARTICLE']['PARTICLE_RADIUS'],'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()),1,1,1,1,1,1)
 
                 particle.moveRange(vector)
                 particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
