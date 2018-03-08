@@ -130,7 +130,7 @@ def ping():
     com.send.put({'idClass': 0})
 def communicate(object):
     com.send.put(object.encode())
-    
+
 def recieve():
     while (not com.recieved.empty()):
         obj = com.recieved.get()

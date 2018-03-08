@@ -74,7 +74,7 @@ def getVector(arr):
 def getObject(j):
     print("------------------------")
     arr = json.loads(j)
-    if (DEVELOPER_OPTIONS): print(arr)
+
 
     if(DEVELOPER_OPTIONS): print(arr)
     print(arr['idClass'])
