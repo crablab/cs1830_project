@@ -38,7 +38,7 @@ grass03 = SpriteAnimator(cwd + '/img/grass/grass03.jpg')
 grass04 = SpriteAnimator(cwd + '/img/grass/grass04.jpg')
 fireTorch = SpriteAnimator(cwd + '/img/character/elf/fire.jpg')
 fireBall = SpriteAnimator(cwd + '/img/character/elf/fire2.jpg')
-tree=SpriteAnimator(cwd + '/img/Trees/tree.png' )
+tree=SpriteAnimator(cwd + '/img/trees/tree.png' )
 
 spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass02": grass02, "grass03": grass04,
                     'arrow': arrow,
@@ -81,12 +81,12 @@ dragon=Particle(True,Vector(0,2500),Vector(0,150),0,Vector(0,2500),150,0,0,0,'wh
 
 dragon.move(Vector(10000,2500))
 moving_set.add(dragon)
-if DEVELOPER_OPTIONS:
-    dragon2=Particle(True,Vector(0,2000),Vector(0,150),0,Vector(0,2000),150,0,0,0,'greenDragon',spriteDictionary,25,False,False,str(uuid.uuid4()),5,4,1,1,5,4)
 
-    dragon2.move(Vector(10000,2500))
-    moving_set.add(dragon2)
+dragon2=Particle(True,Vector(0,2000),Vector(0,150),0,Vector(0,2000),150,0,0,0,'greenDragon',spriteDictionary,25,False,False,str(uuid.uuid4()),5,4,1,1,5,4)
 
-tree=Particle(True,Vector(2500,2500),Vector(0,0),0,Vector(2500,2500),200,0,0,0,'tree',spriteDictionary,5,False,False,str(uuid.uuid4()),4,15,1,1,4,15)
+dragon2.move(Vector(10000,2500))
+moving_set.add(dragon2)
+
+tree=Particle(True,Vector(2500,2500),Vector(0,0),0,Vector(2500,2500),200,0,0,0,'tree',spriteDictionary,1,False,False,str(uuid.uuid4()),4,15,1,1,4,15)
 
 particle_set_middle.add(tree)

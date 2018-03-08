@@ -32,7 +32,7 @@ def particle(arr):
 
     for particle in moving_set_external:
         if particle.idObject==arr.idObject:
-            particle.recieve(Particle(arr.updateSprite,Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.y,arr.vel.x),arr.nextPosTime,Vector(arr.nextPos.x, arr.nextPos.y), arr.maxVel,arr.maxRange, arr.angle, arr.radius,arr.spriteKey,spriteDictionary,arr.fps,arr.removeOnVelocity0,arr.removeOnAnimationLoop,arr.idObject,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn),spriteDictionary)
+            particle.recieve(Vector(arr.nextPos.x,arr.nextPos.y),arr.nextPosTime,arr.maxVel,arr.maxRange,arr.angle,arr.updateSprite,arr.spriteKey,arr.fps,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn,arr.radius,spriteDictionary)
 
 
 def getPlayer(arr):
@@ -44,16 +44,13 @@ def getPlayer(arr):
     if not exists:
         player_list.append(
             Player(Vector(arr.pos.x, arr.pos.y), Vector(arr.vel.x, arr.vel.y),arr.nextPosTime,Vector(arr.nextPos.x, arr.nextPos.y), arr.maxVel, arr.angle, arr.radius,
-                   arr.spriteKey, spriteDictionary, arr.spriteFps, arr.idObject, arr.hasFired,
+                   arr.spriteKey, spriteDictionary, arr.fps, arr.idObject, arr.hasFired,
                    Vector(arr.clickPosition.x, arr.clickPosition.y), arr.spriteState,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn))
 
     for player in player_list:
         if player.idObject == arr.idObject and arr.idObject != playerId:
-            player.recieve(
-                Player(Vector(arr.pos.x, arr.pos.y), Vector(arr.vel.x, arr.vel.y), arr.nextPosTime,Vector(arr.nextPos.x, arr.nextPos.y),arr.maxVel, arr.angle, arr.radius,
-                       arr.spriteKey, spriteDictionary, arr.spriteFps, arr.idObject, arr.hasFired,
-                       Vector(arr.clickPosition.x, arr.clickPosition.y), arr.spriteState,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn),spriteDictionary)
-
+            player.recieve(arr.hasFired, Vector(arr.clickPosition.x,arr.clickPosition.y), Vector(arr.nextPos.x,arr.nextPos.y), arr.nextPosTime, arr.maxVel, arr.maxRange, arr.angle, arr.updateSprite, arr.spriteKey,
+                arr.fps, arr.numRows, arr.numColumns, arr.startRow, arr.startColumn, arr.endRow, arr.endColumn, arr.radius, spriteDictionary)
 
 def getVector(arr):
     obj = Vector(arr.x, arr.y)
@@ -62,7 +59,7 @@ def getVector(arr):
 
 def getObject(j):
     arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
-
+    print("class: " +str(arr.idClass))
     if arr.idClass == 1:
         getCam(arr)
     elif arr.idClass == 2:

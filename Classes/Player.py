@@ -8,8 +8,9 @@ from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel,nextPosTime,nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps, idObject, hasFired,
-                 clickPosition, spriteState,numRows,numColumns,startRow,startColumn,endRow,endColumn):
+    def __init__(self, pos, vel, nextPosTime, nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps,
+                 idObject, hasFired,
+                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn):
         # id's
         self.remove = False
         self.idClass = 3
@@ -17,7 +18,6 @@ class Player:
 
         # print(self.idObject)
         # non-vectors (attributes)
-        self.maxVel = maxVel
 
         # vectors
         self.clickPosition = clickPosition
@@ -27,21 +27,22 @@ class Player:
         self.hasFired = hasFired
 
         # ParticleClass
+        self.particle = Particle(True, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,
+                                 spriteDictionary, spriteFps,
+                                 False, False, self.idObject, numRows, numColumns, startRow, startColumn, endRow,
+                                 endColumn)
 
-        self.particle = Particle(True, pos,vel,nextPosTime,nextPos , maxVel, 0, angle, radius, spriteKey, spriteDictionary, spriteFps,
-                                 False, False, self.idObject,numRows,numColumns,startRow,startColumn,endRow,endColumn)
+    def recieve(self, hasFired, clickPosition, nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey,
+                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary):
 
-    def recieve(self, other,spriteDictionary):
+        self.hasFired = hasFired
+        self.clickPosition = clickPosition
+        self.particle.recieve(nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey, fps, numRows,
+                              numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary)
 
-        self.hasFired = other.hasFired
-        self.clickPosition = other.clickPosition
-        self.maxVel = other.maxVel
+    def draw(self, canvas, cam):
 
-        self.particle.recieve(other.particle,spriteDictionary)
-
-    def draw(self, canvas, cam, spriteDictionary):
-
-        self.particle.draw(canvas, cam, spriteDictionary)
+        self.particle.draw(canvas, cam)
 
     def move(self, pos):
         self.particle.move(pos)
@@ -52,7 +53,6 @@ class Player:
         self.currentTime = time.time()
 
         if self.spriteState == 0:
-
             self.setCorrectAnimation()
         # CORRECT SPRITE ROW AND UPDATE FPS
         if self.hasFired and self.particle.spriteSheet.hasLooped:
@@ -145,12 +145,16 @@ class Player:
                 'clickPosition': {'x': self.clickPosition.x, 'y': self.clickPosition.y}, 'hasFired': self.hasFired,
                 'idObject': self.idObject, 'idClass': self.idClass,
                 'pos': {'x': self.particle.pos.x, 'y': self.particle.pos.y},
-                'vel': {'x': self.particle.vel.x, 'y': self.particle.vel.y}, 'maxVel': self.maxVel,
+                'vel': {'x': self.particle.vel.x, 'y': self.particle.vel.y}, 'maxVel': self.particle.maxVel,
                 'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,
-                'currentTime': self.currentTime,'nextPos':{'x':self.particle.nextPos.x,'y':self.particle.nextPos.y},'nextPosTime':self.particle.nextPosTime,
-                'spriteFps': self.particle.spriteSheet.fps, 'remove': self.remove,
-                'updateSprite': self.particle.updateSprite,'maxRange':self.particle.maxRange,'numColumns':self.particle.spriteSheet.numColumns,
-                'numRows':self.particle.spriteSheet.numRows,'startColumn':self.particle.spriteSheet.startColumn,'startRow':self.particle.spriteSheet.startRow,'endRow':self.particle.spriteSheet.endRow,'endColumn':self.particle.spriteSheet.endColumn}
-
+                'currentTime': self.currentTime,
+                'nextPos': {'x': self.particle.nextPos.x, 'y': self.particle.nextPos.y},
+                'nextPosTime': self.particle.nextPosTime,
+                'fps': self.particle.spriteSheet.fps, 'remove': self.remove,
+                'updateSprite': self.particle.updateSprite, 'maxRange': self.particle.maxRange,
+                'numColumns': self.particle.spriteSheet.numColumns,
+                'numRows': self.particle.spriteSheet.numRows, 'startColumn': self.particle.spriteSheet.startColumn,
+                'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
+                'endColumn': self.particle.spriteSheet.endColumn}
 
         return json.dumps(data)

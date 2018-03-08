@@ -16,7 +16,6 @@ import copy
 import time
 from collections import namedtuple
 import json
-
 from Classes.Camera import Camera
 from Classes.Vector import Vector
 from Classes.Player import Player
@@ -41,10 +40,22 @@ startTime = time.time()
 oldTime=time.time()
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
-    for object in moving_set:
-        communicate(object)
-    for player in player_list:
+    print(moving_set_external.__len__())
 
+    #Threading for adding to queues
+    def movingSetSend():
+        print("Starting to send sets " + str(time.time()))
+        global moving_set
+        for object in moving_set:
+            communicate(object)
+        print("Finished sending sets " + str(time.time()))
+
+    #start the threads
+    t_mss = threading.Thread(target=movingSetSend)
+    t_mss.start()
+
+    #we don't to thread this as it is a small set
+    for player in player_list:
         if player.idObject==playerId:
             #print(player.particle.vel)
             communicate(player)
@@ -61,29 +72,29 @@ def draw(canvas):
 
     for pbot in particle_set_bottom:
         pbot.update()
-        pbot.draw(canvas,cam,spriteDictionary)
+        pbot.draw(canvas,cam)
 
     for pmid in particle_set_middle:
         pmid.update()
-        pmid.draw(canvas, cam, spriteDictionary)
+        pmid.draw(canvas, cam)
 
     for ptop in particle_set_top:
         ptop.update()
-        ptop.draw(canvas, cam, spriteDictionary)
+        ptop.draw(canvas, cam)
 
     for pm in moving_set:
         pm.update()
-        pm.draw(canvas,cam,spriteDictionary)
+        pm.draw(canvas,cam)
 
     for pe in moving_set_external:
         #print(pe.pos)
         pe.update()
-        pe.draw(canvas,cam,spriteDictionary)
+        pe.draw(canvas,cam)
 
     for player in player_list:
 
         player.update()
-        player.draw(canvas,cam,spriteDictionary)
+        player.draw(canvas,cam)
 
     fps.draw_fct(canvas)
 #--------COLLECT----MARKED---OBJECTS------------
@@ -112,15 +123,15 @@ def draw(canvas):
             removal_set.add(particle)
     particle_set_bottom.difference_update(removal_set)
     removal_set.clear()
-
-    for particle in moving_set:
-        if particle.pos == particle.nextPos and particle.removeOnVelocity0:
-            removal_set.add(particle)
-        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-            removal_set.add(particle)
-
-    moving_set.difference_update(removal_set)
-    removal_set.clear()
+    #
+    # for particle in moving_set:
+    #     if particle.pos == particle.nextPos and particle.removeOnVelocity0:
+    #         removal_set.add(particle)
+    #     if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+    #         removal_set.add(particle)
+    # moving_set.difference_update(removal_set)
+    # removal_set.clear()
+    #
     for particle in moving_set_external:
         if particle.pos == particle.nextPos and particle.removeOnVelocity0:
             removal_set.add(particle)
