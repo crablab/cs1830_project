@@ -12,8 +12,8 @@ from Classes.Settings import *
 class Particle:
 
     def __init__(self, updateSprite,pos, vel,nextPosTime,nextPos, maxVel, maxRange, angle, radius, spriteKey, spriteDictionary,fps, removeOnVelocity0,
-                 removeOnAnimationLoop,idObject):
-        self.remove=False
+                 removeOnAnimationLoop,idObject,numRows,numColumns,startRow,startColumn,endRow,endColumn):
+
         self.idClass = 2
         self.idObject= idObject
 
@@ -30,6 +30,7 @@ class Particle:
         self.spriteKey = spriteKey
 
         self.spriteSheet = SpriteSheet( spriteDictionary.get(self.spriteKey, 'elf_demo'),fps)
+        self.spriteSheet.setRow(numRows, numColumns, startRow, startColumn, endRow, endColumn)
         self.removeOnAnimationLoop = removeOnAnimationLoop
         self.removeOnVelocity0 = removeOnVelocity0
 
@@ -45,9 +46,11 @@ class Particle:
     def recieve(self, other,spriteDictionary):
         self.updateSprite=other.updateSprite
         if self.nextPos!=other.nextPos:
-
             self.nextPos = other.nextPos
             self.nextPosTime = other.nextPosTime
+        if self.spriteSheet.startColumn!=other.spriteSheet.startColumn or self.spriteSheet.endColumn!=other.spriteSheet.endColumn or self.spriteSheet.numColumns!=other.spriteSheet.numColumns:
+            print(other.spriteSheet.numRows,other.spriteSheet.numColumns,other.spriteSheet.startRow,other.spriteSheet.startColumn,other.spriteSheet.endRow,other.spriteSheet.endColumn)
+            self.spriteSheet.setRow(other.spriteSheet.numRows,other.spriteSheet.numColumns,other.spriteSheet.startRow,other.spriteSheet.startColumn,other.spriteSheet.endRow,other.spriteSheet.endColumn)
         self.maxVel = other.maxVel
         self.maxRange = other.maxRange
         self.angle = other.angle
@@ -144,10 +147,11 @@ class Particle:
         self.nextPosTime = time.time() + self.pos.copy().distanceTo(self.nextPos) / maxVel
 
     def encode(self):
-        data = {'updateSprite':self.updateSprite,'idObject': self.idObject, 'idClass': self.idClass,'remove':self.remove,
+        data = {'updateSprite':self.updateSprite,'idObject': self.idObject, 'idClass': self.idClass,
                 'pos': {'x': self.pos.x, 'y': self.pos.y},
                 'vel': {'x': self.vel.x, 'y': self.vel.y}, 'maxVel': self.maxVel,'maxRange':self.maxRange,'currentTime':self.currentTime,
-                'angle': self.angle, 'radius': self.radius, 'spriteKey': self.spriteKey,'nextPosTime':self.nextPosTime,'nextPos':{self.nextPos.x,self.nextPos.y},
-                'fps': self.spriteSheet.fps,'removeOnVelocity0':self.removeOnVelocity0,'removeOnAnimationLoop':self.removeOnAnimationLoop}
+                'angle': self.angle, 'radius': self.radius, 'spriteKey': self.spriteKey,'nextPosTime':self.nextPosTime,'nextPos':{'x':self.nextPos.x,'y':self.nextPos.y},
+                'fps': self.spriteSheet.fps,'removeOnVelocity0':self.removeOnVelocity0,'removeOnAnimationLoop':self.removeOnAnimationLoop,'numColumns':self.spriteSheet.numColumns,
+                'numRows':self.spriteSheet.numRows,'startColumn':self.spriteSheet.startColumn,'startRow':self.spriteSheet.startRow,'endRow':self.spriteSheet.endRow,'endColumn':self.spriteSheet.endColumn}
 
         return json.dumps(data)

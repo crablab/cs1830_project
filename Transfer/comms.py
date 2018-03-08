@@ -118,15 +118,19 @@ elif (CONFIG_TYPE == "client"):
 currentTime=time.time()
 oldTime=time.time()
 
-def communicatePlayer(object):
+
+
+def communicate(object):
     global oldTime
-    currentTime=time.time()
+    # currentTime=time.time()
+    #
+    # oldTime = currentTime
+    # object.send = time.time()
 
-    oldTime = currentTime
-    object.send = time.time()
     com.send.put(object.encode())
-
     oldTime=currentTime
+def recieve():
+
     while (not com.recieved.empty()):
         obj = com.recieved.get()
        # print("recieved with delay: " + str(time.time() - json.loads(obj)['currentTime']))

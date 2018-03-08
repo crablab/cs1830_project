@@ -9,7 +9,7 @@ from Classes.Vector import Vector
 
 class Player:
     def __init__(self, pos, vel,nextPosTime,nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps, idObject, hasFired,
-                 clickPosition, spriteState):
+                 clickPosition, spriteState,numRows,numColumns,startRow,startColumn,endRow,endColumn):
         # id's
         self.remove = False
         self.idClass = 3
@@ -29,17 +29,13 @@ class Player:
         # ParticleClass
 
         self.particle = Particle(True, pos,vel,nextPosTime,nextPos , maxVel, 0, angle, radius, spriteKey, spriteDictionary, spriteFps,
-                                 False, False, self.idObject)
+                                 False, False, self.idObject,numRows,numColumns,startRow,startColumn,endRow,endColumn)
 
     def recieve(self, other,spriteDictionary):
 
         self.hasFired = other.hasFired
         self.clickPosition = other.clickPosition
         self.maxVel = other.maxVel
-
-        if self.spriteState != other.spriteState:
-
-            self.setSpriteState(other.spriteState)
 
         self.particle.recieve(other.particle,spriteDictionary)
 
@@ -63,7 +59,7 @@ class Player:
             self.hasFired = False
             self.setCorrectAnimation()
         if self.particle.vel.getX() == 0 and self.particle.vel.getY() == 0 and not self.hasFired:
-            # `("set column 1")
+            # print("set column 1")
             self.particle.spriteSheet.currentColumn = 1
 
     def setCorrectAnimation(self):
@@ -153,7 +149,8 @@ class Player:
                 'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,
                 'currentTime': self.currentTime,'nextPos':{'x':self.particle.nextPos.x,'y':self.particle.nextPos.y},'nextPosTime':self.particle.nextPosTime,
                 'spriteFps': self.particle.spriteSheet.fps, 'remove': self.remove,
-                'updateSprite': self.particle.updateSprite,'maxRange':self.particle.maxRange}
+                'updateSprite': self.particle.updateSprite,'maxRange':self.particle.maxRange,'numColumns':self.particle.spriteSheet.numColumns,
+                'numRows':self.particle.spriteSheet.numRows,'startColumn':self.particle.spriteSheet.startColumn,'startRow':self.particle.spriteSheet.startRow,'endRow':self.particle.spriteSheet.endRow,'endColumn':self.particle.spriteSheet.endColumn}
 
 
         return json.dumps(data)

@@ -23,7 +23,16 @@ def getCam(arr):
 
 
 def particle(arr):
-    pass
+    exists=False
+    for particle in moving_set_external:
+        if particle.idObject== arr.idObject:
+            exists=True
+    if not exists:
+        moving_set_external.add(Particle(arr.updateSprite,Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.y,arr.vel.x),arr.nextPosTime,Vector(arr.nextPos.x, arr.nextPos.y), arr.maxVel,arr.maxRange, arr.angle, arr.radius,arr.spriteKey,spriteDictionary,arr.fps,arr.removeOnVelocity0,arr.removeOnAnimationLoop,arr.idObject,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn))
+
+    for particle in moving_set_external:
+        if particle.idObject==arr.idObject:
+            particle.recieve(Particle(arr.updateSprite,Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.y,arr.vel.x),arr.nextPosTime,Vector(arr.nextPos.x, arr.nextPos.y), arr.maxVel,arr.maxRange, arr.angle, arr.radius,arr.spriteKey,spriteDictionary,arr.fps,arr.removeOnVelocity0,arr.removeOnAnimationLoop,arr.idObject,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn),spriteDictionary)
 
 
 def getPlayer(arr):
@@ -36,14 +45,14 @@ def getPlayer(arr):
         player_list.append(
             Player(Vector(arr.pos.x, arr.pos.y), Vector(arr.vel.x, arr.vel.y),arr.nextPosTime,Vector(arr.nextPos.x, arr.nextPos.y), arr.maxVel, arr.angle, arr.radius,
                    arr.spriteKey, spriteDictionary, arr.spriteFps, arr.idObject, arr.hasFired,
-                   Vector(arr.clickPosition.x, arr.clickPosition.y), arr.spriteState))
+                   Vector(arr.clickPosition.x, arr.clickPosition.y), arr.spriteState,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn))
 
     for player in player_list:
         if player.idObject == arr.idObject and arr.idObject != playerId:
             player.recieve(
                 Player(Vector(arr.pos.x, arr.pos.y), Vector(arr.vel.x, arr.vel.y), arr.nextPosTime,Vector(arr.nextPos.x, arr.nextPos.y),arr.maxVel, arr.angle, arr.radius,
                        arr.spriteKey, spriteDictionary, arr.spriteFps, arr.idObject, arr.hasFired,
-                       Vector(arr.clickPosition.x, arr.clickPosition.y), arr.spriteState),spriteDictionary)
+                       Vector(arr.clickPosition.x, arr.clickPosition.y), arr.spriteState,arr.numRows,arr.numColumns,arr.startRow,arr.startColumn,arr.endRow,arr.endColumn),spriteDictionary)
 
 
 def getVector(arr):

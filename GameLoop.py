@@ -21,7 +21,7 @@ from Classes.Camera import Camera
 from Classes.Vector import Vector
 from Classes.Player import Player
 
-from Transfer.comms import communicatePlayer
+from Transfer.comms import communicate,recieve
 from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
@@ -41,11 +41,15 @@ startTime = time.time()
 oldTime=time.time()
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
+    for object in moving_set:
+        communicate(object)
     for player in player_list:
+
         if player.idObject==playerId:
             #print(player.particle.vel)
-            communicatePlayer(player)
-
+            communicate(player)
+    # print("size:"+str(moving_set_external.__len__()))
+    recieve()
 
 #-----CAM---UPDATE---
     cam.zoom()
@@ -72,6 +76,7 @@ def draw(canvas):
         pm.draw(canvas,cam,spriteDictionary)
 
     for pe in moving_set_external:
+        #print(pe.pos)
         pe.update()
         pe.draw(canvas,cam,spriteDictionary)
 
@@ -107,16 +112,24 @@ def draw(canvas):
             removal_set.add(particle)
     particle_set_bottom.difference_update(removal_set)
     removal_set.clear()
+
     for particle in moving_set:
-        if particle.remove:
+        if particle.pos == particle.nextPos and particle.removeOnVelocity0:
             removal_set.add(particle)
+        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+            removal_set.add(particle)
+
     moving_set.difference_update(removal_set)
     removal_set.clear()
     for particle in moving_set_external:
-        if particle.remove:
+        if particle.pos == particle.nextPos and particle.removeOnVelocity0:
             removal_set.add(particle)
+        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+            removal_set.add(particle)
+
     moving_set_external.difference_update(removal_set)
     removal_set.clear()
+
 
 frame = simpleguics2pygame.create_frame('Game', CANVAS_WIDTH, CANVAS_HEIGHT)
 frame.set_draw_handler(draw)
