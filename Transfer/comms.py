@@ -33,7 +33,7 @@ class FlaskAppWrapper(object):
         server = com
         #get the dictionary of the message
         jsonData = request.get_json(force=True)
-        if(LOGGING and LOGGING_LEVEL == "high"): print(jsonData)
+        #if(LOGGING and LOGGING_LEVEL == "high"): print(jsonData)
         #seperate into the queue
         for value in jsonData:
             server.recieved.put(json.dumps(value))
@@ -130,7 +130,7 @@ def ping():
     com.send.put({'idClass': 0})
 def communicate(object):
     com.send.put(object.encode())
-    getObject(object.encode())
+    
 def recieve():
     while (not com.recieved.empty()):
         obj = com.recieved.get()
