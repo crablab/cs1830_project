@@ -134,6 +134,7 @@ def communicate(object):
 
 def recieve():
     while (not com.recieved.empty()):
+        if(LOGGING): print("Pulling from queue at " + str(time.time()))
         obj = com.recieved.get()
 
         getObject(obj)
