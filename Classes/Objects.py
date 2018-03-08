@@ -30,6 +30,7 @@ arrow = SpriteAnimator(cwd + '/img/character/elf/arrow.jpg')
 whiteDragon=SpriteAnimator(cwd+'/img/character/monsters/whiteDragon.jpg')
 greenDragon=SpriteAnimator(cwd+'/img/character/monsters/greenDragon.jpg')
 grass01 = SpriteAnimator(cwd + '/img/grass/grass01.jpg')
+water = SpriteAnimator(cwd + '/img/Water/water.jpg')
 dog = SpriteAnimator(cwd + '/img/character/animals/dog.jpg')
 grass02 = SpriteAnimator(cwd + '/img/grass/grass02.jpg')
 grass03 = SpriteAnimator(cwd + '/img/grass/grass03.jpg')
@@ -41,7 +42,7 @@ tree=SpriteAnimator(cwd + '/img/Trees/tree.png' )
 spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass02": grass02, "grass03": grass04,
                     'arrow': arrow,
                     "grass04": grass04, "fireBall": fireBall, "dog": dog,'whiteDragon':whiteDragon,'greenDragon':greenDragon,
-                    "tree":tree}
+                    "tree":tree, "water":water}
 
 # -----------------------MOVING OBJECTS-------------------
 
@@ -65,16 +66,17 @@ adjustment = Vector(250, 25)
 # -----------------------NON-MOVING OBJECTS------------------
 
 # GRASS
-x = 0
+for x in range(20):
+    for y in range(20):
+        if (x == 0 or x == 19 or y == 0 or y == 19):
+            tile_name = "water"
+        else:
+            tile_name = "grass01"
+        
+        g = Particle(False,Vector(x * 500, y * 500), Vector(0, 0),0,0,0,0,tile_name,spriteDictionary,0.0001,False,False)
+        g.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
 
-for i in range(0, 400):
-    if i % 20 == 0:
-        x += 1
-    g = Particle(False,Vector(x * 500, (i % 20) * 500), Vector(0, 0),0,0,0,0,'grass01',spriteDictionary,0.0001,False,False)
-
-    g.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
-
-    particle_set_bottom.add(g)
+        particle_set_bottom.add(g)
 
 dragon=Particle(True,Vector(0,2500),Vector(0,150),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False)
 dragon.spriteSheet.setRow(5,4,1,1,5,4)
