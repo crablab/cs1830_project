@@ -39,11 +39,12 @@ fireTorch = SpriteAnimator(cwd + '/img/character/elf/fire.jpg')
 fireBall = SpriteAnimator(cwd + '/img/character/elf/fire2.jpg')
 tree=SpriteAnimator(cwd + '/img/Trees/tree.png' )
 tree_willow = SpriteAnimator(cwd + '/img/Trees/treeWillow.jpg')
+stall_weapon = SpriteAnimator(cwd + '/img/Stall/weaponStall.jpg')
 
 spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass02": grass02, "grass03": grass04,
                     'arrow': arrow,
                     "grass04": grass04, "fireBall": fireBall, "dog": dog,'whiteDragon':whiteDragon,'greenDragon':greenDragon,
-                    "tree":tree, "water":water, "willow tree":tree_willow}
+                    "tree":tree, "water":water, "willow tree":tree_willow, "stall" = stall_weapon}
 
 # -----------------------MOVING OBJECTS-------------------
 
@@ -106,6 +107,11 @@ while (len(tree_vector_list) < 100):
 for vector in tree_vector_list:
     temp = Particle(False, vector, Vector(0, 0), 0, 0, 0, 0, "willow tree", spriteDictionary, 0.0001, False, False)
     temp.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
+    particle_set_middle.add(temp)
+
+stall = Particle(False, Vector(500,500), Vector(0,0), 0, 0, 0, 0, "stall", spriteDictionary, 0.0001, False, False)
+stall.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
+particle_set_middle.add(stall)
 
 ##tree=Particle(True,Vector(2500,2500),Vector(0,0),200,0,0,0,'tree',spriteDictionary,0.1,False,False)
 ##tree.spriteSheet.setRow(4,15,1,1,4,15)
