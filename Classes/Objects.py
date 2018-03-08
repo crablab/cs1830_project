@@ -38,11 +38,12 @@ grass04 = SpriteAnimator(cwd + '/img/grass/grass04.jpg')
 fireTorch = SpriteAnimator(cwd + '/img/character/elf/fire.jpg')
 fireBall = SpriteAnimator(cwd + '/img/character/elf/fire2.jpg')
 tree=SpriteAnimator(cwd + '/img/Trees/tree.png' )
+tree_willow = SpriteAnimator(cwd + '/img/Trees/treeWillow.jpg')
 
 spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass02": grass02, "grass03": grass04,
                     'arrow': arrow,
                     "grass04": grass04, "fireBall": fireBall, "dog": dog,'whiteDragon':whiteDragon,'greenDragon':greenDragon,
-                    "tree":tree, "water":water}
+                    "tree":tree, "water":water, "willow tree":tree_willow}
 
 # -----------------------MOVING OBJECTS-------------------
 
@@ -78,15 +79,33 @@ for x in range(20):
 
         particle_set_bottom.add(g)
 
-dragon=Particle(True,Vector(0,2500),Vector(0,150),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False)
-dragon.spriteSheet.setRow(5,4,1,1,5,4)
-dragon.move(Vector(10000,2500))
-moving_set.add(dragon)
+##dragon=Particle(True,Vector(0,2500),Vector(0,150),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False)
+##dragon.spriteSheet.setRow(5,4,1,1,5,4)
+##dragon.move(Vector(10000,2500))
+##moving_set.add(dragon)
+##
+##dragon2=Particle(True,Vector(0,2000),Vector(0,150),150,0,0,0,'greenDragon',spriteDictionary,25,False,False)
+##dragon2.spriteSheet.setRow(5,4,1,1,5,4)
+##dragon2.move(Vector(10000,2500))
 
-dragon2=Particle(True,Vector(0,2000),Vector(0,150),150,0,0,0,'greenDragon',spriteDictionary,25,False,False)
-dragon2.spriteSheet.setRow(5,4,1,1,5,4)
-dragon2.move(Vector(10000,2500))
+tree_vector_list = []
+while (len(tree_vector_list) < 100):
+    x = random.randint(600, 9400)
+    y = random.randint(600, 9400)
+    v = Vector(x,y)
 
+    valid = True
+    for vector in tree_vector_list:
+        if (v.distanceTo(vector) < 50):
+            valid = False
+            break
 
-tree=Particle(True,Vector(2500,2500),Vector(0,0),200,0,0,0,'tree',spriteDictionary,0.1,False,False)
-tree.spriteSheet.setRow(4,15,1,1,4,15)
+    if valid:
+        tree_vector_list.append(v)
+
+for vector in tree_vector_list:
+    temp = Particle(False, vector, Vector(0, 0), 0, 0, 0, 0, "willow tree", spriteDictionary, 0.0001, False, False)
+    temp.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
+
+##tree=Particle(True,Vector(2500,2500),Vector(0,0),200,0,0,0,'tree',spriteDictionary,0.1,False,False)
+##tree.spriteSheet.setRow(4,15,1,1,4,15)

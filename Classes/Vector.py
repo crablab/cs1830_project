@@ -10,16 +10,22 @@ class Vector:
         self.x = x
         self.y = y
         self.idClass=4
+        
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
+    
     def negate(self):
         self.multiply(-1)
+        
     def getP(self):
         return (self.x, self.y)
+
     def getX(self):
         return self.x
+
     def getY(self):
         return self.y
+
     def copy(self):
         v = Vector(self.x, self.y)
         return v
@@ -43,6 +49,7 @@ class Vector:
         self.x *= other.x
         self.y *= other.y
         return self
+
     def divide(self, k):
         self.x /= k
         self.y /= k
@@ -52,26 +59,33 @@ class Vector:
         self.x /= other.x
         self.y /= other.y
         return self
+
     def normalize(self):
         return self.divide(self.length())
 
     def isEqual(self,other):
         return self.x==other.x and self.y == other.y
+
     def dot(self, other):
         return self.x * other.x + self.y * other.y
 
     # Returns the length of the vector
     def length(self):
         return math.sqrt(self.x ** 2 + self.y ** 2)
+
     def size(self):
         return self.x+self.y
+
     # Returns the squared length of the vector
     def lengthSq(self):
         return self.x ** 2 + self.y ** 2
+
     def distanceTo(self,pos):
         return math.sqrt((self.x-pos.x)**2 +(self.y-pos.y)**2)
+
     def distanceToVector(self,pos):
         return self.x-pos.x,self.y-pos.y
+
     # Reflect this vector on a normal
     def reflect(self, normal):
         n = normal.copy()
@@ -83,11 +97,11 @@ class Vector:
         self.x = self.x * math.cos(angle) - self.y * math.sin(angle)
         self.y = self.x * math.sin(angle) + self.y * math.cos(angle)
         return self
+
     def getAngle(self, other):
         return math.acos(self.dot(other))
 
     def transformFromCam(self,cam):
-
         self.subtract(cam.dimCanv.copy().divide(2))
         ratio = cam.dim.copy().divideVector(cam.dimCanv)
         self.multiplyVector(ratio)
@@ -100,7 +114,6 @@ class Vector:
         self.multiplyVector(ratio)
         self.add(cam.dimCanv.copy().divide(2))
         return self
-
 
     def encode(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)
