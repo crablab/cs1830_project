@@ -117,7 +117,7 @@ class client:
                     self.recieved.put(value)
 
 #Override settings when testing (to make it easier to run multiple instances)
-if(DEVELOPER_OPTIONS and sys.argv[1]): CONFIG_TYPE = sys.argv[1]
+#if(DEVELOPER_OPTIONS and sys.argv[1]): CONFIG_TYPE = sys.argv[1]
 
 if (CONFIG_TYPE == "server"):
     com = server()
@@ -128,7 +128,7 @@ currentTime=time.time()
 oldTime=time.time()
 
 def ping():
-    com.send.put(json.dumps({'idClass': 0}))
+    com.send.put({'idClass': 0})
 def communicate(object):
     com.send.put(object.encode())
 

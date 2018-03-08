@@ -62,7 +62,7 @@ def getPlayer(arr):
 
     for player in player_list:
         if player.idObject == arr['idObject'] and arr['idObject'] != playerId:
-            player.recieve(arr['hasFired'],Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],
+            player.recieve(arr['hasFired'],Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['nextPosTime'],arr['maxVel'],
                            arr['maxRange'], arr['angle'], arr['updateSprite'], arr['spriteKey'],
                 arr['fps'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'], arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary)
 
@@ -72,7 +72,12 @@ def getVector(arr):
 
 
 def getObject(j):
-    print("------------------------")
+    print("---------RECIEVED JSON---------------")
+    print(j)
+    print("-------------------------------------")
+    print("------------DECODED JSON-------------")
+    print(json.loads(j))
+    print("-------------------------------------")
     arr = json.loads(j)
 
 

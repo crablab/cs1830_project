@@ -157,4 +157,4 @@ class Player:
                 'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
                 'endColumn': self.particle.spriteSheet.endColumn}
 
-        return json.dumps(data)
+        return data
