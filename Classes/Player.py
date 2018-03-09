@@ -16,7 +16,6 @@ class Player:
         self.idClass = 3
         self.idObject = idObject
 
-        # print(self.idObject)
         # non-vectors (attributes)
 
         # vectors
@@ -26,10 +25,7 @@ class Player:
         self.currentTime = 0
         self.hasFired = hasFired
 
-        # ParticleClass
-        # print("-------------PLAYER CLASS PRINT-----------")
-        # print(spriteKey)
-        # print(spriteDictionary)
+
         self.particle = Particle(True, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,
                                  spriteDictionary, spriteFps,
                                  False, False, self.idObject, numRows, numColumns, startRow, startColumn, endRow,
@@ -62,7 +58,7 @@ class Player:
             self.hasFired = False
             self.setCorrectAnimation()
         if self.particle.vel.getX() == 0 and self.particle.vel.getY() == 0 and not self.hasFired:
-            # print("set column 1")
+
             self.particle.spriteSheet.currentColumn = 1
 
     def setCorrectAnimation(self):

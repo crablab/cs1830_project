@@ -25,17 +25,12 @@ class Particle:
 
         self.updateSprite=updateSprite
         self.spriteKey = spriteKey
-        # print("--------------PARTICLE CLASS PRINT---------------")
-        # print(spriteDictionary)
-        # print(spriteKey)
-        # print("--------------get --------T---------------")
-        # print(spriteDictionary.get('elf_demo'))
+
 
         self.spriteSheet = SpriteSheet(spriteDictionary.get(self.spriteKey, 'elf_demo'),fps)
 
         self.spriteSheet.setRow(numRows, numColumns, startRow, startColumn, endRow, endColumn)
-        # print(spriteDictionary)
-        # print(spriteKey)
+
         self.removeOnAnimationLoop = removeOnAnimationLoop
         self.removeOnVelocity0 = removeOnVelocity0
 
@@ -49,7 +44,7 @@ class Particle:
         self.currentTime = time.time()
 
     def recieve(self, nextPos,nextPosTime,maxVel,maxRange,angle,updateSprite,spriteKey,fps,numRows,numColumns,startRow,startColumn,endRow,endColumn,radius,spriteDictionary):
-        print("recieved"+str(nextPos)+str(nextPosTime)+str(numRows))
+
         self.nextPos=nextPos
         self.nextPosTime= nextPosTime
         self.maxVel=maxVel
@@ -61,8 +56,7 @@ class Particle:
             self.spriteSheet = SpriteSheet( spriteDictionary.get(self.spriteKey, 'elf_demo'),fps)
         if self.spriteSheet.numRows!=numRows or self.spriteSheet.numColumns!= numColumns or self.spriteSheet.startRow!=startRow or self.spriteSheet.startColumn!=startColumn or self.spriteSheet.endRow!=endRow or self.spriteSheet.endColumn!=endColumn:
             self.spriteSheet.setRow(numRows,numColumns,startRow,startColumn,endRow,endColumn)
-            print(numRows,numColumns,startRow,startColumn,endRow,endColumn)
-        print("numRows: "+str(self.spriteSheet.numRows))
+
     def draw(self, canvas, cam):
             # ---------TESTING PURPOSES-----DO NOT REMOVE------
             # ratio = cam.dimCanv.copy().divideVector(cam.dim)
@@ -87,7 +81,7 @@ class Particle:
                 #cam.dim=Vector(1300,700)
 
             # DEVELOPER OPTION:
-            if(DEVELOPER_OPTIONS):
+            if (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS']))):
                 ratio = cam.dimCanv.copy().divideVector(cam.dim).divideVector(Vector(self.spriteSheet.numColumns,self.spriteSheet.numRows))
                 a=self.radius*ratio.getX()
                 canvas.draw_circle(self.pos.copy().transformToCam(cam).getP(), a, 1, 'White')

@@ -77,10 +77,11 @@ def getVector(arr):
 def getObject(j):
     arr = json.loads(j)
 
-    if(config['DEVELOPER']['DEVELOPER_OPTIONS']): print("Class ID:" + str(arr['idClass']))
-    if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(arr)
+    if(bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS']))): print("Class ID:" + str(arr['idClass']))
+    if(bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS'])) and bool( config['NETWORKING']['LOGGING_LEVEL'] == "high")): print(arr)
 
     if arr['idClass'] == 1:
+        getCam(arr)
         getCam(arr)
     elif arr['idClass'] == 2:
         particle(arr)

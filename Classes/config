@@ -1,14 +1,14 @@
 [DEVELOPER]
-developer_options = True
+developer_options = 0
 
 [CANVAS]
-canvas_width = 720
-canvas_height = 480
+canvas_width = 1920
+canvas_height = 1080
 
 [NETWORKING]
 config_type = client
 client_ip = localhost
-logging = True
+logging = False
 logging_level = low
 
 [CAMERA]
