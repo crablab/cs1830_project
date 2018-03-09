@@ -54,7 +54,7 @@ def checkClick():
 
                 moving_set.add(particle)
 
-
+        mouse.pressL()
     elif left:
         pass
     elif not left and not mouse.releasedL:

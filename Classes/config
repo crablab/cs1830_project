@@ -1,12 +1,12 @@
 [DEVELOPER]
-developer_options = 1
+developer_options = 0
 
 [CANVAS]
-canvas_width = 1920
-canvas_height = 1080
+canvas_width = 720
+canvas_height = 480
 
 [NETWORKING]
-config_type = server
+config_type = client
 client_ip = localhost
 logging = False
 logging_level = low

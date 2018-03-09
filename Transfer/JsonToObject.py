@@ -4,15 +4,14 @@ from Classes.Vector import Vector
 from Classes.Particle import Particle
 from Classes.Player import Player
 from Classes.Monster import Monster
-from Classes.Objects import moving_set_external, player_list,monster_set_external,spriteDictionary, playerId
+from Classes.Objects import moving_set_external, player_list,monster_set_external,spriteDictionary, playerId,gameState2
 from Classes.Objects import cam
 import configparser
 from Classes.Settings import DEVELOPER_OPTIONS, LOGGING_LEVEL
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
-from collections import namedtuple
+
 import json
-import time
 
 
 ### If exists local: update   if does not exist local: add      if boolean: remove  and on local then set boolean to False
@@ -66,6 +65,18 @@ def getMonster(arr):
                            arr['fps'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'],
                            arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary,arr['life'],arr['range'],arr['melee'],arr['magic'],arr['magicId'])
 
+def getGameState(arr):
+    if arr['main']:
+        gameState2.main=True
+
+    else:
+        gameState2.main=False
+    if arr['intro']:
+        gameState2.intro=True
+    
+    else:
+        gameState2.intro=False
+
 def getPlayer(arr):
     exists=False
     for player in player_list:
@@ -104,5 +115,7 @@ def getObject(j):
         getPlayer(arr)
     elif arr['idClass'] == 4:
         getMonster(arr)
+    elif arr['idClass']==10:
+        getGameState(arr)
     else:
         return "No class for ID"
