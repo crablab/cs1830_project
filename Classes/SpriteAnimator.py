@@ -9,6 +9,7 @@ class SpriteAnimator:
     def __init__(self, image):
         self.image = simpleguics2pygame.load_image(image)
         self.dimOriginal = Vector(self.image.get_width(), self.image.get_height())
+        # print(self.dimOriginal)
         self.dimCamera = Vector(0, 0)
 
     def draw(self, canvas, cam, pos, numberColumns, numberRows, row, column, angle):

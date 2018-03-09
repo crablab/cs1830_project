@@ -1,81 +1,92 @@
-#to read data into dictionary: data = json.loads(<json File>, object_hook=lambda d: namedtuple('<Object Name For Reference>', d.keys())(*d.values()))
+# to read data into dictionary: data = json.loads(<json File>, object_hook=lambda d: namedtuple('<Object Name For Reference>', d.keys())(*d.values()))
 from Classes.Camera import Camera
 from Classes.Vector import Vector
-from Classes.Objects import spriteDictionary
+from Classes.Objects import spriteDictionary, playerId
 from Classes.Particle import Particle
 from Classes.Player import Player
-from Classes.Objects import moving_set, player_list
+from Classes.Objects import moving_set_external, moving_set, player_list
 from Classes.Objects import cam
+import configparser
+from Classes.Settings import DEVELOPER_OPTIONS, LOGGING_LEVEL
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 from collections import namedtuple
 import json
-recieved_player_list=[]
-recieved_particle_set=set()
+import time
+
+recieved_player_list = []
+recieved_particle_set = set()
+
 
 ### If exists local: update   if does not exist local: add      if boolean: remove  and on local then set boolean to False
 
-def updateAllObjects():
-    add_set=set()
-    for remote in recieved_particle_set:
-        existsLocal=False
-        for local in moving_set:
-            if local.idObject == remote.idObject:
-                local.receive(remote)
-                existsLocal = True
-        if not existsLocal:
-            add_set.add(remote)
-    for a in add_set:
-        moving_set.add(a)
-
-
-    for local in moving_set:
-        for remote in recieved_particle_set:
-            if remote.remove==True and local.remove==False:
-                local.remove=True
-
-    for remote in recieved_player_list:
-        existsLocal=False
-        for local in player_list:
-            if local.idObject == remote.idObject:
-                local.receive(remote)
-                existsLocal = True
-        if not existsLocal:
-            player_list.append(remote)
-    for local in player_list:
-        for remote in recieved_player_list:
-            if remote.remove==True and local.remove==False:
-                local.remove=True
 
 def getCam(arr):
-    obj=Camera(Vector(arr.origin.x,arr.origin.y),Vector(arr.dim.x,arr.dim.y))
+    obj = Camera(Vector(arr['origin']['x'], arr['origin']['y']), Vector(arr['dim']['x'], arr['dim']['y']))
     cam.recieve(obj)
 
-def particle(arr):
-    obj = Particle(arr.updateSprite,Vector(arr.pos.x, arr.pos.y), Vector(arr.vel.x, arr.vel.y), arr.maxVel, arr.maxRange, arr.angle,
-                   arr.radius, arr.spriteKey, spriteDictionary, arr.fps, arr.removeOnVelocity0,
-                   arr.removeOnAnimationLoop)
-    recieved_particle_set.add(obj)
 
+def particle(arr):
+    exists=False
+    for particle in moving_set_external:
+        if particle.idObject== arr['idObject']:
+            exists=True
+    if not exists:
+        moving_set_external.add(Particle(arr['updateSprite'],Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
+                                         arr['nextPosTime'],Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],arr['maxRange'],
+                                         arr['angle'], arr['radius'],arr['spriteKey'],spriteDictionary,arr['fps'],arr['removeOnVelocity0'],
+                                         arr['removeOnAnimationLoop'],arr['idObject'],arr['numRows'],arr['numColumns'],arr['startRow'],
+                                         arr['startColumn'],arr['endRow'],arr['endColumn']))
+
+    for particle in moving_set_external:
+        if particle.idObject==arr['idObject']:
+            particle.recieve(Vector(arr['nextPos']['x'], arr['nextPos']['y']),
+                             arr['nextPosTime'],arr['maxVel'],arr['maxRange'],arr['angle'],
+                             arr['updateSprite'],arr['spriteKey'],arr['fps'],arr['numRows'],
+                             arr['numColumns'],arr['startRow'],arr['startColumn'],
+                             arr['endRow'],arr['endColumn'],arr['radius'],spriteDictionary)
 
 
 def getPlayer(arr):
-    obj = Player(Vector(arr.pos.x,arr.pos.y),Vector(arr.vel.x,arr.vel.y),arr.maxVel,arr.angle,arr.radius,arr.spriteKey,spriteDictionary,arr.spriteFps,arr.idPlayer)
-    recieved_player_list.append(obj)
+    exists = False
+    for player in player_list:
 
+        if player.idObject == arr['idObject']:
+            exists = True
+    if not exists:
+        player_list.append(
+            Player(Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
+                           arr['nextPosTime'],Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],
+                           arr['angle'], arr['radius'], arr['spriteKey'], spriteDictionary,
+                           arr['fps'],arr['idObject'], arr['hasFired'],
+                           Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),
+                           arr['spriteState'],arr['numRows'],arr['numColumns'],arr['startRow'],arr['startColumn'],
+                           arr['endRow'],arr['endColumn']))
+
+    for player in player_list:
+        if player.idObject == arr['idObject'] and arr['idObject'] != playerId:
+            player.recieve(arr['hasFired'],Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['nextPosTime'],arr['maxVel'],
+                           arr['maxRange'], arr['angle'], arr['updateSprite'], arr['spriteKey'],
+                arr['fps'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'], arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary)
 
 def getVector(arr):
-    obj = Vector(arr.x,arr.y)
+    obj = Vector(arr.x, arr.y)
     return obj
 
-def getObject(j):
-    arr = json.loads(j, object_hook=lambda d: namedtuple('arr', d.keys())(*d.values()))
-    if arr.idClass==1:
-        return getCam(arr)
-    elif arr.idClass==2:
-        return particle(arr)
-    elif arr.idClass==3:
-        return getPlayer(arr)
-    elif arr.idClass==4:
-        return getVector(arr)
-    else:
-        return "error"
 
+def getObject(j):
+    arr = json.loads(j)
+
+    if(config['DEVELOPER']['DEVELOPER_OPTIONS']): print("Class ID:" + str(arr['idClass']))
+    if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(arr)
+
+    if arr['idClass'] == 1:
+        getCam(arr)
+    elif arr['idClass'] == 2:
+        particle(arr)
+    elif arr['idClass']== 3:
+        getPlayer(arr)
+    elif arr['idClass'] == 4:
+        getVector(arr)
+    else:
+        return "No class for ID"

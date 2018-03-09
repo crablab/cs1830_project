@@ -1,59 +1,127 @@
-import json
-import time
-import uuid
+import json, time, uuid, configparser
+
 from Classes.Particle import Particle
-from Classes.Settings import SPRITE_FPS
+from Classes.Settings import SPRITE_FPS #this never seems to be used?
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 from Classes.Vector import Vector
 
 
 class Player:
-    def __init__(self, pos, vel,maxVel, angle,radius,spriteKey,spriteDictionary,spriteFps, idPlayer):
+    def __init__(self, pos, vel, nextPosTime, nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps,
+                 idObject, hasFired,
+                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn):
         # id's
-        self.remove=False
+        self.remove = False
         self.idClass = 3
-        self.idPlayer = idPlayer
-        self.idObject=str(uuid.uuid4())
-        print(self.idObject)
+        self.idObject = idObject
+
+        # print(self.idObject)
         # non-vectors (attributes)
-        self.maxVel = maxVel
 
         # vectors
-        #Sprite Attributes
-        self.spriteState = 0
+        self.clickPosition = clickPosition
+        # Sprite Attributes
+        self.spriteState = spriteState
         self.currentTime = 0
+        self.hasFired = hasFired
 
+        # ParticleClass
+        # print("-------------PLAYER CLASS PRINT-----------")
+        # print(spriteKey)
+        # print(spriteDictionary)
+        self.particle = Particle(True, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,
+                                 spriteDictionary, spriteFps,
+                                 False, False, self.idObject, numRows, numColumns, startRow, startColumn, endRow,
+                                 endColumn)
 
-        #ParticleClass
-        self.particle=Particle(True,pos,vel,maxVel,0,angle,radius,spriteKey,spriteDictionary,spriteFps,False,False)
-    def receive(self,other):
-        self.maxVel=other.maxVel
-        self.spriteState=other.spriteState
-        self.currentTime=other.currentTime
-        self.particle=other.particle
+    def recieve(self, hasFired, clickPosition, nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey,
+                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary):
+
+        self.hasFired = hasFired
+        self.clickPosition = clickPosition
+        self.particle.recieve(nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey, fps, numRows,
+                              numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary)
+
+    def draw(self, canvas, cam):
+
+        self.particle.draw(canvas, cam)
+
+    def move(self, pos):
+        self.particle.move(pos)
+
+    def update(self):
+        self.particle.update()
+
+        self.currentTime = time.time()
+
+        if self.spriteState == 0:
+            self.setCorrectAnimation()
+        # CORRECT SPRITE ROW AND UPDATE FPS
+        if self.hasFired and self.particle.spriteSheet.hasLooped:
+            self.hasFired = False
+            self.setCorrectAnimation()
+        if self.particle.vel.getX() == 0 and self.particle.vel.getY() == 0 and not self.hasFired:
+            # print("set column 1")
+            self.particle.spriteSheet.currentColumn = 1
+
+    def setCorrectAnimation(self):
+        x, y = self.particle.pos.copy().distanceToVector(self.clickPosition)
+        if y < 0:
+            if self.hasFired:
+                self.setSpriteState(6)
+
+            else:
+                self.setSpriteState(3)
+        if y > 0:
+            if self.hasFired:
+                self.setSpriteState(8)
+
+            else:
+                self.setSpriteState(1)
+        if y != 0:
+            if (x + y) / y > 2 and y < 0:
+                if self.hasFired:
+                    self.setSpriteState(5)
+
+                else:
+                    self.setSpriteState(4)
+
+            if (x + y) / y < 0 and y < 0:
+                if self.hasFired:
+                    self.setSpriteState(7)
+
+                else:
+                    self.setSpriteState(2)
+
     def walkUp(self):
 
-        self.particle.spriteSheet.setRow(21,13,9,1,9,9)
+        self.particle.spriteSheet.setRow(21, 13, 9, 1, 9, 9)
 
     def walkLeft(self):
-        self.particle.spriteSheet.setRow(21,13,10,1,9,9)
+        self.particle.spriteSheet.setRow(21, 13, 10, 1, 9, 9)
 
     def walkDown(self):
-        self.particle.spriteSheet.setRow(21,13,11,1,9,9)
+        self.particle.spriteSheet.setRow(21, 13, 11, 1, 9, 9)
 
     def walkRight(self):
-        self.particle.spriteSheet.setRow(21,13,12,1,9,9)
+        self.particle.spriteSheet.setRow(21, 13, 12, 1, 9, 9)
 
     def fireRight(self):
-        self.particle.spriteSheet.setRow(21,13,20,1,16,13)
+        self.particle.spriteSheet.setRow(21, 13, 20, 1, 16, 13)
+
     def fireDown(self):
-        self.particle.spriteSheet.setRow(21,13,19,1,16,13)
+        self.particle.spriteSheet.setRow(21, 13, 19, 1, 16, 13)
+
     def fireLeft(self):
-        self.particle.spriteSheet.setRow(21,13,18,1,16,13)
+        self.particle.spriteSheet.setRow(21, 13, 18, 1, 16, 13)
+
     def fireUp(self):
-        self.particle.spriteSheet.setRow(21,13,17,1,16,13)
+        self.particle.spriteSheet.setRow(21, 13, 17, 1, 16, 13)
 
     def setSpriteState(self, id):
-        self.spriteState=id
+        self.spriteState = id
+        self.particle.spriteSheet.resetLoop()
         if id == 1:
             self.walkUp()
         elif id == 2:
@@ -71,68 +139,25 @@ class Player:
         elif id == 8:
             self.fireUp()
 
-
-
-    def draw(self, canvas, cam,spriteDictionary):
-
-        self.particle.draw(canvas, cam,spriteDictionary)
-
-    def move(self,pos):
-        self.particle.move(pos)
-
-
-    def update(self):
-
-        #CORRECT SPRITE ROW AND UPDATE FPS
-
-        if  self.particle.vel.getX()==0 and self.particle.vel.getY()==0 and self.spriteState<5:
-            self.particle.updateSprite=False
-        if (self.spriteState>0 and self.spriteState<5) and self.particle.vel.getX() !=0 and self.particle.vel.getY()!=0:
-            self.particle.updateSprite=True
-
-        if self.particle.spriteSheet.hasLooped and self.spriteState>4:
-            self.defaultWalkingDirection()
-
-        if self.spriteState>4 and self.particle.spriteSheet.hasLooped==False:
-            self.particle.updateSprite=True
-
-
-
-        self.particle.update()
-        self.currentTime = time.time()
-
-    def defaultWalkingDirection(self):
-        x,y=self.particle.pos.copy().distanceToVector(self.particle.nextPos)
-        if y < 0:
-            self.setSpriteState(3)
-        if y > 0:
-            self.setSpriteState(1)
-        if y != 0:
-            if (x + y) / y > 2 and y < 0:
-                self.setSpriteState(4)
-
-            if (x + y) / y < 0 and y < 0:
-                self.setSpriteState(2)
-
-    def defaultFireingDirection(self,pos):
-        x,y=self.particle.pos.copy().distanceToVector(pos)
-        if y < 0:
-            self.setSpriteState(6)
-        if y > 0:
-            self.setSpriteState(8)
-        if y != 0:
-            if (x + y) / y > 2 and y < 0:
-                self.setSpriteState(5)
-
-            if (x + y) / y < 0 and y < 0:
-                self.setSpriteState(7)
     def turn(self, angle):
         self.particle.angle += angle
 
-
-
     def encode(self):
-        data = {'idObject':self.idObject,'idClass':self.idClass,'pos': {'x':self.particle.pos.x,'y': self.particle.pos.y}, 'vel': {'x':self.particle.vel.x, 'y':self.particle.vel.y}, 'maxVel': self.maxVel,
+
+        data = {'spriteState': self.spriteState,
+                'clickPosition': {'x': self.clickPosition.x, 'y': self.clickPosition.y}, 'hasFired': self.hasFired,
+                'idObject': self.idObject, 'idClass': self.idClass,
+                'pos': {'x': self.particle.pos.x, 'y': self.particle.pos.y},
+                'vel': {'x': self.particle.vel.x, 'y': self.particle.vel.y}, 'maxVel': self.particle.maxVel,
                 'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,
-                'spriteFps': self.particle.spriteSheet.fps,'idPlayer':self.idPlayer ,'remove':self.remove,'updateSprite':self.particle.updateSprite}
-        return json.dumps(data)
+                'currentTime': self.currentTime,
+                'nextPos': {'x': self.particle.nextPos.x, 'y': self.particle.nextPos.y},
+                'nextPosTime': self.particle.nextPosTime,
+                'fps': self.particle.spriteSheet.fps, 'remove': self.remove,
+                'updateSprite': self.particle.updateSprite, 'maxRange': self.particle.maxRange,
+                'numColumns': self.particle.spriteSheet.numColumns,
+                'numRows': self.particle.spriteSheet.numRows, 'startColumn': self.particle.spriteSheet.startColumn,
+                'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
+                'endColumn': self.particle.spriteSheet.endColumn}
+
+        return data

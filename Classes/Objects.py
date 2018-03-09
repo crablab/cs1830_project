@@ -1,4 +1,7 @@
 from Classes.Settings import *
+import configparser, json, uuid, os, random
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 from Classes.Vector import Vector
 
 from Classes.Camera import Camera
@@ -8,14 +11,14 @@ from Classes.SpriteAnimator import SpriteAnimator
 from Classes.Player import Player
 from Classes.Particle import Particle
 
+
 import SimpleGUICS2Pygame
 from SimpleGUICS2Pygame import simpleguics2pygame
-import os
-import random
 
 
 # ---------------------ANY SETS/LISTS-----------------------
 moving_set = set()
+moving_set_external=set()
 particle_set_bottom = set()
 particle_set_middle = set()
 particle_set_top = set()
@@ -36,7 +39,7 @@ grass03 = SpriteAnimator(cwd + '/img/grass/grass03.jpg')
 grass04 = SpriteAnimator(cwd + '/img/grass/grass04.jpg')
 fireTorch = SpriteAnimator(cwd + '/img/character/elf/fire.jpg')
 fireBall = SpriteAnimator(cwd + '/img/character/elf/fire2.jpg')
-tree=SpriteAnimator(cwd + '/img/Trees/tree.png' )
+tree=SpriteAnimator(cwd + '/img/trees/tree.png' )
 
 spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass02": grass02, "grass03": grass04,
                     'arrow': arrow,
@@ -44,18 +47,32 @@ spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass
                     "tree":tree}
 
 # -----------------------MOVING OBJECTS-------------------
-
+print(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']))
+print(int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y']))
+print(int(config['CANVAS']['CANVAS_WIDTH']))
+print(int(config['CANVAS']['CANVAS_HEIGHT']))
+print(config['PLAYER']['PLAYER_SPRITE'])
 # CAMERA
-cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vector(CANVAS_WIDTH, CANVAS_HEIGHT))
-
+cam = Camera(Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])), Vector(int(config['CANVAS']['CANVAS_WIDTH']), int(config['CANVAS']['CANVAS_HEIGHT'])))
+print(cam.origin)
+print(cam.dim)
 # PLAYER
 
-player = Player(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y),
-                Vector(PLAYER_INITIAL_VELOCITY_X, PLAYER_INITIAL_VELOCITY_Y), PLAYER_MAX_VELOCITY, PLAYER_INITIAL_ANGLE, PLAYER_RADIUS, PLAYER_SPRITE, spriteDictionary,PLAYER_SPRITE_FPS,
-                PLAYER_ID)
-player.setSpriteState(3)
+player1 = Player(Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
+                Vector(int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_X']),int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_Y'])),
+                 0,Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
+                 int(config['PLAYER']['PLAYER_MAX_VELOCITY']),
+                 int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),
+                 int(config['PLAYER']['PLAYER_RADIUS']),
+                 config['PLAYER']['PLAYER_SPRITE'],
+                 spriteDictionary,
+                 int(config['PLAYER']['PLAYER_SPRITE_FPS']),
+                str(uuid.uuid4()),
 
-player_list.append(player)
+                 False,Vector(0,0),1,21, 13, 11, 1, 9, 9)
+player1.setSpriteState(3)
+player_list.append(player1)
+playerId=player1.idObject
 
 # MOUSE HANDLER (PYGAME)(NO RIGHT/MIDDLE CLICKS ON SIMPLEGUI)
 mouse = Mouse()
@@ -70,21 +87,21 @@ x = 0
 for i in range(0, 400):
     if i % 20 == 0:
         x += 1
-    g = Particle(False,Vector(x * 500, (i % 20) * 500), Vector(0, 0),0,0,0,0,'grass01',spriteDictionary,0.0001,False,False)
 
-    g.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
+    g = Particle(False,Vector(x * 500, (i % 20) * 500), Vector(0, 0),0,Vector(x * 500, (i % 20) * 500),0,0,0,0,'grass01',spriteDictionary,0.0001,False,False,str(uuid.uuid4()),1, 1, 1, 1, 1, 1)
 
     particle_set_bottom.add(g)
 
-dragon=Particle(True,Vector(0,2500),Vector(0,150),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False)
-dragon.spriteSheet.setRow(5,4,1,1,5,4)
+dragon=Particle(True,Vector(0,2500),Vector(0,150),0,Vector(0,2500),150,0,0,0,'whiteDragon',spriteDictionary,25,False,False,str(uuid.uuid4()),5,4,1,1,5,4)
+
 dragon.move(Vector(10000,2500))
 moving_set.add(dragon)
 
-dragon2=Particle(True,Vector(0,2000),Vector(0,150),150,0,0,0,'greenDragon',spriteDictionary,25,False,False)
-dragon2.spriteSheet.setRow(5,4,1,1,5,4)
+dragon2=Particle(True,Vector(0,2000),Vector(0,150),0,Vector(0,2000),150,0,0,0,'greenDragon',spriteDictionary,25,False,False,str(uuid.uuid4()),5,4,1,1,5,4)
+
 dragon2.move(Vector(10000,2500))
+moving_set.add(dragon2)
 
+tree=Particle(True,Vector(2500,2500),Vector(0,0),0,Vector(2500,2500),200,0,0,0,'tree',spriteDictionary,1,False,False,str(uuid.uuid4()),4,15,1,1,4,15)
 
-tree=Particle(True,Vector(2500,2500),Vector(0,0),200,0,0,0,'tree',spriteDictionary,0.1,False,False)
-tree.spriteSheet.setRow(4,15,1,1,4,15)
+particle_set_middle.add(tree)
