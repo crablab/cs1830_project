@@ -40,13 +40,13 @@ class Camera:
     def zoom(self):
         if self.zoomOut == True:
 
-            self.dim.add(self.dim.copy().multiply(int(config['CAMERA']['CAM_ZOOM_SENSITIVITY'])))
+            self.dim.add(self.dim.copy().multiply(float(config['CAMERA']['CAM_ZOOM_SENSITIVITY'])))
 
         if self.zoomIn == True and self.dim.x>int(config['CAMERA']['CAM_MIN_DIST']) and self.dim.y>int(config['CAMERA']['CAM_MIN_DIST']):
             if self.dim.x < 600 or self.dim.y < 600:
                 pass
             else:
-                self.dim.add(self.dim.copy().multiply(-int(config['CAMERA']['CAM_ZOOM_SENSITIVITY'])))
+                self.dim.add(self.dim.copy().multiply(-float(config['CAMERA']['CAM_ZOOM_SENSITIVITY'])))
 
     def ratioToCam(self):
         return(self.dimCanv.copy().divideVector(self.dim).getX())
