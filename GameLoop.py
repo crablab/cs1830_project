@@ -58,11 +58,13 @@ def draw(canvas):
     communicate(gameState1)
 
     if(gameState1.intro):
+        print("intro")
         introLoop(canvas)
     if gameState1.main and not gameState2.main:
+        print("waiting")
         waitingLoop(canvas)
     if(gameState1.main and gameState2.main):
-
+        print("game")
         #Threading for adding to queues
         def movingSetSend():
             global moving_set

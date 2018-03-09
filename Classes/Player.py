@@ -30,7 +30,7 @@ class Player:
         self.range = 1
         self.melee = 1
         self.magic = 1
-
+        self.weapon=1
         # sub class
         self.particle = Particle(True, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,
                                  spriteDictionary, spriteFps,

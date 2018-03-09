@@ -73,7 +73,7 @@ def getGameState(arr):
         gameState2.main=False
     if arr['intro']:
         gameState2.intro=True
-    
+
     else:
         gameState2.intro=False
 
