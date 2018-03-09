@@ -16,12 +16,13 @@ config = configparser.ConfigParser()
 #Open file as writeable
 config.read_file(open('Classes/config'))
 #Override settings when testing (to make it easier to run multiple instances)
-if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and sys.argv[1]): config['NETWORKING']['CONFIG_TYPE'] = sys.argv[1]
+if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and len(sys.argv) > 1): 
+    config['NETWORKING']['CONFIG_TYPE'] = sys.argv[1]
 
-config.set('NETWORKING', 'CONFIG_TYPE', sys.argv[1])
+    config.set('NETWORKING', 'CONFIG_TYPE', sys.argv[1])
 
-with open('Classes/config', "w") as conf: 
-    config.write(conf) 
+    with open('Classes/config', "w") as conf: 
+        config.write(conf) 
 
 #reopen
 #config.read_file(open('Classes/config'))
