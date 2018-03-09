@@ -119,13 +119,11 @@ class client:
                     #if(config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(value)
                     self.recieved.put(value)
 
+print(config['NETWORKING']['CONFIG_TYPE'])
 if (config['NETWORKING']['CONFIG_TYPE'] == "server"):
     com = server()
 elif (config['NETWORKING']['CONFIG_TYPE'] == "client"):
     com = client(config['NETWORKING']['CLIENT_IP'], 5027)
-
-currentTime=time.time()
-oldTime=time.time()
 
 def ping():
     if(config['NETWORKING']['LOGGING']): print("Pinging remote peer")

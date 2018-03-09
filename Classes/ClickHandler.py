@@ -36,7 +36,7 @@ def checkClick():
                  # simplegui-pygame screen position adjustment
 
 
-                particle = Particle(True,player1.particle.pos.copy(), player1.particle.vel.copy(),0,Vector(0,0),config['PARTICLE']['PARTICLE_VELOCITY'],config['PARTICLE']['PARTICLE_MAX_RANGE'],0,config['PARTICLE']['PARTICLE_RADIUS'],'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()),1,1,1,1,1,1)
+                particle = Particle(True,player1.particle.pos.copy(), player1.particle.vel.copy(),0,Vector(0,0),int(config['PARTICLE']['PARTICLE_VELOCITY']),int(config['PARTICLE']['PARTICLE_MAX_RANGE']),0,int(config['PARTICLE']['PARTICLE_RADIUS']),'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()),1,1,1,1,1,1)
 
                 particle.moveRange(vector)
                 particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)

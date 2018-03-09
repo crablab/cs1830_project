@@ -47,17 +47,20 @@ spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass
                     "tree":tree}
 
 # -----------------------MOVING OBJECTS-------------------
+print(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']))
+print(int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y']))
+print(int(config['CANVAS']['CANVAS_WIDTH']))
+print(int(config['CANVAS']['CANVAS_HEIGHT']))
 # CAMERA
-cam = Camera(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']), Vector(config['CANVAS']['CANVAS_WIDTH'], config['CANVAS']['CANVAS_HEIGHT']))
-
+cam = Camera(Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])), Vector(int(config['CANVAS']['CANVAS_WIDTH']), int(config['CANVAS']['CANVAS_HEIGHT'])))
 # PLAYER
 
-player1 = Player(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']),
-                Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']),
-                 0,Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']),
-                 config['PLAYER']['PLAYER_MAX_VELOCITY'], config['PLAYER']['PLAYER_INITIAL_ANGLE'],
-                 config['PLAYER']['PLAYER_RADIUS'], PLAYER_SPRITE,
-                 spriteDictionary,config['PLAYER']['PLAYER_SPRITE_FPS'],
+player1 = Player(Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
+                int(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
+                 0,int(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
+                 int(config['PLAYER']['PLAYER_MAX_VELOCITY']), int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),
+                 int(config['PLAYER']['PLAYER_RADIUS']), PLAYER_SPRITE,
+                 spriteDictionary,int(config['PLAYER']['PLAYER_SPRITE_FPS']),
                 str(uuid.uuid4()),False,Vector(0,0),1,21, 13, 11, 1, 9, 9)
 player1.setSpriteState(3)
 player_list.append(player1)
