@@ -1,7 +1,7 @@
 import SimpleGUICS2Pygame
 from SimpleGUICS2Pygame import simpleguics2pygame
 
-from Classes.Objects import cam
+from Classes.Objects import cam,player_list,playerId
 
 def keyup(key):
     if key == simpleguics2pygame.KEY_MAP['r']:
@@ -23,6 +23,14 @@ def keydown(key):
         cam.zoomOut = True
     elif key == simpleguics2pygame.KEY_MAP['e']:
         cam.zoomIn = True
+    elif key == simpleguics2pygame.KEY_MAP['1']:
+        for player in player_list:
+            if player.idObject==playerId:
+                player.weapon=1
+    elif key == simpleguics2pygame.KEY_MAP['2']:
+        for player in player_list:
+            if player.idObject==playerId:
+                player.weapon=2
 
     elif key == simpleguics2pygame.KEY_MAP['right']:
         cam.moveRight = True

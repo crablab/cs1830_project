@@ -36,8 +36,8 @@ from Transfer.comms import communicate, recieve, ping
 from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
-
-from Classes.Objects import cam, particle_set_middle,particle_set_top,particle_set_bottom, spriteDictionary, moving_set,moving_set_external,player_list,playerId
+from Classes.Objects import *
+from Loops.intro import introLoop, waitingLoop
 
 
 #-----START----GAME----CLOCK
@@ -48,105 +48,144 @@ oldTime=time.time()
 
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
-    #if(DEVELOPER_OPTIONS): print("External list length: " + str(moving_set_external.__len__()))
-    
-    #if we're a client make sure we Ping
-    if(config['NETWORKING']['CONFIG_TYPE'] == 'client'):
+    #
+#-----------------CLIENT PING-----------------------
+    if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
         ping()
-
-    #Threading for adding to queues
-    def movingSetSend():
-        global moving_set
-    for object in moving_set:
-        communicate(object)
-
-    #we don't to thread this as it is a small set
-    for player in player_list:
-        if player.idObject==playerId:
-            #print(player.particle.vel)
-            communicate(player)
-    # print("size:"+str(moving_set_external.__len__()))
-    
+#-----------RECIEVE ALL OBJECTS-------------------------
     recieve()
+#-----------------SEND GAME STATES------------------------
+    communicate(gameState1)
 
-#-----CAM---UPDATE---
-    cam.zoom()
-    cam.move()
-#----CLICK---HANDLER---
-    checkClick()
+    if(gameState1.intro):
+        print("intro")
+        introLoop(canvas)
+    if gameState1.main and not gameState2.main:
+        print("waiting")
+        waitingLoop(canvas)
+    if(gameState1.main and gameState2.main):
+        print("game")
+        #Threading for adding to queues
+        def movingSetSend():
+            global moving_set
+        for object in moving_set:
+            communicate(object)
+        for monster in monster_set:
+            communicate(monster)
 
-#  -------UPDATE-AND-DRAW---OBJECTS---BY---LAYER---PRIORITY
+        #we don't to thread this as it is a small set
+        for player in player_list:
+            if player.idObject==playerId:
+                #print(player.particle.vel)
+                communicate(player)
+        # print("size:"+str(moving_set_external.__len__()))
 
-    for pbot in particle_set_bottom:
-        pbot.update()
-        pbot.draw(canvas,cam)
 
-    for pmid in particle_set_middle:
-        pmid.update()
-        pmid.draw(canvas, cam)
 
-    for ptop in particle_set_top:
-        ptop.update()
-        ptop.draw(canvas, cam)
+    #-----CAM---UPDATE---
+        cam.zoom()
+        cam.move()
+    #----CLICK---HANDLER---
+        checkClick()
 
-    for pm in moving_set:
-        pm.update()
-        pm.draw(canvas,cam)
+    #  -------UPDATE-AND-DRAW---OBJECTS---BY---LAYER---PRIORITY
 
-    for pe in moving_set_external:
-        #print(pe.pos)
-        pe.update()
-        pe.draw(canvas,cam)
+        for pbot in particle_set_bottom:
+            pbot.update()
+            pbot.draw(canvas,cam)
 
-    for player in player_list:
+        for pmid in particle_set_middle:
+            pmid.update()
+            pmid.draw(canvas, cam)
 
-        player.update()
-        player.draw(canvas,cam)
+        for ptop in particle_set_top:
+            ptop.update()
+            ptop.draw(canvas, cam)
 
-    fps.draw_fct(canvas)
-#--------COLLECT----MARKED---OBJECTS------------
-    removal_set=set()
+        for pm in moving_set:
+            pm.update()
+            pm.draw(canvas,cam)
 
-    for particle in particle_set_top:
-        if particle.pos==particle.nextPos and particle.removeOnVelocity0:
-            removal_set.add(particle)
-        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-            removal_set.add(particle)
-    particle_set_top.difference_update(removal_set)
-    removal_set.clear()
+        for pe in moving_set_external:
+            #print(pe.pos)
+            pe.update()
+            pe.draw(canvas,cam)
 
-    for particle in particle_set_middle:
-        if particle.pos==particle.nextPos and particle.removeOnVelocity0:
-            removal_set.add(particle)
-        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-            removal_set.add(particle)
-    particle_set_middle.difference_update(removal_set)
-    removal_set.clear()
+        for m in monster_set_external:
+            #print(pe.pos)
+            m.update()
+            m.draw(canvas,cam)
 
-    for particle in particle_set_bottom:
-        if particle.pos==particle.nextPos and particle.removeOnVelocity0:
-            removal_set.add(particle)
-        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-            removal_set.add(particle)
-    particle_set_bottom.difference_update(removal_set)
-    removal_set.clear()
-    
-    for particle in moving_set:
-        if particle.pos == particle.nextPos and particle.removeOnVelocity0:
-            removal_set.add(particle)
-        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-            removal_set.add(particle)
-    moving_set.difference_update(removal_set)
-    removal_set.clear()
-    
-    for particle in moving_set_external:
-        if particle.pos == particle.nextPos and particle.removeOnVelocity0:
-            removal_set.add(particle)
-        if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-            removal_set.add(particle)
+        for m in monster_set:
+            #print(pe.pos)
+            m.update()
+            m.draw(canvas,cam)
 
-    moving_set_external.difference_update(removal_set)
-    removal_set.clear()
+        for player in player_list:
+            player.update()
+            player.draw(canvas,cam)
+
+        fps.draw_fct(canvas)
+    #--------COLLECT----MARKED---OBJECTS------------
+        removal_set=set()
+
+        for particle in particle_set_top:
+            if particle.pos==particle.nextPos and particle.removeOnVelocity0:
+                removal_set.add(particle)
+            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+                removal_set.add(particle)
+        particle_set_top.difference_update(removal_set)
+        removal_set.clear()
+
+        for particle in particle_set_middle:
+            if particle.pos==particle.nextPos and particle.removeOnVelocity0:
+                removal_set.add(particle)
+            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+                removal_set.add(particle)
+        particle_set_middle.difference_update(removal_set)
+        removal_set.clear()
+
+        for particle in particle_set_bottom:
+            if particle.pos==particle.nextPos and particle.removeOnVelocity0:
+                removal_set.add(particle)
+            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+                removal_set.add(particle)
+        particle_set_bottom.difference_update(removal_set)
+        removal_set.clear()
+
+        for particle in moving_set:
+            if particle.pos == particle.nextPos and particle.removeOnVelocity0:
+                removal_set.add(particle)
+            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+                removal_set.add(particle)
+        moving_set.difference_update(removal_set)
+        removal_set.clear()
+
+        for particle in moving_set_external:
+            if particle.pos == particle.nextPos and particle.removeOnVelocity0:
+                removal_set.add(particle)
+            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
+                removal_set.add(particle)
+
+        moving_set_external.difference_update(removal_set)
+        removal_set.clear()
+
+        for monster in monster_set_external:
+            if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0:
+                removal_set.add(monster)
+            if monster.particle.spriteSheet.hasLooped and monster.particle.removeOnAnimationLoop:
+                removal_set.add(monster)
+
+        monster_set_external.difference_update(removal_set)
+        removal_set.clear()
+        for monster in monster_set:
+            if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0:
+                removal_set.add(monster)
+            if monster.particle.spriteSheet.hasLooped and monster.particle.removeOnAnimationLoop:
+                removal_set.add(monster)
+
+        monster_set.difference_update(removal_set)
+        removal_set.clear()
 
 
 frame = simpleguics2pygame.create_frame('Game', int(config['CANVAS']['CANVAS_WIDTH']), int(config['CANVAS']['CANVAS_HEIGHT']))

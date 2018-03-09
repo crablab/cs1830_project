@@ -1,7 +1,8 @@
 import json, time, uuid, configparser
 
 from Classes.Particle import Particle
-from Classes.Settings import SPRITE_FPS #this never seems to be used?
+from Classes.Settings import SPRITE_FPS  # this never seems to be used?
+
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
 from Classes.Vector import Vector
@@ -15,8 +16,7 @@ class Player:
         self.remove = False
         self.idClass = 3
         self.idObject = idObject
-
-        # print(self.idObject)
+        self.magicId = 0  #this is a space to attach a particle object id so we can link it to this class if there is one.
         # non-vectors (attributes)
 
         # vectors
@@ -26,18 +26,25 @@ class Player:
         self.currentTime = 0
         self.hasFired = hasFired
 
-        # ParticleClass
-        # print("-------------PLAYER CLASS PRINT-----------")
-        # print(spriteKey)
-        # print(spriteDictionary)
+        self.life = 1
+        self.range = 1
+        self.melee = 1
+        self.magic = 1
+        self.weapon=1
+        # sub class
         self.particle = Particle(True, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,
                                  spriteDictionary, spriteFps,
                                  False, False, self.idObject, numRows, numColumns, startRow, startColumn, endRow,
                                  endColumn)
 
     def recieve(self, hasFired, clickPosition, nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey,
-                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary):
-
+                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary, life,
+                range, melee, magic, magicId):
+        self.magicId = magicId
+        self.life = life
+        self.melee = melee
+        self.range = range
+        self.magic = magic
         self.hasFired = hasFired
         self.clickPosition = clickPosition
         self.particle.recieve(nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey, fps, numRows,
@@ -62,7 +69,6 @@ class Player:
             self.hasFired = False
             self.setCorrectAnimation()
         if self.particle.vel.getX() == 0 and self.particle.vel.getY() == 0 and not self.hasFired:
-            # print("set column 1")
             self.particle.spriteSheet.currentColumn = 1
 
     def setCorrectAnimation(self):
@@ -70,12 +76,16 @@ class Player:
         if y < 0:
             if self.hasFired:
                 self.setSpriteState(6)
+            elif self.magicId != 0:
+                self.setSpriteState(9)
 
             else:
                 self.setSpriteState(3)
         if y > 0:
             if self.hasFired:
                 self.setSpriteState(8)
+            elif self.magicId != 0:
+                self.setSpriteState(10)
 
             else:
                 self.setSpriteState(1)
@@ -83,6 +93,8 @@ class Player:
             if (x + y) / y > 2 and y < 0:
                 if self.hasFired:
                     self.setSpriteState(5)
+                elif self.magicId != 0:
+                    self.setSpriteState(11)
 
                 else:
                     self.setSpriteState(4)
@@ -90,34 +102,47 @@ class Player:
             if (x + y) / y < 0 and y < 0:
                 if self.hasFired:
                     self.setSpriteState(7)
+                elif self.magicId != 0:
+                    self.setSpriteState(12)
 
                 else:
                     self.setSpriteState(2)
 
     def walkUp(self):
-
         self.particle.spriteSheet.setRow(21, 13, 9, 1, 9, 9)
 
     def walkLeft(self):
-        self.particle.spriteSheet.setRow(21, 13, 10, 1, 9, 9)
+        self.particle.spriteSheet.setRow(21, 13, 10, 1, 10, 9)
 
     def walkDown(self):
-        self.particle.spriteSheet.setRow(21, 13, 11, 1, 9, 9)
+        self.particle.spriteSheet.setRow(21, 13, 11, 1, 11, 9)
 
     def walkRight(self):
-        self.particle.spriteSheet.setRow(21, 13, 12, 1, 9, 9)
+        self.particle.spriteSheet.setRow(21, 13, 12, 1, 12, 9)
 
     def fireRight(self):
-        self.particle.spriteSheet.setRow(21, 13, 20, 1, 16, 13)
+        self.particle.spriteSheet.setRow(21, 13, 20, 1, 20, 13)
 
     def fireDown(self):
-        self.particle.spriteSheet.setRow(21, 13, 19, 1, 16, 13)
+        self.particle.spriteSheet.setRow(21, 13, 19, 1, 19, 13)
 
     def fireLeft(self):
-        self.particle.spriteSheet.setRow(21, 13, 18, 1, 16, 13)
+        self.particle.spriteSheet.setRow(21, 13, 18, 1, 18, 13)
 
     def fireUp(self):
-        self.particle.spriteSheet.setRow(21, 13, 17, 1, 16, 13)
+        self.particle.spriteSheet.setRow(21, 13, 17, 1, 17, 13)
+
+    def magicUp(self):
+        self.particle.spriteSheet.setRow(21, 13, 1, 1, 1, 7)
+
+    def magicRight(self):
+        self.particle.spriteSheet.setRow(21, 13, 4, 1, 4, 7)
+
+    def magicDown(self):
+        self.particle.spriteSheet.setRow(21, 13, 3, 1, 3, 7)
+
+    def magicLeft(self):
+        self.particle.spriteSheet.setRow(21, 13, 2, 1, 2, 7)
 
     def setSpriteState(self, id):
         self.spriteState = id
@@ -138,6 +163,14 @@ class Player:
             self.fireLeft()
         elif id == 8:
             self.fireUp()
+        elif id == 9:
+            self.magicUp()
+        elif id == 10:
+            self.magicLeft()
+        elif id == 11:
+            self.magicDown()
+        elif id == 12:
+            self.magicLeft()
 
     def turn(self, angle):
         self.particle.angle += angle
@@ -158,6 +191,8 @@ class Player:
                 'numColumns': self.particle.spriteSheet.numColumns,
                 'numRows': self.particle.spriteSheet.numRows, 'startColumn': self.particle.spriteSheet.startColumn,
                 'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
-                'endColumn': self.particle.spriteSheet.endColumn}
+                'endColumn': self.particle.spriteSheet.endColumn,
+                'magic': self.magic, 'melee': self.melee, 'range': self.range, 'life': self.life,
+                'magicId': self.magicId}
 
         return data

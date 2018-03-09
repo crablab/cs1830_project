@@ -25,8 +25,8 @@ def checkClick():
 
         for player1 in player_list:
 
-
-            if playerId==player1.idObject:
+            #ARCHERY
+            if playerId==player1.idObject and not player1.hasFired and player1.weaponId==1:
                 x, y = pygame.mouse.get_pos()
                 player1.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)
                 player1.hasFired=True
@@ -53,8 +53,38 @@ def checkClick():
                 particle.pos.add(dist)
 
                 moving_set.add(particle)
+            # MAGIC
+            if playerId == player1.idObject and not player1.hasFired and player1.weaponId == 2:
+                x, y = pygame.mouse.get_pos()
+                player1.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)
+                player1.hasFired = True
+                player1.particle.spriteSheet.resetLoop()
+                player1.setCorrectAnimation()
+                vector = player1.clickPosition.copy()
+                # simplegui-pygame screen position adjustment
 
+                particle = Particle(True, player1.particle.pos.copy(), player1.particle.vel.copy(), 0, Vector(0, 0),
+                                    int(config['PARTICLE']['PARTICLE_VELOCITY']),
+                                    int(config['PARTICLE']['PARTICLE_MAX_RANGE']), 0,
+                                    int(config['PARTICLE']['PARTICLE_RADIUS']), 'arrow', spriteDictionary, 0.001,
+                                    True, False, str(uuid.uuid4()), 1, 1, 1, 1, 1, 1)
 
+                particle.moveRange(vector)
+                particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
+                dist = particle.pos.copy().subtract(vector)
+                dist.negate()
+                if dist.length() != 0:
+                    dist.normalize()
+                particle.angle = dist.copy().getAngle(Vector(1, 0))
+                x, y = particle.pos.copy().distanceToVector(vector)
+                if y > 0:
+                    particle.angle *= -1
+
+                dist.multiply(particle.radius * 2)
+                particle.pos.add(dist)
+
+                moving_set.add(particle)
+        mouse.pressL()
     elif left:
         pass
     elif not left and not mouse.releasedL:
