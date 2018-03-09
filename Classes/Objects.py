@@ -107,5 +107,5 @@ dragon2.move(Vector(10000,2500))
 monster_set.add(dragon2)
 
 tree=Particle(True,Vector(2500,2500),Vector(0,0),0,Vector(2500,2500),200,0,0,0,'tree',spriteDictionary,1,False,False,getUid(),4,15,1,1,4,15)
-Particle()
+
 particle_set_middle.add(tree)
