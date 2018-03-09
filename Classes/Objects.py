@@ -38,13 +38,26 @@ grass04 = SpriteAnimator(cwd + '/img/grass/grass04.jpg')
 fireTorch = SpriteAnimator(cwd + '/img/character/elf/fire.jpg')
 fireBall = SpriteAnimator(cwd + '/img/character/elf/fire2.jpg')
 tree=SpriteAnimator(cwd + '/img/Trees/tree.png' )
-tree_willow = SpriteAnimator(cwd + '/img/Trees/treeWillow.jpg')
+tree_1 = SpriteAnimator(cwd + '/img/Trees/tree_1.jpg')
+tree_2 = SpriteAnimator(cwd + '/img/Trees/tree_2.jpg')
+tree_3 = SpriteAnimator(cwd + '/img/Trees/tree_3.jpg')
 stall_weapon = SpriteAnimator(cwd + '/img/Stall/weaponStall.jpg')
+magic_fb = SpriteAnimator(cwd + '/img/Magic/fireBal1.jpg')
+magic_01 = SpriteAnimator(cwd + '/img/Magic/magic01.jpg')
+magic_02 = SpriteAnimator(cwd + '/img/Magic/magic02.jpg')
+magic_03 = SpriteAnimator(cwd + '/img/Magic/magic03.jpg')
+magic_04 = SpriteAnimator(cwd + '/img/Magic/magic04.jpg')
+magic_05 = SpriteAnimator(cwd + '/img/Magic/magic05.jpg')
+magic_06 = SpriteAnimator(cwd + '/img/Magic/magic06.jpg')
+magic_07 = SpriteAnimator(cwd + '/img/Magic/magic07.jpg')
 
 spriteDictionary = {"elf_demo": elf_demo, "orc": orc, "grass01": grass01, "grass02": grass02, "grass03": grass04,
                     'arrow': arrow,
                     "grass04": grass04, "fireBall": fireBall, "dog": dog,'whiteDragon':whiteDragon,'greenDragon':greenDragon,
-                    "tree":tree, "water":water, "willow tree":tree_willow, "stall" = stall_weapon}
+                    "tree":tree, "water":water, "tree_1":tree_1, "tree_2":tree_2, "tree_3":tree_3, "stall" = stall_weapon,
+                    "magic_fb":magic_fb,  "magic_01":magic_01, "magic_02":magic_02, "magic_03":magic_03, "magic_04":magic_04,
+                    "magic_05":magic_05, "magic_06":magic_06, "magic_07":magic_07
+                    }
 
 # -----------------------MOVING OBJECTS-------------------
 
@@ -105,7 +118,7 @@ while (len(tree_vector_list) < 100):
         tree_vector_list.append(v)
 
 for vector in tree_vector_list:
-    temp = Particle(False, vector, Vector(0, 0), 0, 0, 0, 0, "willow tree", spriteDictionary, 0.0001, False, False)
+    temp = Particle(False, vector, Vector(0, 0), 0, 0, 0, 0, "tree_1", spriteDictionary, 0.0001, False, False)
     temp.spriteSheet.setRow(1, 1, 1, 1, 1, 1)
     particle_set_middle.add(temp)
 
