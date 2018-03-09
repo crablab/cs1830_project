@@ -53,7 +53,11 @@ cam = Camera(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYE
 # PLAYER
 
 player1 = Player(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']),
-                Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']),0,Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']), config['PLAYER']['PLAYER_MAX_VELOCITY'], config['PLAYER']['PLAYER_INITIAL_ANGLE'], config['PLAYER']['PLAYER_RADIUS'], config['PLAYER']['PLAYER_SPRITE'], spriteDictionary,config['PLAYER']['PLAYER_SPRITE_FPS'],
+                Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']),
+                 0,Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X'], config['PLAYER']['PLAYER_INITIAL_POSITION_Y']),
+                 config['PLAYER']['PLAYER_MAX_VELOCITY'], config['PLAYER']['PLAYER_INITIAL_ANGLE'],
+                 config['PLAYER']['PLAYER_RADIUS'], PLAYER_SPRITE,
+                 spriteDictionary,config['PLAYER']['PLAYER_SPRITE_FPS'],
                 str(uuid.uuid4()),False,Vector(0,0),1,21, 13, 11, 1, 9, 9)
 player1.setSpriteState(3)
 player_list.append(player1)

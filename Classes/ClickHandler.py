@@ -5,7 +5,10 @@ from Classes.Vector import Vector
 from Classes.Objects import mouse, particle_set_bottom, particle_set_middle, particle_set_top, player_list, cam, \
     adjustment, spriteDictionary,moving_set,playerId
 from Classes.Settings import PARTICLE_VELOCITY, PARTICLE_RADIUS, PARTICLE_MAX_RANGE
+import configparser, json, uuid, os, random
 config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
+
 config.read_file(open('Classes/config'))
 import time
 import math

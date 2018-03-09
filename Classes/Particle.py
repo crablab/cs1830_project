@@ -25,12 +25,19 @@ class Particle:
 
         self.updateSprite=updateSprite
         self.spriteKey = spriteKey
+        # print("--------------PARTICLE CLASS PRINT---------------")
+        # print(spriteDictionary)
+        # print(spriteKey)
+        # print("--------------get --------T---------------")
+        # print(spriteDictionary.get('elf_demo'))
+        self.spriteSheet = SpriteSheet(spriteDictionary.get(self.spriteKey, 'elf_demo'),fps)
 
-        self.spriteSheet = SpriteSheet( spriteDictionary.get(self.spriteKey, 'elf_demo'),fps)
         self.spriteSheet.setRow(numRows, numColumns, startRow, startColumn, endRow, endColumn)
+        # print(spriteDictionary)
+        # print(spriteKey)
         self.removeOnAnimationLoop = removeOnAnimationLoop
         self.removeOnVelocity0 = removeOnVelocity0
-        print(dir(self.spriteSheet))
+
         self.dim = self.spriteSheet.animator.dimOriginal.copy()
         self.radius = radius
         if radius==0:

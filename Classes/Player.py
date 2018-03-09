@@ -27,6 +27,9 @@ class Player:
         self.hasFired = hasFired
 
         # ParticleClass
+        # print("-------------PLAYER CLASS PRINT-----------")
+        # print(spriteKey)
+        # print(spriteDictionary)
         self.particle = Particle(True, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,
                                  spriteDictionary, spriteFps,
                                  False, False, self.idObject, numRows, numColumns, startRow, startColumn, endRow,

@@ -16,6 +16,9 @@ from Classes.Settings import CONFIG_TYPE,CLIENT_IP, LOGGING, LOGGING_LEVEL
 from flask import Flask, request, Response
 from Transfer.JsonToObject import getObject
 import time
+import configparser, json
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 
 class FlaskAppWrapper(object):
     app = None

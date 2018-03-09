@@ -15,7 +15,7 @@ from Classes.Settings import *
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
 #Override settings when testing (to make it easier to run multiple instances)
-if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and sys.argv[1]): config['NETWORKING']['CONFIG_TYPE'] = sys.argv[1]
+#if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and sys.argv[1]): config['NETWORKING']['CONFIG_TYPE'] = sys.argv[1]
 print(config['NETWORKING']['CONFIG_TYPE'])
 
 #LOAD INTERNAL CLASSES
@@ -144,7 +144,7 @@ def draw(canvas):
     removal_set.clear()
 
 
-frame = simpleguics2pygame.create_frame('Game', config['CANVAS']['CANVAS_WIDTH'], config['CANVAS']['CANVAS_HEIGHT'])
+frame = simpleguics2pygame.create_frame('Game', int(config['CANVAS']['CANVAS_WIDTH']), int(config['CANVAS']['CANVAS_HEIGHT']))
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)
