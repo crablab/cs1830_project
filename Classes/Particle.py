@@ -30,6 +30,7 @@ class Particle:
         # print(spriteKey)
         # print("--------------get --------T---------------")
         # print(spriteDictionary.get('elf_demo'))
+
         self.spriteSheet = SpriteSheet(spriteDictionary.get(self.spriteKey, 'elf_demo'),fps)
 
         self.spriteSheet.setRow(numRows, numColumns, startRow, startColumn, endRow, endColumn)

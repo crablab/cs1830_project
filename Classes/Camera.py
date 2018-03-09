@@ -13,7 +13,7 @@ class Camera:
 
         self.origin = origin
         self.dim = dim
-        self.dimCanv=Vector(config['CANVAS']['CANVAS_WIDTH'],config['CANVAS']['CANVAS_HEIGHT'])
+        self.dimCanv=Vector(int(config['CANVAS']['CANVAS_WIDTH']),int(config['CANVAS']['CANVAS_HEIGHT']))
         self.zoomIn=False
         self.zoomOut=False
         self.moveLeft=False
@@ -27,26 +27,26 @@ class Camera:
     def move(self):
         self.currentTime=time.time()
         if self.moveUp==True:
-            self.origin.add(Vector(0,-config['CAMERA']['CAM_MOVE_SENSITIVITY']))
+            self.origin.add(Vector(0,-int(config['CAMERA']['CAM_MOVE_SENSITIVITY'])))
         if self.moveDown==True:
-            self.origin.add(Vector(0,config['CAMERA']['CAM_MOVE_SENSITIVITY']))
+            self.origin.add(Vector(0,int(config['CAMERA']['CAM_MOVE_SENSITIVITY'])))
 
         if self.moveLeft == True:
-            self.origin.add(Vector(-config['CAMERA']['CAM_MOVE_SENSITIVITY'],0))
+            self.origin.add(Vector(-int(config['CAMERA']['CAM_MOVE_SENSITIVITY']),0))
         if self.moveRight == True:
-            self.origin.add(Vector(config['CAMERA']['CAM_MOVE_SENSITIVITY'],0))
+            self.origin.add(Vector(int(config['CAMERA']['CAM_MOVE_SENSITIVITY']),0))
 
 
     def zoom(self):
         if self.zoomOut == True:
 
-            self.dim.add(self.dim.copy().multiply(config['CAMERA']['CAM_ZOOM_SENSITIVITY']))
+            self.dim.add(self.dim.copy().multiply(int(config['CAMERA']['CAM_ZOOM_SENSITIVITY'])))
 
-        if self.zoomIn == True and self.dim.x>config['CAMERA']['CAM_MIN_DIST'] and self.dim.y>config['CAMERA']['CAM_MIN_DIST']:
+        if self.zoomIn == True and self.dim.x>int(config['CAMERA']['CAM_MIN_DIST']) and self.dim.y>int(config['CAMERA']['CAM_MIN_DIST']):
             if self.dim.x < 600 or self.dim.y < 600:
                 pass
             else:
-                self.dim.add(self.dim.copy().multiply(-config['CAMERA']['CAM_ZOOM_SENSITIVITY']))
+                self.dim.add(self.dim.copy().multiply(-int(config['CAMERA']['CAM_ZOOM_SENSITIVITY'])))
 
     def ratioToCam(self):
         return(self.dimCanv.copy().divideVector(self.dim).getX())

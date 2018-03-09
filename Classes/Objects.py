@@ -51,17 +51,25 @@ print(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']))
 print(int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y']))
 print(int(config['CANVAS']['CANVAS_WIDTH']))
 print(int(config['CANVAS']['CANVAS_HEIGHT']))
+print(config['PLAYER']['PLAYER_SPRITE'])
 # CAMERA
 cam = Camera(Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])), Vector(int(config['CANVAS']['CANVAS_WIDTH']), int(config['CANVAS']['CANVAS_HEIGHT'])))
+print(cam.origin)
+print(cam.dim)
 # PLAYER
 
 player1 = Player(Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
-                int(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
-                 0,int(Vector(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
-                 int(config['PLAYER']['PLAYER_MAX_VELOCITY']), int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),
-                 int(config['PLAYER']['PLAYER_RADIUS']), PLAYER_SPRITE,
-                 spriteDictionary,int(config['PLAYER']['PLAYER_SPRITE_FPS']),
-                str(uuid.uuid4()),False,Vector(0,0),1,21, 13, 11, 1, 9, 9)
+                Vector(int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_X']),int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_Y'])),
+                 0,Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
+                 int(config['PLAYER']['PLAYER_MAX_VELOCITY']),
+                 int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),
+                 int(config['PLAYER']['PLAYER_RADIUS']),
+                 config['PLAYER']['PLAYER_SPRITE'],
+                 spriteDictionary,
+                 int(config['PLAYER']['PLAYER_SPRITE_FPS']),
+                str(uuid.uuid4()),
+
+                 False,Vector(0,0),1,21, 13, 11, 1, 9, 9)
 player1.setSpriteState(3)
 player_list.append(player1)
 playerId=player1.idObject
