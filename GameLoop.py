@@ -37,7 +37,7 @@ from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
 
 
-from Classes.Objects import cam, particle_set_middle,particle_set_top,particle_set_bottom, spriteDictionary, moving_set,moving_set_external,player_list,playerId
+from Classes.Objects import *
 
 
 #-----START----GAME----CLOCK
@@ -59,6 +59,8 @@ def draw(canvas):
         global moving_set
     for object in moving_set:
         communicate(object)
+    for monster in monster_set:
+        communicate(monster)
 
     #we don't to thread this as it is a small set
     for player in player_list:
@@ -98,8 +100,17 @@ def draw(canvas):
         pe.update()
         pe.draw(canvas,cam)
 
-    for player in player_list:
+    for m in monster_set_external:
+        #print(pe.pos)
+        m.update()
+        m.draw(canvas,cam)
 
+    for m in monster_set:
+        #print(pe.pos)
+        m.update()
+        m.draw(canvas,cam)
+
+    for player in player_list:
         player.update()
         player.draw(canvas,cam)
 
@@ -146,6 +157,23 @@ def draw(canvas):
             removal_set.add(particle)
 
     moving_set_external.difference_update(removal_set)
+    removal_set.clear()
+
+    for monster in monster_set_external:
+        if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0:
+            removal_set.add(monster)
+        if monster.particle.spriteSheet.hasLooped and monster.particle.removeOnAnimationLoop:
+            removal_set.add(monster)
+
+    monster_set_external.difference_update(removal_set)
+    removal_set.clear()
+    for monster in monster_set:
+        if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0:
+            removal_set.add(monster)
+        if monster.particle.spriteSheet.hasLooped and monster.particle.removeOnAnimationLoop:
+            removal_set.add(monster)
+
+    monster_set.difference_update(removal_set)
     removal_set.clear()
 
 

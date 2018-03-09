@@ -9,7 +9,7 @@ class Vector:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.idClass=4
+
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
     def negate(self):
@@ -100,7 +100,3 @@ class Vector:
         self.multiplyVector(ratio)
         self.add(cam.dimCanv.copy().divide(2))
         return self
-
-
-    def encode(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys =True, indent=4)
