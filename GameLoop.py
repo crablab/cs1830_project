@@ -15,13 +15,16 @@ from Classes.Settings import *
 config = configparser.ConfigParser()
 #Open file as writeable
 config.read_file(open('Classes/config'))
+
+
 #Override settings when testing (to make it easier to run multiple instances)
 if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and len(sys.argv) > 1): 
     config['NETWORKING']['CONFIG_TYPE'] = sys.argv[1]
 
     config.set('NETWORKING', 'CONFIG_TYPE', sys.argv[1])
 
-    with open('Classes/config', "w") as conf: 
+    with open('Classes/config', "w") as conf:
+
         config.write(conf) 
 
 #reopen
@@ -84,23 +87,18 @@ def draw(canvas):
 
     #-----CAM---UPDATE---
         cam.zoom()
-        cam.move()
+        cam.move(playerId,player_list)
     #----CLICK---HANDLER---
         checkClick()
 
     #  -------UPDATE-AND-DRAW---OBJECTS---BY---LAYER---PRIORITY
-
-        for pbot in particle_set_bottom:
+    #
+        for pbot in env_l1_set:
             pbot.update()
             pbot.draw(canvas,cam)
-
-        for pmid in particle_set_middle:
-            pmid.update()
-            pmid.draw(canvas, cam)
-
-        for ptop in particle_set_top:
-            ptop.update()
-            ptop.draw(canvas, cam)
+        for pbot in env_l2_set:
+            pbot.update()
+            pbot.draw(canvas,cam)
 
         for pm in moving_set:
             pm.update()
@@ -122,6 +120,8 @@ def draw(canvas):
             m.draw(canvas,cam)
 
         for player in player_list:
+            if playerId==player.idObject:
+                cam.origin=player.particle.pos.copy()
             player.update()
             player.draw(canvas,cam)
 
@@ -129,28 +129,19 @@ def draw(canvas):
     #--------COLLECT----MARKED---OBJECTS------------
         removal_set=set()
 
-        for particle in particle_set_top:
+        for particle in env_l1_set:
             if particle.pos==particle.nextPos and particle.removeOnVelocity0:
                 removal_set.add(particle)
             if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
                 removal_set.add(particle)
-        particle_set_top.difference_update(removal_set)
+        env_l1_set.difference_update(removal_set)
         removal_set.clear()
-
-        for particle in particle_set_middle:
+        for particle in env_l2_set:
             if particle.pos==particle.nextPos and particle.removeOnVelocity0:
                 removal_set.add(particle)
             if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
                 removal_set.add(particle)
-        particle_set_middle.difference_update(removal_set)
-        removal_set.clear()
-
-        for particle in particle_set_bottom:
-            if particle.pos==particle.nextPos and particle.removeOnVelocity0:
-                removal_set.add(particle)
-            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-                removal_set.add(particle)
-        particle_set_bottom.difference_update(removal_set)
+        env_l1_set.difference_update(removal_set)
         removal_set.clear()
 
         for particle in moving_set:

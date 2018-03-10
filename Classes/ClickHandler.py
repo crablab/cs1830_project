@@ -2,7 +2,7 @@ import pygame
 
 from Classes.Particle import Particle
 from Classes.Vector import Vector
-from Classes.Objects import mouse, particle_set_bottom, particle_set_middle, particle_set_top, player_list, cam, \
+from Classes.Objects import mouse,  player_list, cam, \
     adjustment, spriteDictionary,moving_set,playerId
 from Classes.Settings import PARTICLE_VELOCITY, PARTICLE_RADIUS, PARTICLE_MAX_RANGE
 import configparser, json, uuid, os, random
@@ -26,7 +26,7 @@ def checkClick():
         for player1 in player_list:
 
             #ARCHERY
-            if playerId==player1.idObject and not player1.hasFired and player1.weaponId==1:
+            if playerId==player1.idObject and not player1.hasFired and player1.weapon==1:
                 x, y = pygame.mouse.get_pos()
                 player1.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)
                 player1.hasFired=True
@@ -36,7 +36,7 @@ def checkClick():
                  # simplegui-pygame screen position adjustment
 
 
-                particle = Particle(True,player1.particle.pos.copy(), player1.particle.vel.copy(),0,Vector(0,0),int(config['PARTICLE']['PARTICLE_VELOCITY']),int(config['PARTICLE']['PARTICLE_MAX_RANGE']),0,int(config['PARTICLE']['PARTICLE_RADIUS']),'arrow',spriteDictionary,0.001,True,False,str(uuid.uuid4()),1,1,1,1,1,1)
+                particle = Particle(True,player1.particle.pos.copy(), player1.particle.vel.copy(),0,Vector(0,0),int(config['PARTICLE']['PARTICLE_VELOCITY']),int(config['PARTICLE']['PARTICLE_MAX_RANGE']),0,int(config['PARTICLE']['PARTICLE_RADIUS']),'pr_t4_1',spriteDictionary,0.001,True,False,str(uuid.uuid4()),1,1,1,1,1,1)
 
                 particle.moveRange(vector)
                 particle.spriteSheet.setRow(1, 1, 1, 1, 1, 1)

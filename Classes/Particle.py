@@ -78,7 +78,7 @@ class Particle:
                 #cam.dim = Vector(2600*2, 1400*2)
                 objectPos = self.pos.copy().transformToCam(cam)
                 self.spriteSheet.draw(canvas, cam, objectPos, self.angle)
-                #cam.dim=Vector(1300,700)
+                #1cam.dim=Vector(1300,700)
 
             # DEVELOPER OPTION:
             if (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS']))):

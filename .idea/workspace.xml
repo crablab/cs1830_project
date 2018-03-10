@@ -2,196 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="535d3321-3371-455d-b0a1-9ee7583f198c" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Ground/1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Ground/2.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Ground/3.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Ground/4.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Ground/5.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Ground/6.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Ground/7.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Ground/8.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Ground/9.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/10.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/11.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/12.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/13.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/14.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/15.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/16.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/17.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/18.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/19.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/2.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/20.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/21.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/22.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/3.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/4.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/5.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/6.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/7.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/8.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/9.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/6x5/1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier1/1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier1/2.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier1/3.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier1/4.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier1/5.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier1/6.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier2/1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier2/2.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier2/3.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier2/4.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier3/1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier3/2.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier3/3.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier3/4.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier3/5.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Monsters/Tier3/6.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Projectiles/Tier2/1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Projectiles/Tier2/2.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Projectiles/Tier2/3.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Projectiles/Tier2/4.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Projectiles/Tier3/1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Projectiles/Tier3/2.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Projectiles/Tier3/3.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Projectiles/Tier4/1.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/img/Projectiles/Tier4/2.jpg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Classes/RandomGen.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Classes/Camera.py" afterPath="$PROJECT_DIR$/Classes/Camera.py" />
+      <change beforePath="$PROJECT_DIR$/Classes/ClickHandler.py" afterPath="$PROJECT_DIR$/Classes/ClickHandler.py" />
+      <change beforePath="$PROJECT_DIR$/Classes/KeyHandler.py" afterPath="$PROJECT_DIR$/Classes/KeyHandler.py" />
       <change beforePath="$PROJECT_DIR$/Classes/Objects.py" afterPath="$PROJECT_DIR$/Classes/Objects.py" />
-      <change beforePath="$PROJECT_DIR$/img/Magic/Defence/5x7/XShell01.png" afterPath="$PROJECT_DIR$/img/Magic/Defence/5x7/1.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/Magic/ShowOff/5x8/1.jpg" afterPath="$PROJECT_DIR$/img/Magic/ShowOff/5x7/7.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/Magic/revive/5x4/XTeleport02.png" afterPath="$PROJECT_DIR$/img/Magic/revive/5x4/1.png" />
-      <change beforePath="$PROJECT_DIR$/img/Water/Water.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Water/1.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (1).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (10).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (11).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (12).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (13).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (14).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (15).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (16).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (17).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (18).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (19).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (2).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (20).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (21).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (22).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (23).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (24).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (25).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (26).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (27).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (28).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (29).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (3).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (30).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (31).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (32).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (33).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (34).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (35).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (36).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (37).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (38).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (39).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (4).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (40).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (41).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (42).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (43).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (44).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (45).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (46).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (47).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (48).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (49).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (5).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (50).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (51).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (52).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (53).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (54).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (55).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (56).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (57).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (58).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (59).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (6).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (60).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (61).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (62).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (63).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (64).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (65).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (66).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (67).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (68).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (69).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (7).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (70).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (71).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (72).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (73).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (74).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (75).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (76).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (77).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (78).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (79).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (8).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (80).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (81).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/Magic/magic (9).jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/animals/dog.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/animals/dragon3.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/elf/arrow.jpg" afterPath="$PROJECT_DIR$/img/Projectiles/Tier1/1.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/character/elf/demo.jpg" afterPath="$PROJECT_DIR$/img/Character/1.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/character/elf/fire2.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/elf/orc.jpg" afterPath="$PROJECT_DIR$/img/Character/2.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/character/monsters/1/m1.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/monsters/1/m2.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/monsters/1/m3.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/monsters/2/m1.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/monsters/2/m2.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/monsters/3/m1.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/monsters/3/m2.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/monsters/3/m3.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/character/monsters/3/m4.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass01.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/med/1.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass02.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/med/2.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass03.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass04.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass05.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass06.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/light/1.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass07.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/light/2.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass08.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/med/3.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass09.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/dark/1.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass10.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/light/3.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass11.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass12.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass13.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass14.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/dark/2.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass15.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/dark/3.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass16.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/light/4.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass17.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/med/4.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass18.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/light/5.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass19.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/dark/4.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass20.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/med/5.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass21.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer1/Grass/dark/5.jpg" />
-      <change beforePath="$PROJECT_DIR$/img/grass/grass22.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/textures/texture01.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/textures/texture02.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/textures/texture03.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/textures/texture04.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/textures/texture05.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/trees/tree01.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/trees/tree02.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/trees/tree03.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/trees/tree04.jpg" afterPath="$PROJECT_DIR$/img/Environment/Layer2/Trees/15x4/1.jpg" />
+      <change beforePath="$PROJECT_DIR$/Classes/Particle.py" afterPath="$PROJECT_DIR$/Classes/Particle.py" />
+      <change beforePath="$PROJECT_DIR$/Classes/Settings.py" afterPath="$PROJECT_DIR$/Classes/Settings.py" />
+      <change beforePath="$PROJECT_DIR$/Classes/SpriteAnimator.py" afterPath="$PROJECT_DIR$/Classes/SpriteAnimator.py" />
+      <change beforePath="$PROJECT_DIR$/Classes/config" afterPath="$PROJECT_DIR$/Classes/config" />
+      <change beforePath="$PROJECT_DIR$/GameLoop.py" afterPath="$PROJECT_DIR$/GameLoop.py" />
+      <change beforePath="$PROJECT_DIR$/img/Environment/Layer1/Water/1.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/img/Monsters/Tier1/4.png" afterPath="$PROJECT_DIR$/img/Monsters/Tier1/4.jpg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -204,44 +27,116 @@
     <SUITE FILE_PATH="coverage/cs1830$GameLoop.coverage" NAME="GameLoop Coverage Results" MODIFIED="1519919847962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cs1830$test.coverage" NAME="test Coverage Results" MODIFIED="1519869864557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cs1830$ScriptTest.coverage" NAME="ScriptTest Coverage Results" MODIFIED="1519925090499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../.." />
-    <SUITE FILE_PATH="coverage/cs1830$GameLoop__1_.coverage" NAME="GameLoop (1) Coverage Results" MODIFIED="1520625812206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cs1830$GameLoop__1_.coverage" NAME="GameLoop (1) Coverage Results" MODIFIED="1520713623086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cs1830$JsonToObject.coverage" NAME="JsonToObject Coverage Results" MODIFIED="1519925717525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Transfer" />
     <SUITE FILE_PATH="coverage/cs1830$Classes.coverage" NAME="Classes Coverage Results" MODIFIED="1519869300078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="675">
-      <file leaf-file-name="SpriteAnimator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Classes/SpriteAnimator.py">
+      <file leaf-file-name="Settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Classes/Settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="428">
+              <caret line="30" column="9" lean-forward="false" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RandomGen.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Classes/RandomGen.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameLoop.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GameLoop.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="127" column="28" lean-forward="false" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Camera.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Classes/Camera.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1122">
+              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#33#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameStates.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Classes/GameStates.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#49#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpriteSheet.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Classes/SpriteSheet.py">
+      <file leaf-file-name="Particle.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Classes/Particle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+            <state relative-caret-position="430">
+              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#47#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Objects.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClickHandler.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Classes/ClickHandler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="430">
+              <caret line="38" column="256" lean-forward="false" selection-start-line="38" selection-start-column="256" selection-end-line="38" selection-end-column="256" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Player.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Classes/Player.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1088">
+              <caret line="32" column="21" lean-forward="false" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Classes/config">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Objects.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Classes/Objects.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1523">
-              <caret line="210" column="33" lean-forward="false" selection-start-line="210" selection-start-column="21" selection-end-line="210" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#30#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="340">
+              <caret line="365" column="113" lean-forward="false" selection-start-line="365" selection-start-column="113" selection-end-line="365" selection-end-column="113" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -285,8 +180,8 @@
       <find>from</find>
       <find />
       <find>mouse.</find>
-      <find>print</find>
       <find>grass/</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -317,12 +212,8 @@
         <option value="$PROJECT_DIR$/Classes/ParticleCircle.py" />
         <option value="$PROJECT_DIR$/Classes/ParticleSquare.py" />
         <option value="$PROJECT_DIR$/Classes/SpriteSheet.py" />
-        <option value="$PROJECT_DIR$/Classes/SpriteAnimator.py" />
-        <option value="$PROJECT_DIR$/Classes/Camera.py" />
-        <option value="$PROJECT_DIR$/Classes/Settings.py" />
         <option value="$PROJECT_DIR$/Classes/Monster.py" />
         <option value="$PROJECT_DIR$/Classes/Vector.py" />
-        <option value="$PROJECT_DIR$/Classes/Particle.py" />
         <option value="$PROJECT_DIR$/Classes/GameState.py" />
         <option value="$PROJECT_DIR$/Loops/main.py" />
         <option value="$PROJECT_DIR$/Loops/GameState.py" />
@@ -331,12 +222,18 @@
         <option value="$PROJECT_DIR$/Loops/waiting.py" />
         <option value="$PROJECT_DIR$/Loops/intro.py" />
         <option value="$PROJECT_DIR$/Transfer/JsonToObject.py" />
-        <option value="$PROJECT_DIR$/GameLoop.py" />
-        <option value="$PROJECT_DIR$/Classes/config" />
         <option value="$PROJECT_DIR$/Classes/Player.py" />
+        <option value="$PROJECT_DIR$/Classes/RandomString.py" />
+        <option value="$PROJECT_DIR$/Classes/SpriteAnimator.py" />
         <option value="$PROJECT_DIR$/Classes/KeyHandler.py" />
-        <option value="$PROJECT_DIR$/Classes/ClickHandler.py" />
+        <option value="$PROJECT_DIR$/Classes/Settings.py" />
+        <option value="$PROJECT_DIR$/Classes/Particle.py" />
+        <option value="$PROJECT_DIR$/Classes/RandomGen.py" />
+        <option value="$PROJECT_DIR$/GameLoop.py" />
         <option value="$PROJECT_DIR$/Classes/Objects.py" />
+        <option value="$PROJECT_DIR$/Classes/config" />
+        <option value="$PROJECT_DIR$/Classes/Camera.py" />
+        <option value="$PROJECT_DIR$/Classes/ClickHandler.py" />
       </list>
     </option>
   </component>
@@ -349,8 +246,8 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="134" />
     <option name="y" value="35" />
-    <option name="width" value="3706" />
-    <option name="height" value="2125" />
+    <option name="width" value="1786" />
+    <option name="height" value="1045" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -390,14 +287,14 @@
               <item name="cs1830" type="b2602c69:ProjectViewProjectNode" />
               <item name="cs1830" type="462c0819:PsiDirectoryNode" />
               <item name="img" type="462c0819:PsiDirectoryNode" />
-              <item name="Magic" type="462c0819:PsiDirectoryNode" />
+              <item name="Projectiles" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cs1830" type="b2602c69:ProjectViewProjectNode" />
               <item name="cs1830" type="462c0819:PsiDirectoryNode" />
               <item name="img" type="462c0819:PsiDirectoryNode" />
-              <item name="Magic" type="462c0819:PsiDirectoryNode" />
-              <item name="ShowOff" type="462c0819:PsiDirectoryNode" />
+              <item name="Projectiles" type="462c0819:PsiDirectoryNode" />
+              <item name="Tier4" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -569,16 +466,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="134" y="35" width="3706" height="2125" extended-state="6" />
+    <frame x="67" y="-21" width="3773" height="2181" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17539126" sideWeight="0.54892206" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27448925" sideWeight="0.5009498" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17539126" sideWeight="0.45107794" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27448925" sideWeight="0.4990502" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09812051" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.094165534" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -609,6 +506,10 @@
           <line>7</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Classes/Camera.py</url>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -617,192 +518,12 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="16" />
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/img/textures/texture02.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/textures/texture03.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/textures/texture04.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/textures/texture05.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Water/Water.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/trees/tree02.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/trees/tree01.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/trees/tree03.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/trees/tree04.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/ClickHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#33#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer1/Ground/1.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer1/Ground/9.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer1/Ground/8.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer1/Ground/6.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer1/Ground/5.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer1/Ground/3.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer1/Ground/4.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer1/Ground/7.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer1/Ground/2.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GameLoop.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="16" selection-end-column="40" />
-          <folding>
-            <element signature="e#243#331#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier1/5.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier1/4.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier1/3.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier1/2.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier1/6.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier3/6.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier3/5.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier3/4.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier3/3.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier3/2.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier2/4.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/img/Monsters/Tier2/3.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier2/2.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -812,77 +533,226 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier1/1.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier2/2.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/4.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier2/4.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/3.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier3/1.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/2.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier3/2.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Environment/Layer2/Trees/1x1/1.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier3/3.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Magic/ShowOff/5x6/2.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Monsters/Tier3/4.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Magic/ShowOff/5x7/6.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x4/1.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Magic/ShowOff/5x7/4.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x4/2.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Magic/ShowOff/5x7/2.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x4/3.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Magic/ShowOff/5x7/3.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x7/2.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Magic/ShowOff/5x7/7.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x7/4.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Magic/ShowOff/5x7/5.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x7/5.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/Magic/ShowOff/5x20/1.jpg">
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x7/7.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x7/8.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x7/9.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x7/10.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x7/11.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x14/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Cast/5x14/2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Projectiles/Tier1/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Projectiles/Tier2/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Projectiles/Tier2/2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Projectiles/Tier3/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Projectiles/Tier3/2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Projectiles/Tier3/3.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Projectiles/Tier4/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Projectiles/Tier4/2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Projectiles/Tier2/4.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Loops/intro.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Mouse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/KeyHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1095">
+          <caret line="35" column="52" lean-forward="false" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#25#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.6/configparser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="856">
+          <caret line="1232" column="0" lean-forward="false" selection-start-line="1232" selection-start-column="0" selection-end-line="1232" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/SpriteSheet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -892,18 +762,96 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#49#0" expanded="true" />
+            <element signature="e#0#49#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="30" column="9" lean-forward="false" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/RandomGen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameLoop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="127" column="28" lean-forward="false" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/GameStates.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/Objects.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1523">
-          <caret line="210" column="33" lean-forward="false" selection-start-line="210" selection-start-column="21" selection-end-line="210" selection-end-column="33" />
+        <state relative-caret-position="340">
+          <caret line="365" column="113" lean-forward="false" selection-start-line="365" selection-start-column="113" selection-end-line="365" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Camera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#0#33#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Player.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1088">
+          <caret line="32" column="21" lean-forward="false" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Particle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/ClickHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="38" column="256" lean-forward="false" selection-start-line="38" selection-start-column="256" selection-end-line="38" selection-end-column="256" />
+          <folding />
         </state>
       </provider>
     </entry>

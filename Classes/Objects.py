@@ -19,18 +19,22 @@ config.read_file(open('Classes/config'))
 import SimpleGUICS2Pygame
 from SimpleGUICS2Pygame import simpleguics2pygame
 import os
+import uuid
 import random
 
 # ------------GAME STATES----------------
-gameState1 = GameState(True, False)
-gameState2 = GameState(True, False)
+gameState1 = GameState(False, True)
+gameState2 = GameState(False, True)
 
 # ---------------------ANY SETS/LISTS-----------------------
-moving_set = set()
-particle_set_bottom = set()
-particle_set_middle = set()
-particle_set_top = set()
 player_list = []
+moving_set = set()
+moving_set_external = set()
+
+env_l1_set = set()
+env_l2_set = set()
+
+
 monster_set = set()
 monster_set_external = set()
 
@@ -48,8 +52,8 @@ def getUid():
 
 cwd = os.getcwd()
 
-ch1 = SpriteAnimator(cwd + '/img/character/1.jpg')
-ch2 = SpriteAnimator(cwd + '/img/character/2.jpg')
+ch1 = SpriteAnimator(cwd + '/img/Character/1.jpg')
+ch2 = SpriteAnimator(cwd + '/img/Character/2.jpg')
 
 env_l1_grass_d_1 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/1.jpg')
 env_l1_grass_d_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/2.jpg')
@@ -61,12 +65,12 @@ env_l1_grass_l_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/light/2.j
 env_l1_grass_l_3 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/light/3.jpg')
 env_l1_grass_l_4 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/light/4.jpg')
 env_l1_grass_l_5 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/light/5.jpg')
-env_l1_grass_m_1 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/medium/1.jpg')
-env_l1_grass_m_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/medium/2.jpg')
-env_l1_grass_m_3 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/medium/3.jpg')
-env_l1_grass_m_4 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/medium/4.jpg')
-env_l1_grass_m_5 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/medium/5.jpg')
-
+env_l1_grass_m_1 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/med/1.jpg')
+env_l1_grass_m_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/med/2.jpg')
+env_l1_grass_m_3 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/med/3.jpg')
+env_l1_grass_m_4 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/med/4.jpg')
+env_l1_grass_m_5 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/med/5.jpg')
+print("ground")
 env_l1_ground_1 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/1.jpg')
 env_l1_ground_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/2.jpg')
 env_l1_ground_3 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/3.jpg')
@@ -77,11 +81,11 @@ env_l1_ground_7 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/7.jpg')
 env_l1_ground_8 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/8.jpg')
 env_l1_ground_9 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/9.jpg')
 
-env_l1_water_1 = SpriteAnimator(cwd + '/img/Environment/Layer1/Water/1.jpg')
-
+print("marker2")
 env_l2_trees_1x1_1 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/1.jpg')
 env_l2_trees_1x1_2 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/2.jpg')
 env_l2_trees_1x1_3 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/3.jpg')
+print("marker")
 env_l2_trees_1x1_4 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/4.jpg')
 env_l2_trees_1x1_5 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/5.jpg')
 env_l2_trees_1x1_6 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/6.jpg')
@@ -101,6 +105,7 @@ env_l2_trees_1x1_19 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/19
 env_l2_trees_1x1_20 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/20.jpg')
 env_l2_trees_1x1_21 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/21.jpg')
 env_l2_trees_1x1_22 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/22.jpg')
+print("marker3")
 
 env_l2_trees_6x5_1 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/6x5/1.jpg')
 env_l2_trees_15x4_1 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/15x4/1.jpg')
@@ -118,7 +123,7 @@ mag_att_5x7_4 = SpriteAnimator(cwd + '/img/Magic/Attack/5x7/4.jpg')
 mag_att_5x7_5 = SpriteAnimator(cwd + '/img/Magic/Attack/5x7/5.jpg')
 mag_att_5x7_6 = SpriteAnimator(cwd + '/img/Magic/Attack/5x7/6.jpg')
 mag_att_5x11_1 = SpriteAnimator(cwd + '/img/Magic/Attack/5x11/1.jpg')
-
+print("marker4")
 mag_cas_5x4_1 = SpriteAnimator(cwd + '/img/Magic/Cast/5x4/1.jpg')
 mag_cas_5x4_2 = SpriteAnimator(cwd + '/img/Magic/Cast/5x4/2.jpg')
 mag_cas_5x4_3 = SpriteAnimator(cwd + '/img/Magic/Cast/5x4/3.jpg')
@@ -145,14 +150,14 @@ mag_def_5x5_2 = SpriteAnimator(cwd + '/img/Magic/Defence/5x5/2.jpg')
 mag_def_5x6_1 = SpriteAnimator(cwd + '/img/Magic/Defence/5x6/1.jpg')
 mag_def_5x6_2 = SpriteAnimator(cwd + '/img/Magic/Defence/5x6/2.jpg')
 mag_def_5x7_1 = SpriteAnimator(cwd + '/img/Magic/Defence/5x7/1.jpg')
-
+print("marker5")
 mag_reg_5x5_1 = SpriteAnimator(cwd + '/img/Magic/Regen/5x5/1.jpg')
 mag_reg_5x7_1 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/1.jpg')
 mag_reg_5x7_2 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/2.jpg')
 mag_reg_5x7_3 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/3.jpg')
 mag_reg_5x7_4 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/4.jpg')
 
-mag_rev_5x4_1 = SpriteAnimator(cwd + '/img/Magic/Regen/5x4/1.jpg')
+mag_rev_5x5_1 = SpriteAnimator(cwd + '/img/Magic/Regen/5x5/1.jpg')
 mag_rev_5x7_1 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/1.jpg')
 mag_rev_5x7_2 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/2.jpg')
 mag_rev_5x7_3 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/3.jpg')
@@ -174,22 +179,23 @@ mag_sho_5x7_7 = SpriteAnimator(cwd + '/img/Magic/ShowOff/5x7/7.jpg')
 mag_sho_5x20_1 = SpriteAnimator(cwd + '/img/Magic/ShowOff/5x20/1.jpg')
 
 # num rows num columns, end row,end column, id
-mon_t1_20_6_10_4_1 = SpriteAnimator(cwd + '/img/Monster/Tier1/1.jpg')
-mon_t1_14_3_7_3_2 = SpriteAnimator(cwd + '/img/Monster/Tier1/2.jpg')
-mon_t1_4_6_2_6_3 = SpriteAnimator(cwd + '/img/Monster/Tier1/3.jpg')
-mon_t1_2_4_1_4_4 = SpriteAnimator(cwd + '/img/Monster/Tier1/4.jpg')
-mon_t1_2_10_1_10_5 = SpriteAnimator(cwd + '/img/Monster/Tier1/5.jpg')
-mon_t1_8_3_4_3_6 = SpriteAnimator(cwd + '/img/Monster/Tier1/6.jpg')
-mon_t2_4_4_2_4_1 = SpriteAnimator(cwd + '/img/Monster/Tier2/1.jpg')
-mon_t2_16_10_8_9_2 = SpriteAnimator(cwd + '/img/Monster/Tier2/2.jpg')
-mon_t2_2_8_1_8_3 = SpriteAnimator(cwd + '/img/Monster/Tier2/3.jpg')
-mon_t2_4_4_2_4_4 = SpriteAnimator(cwd + '/img/Monster/Tier2/4.jpg')
-mon_t3_8_2_4_2_1 = SpriteAnimator(cwd + '/img/Monster/Tier3/1.jpg')
-mon_t3_10_4_5_4_2 = SpriteAnimator(cwd + '/img/Monster/Tier3/2.jpg')
-mon_t3_10_4_5_4_3 = SpriteAnimator(cwd + '/img/Monster/Tier3/3.jpg')
-mon_t3_6_2_3_2_4 = SpriteAnimator(cwd + '/img/Monster/Tier3/4.jpg')
-mon_t3_6_2_3_2_5 = SpriteAnimator(cwd + '/img/Monster/Tier3/5.jpg')
-mon_t3_8_8_4_2_6 = SpriteAnimator(cwd + '/img/Monster/Tier3/6.jpg')
+mon_t1_20_6_10_4_1 = SpriteAnimator(cwd + '/img/Monsters/Tier1/1.jpg')
+mon_t1_14_3_7_3_2 = SpriteAnimator(cwd + '/img/Monsters/Tier1/2.jpg')
+print("marker6")
+mon_t1_4_6_2_6_3 = SpriteAnimator(cwd + '/img/Monsters/Tier1/3.jpg')
+mon_t1_2_4_1_4_4 = SpriteAnimator(cwd + '/img/Monsters/Tier1/4.jpg')
+mon_t1_2_10_1_10_5 = SpriteAnimator(cwd + '/img/Monsters/Tier1/5.jpg')
+mon_t1_8_3_4_3_6 = SpriteAnimator(cwd + '/img/Monsters/Tier1/6.jpg')
+mon_t2_4_4_2_4_1 = SpriteAnimator(cwd + '/img/Monsters/Tier2/1.jpg')
+mon_t2_16_10_8_9_2 = SpriteAnimator(cwd + '/img/Monsters/Tier2/2.jpg')
+mon_t2_2_8_1_8_3 = SpriteAnimator(cwd + '/img/Monsters/Tier2/3.jpg')
+mon_t2_4_4_2_4_4 = SpriteAnimator(cwd + '/img/Monsters/Tier2/4.jpg')
+mon_t3_8_2_4_2_1 = SpriteAnimator(cwd + '/img/Monsters/Tier3/1.jpg')
+mon_t3_10_4_5_4_2 = SpriteAnimator(cwd + '/img/Monsters/Tier3/2.jpg')
+mon_t3_10_4_5_4_3 = SpriteAnimator(cwd + '/img/Monsters/Tier3/3.jpg')
+mon_t3_6_2_3_2_4 = SpriteAnimator(cwd + '/img/Monsters/Tier3/4.jpg')
+mon_t3_6_2_3_2_5 = SpriteAnimator(cwd + '/img/Monsters/Tier3/5.jpg')
+mon_t3_8_8_4_2_6 = SpriteAnimator(cwd + '/img/Monsters/Tier3/6.jpg')
 
 pro_t1_1 = SpriteAnimator(cwd + '/img/Projectiles/Tier1/1.jpg')
 pro_t2_1 = SpriteAnimator(cwd + '/img/Projectiles/Tier2/1.jpg')
@@ -232,7 +238,6 @@ spriteDictionary = {'ch_1': ch1,
                     'en_l1_gd_8': env_l1_ground_8,
                     'en_l1_gd_9': env_l1_ground_9,
 
-                    'en_l1_wr_1': env_l1_water_1,
 
                     'en_l2_ts_1x1_1': env_l2_trees_1x1_1,
                     'en_l2_ts_1x1_2': env_l2_trees_1x1_2,
@@ -306,7 +311,7 @@ spriteDictionary = {'ch_1': ch1,
                     'ma_re_5x7_3': mag_reg_5x7_3,
                     'ma_re_5x7_4': mag_reg_5x7_4,
 
-                    'ma_rv_5x4_1': mag_rev_5x4_1,
+                    'ma_rv_5x4_1': mag_rev_5x5_1,
                     'ma_rv_5x7_1': mag_rev_5x7_1,
                     'ma_rv_5x7_2': mag_rev_5x7_2,
                     'ma_rv_5x7_3': mag_rev_5x7_3,
@@ -356,8 +361,9 @@ spriteDictionary = {'ch_1': ch1,
                     'pr_t4_2': pro_t4_2}
 # -----------------------MOVING OBJECTS-------------------
 
+
 # CAMERA
-cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vector(CANVAS_WIDTH, CANVAS_HEIGHT))
+cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vector(CANVAS_WIDTH/4, CANVAS_HEIGHT/4))
 
 # PLAYER
 
@@ -379,34 +385,25 @@ player1.setSpriteState(3)
 player_list.append(player1)
 playerId = player1.idObject
 
-if (bool(config['NETWORKING']['CONFIG_TYPE'] == "server")):
-    dragon = Monster(Vector(0, 2500), Vector(100, 0), 0, Vector(0, 2500), 150, 0, 0, 'whiteDragon', spriteDictionary,
-                     25, getUid(), False, Vector(0, 0), 1, 5, 4, 1, 1, 5, 4)
-    dragon.move(Vector(10000, 2500))
-    monster_set.add(dragon)
-
-elif bool((config['NETWORKING']['CONFIG_TYPE'] == "client")):
-    dragon2 = Monster(Vector(0, 3000), Vector(100, 0), 0, Vector(0, 3000), 150, 0, 0, 'greenDragon', spriteDictionary,
-                      25, getUid(), False, Vector(0, 0), 1, 5, 4, 1, 1, 5, 4)
-    dragon2.move(Vector(10000, 2500))
-    monster_set.add(dragon2)
+# if (bool(config['NETWORKING']['CONFIG_TYPE'] == "server")):
+#     dragon = Monster(Vector(0, 2500), Vector(100, 0), 0, Vector(0, 2500), 150, 0, 0, 'whiteDragon', spriteDictionary,
+#                      25, getUid(), False, Vector(0, 0), 1, 5, 4, 1, 1, 5, 4)
+#     dragon.move(Vector(10000, 2500))
+#     monster_set.add(dragon)
+#
+# elif bool((config['NETWORKING']['CONFIG_TYPE'] == "client")):
+#     dragon2 = Monster(Vector(0, 3000), Vector(100, 0), 0, Vector(0, 3000), 150, 0, 0, 'greenDragon', spriteDictionary,
+#                       25, getUid(), False, Vector(0, 0), 1, 5, 4, 1, 1, 5, 4)
+#     dragon2.move(Vector(10000, 2500))
+#     monster_set.add(dragon2)
 
 # -----------------------NON-MOVING OBJECTS------------------
 
-# GRASS
-x = 0
+from Classes.RandomGen import randomGrass
+randomGrass()
 
-for i in range(0, 400):
-    if i % 20 == 0:
-        x += 1
 
-    g = Particle(False, Vector(x * 500, (i % 20) * 500), Vector(0, 0), 0, Vector(x * 500, (i % 20) * 500), 0, 0, 0, 0,
-                 'grass01', spriteDictionary, 0.0001, False, False, getUid(), 1, 1, 1, 1, 1, 1)
 
-    particle_set_bottom.add(g)
-
-tree = Particle(True, Vector(2500, 2500), Vector(0, 0), 0, Vector(2500, 2500), 200, 0, 0, 0, 'tree', spriteDictionary,
-                1, False, False, getUid(), 4, 15, 1, 1, 4, 15)
-
-tree = Particle(True, Vector(2500, 2500), Vector(0, 0), 200, 0, 0, 0, 'tree', spriteDictionary, 0.1, False, False)
-tree.spriteSheet.setRow(4, 15, 1, 1, 4, 15)
+# tree = Particle(True, Vector(2500, 2500), Vector(0, 0), 0, Vector(2500, 2500), 200, 0, 0, 0, 'en_l1_tr', spriteDictionary,
+#                 1, False, False, getUid(), 4, 15, 1, 1, 4, 15)
+#

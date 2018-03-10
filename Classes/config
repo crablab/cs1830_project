@@ -2,19 +2,22 @@
 developer_options = 0
 
 [CANVAS]
-canvas_width = 1920
-canvas_height = 1080
+canvas_width = 720
+canvas_height = 480
+
 
 [NETWORKING]
-config_type = client
+config_type = server
 client_ip = localhost
 logging = False
 logging_level = low
 
 [CAMERA]
-cam_move_sensitivity = 60
+cam_move_sensitivity =200
 cam_zoom_sensitivity = 0.03
-cam_min_dist = 200
+cam_min_zoom_dist = 100
+cam_max_zoom_dist = 1000
+cam_min_move_dist = 2000
 
 [PARTICLE]
 particle_velocity = 300
@@ -36,5 +39,5 @@ player_initial_velocity_y = 0
 player_initial_position_x = 2500
 player_initial_position_y = 2500
 player_sprite_fps = 10
-player_sprite = elf_demo
+player_sprite = ch_1
 
