@@ -28,11 +28,15 @@ gameState2 = GameState(False, True)
 
 # ---------------------ANY SETS/LISTS-----------------------
 player_list = []
-moving_set = set()
-moving_set_external = set()
+visual_set = set()
+visual_set_external=set()
+weapon_set = set()
+weapon_set_external = set()
 
 env_l1_set = set()
 env_l2_list=[]
+env_l3_list=[]
+
 
 monster_set = set()
 monster_set_external = set()

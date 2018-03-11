@@ -70,12 +70,13 @@ def draw(canvas):
         # print("game")
 
         #Threading for adding to queues
-        def movingSetSend():
-            global moving_set
-        for object in moving_set:
+
+        for object in weapon_set:
             communicate(object)
         for monster in monster_set:
             communicate(monster)
+        for object in visual_set:
+            communicate(object)
 
         #we don't to thread this as it is a small set
         for player in player_list:
@@ -98,22 +99,33 @@ def draw(canvas):
         for pbot in env_l1_set:
             pbot.update()
             pbot.draw(canvas,cam)
+        for pbot in env_l3_list:
+            pbot.update()
+            pbot.draw(canvas,cam)
+        for v in visual_set:
+            v.update()
+            v.draw(canvas,cam)
+        for ve in visual_set_external:
+            ve.update()
+            ve.draw(canvas,cam)
+
+
 
         for en2 in env_l2_list:
-            for pm in moving_set:
-                if not pm.updated:
-                    if doCirclesIntersect(pm, en2):
-                        pm.draw(canvas, cam)
-                        pm.update()
-                        pm.updated=True
-
-            for pe in moving_set_external:
+            for w in weapon_set:
+                if not w.particle.updated:
+                    if doCirclesIntersect(w.particle, en2):
+                        w.draw(canvas, cam)
+                        w.update()
+                        w.particle.updated=True
+            for w in weapon_set_external:
                 #print(pe.pos)
-                if not pe.updated:
-                    if  doCirclesIntersect(pe,en2):
-                        pe.update()
-                        pe.draw(canvas,cam)
-                        pe.updated=True
+                if not w.particle.updated:
+                    if  doCirclesIntersect(w.particle,en2):
+                        w.update()
+                        w.draw(canvas,cam)
+                        w.updated=True
+
             for m in monster_set_external:
                 #print(pe.pos)
                 if not m.particle.updated:
@@ -128,14 +140,12 @@ def draw(canvas):
                         m.update()
                         m.draw(canvas,cam)
                         m.particle.updated=True
-            for player in player_list:
 
+            for player in player_list:
                 if not player.particle.updated:
                     # print(player.particle.radius)
                     # print(player.particle.pos.getY())
-
                     if doCirclesIntersect(player.particle, en2):
-
                         player.update()
                         player.draw(canvas,cam)
                         player.particle.updated=True
@@ -145,16 +155,17 @@ def draw(canvas):
             en2.draw(canvas, cam)
 # UPDATE those left then reset updates for all
 
-        for p in moving_set:
-            if not p.updated:
-                p.draw(canvas,cam)
-                p.update()
-            p.updated=False
-        for p in moving_set_external:
-            if not p.updated:
-                p.draw(canvas,cam)
-                p.update()
-            p.updated=False
+        for w in weapon_set:
+            if not w.particle.updated:
+                w.draw(canvas,cam)
+                w.update()
+            w.particle.updated=False
+        for w in weapon_set_external:
+            if not w.particle.updated:
+                w.draw(canvas,cam)
+                w.update()
+            w.particle.updated=False
+
         for pm in monster_set_external:
             if not pm.updated:
                 pm.draw(canvas,cam)
@@ -165,9 +176,8 @@ def draw(canvas):
                 pm.draw(canvas,cam)
                 pm.update()
             pm.particle.updated=False
+
         for pp in player_list:
-
-
             if pp.idObject==playerId:
                 cam.origin=pp.particle.pos.copy()
 
@@ -181,24 +191,25 @@ def draw(canvas):
     #--------COLLECT----MARKED---OBJECTS------------
         removal_set=set()
 
+        #WEAPON CLEANUP (MAGIC, ARROWS)
+        for weapon in weapon_set:
 
-        for particle in moving_set:
-            if particle.pos == particle.nextPos and particle.removeOnVelocity0:
-                removal_set.add(particle)
-            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-                removal_set.add(particle)
-        moving_set.difference_update(removal_set)
+            if weapon.particle.pos == weapon.particle.nextPos and weapon.particle.removeOnVelocity0:
+                removal_set.add(weapon)
+            if weapon.particle.spriteSheet.hasLooped and weapon.particle.removeOnAnimationLoop:
+                removal_set.add(weapon)
+        weapon_set.difference_update(removal_set)
         removal_set.clear()
 
-        for particle in moving_set_external:
-            if particle.pos == particle.nextPos and particle.removeOnVelocity0:
-                removal_set.add(particle)
-            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-                removal_set.add(particle)
-
-        moving_set_external.difference_update(removal_set)
+        for weapon in weapon_set_external:
+            if weapon.particle.pos == weapon.particle.nextPos and weapon.particle.removeOnVelocity0:
+                removal_set.add(weapon)
+            if weapon.particle.spriteSheet.hasLooped and weapon.particle.removeOnAnimationLoop:
+                removal_set.add(weapon)
+        weapon_set_external.difference_update(removal_set)
         removal_set.clear()
 
+        #MONSTER_CLEANUP
         for monster in monster_set_external:
             if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0:
                 removal_set.add(monster)
@@ -212,8 +223,24 @@ def draw(canvas):
                 removal_set.add(monster)
             if monster.particle.spriteSheet.hasLooped and monster.particle.removeOnAnimationLoop:
                 removal_set.add(monster)
-
         monster_set.difference_update(removal_set)
+        removal_set.clear()
+
+        #VISUAL SET CLEANUP
+        for v in visual_set:
+            if v.pos == v.nextPos and v.removeOnVelocity0:
+                removal_set.add(v)
+            if v.spriteSheet.hasLooped and v.removeOnAnimationLoop:
+                removal_set.add(v)
+        visual_set.difference_update(removal_set)
+        removal_set.clear()
+
+        for v in visual_set_external:
+            if v.pos == v.nextPos and v.removeOnVelocity0:
+                removal_set.add(v)
+            if v.spriteSheet.hasLooped and v.removeOnAnimationLoop:
+                removal_set.add(v)
+        visual_set_external.difference_update(removal_set)
         removal_set.clear()
 
 

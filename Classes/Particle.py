@@ -11,9 +11,9 @@ class Particle:
     def __init__(self, updateSprite,pos, vel,nextPosTime,nextPos, maxVel, maxRange, angle, radius, spriteKey, spriteDictionary,fps, removeOnVelocity0,
                  removeOnAnimationLoop,idObject,numRows,numColumns,startRow,startColumn,endRow,endColumn):
 
-        self.idClass = 2
-        self.idObject= idObject
 
+        self.idObject= idObject
+        self.idClass=2
         self.pos = pos
         self.vel = vel
         self.nextPos = nextPos

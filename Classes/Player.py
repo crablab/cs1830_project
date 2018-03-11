@@ -30,7 +30,7 @@ class Player:
         self.range = 600
         self.melee = 600
         self.magic = 600
-        self.weapon=600
+        self.weapon=1
         # sub class
         self.particle = Particle(True, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,
                                  spriteDictionary, spriteFps,
@@ -63,47 +63,53 @@ class Player:
         self.currentTime = time.time()
 
         if self.spriteState == 0:
-            self.setCorrectAnimation()
+            self.setCorrectAnimation(1)
         # CORRECT SPRITE ROW AND UPDATE FPS
         if self.hasFired and self.particle.spriteSheet.hasLooped:
             self.hasFired = False
-            self.setCorrectAnimation()
+            self.setCorrectAnimation(1)
+        print(self.hasFired)
         if self.particle.vel.getX() == 0 and self.particle.vel.getY() == 0 and not self.hasFired:
             self.particle.spriteSheet.currentColumn = 1
 
-    def setCorrectAnimation(self):
+    def setCorrectAnimation(self,action):
+        if action==1:
+            self.particle.spriteSheet.fps=20
+        if action==2:
+            self.particle.spriteSheet.fps=30
+        if action==3:
+            self.particle.spriteSheet.fps=5
         x, y = self.particle.pos.copy().distanceToVector(self.clickPosition)
         if y < 0:
-            if self.hasFired:
+            if action==2:
                 self.setSpriteState(6)
-            elif self.magicId != 0:
-                self.setSpriteState(9)
-
+            elif action==3:
+                self.setSpriteState(11)
             else:
                 self.setSpriteState(3)
-        if y > 0:
-            if self.hasFired:
-                self.setSpriteState(8)
-            elif self.magicId != 0:
-                self.setSpriteState(10)
 
+        if y > 0:
+            if action==2:
+                self.setSpriteState(8)
+            elif action==3:
+                self.setSpriteState(9)
             else:
                 self.setSpriteState(1)
+
         if y != 0:
             if (x + y) / y > 2 and y < 0:
-                if self.hasFired:
+                if action==2:
                     self.setSpriteState(5)
-                elif self.magicId != 0:
-                    self.setSpriteState(11)
-
+                elif action==3:
+                    self.setSpriteState(12)
                 else:
                     self.setSpriteState(4)
 
             if (x + y) / y < 0 and y < 0:
-                if self.hasFired:
+                if action==2:
                     self.setSpriteState(7)
-                elif self.magicId != 0:
-                    self.setSpriteState(12)
+                elif action==3:
+                    self.setSpriteState(10)
 
                 else:
                     self.setSpriteState(2)
@@ -170,7 +176,7 @@ class Player:
         elif id == 11:
             self.magicDown()
         elif id == 12:
-            self.magicLeft()
+            self.magicRight()
 
     def turn(self, angle):
         self.particle.angle += angle
