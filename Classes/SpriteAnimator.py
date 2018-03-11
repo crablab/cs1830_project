@@ -8,6 +8,7 @@ import json
 class SpriteAnimator:
     def __init__(self, image):
         self.image = simpleguics2pygame.load_image(image)
+        print(self.image.get_width())
         self.dimOriginal = Vector(self.image.get_width(), self.image.get_height())
         # print(self.dimOriginal)
         self.dimCamera = Vector(0, 0)

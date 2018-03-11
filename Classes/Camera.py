@@ -1,5 +1,6 @@
 from Classes.Vector import Vector
-from Classes.Settings import CAM_MIN_DIST,CAM_ZOOM_SENSITIVITY,CAM_MOVE_SENSITIVITY,CANVAS_HEIGHT,CANVAS_WIDTH
+from Classes.Settings import CAM_MAX_MOVE_DIST
+
 import configparser
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
@@ -20,33 +21,38 @@ class Camera:
         self.moveRight=False
         self.moveUp=False
         self.moveDown=False
-
+        self.maxMoveDist=CAM_MAX_MOVE_DIST
+        self.maxZoomDist=int(config['CAMERA']['CAM_MAX_ZOOM_DIST'])
+        self.minZoomDist = int(config['CAMERA']['CAM_MIN_ZOOM_DIST'])
+        self.moveSensitivity=int(config['CAMERA']['CAM_MOVE_SENSITIVITY'])
+        self.zoomSensitivity=float(config['CAMERA']['CAM_ZOOM_SENSITIVITY'])
         self.currentTime=time.time()
 
 
-    def move(self):
+    def move(self,playerId,player_list):
+        for player in player_list:
+            if playerId == player.idObject:
+                pos = player.particle.pos.copy()
         self.currentTime=time.time()
-        if self.moveUp==True:
-            self.origin.add(Vector(0,-int(config['CAMERA']['CAM_MOVE_SENSITIVITY'])))
-        if self.moveDown==True:
-            self.origin.add(Vector(0,int(config['CAMERA']['CAM_MOVE_SENSITIVITY'])))
+
+        if self.moveUp==True and pos.getY()-self.origin.getY()<self.maxMoveDist:
+            self.origin.add(Vector(0,-self.moveSensitivity))
+        if self.moveDown==True and self.origin.getY()-pos.getY()<pos.getY()+self.maxMoveDist:
+            self.origin.add(Vector(0,self.moveSensitivity))
 
         if self.moveLeft == True:
-            self.origin.add(Vector(-int(config['CAMERA']['CAM_MOVE_SENSITIVITY']),0))
+            self.origin.add(Vector(-self.moveSensitivity,0))
         if self.moveRight == True:
-            self.origin.add(Vector(int(config['CAMERA']['CAM_MOVE_SENSITIVITY']),0))
+            self.origin.add(Vector(self.moveSensitivity,0))
 
 
     def zoom(self):
-        if self.zoomOut == True:
+        if self.zoomOut == True and self.dim.x<self.maxZoomDist and self.dim.y<self.maxZoomDist:
+            self.dim.add(self.dim.copy().multiply(self.zoomSensitivity))
 
-            self.dim.add(self.dim.copy().multiply(float(config['CAMERA']['CAM_ZOOM_SENSITIVITY'])))
+        if self.zoomIn == True and self.dim.x>self.minZoomDist and self.dim.y>self.minZoomDist:
 
-        if self.zoomIn == True and self.dim.x>int(config['CAMERA']['CAM_MIN_DIST']) and self.dim.y>int(config['CAMERA']['CAM_MIN_DIST']):
-            if self.dim.x < 600 or self.dim.y < 600:
-                pass
-            else:
-                self.dim.add(self.dim.copy().multiply(-float(config['CAMERA']['CAM_ZOOM_SENSITIVITY'])))
+                self.dim.add(self.dim.copy().multiply(-self.zoomSensitivity))
 
     def ratioToCam(self):
         return(self.dimCanv.copy().divideVector(self.dim).getX())

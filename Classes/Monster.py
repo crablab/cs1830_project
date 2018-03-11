@@ -10,13 +10,21 @@ from Classes.Vector import Vector
 class Monster:
     def __init__(self, pos, vel, nextPosTime, nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps,
                  idObject, hasFired,
-                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn):
+                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn,reviveTime,operationRange,attackRange,tier):
         # id's
         self.remove = False
         self.idClass = 4
         self.idObject = idObject
         self.magicId = 0 #this is a space to attach a particle object id so we can link it to this class if there is one.
         # non-vectors (attributes)
+        self.reviveTime=reviveTime
+        self.operationRange=operationRange
+        self.attackRange=attackRange
+
+        self.life = 10000*(tier**3)
+        self.range = 1000*(tier**3)
+        self.melee = 1000*(tier**3)
+        self.magic = 1000*(tier**3)
 
         # vectors
         self.clickPosition = clickPosition
@@ -24,10 +32,6 @@ class Monster:
         self.spriteState = spriteState
         self.currentTime = 0
         self.hasFired = hasFired
-        self.life=1
-        self.range=1
-        self.melee=1
-        self.magic=1
 
 
         #sub class

@@ -4,7 +4,8 @@ from Classes.Vector import Vector
 from Classes.Particle import Particle
 from Classes.Player import Player
 from Classes.Monster import Monster
-from Classes.Objects import moving_set_external, player_list,monster_set_external,spriteDictionary, playerId,gameState2
+from Classes.Weapon import Weapon
+from Classes.Objects import weapon_set_external, player_list,monster_set_external,spriteDictionary, playerId,gameState2,visual_set_external
 from Classes.Objects import cam
 import configparser
 from Classes.Settings import DEVELOPER_OPTIONS, LOGGING_LEVEL
@@ -20,21 +21,40 @@ import json
 def getCam(arr):
     obj = Camera(Vector(arr['origin']['x'], arr['origin']['y']), Vector(arr['dim']['x'], arr['dim']['y']))
     cam.recieve(obj)
-
-
-def particle(arr):
+def getWeapon(arr):
     exists=False
-    for particle in moving_set_external:
+    for weapon in weapon_set_external:
+        if weapon.idObject== arr['idObject']:
+            exists=True
+    if not exists:
+        weapon_set_external.add(Weapon(Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
+                                         arr['nextPosTime'],Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],
+                                         arr['angle'], arr['radius'],arr['spriteKey'],spriteDictionary,arr['fps'],arr['idObject'],arr['numRows'],arr['numColumns'],arr['startRow'],
+                                         arr['startColumn'],arr['endRow'],arr['endColumn'],arr['removeOnVelocity0'],
+                                         arr['removeOnAnimationLoop'],arr['damage']))
+
+
+    for weapon in weapon_set_external:
+        if weapon.idObject==arr['idObject']:
+            weapon.recieve(Vector(arr['nextPos']['x'], arr['nextPos']['y']),
+                             arr['nextPosTime'],arr['maxVel'],arr['maxRange'],arr['angle'],
+                             arr['updateSprite'],arr['spriteKey'],arr['fps'],arr['numRows'],
+                             arr['numColumns'],arr['startRow'],arr['startColumn'],
+                             arr['endRow'],arr['endColumn'],arr['radius'],spriteDictionary)
+
+def getVisual(arr):
+    exists=False
+    for particle in visual_set_external:
         if particle.idObject== arr['idObject']:
             exists=True
     if not exists:
-        moving_set_external.add(Particle(arr['updateSprite'],Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
+        visual_set_external.add(Particle(arr['updateSprite'],Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
                                          arr['nextPosTime'],Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],arr['maxRange'],
                                          arr['angle'], arr['radius'],arr['spriteKey'],spriteDictionary,arr['fps'],arr['removeOnVelocity0'],
                                          arr['removeOnAnimationLoop'],arr['idObject'],arr['numRows'],arr['numColumns'],arr['startRow'],
                                          arr['startColumn'],arr['endRow'],arr['endColumn']))
 
-    for particle in moving_set_external:
+    for particle in visual_set_external:
         if particle.idObject==arr['idObject']:
             particle.recieve(Vector(arr['nextPos']['x'], arr['nextPos']['y']),
                              arr['nextPosTime'],arr['maxVel'],arr['maxRange'],arr['angle'],
@@ -84,7 +104,10 @@ def getPlayer(arr):
         if player.idObject == arr['idObject']:
             exists = True
     if not exists:
+        print("player recieved: " + str(arr['idObject']))
+        print("local Player"+str(playerId))
         player_list.append(
+
             Player(Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
                            arr['nextPosTime'],Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],
                            arr['angle'], arr['radius'], arr['spriteKey'], spriteDictionary,
@@ -110,12 +133,14 @@ def getObject(j):
         getCam(arr)
         getCam(arr)
     elif arr['idClass'] == 2:
-        particle(arr)
+        getVisual(arr)
     elif arr['idClass']== 3:
         getPlayer(arr)
     elif arr['idClass'] == 4:
         getMonster(arr)
-    elif arr['idClass']==10:
+    elif arr['idClass']==5:#get weapons
+        getWeapon(arr)
+    elif arr['idClass']==10:#game states
         getGameState(arr)
     else:
         return "No class for ID"

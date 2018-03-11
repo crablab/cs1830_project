@@ -11,9 +11,9 @@ class Particle:
     def __init__(self, updateSprite,pos, vel,nextPosTime,nextPos, maxVel, maxRange, angle, radius, spriteKey, spriteDictionary,fps, removeOnVelocity0,
                  removeOnAnimationLoop,idObject,numRows,numColumns,startRow,startColumn,endRow,endColumn):
 
-        self.idClass = 2
-        self.idObject= idObject
 
+        self.idObject= idObject
+        self.idClass=2
         self.pos = pos
         self.vel = vel
         self.nextPos = nextPos
@@ -36,6 +36,8 @@ class Particle:
 
         self.dim = self.spriteSheet.animator.dimOriginal.copy()
         self.radius = radius
+
+        self.updated=False
         if radius==0:
             self.radius=self.dim.size()/4
 
@@ -78,7 +80,7 @@ class Particle:
                 #cam.dim = Vector(2600*2, 1400*2)
                 objectPos = self.pos.copy().transformToCam(cam)
                 self.spriteSheet.draw(canvas, cam, objectPos, self.angle)
-                #cam.dim=Vector(1300,700)
+                #1cam.dim=Vector(1300,700)
 
             # DEVELOPER OPTION:
             if (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS']))):
@@ -128,7 +130,6 @@ class Particle:
             self.currentTime = time.time()
             self.pos.add(self.vel.copy().multiply(time.time() - self.currentTime))
         self.currentTime = time.time()
-
     def turn(self, angle):
         self.vel.rotate(self.angle + angle)
 
