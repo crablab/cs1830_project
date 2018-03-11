@@ -84,7 +84,10 @@ def getPlayer(arr):
         if player.idObject == arr['idObject']:
             exists = True
     if not exists:
+        print("player recieved: " + str(arr['idObject']))
+        print("local Player"+str(playerId))
         player_list.append(
+
             Player(Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
                            arr['nextPosTime'],Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],
                            arr['angle'], arr['radius'], arr['spriteKey'], spriteDictionary,

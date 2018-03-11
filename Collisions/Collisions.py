@@ -5,6 +5,16 @@ import math
 Assume that shape characyeristics dont change, but pos does
 """
 
+
+def doCirclesIntersect(particleA, particleB):
+    pos_vector_1 = particleA.pos.copy()
+    pos_vector_2 = particleB.pos.copy()
+    radius1 = particleA.radius
+    radius2 = particleB.radius
+    distance_points = (pos_vector_1.subtract(pos_vector_2)).length()
+    distance_radius = radius1 + radius2
+    return (distance_points <= distance_radius)
+
 class CollisionHandler:
     def doesCollide(self, object_1, object_2):
 
@@ -94,10 +104,13 @@ class CollisionHandler:
             (line_1.pos_vector_1, line_1.pos_vector_2),
             (line_2.pos_vector_1, line_2.pos_vector_2))
 
-    def _doCirclesIntersect(self, pos_vector_1, radius_1, pos_vector_2, radius_2):
-
-        distance_points = (pos_vector_1 - pos_vector_2).length()
-        distance_radius = radius_1 + radius_2
+    def doCirclesIntersect(self, particleA, particleB):
+        pos_vector_1=particleA.pos.copy()
+        pos_vector_2=particleB.pos.copy()
+        radius1=particleA.radius
+        radius2=particleB.radius
+        distance_points = (pos_vector_1.subtract(pos_vector_2)).length()
+        distance_radius = radius1 + radius2
         return(distance_points <= distance_radius)
 
     def _doLinesIntersect(self, line_1, line_2):

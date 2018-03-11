@@ -18,11 +18,11 @@ config.read_file(open('Classes/config'))
 
 
 #Override settings when testing (to make it easier to run multiple instances)
-if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and len(sys.argv) > 1): 
+if(len(sys.argv) > 1):
+    print("OVERIDING SETTINGS_________________________")
     config['NETWORKING']['CONFIG_TYPE'] = sys.argv[1]
 
     config.set('NETWORKING', 'CONFIG_TYPE', sys.argv[1])
-
     with open('Classes/config', "w") as conf:
 
         config.write(conf) 
@@ -34,7 +34,7 @@ if(config['DEVELOPER']['DEVELOPER_OPTIONS'] and len(sys.argv) > 1):
 from Classes.Camera import Camera
 from Classes.Vector import Vector
 from Classes.Player import Player
-
+from Collisions.Collisions import doCirclesIntersect
 from Transfer.comms import communicate, recieve, ping
 from Classes.KeyHandler import keydown, keyup
 from Classes.ClickHandler import checkClick
@@ -67,7 +67,8 @@ def draw(canvas):
         print("waiting")
         waitingLoop(canvas)
     if(gameState1.main and gameState2.main):
-        print("game")
+        # print("game")
+
         #Threading for adding to queues
         def movingSetSend():
             global moving_set
@@ -92,57 +93,94 @@ def draw(canvas):
         checkClick()
 
     #  -------UPDATE-AND-DRAW---OBJECTS---BY---LAYER---PRIORITY
-    #
+    #------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
+
         for pbot in env_l1_set:
             pbot.update()
             pbot.draw(canvas,cam)
-        for pbot in env_l2_set:
-            pbot.update()
-            pbot.draw(canvas,cam)
 
-        for pm in moving_set:
-            pm.update()
-            pm.draw(canvas,cam)
+        for en2 in env_l2_list:
+            for pm in moving_set:
+                if not pm.updated:
+                    if doCirclesIntersect(pm, en2):
+                        pm.draw(canvas, cam)
+                        pm.update()
+                        pm.updated=True
 
-        for pe in moving_set_external:
-            #print(pe.pos)
-            pe.update()
-            pe.draw(canvas,cam)
+            for pe in moving_set_external:
+                #print(pe.pos)
+                if not pe.updated:
+                    if  doCirclesIntersect(pe,en2):
+                        pe.update()
+                        pe.draw(canvas,cam)
+                        pe.updated=True
+            for m in monster_set_external:
+                #print(pe.pos)
+                if not m.particle.updated:
+                    if   doCirclesIntersect(m.particle, en2):
+                        m.draw(canvas,cam)
+                        m.update()
+                        m.particle.updated=True
+            for m in monster_set:
+                #print(pe.pos)
+                if not m.particle.updated:
+                    if doCirclesIntersect(m.particle, en2) and m.particle.radius<2*en2.radius:#big monsters drawn on top for simplicity ( flying ones e.t.c.)
+                        m.update()
+                        m.draw(canvas,cam)
+                        m.particle.updated=True
+            for player in player_list:
 
-        for m in monster_set_external:
-            #print(pe.pos)
-            m.update()
-            m.draw(canvas,cam)
+                if not player.particle.updated:
+                    # print(player.particle.radius)
+                    # print(player.particle.pos.getY())
 
-        for m in monster_set:
-            #print(pe.pos)
-            m.update()
-            m.draw(canvas,cam)
+                    if doCirclesIntersect(player.particle, en2):
 
-        for player in player_list:
-            if playerId==player.idObject:
-                cam.origin=player.particle.pos.copy()
-            player.update()
-            player.draw(canvas,cam)
+                        player.update()
+                        player.draw(canvas,cam)
+                        player.particle.updated=True
+
+
+            en2.update()
+            en2.draw(canvas, cam)
+# UPDATE those left then reset updates for all
+
+        for p in moving_set:
+            if not p.updated:
+                p.draw(canvas,cam)
+                p.update()
+            p.updated=False
+        for p in moving_set_external:
+            if not p.updated:
+                p.draw(canvas,cam)
+                p.update()
+            p.updated=False
+        for pm in monster_set_external:
+            if not pm.updated:
+                pm.draw(canvas,cam)
+                pm.update()
+            pm.updated=False
+        for pm in monster_set:
+            if not pm.particle.updated:
+                pm.draw(canvas,cam)
+                pm.update()
+            pm.particle.updated=False
+        for pp in player_list:
+
+
+            if pp.idObject==playerId:
+                cam.origin=pp.particle.pos.copy()
+
+            if not pp.particle.updated:
+
+                pp.draw(canvas,cam)
+                pp.update()
+            pp.particle.updated=False
 
         fps.draw_fct(canvas)
     #--------COLLECT----MARKED---OBJECTS------------
         removal_set=set()
 
-        for particle in env_l1_set:
-            if particle.pos==particle.nextPos and particle.removeOnVelocity0:
-                removal_set.add(particle)
-            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-                removal_set.add(particle)
-        env_l1_set.difference_update(removal_set)
-        removal_set.clear()
-        for particle in env_l2_set:
-            if particle.pos==particle.nextPos and particle.removeOnVelocity0:
-                removal_set.add(particle)
-            if particle.spriteSheet.hasLooped and particle.removeOnAnimationLoop:
-                removal_set.add(particle)
-        env_l1_set.difference_update(removal_set)
-        removal_set.clear()
 
         for particle in moving_set:
             if particle.pos == particle.nextPos and particle.removeOnVelocity0:

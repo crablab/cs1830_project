@@ -1,5 +1,5 @@
 import pygame
-
+from Classes.RandomGen import getRandomString
 from Classes.Particle import Particle
 from Classes.Vector import Vector
 from Classes.Objects import mouse,  player_list, cam, \
@@ -35,7 +35,7 @@ def checkClick():
                 vector= player1.clickPosition.copy()
                  # simplegui-pygame screen position adjustment
 
-
+                if player1.range<10: pass
                 particle = Particle(True,player1.particle.pos.copy(), player1.particle.vel.copy(),0,Vector(0,0),int(config['PARTICLE']['PARTICLE_VELOCITY']),int(config['PARTICLE']['PARTICLE_MAX_RANGE']),0,int(config['PARTICLE']['PARTICLE_RADIUS']),'pr_t4_1',spriteDictionary,0.001,True,False,str(uuid.uuid4()),1,1,1,1,1,1)
 
                 particle.moveRange(vector)

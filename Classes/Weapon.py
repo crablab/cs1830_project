@@ -7,31 +7,22 @@ config.read_file(open('Classes/config'))
 from Classes.Vector import Vector
 
 #exact copy of player but used for monsters and no preset animations
-class Monster:
+class Weapon:
     def __init__(self, pos, vel, nextPosTime, nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps,
-                 idObject, hasFired,
-                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn,reviveTime,operationRange,attackRange,tier):
+                 idObject, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn,removeOnVelocity0,removeOnAnimationLoop,):
         # id's
         self.remove = False
-        self.idClass = 4
+        self.idClass = 5
         self.idObject = idObject
-        self.magicId = 0 #this is a space to attach a particle object id so we can link it to this class if there is one.
-        # non-vectors (attributes)
-        self.reviveTime=reviveTime
-        self.operationRange=operationRange
-        self.attackRange=attackRange
 
-        self.life = 10000*(tier**3)
-        self.range = 1000*(tier**3)
-        self.melee = 1000*(tier**3)
-        self.magic = 1000*(tier**3)
+        # non-vectors (attributes)
+        self.damage =damage
 
         # vectors
-        self.clickPosition = clickPosition
+
         # Sprite Attributes
         self.spriteState = spriteState
         self.currentTime = 0
-        self.hasFired = hasFired
 
 
         #sub class
@@ -40,7 +31,7 @@ class Monster:
                                  False, False, self.idObject, numRows, numColumns, startRow, startColumn, endRow,
                                  endColumn)
 
-    def recieve(self, hasFired, clickPosition, nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey,
+    def recieve(self, hasFired, nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey,
                 fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary,life,range,melee,magic,magicId):
         self.magicId=magicId
         self.life=life
@@ -48,7 +39,7 @@ class Monster:
         self.range=range
         self.magic=magic
         self.hasFired = hasFired
-        self.clickPosition = clickPosition
+
         self.particle.recieve(nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey, fps, numRows,
                               numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary)
 

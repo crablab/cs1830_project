@@ -32,8 +32,7 @@ moving_set = set()
 moving_set_external = set()
 
 env_l1_set = set()
-env_l2_set = set()
-
+env_l2_list=[]
 
 monster_set = set()
 monster_set_external = set()
@@ -373,8 +372,7 @@ player1 = Player(
     Vector(int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_X']), int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_Y'])),
     0, Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
     int(config['PLAYER']['PLAYER_MAX_VELOCITY']),
-    int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),
-    int(config['PLAYER']['PLAYER_RADIUS']),
+    int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),20,
     config['PLAYER']['PLAYER_SPRITE'],
     spriteDictionary,
     int(config['PLAYER']['PLAYER_SPRITE_FPS']),
@@ -399,8 +397,13 @@ playerId = player1.idObject
 
 # -----------------------NON-MOVING OBJECTS------------------
 
-from Classes.RandomGen import randomGrass
+from Classes.RandomGen import randomGrass, randomTrees
 randomGrass()
+randomTrees()
+# t1=Particle(False, Vector(2500,2500), Vector(0, 0), 0, Vector(2500,2500), 0, 0, 0, 0,
+#                             'en_l2_ts_1x1_19', spriteDictionary, 0.0001, False, False, getUid(), 1, 1, 1, 1, 1, 1)
+# t1.radius/=3
+# env_l2_list.append(t1)
 
 
 

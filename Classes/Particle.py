@@ -36,6 +36,8 @@ class Particle:
 
         self.dim = self.spriteSheet.animator.dimOriginal.copy()
         self.radius = radius
+
+        self.updated=False
         if radius==0:
             self.radius=self.dim.size()/4
 
@@ -128,7 +130,6 @@ class Particle:
             self.currentTime = time.time()
             self.pos.add(self.vel.copy().multiply(time.time() - self.currentTime))
         self.currentTime = time.time()
-
     def turn(self, angle):
         self.vel.rotate(self.angle + angle)
 
