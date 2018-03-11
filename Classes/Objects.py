@@ -32,7 +32,7 @@ water = SpriteAnimator(cwd + '/img/Water/water.jpg')
 dog = SpriteAnimator(cwd + '/img/character/animals/dog.jpg')
 fireTorch = SpriteAnimator(cwd + '/img/character/elf/fire.jpg')
 fireBall = SpriteAnimator(cwd + '/img/character/elf/fire2.jpg')
-stall_weapon = SpriteAnimator(cwd + '/img/Stall/weaponStall.jpg')
+house = SpriteAnimator(cwd + '/img/buildings/house.jpg')
 
 monster_1_01 = SpriteAnimator(cwd + '/img/character/monsters/1/m1.jpg')
 monster_1_02 = SpriteAnimator(cwd + '/img/character/monsters/1/m2.jpg')
@@ -391,7 +391,7 @@ spriteDictionary = {'elf_demo':elf_demo,
                     'whiteDragon':whiteDragon,
                     'greenDragon':greenDragon,
                     'water':water,
-                    'stall' = stall_weapon,
+                    'house':house,
 
                     'tree_01':tree_01,'tree_02':tree_02,'tree_03':tree_03,'tree_04':tree_04,
                     'tree_05':tree_05,'tree_06':tree_06,'tree_07':tree_07,'tree_08':tree_08,
