@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="535d3321-3371-455d-b0a1-9ee7583f198c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Classes/Objects.py" afterPath="$PROJECT_DIR$/Classes/Objects.py" />
       <change beforePath="$PROJECT_DIR$/Classes/config" afterPath="$PROJECT_DIR$/Classes/config" />
-      <change beforePath="$PROJECT_DIR$/Transfer/JsonToObject.py" afterPath="$PROJECT_DIR$/Transfer/JsonToObject.py" />
+      <change beforePath="$PROJECT_DIR$/GameLoop.py" afterPath="$PROJECT_DIR$/GameLoop.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -48,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameLoop.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameLoop.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="785">
-              <caret line="52" column="22" lean-forward="false" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
+            <state relative-caret-position="-427">
+              <caret line="183" column="14" lean-forward="false" selection-start-line="183" selection-start-column="14" selection-end-line="183" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -98,11 +96,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JsonToObject.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JsonToObject.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Transfer/JsonToObject.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1240">
-              <caret line="77" column="70" lean-forward="false" selection-start-line="77" selection-start-column="70" selection-end-line="77" selection-end-column="70" />
+            <state relative-caret-position="934">
+              <caret line="68" column="25" lean-forward="false" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -149,7 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>printrr</find>
       <find>a</find>
       <find>weapon_set</find>
       <find>Fa</find>
@@ -179,6 +176,7 @@
       <find>CANVAS</find>
       <find>500)</find>
       <find>client</find>
+      <find>updated</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -226,13 +224,13 @@
         <option value="$PROJECT_DIR$/Classes/SpriteAnimator.py" />
         <option value="$PROJECT_DIR$/Classes/SpriteSheet.py" />
         <option value="$PROJECT_DIR$/Classes/MonsterAi.py" />
-        <option value="$PROJECT_DIR$/GameLoop.py" />
         <option value="$PROJECT_DIR$/Classes/Settings.py" />
         <option value="$PROJECT_DIR$/Classes/RandomGen.py" />
         <option value="$PROJECT_DIR$/Classes/Monster.py" />
         <option value="$PROJECT_DIR$/Classes/Objects.py" />
         <option value="$PROJECT_DIR$/Classes/config" />
         <option value="$PROJECT_DIR$/Transfer/JsonToObject.py" />
+        <option value="$PROJECT_DIR$/GameLoop.py" />
       </list>
     </option>
   </component>
@@ -832,14 +830,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GameLoop.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="785">
-          <caret line="52" column="22" lean-forward="false" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Transfer/comms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="802">
@@ -858,8 +848,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Transfer/JsonToObject.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1240">
-          <caret line="77" column="70" lean-forward="false" selection-start-line="77" selection-start-column="70" selection-end-line="77" selection-end-column="70" />
+        <state relative-caret-position="934">
+          <caret line="68" column="25" lean-forward="false" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameLoop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-427">
+          <caret line="183" column="14" lean-forward="false" selection-start-line="183" selection-start-column="14" selection-end-line="183" selection-end-column="14" />
           <folding />
         </state>
       </provider>

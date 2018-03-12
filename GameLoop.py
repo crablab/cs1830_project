@@ -180,10 +180,10 @@ def draw(canvas):
             w.particle.updated=False
 
         for pm in monster_set_external:
-            if not pm.updated:
+            if not pm.particle.updated:
                 pm.draw(canvas,cam)
                 pm.update()
-            pm.updated=False
+            pm.particle.updated=False
         for pm in monster_set:
             if not pm.particle.updated:
                 pm.draw(canvas,cam)
