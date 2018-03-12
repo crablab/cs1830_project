@@ -34,7 +34,7 @@ class Particle:
         self.removeOnAnimationLoop = removeOnAnimationLoop
         self.removeOnVelocity0 = removeOnVelocity0
 
-        self.dim = self.spriteSheet.animator.dimOriginal.copy()
+        self.dim = self.spriteSheet.animator.dimOriginal.copy().divideVector(Vector(self.spriteSheet.numColumns, self.spriteSheet.numRows))
         self.radius = radius
 
         self.updated=False
@@ -83,15 +83,29 @@ class Particle:
                 #1cam.dim=Vector(1300,700)
 
             # DEVELOPER OPTION:
-            if (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS']))):
-                ratio = cam.dimCanv.copy().divideVector(cam.dim).divideVector(Vector(self.spriteSheet.numColumns,self.spriteSheet.numRows))
-                a=self.radius*ratio.getX()
-                canvas.draw_circle(self.pos.copy().transformToCam(cam).getP(), a, 1, 'White')
+            if (DEVELOPER_OPTIONS):
+                ratio = cam.ratioToCam()
+                radius=self.radius*ratio.getX()
+                canvas.draw_circle(self.pos.copy().transformToCam(cam).getP(), radius, 1, 'White')
                 simplegui_lib_draw.draw_rect(canvas, self.pos.copy().transformToCam(cam).subtract(self.dim.copy().divide(2).multiplyVector(ratio)).getP(),
                                              self.dim.copy().multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
             # ----------------
     def bounce(self, normal):
         self.vel.reflect(normal)
+
+    def keepRange(self,pos,range):
+        print(pos,range)
+        distTarget = self.pos.copy().subtract(pos)
+        print(distTarget)
+        distRange=distTarget.copy()
+        distRange.negate()
+        print(distRange)
+        if distRange.length() != 0:
+            distRange.normalize().multiply(range)
+        if distTarget.length()-distRange.length()>0:
+            self.nextPos=pos
+            self.timeTo(self.maxVel)
+            self.vel.negate()
 
     def moveRange(self, pos):
         dist = self.pos.copy().subtract(pos)

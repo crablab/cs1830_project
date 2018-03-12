@@ -87,7 +87,6 @@ class Vector:
         return math.acos(self.dot(other))
 
     def transformFromCam(self,cam):
-
         self.subtract(cam.dimCanv.copy().divide(2))
         ratio = cam.dim.copy().divideVector(cam.dimCanv)
         self.multiplyVector(ratio)

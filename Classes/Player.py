@@ -28,7 +28,7 @@ class Player:
 
         self.life = 6000
         self.range = 600
-        self.melee = 600
+        self.melee = 600 #OPTIONAL,NOT IMPLEMENTED (REQUIRES SPRITE STATES AND MORE TIME)
         self.magic = 600
         self.weapon=1
         # sub class
@@ -68,7 +68,7 @@ class Player:
         if self.hasFired and self.particle.spriteSheet.hasLooped:
             self.hasFired = False
             self.setCorrectAnimation(1)
-        print(self.hasFired)
+
         if self.particle.vel.getX() == 0 and self.particle.vel.getY() == 0 and not self.hasFired:
             self.particle.spriteSheet.currentColumn = 1
 

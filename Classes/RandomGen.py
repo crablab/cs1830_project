@@ -24,9 +24,9 @@ def randomGrass():
     medId = 2
     darkId = 3
 
-    for x in range(1, int(width / 512)):
+    for x in range(0, int(width / 512)+1):
         print(x)
-        for y in range(1, int(height / 512)):
+        for y in range(0, int(height / 512)+1):
             winner = 0
             dh = random.randrange(80, 100) / 100
             dl = random.randrange(1, 30) / 100
@@ -58,8 +58,8 @@ def randomTrees():
     darkId = 3
     cut = 20
     print("------------------------")
-    for y in range(1, int(height / cut)):
-        for x in range(1, int(width / cut)):
+    for y in range(-10, int(height / cut)-10):
+        for x in range(-3, int(width / cut)-10):
 
             winner = 0
             dh = random.randrange(80, 100) / 100
@@ -81,13 +81,31 @@ def randomTrees():
             pos = Vector(x * cut, y * cut)
 
             num = random.randrange(0, TREE_PROB_RANGE)
+            tree = getRandomString('en_l2_ts_1x1_', 22)
+            t1 = Particle(False, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0,
+                          tree, spriteDictionary, 0.0001, False, False, getUid(), 1, 1, 1, 1, 1, 1)
+            t1.radius /= 2
             if num > prob:
                 pass
             else:
-                tree = getRandomString('en_l2_ts_1x1_', 22)
-                t1 = Particle(False, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0,
-                              tree, spriteDictionary, 0.0001, False, False, getUid(), 1, 1, 1, 1, 1, 1)
-                t1.radius /= 2
+                rand=random.randint(1,2)
+                print(rand)
+                if rand==1:
+                    tree = getRandomString('en_l2_ts_1x1_', 22)
+                    t1 = Particle(False, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0,
+                                  tree, spriteDictionary, 0.0001, False, False, getUid(), 1, 1, 1, 1, 1, 1)
+                    t1.radius /= 2
+                if rand==2:
+                    rand=random.randint(1,3)
+                    if rand==1:
+                        tree='en_l2_ts_15x4_1'
+                        t1 = Particle(True, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0,
+                                      tree, spriteDictionary, 0.5, False, False, getUid(), 4, 15, 1, 1, 4, 15)
+
+                    if rand==2:
+                        tree = 'en_l2_ts_6x5_1'
+                        t1 = Particle(True, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0,
+                                      tree, spriteDictionary, 24, False, False, getUid(), 5, 6, 1, 1, 5, 6)
 
                 env_l2_list.append(t1)
 
@@ -107,11 +125,9 @@ def getRandomArrow(range):
         return ('pr_t1_1')
 
 
-
-
-def getRandomMagicWeapon(magic):  # CANNOT USE RANDOM STRING AS ROWS AND COLUMNS ARE DIFFERENT FOR ANIMATED SPRITES
-    range = magic//3500
-    range+=3
+def getRandomMagicWeapon(magic):  # CANFNOT USE RANDOM STRING AS ROWS AND COLUMNS ARE DIFFERENT FOR ANIMATED SPRITES
+    range = magic // 3500
+    range += 3
     print("=========================================")
     print(range)
     if range > 13:
@@ -149,8 +165,8 @@ def getRandomMagicWeapon(magic):  # CANNOT USE RANDOM STRING AS ROWS AND COLUMNS
 
 
 def getRandomMagicCast(magic):  # CANNOT USE RANDOM STRING AS ROWS AND COLUMNS ARE DIFFERENT FOR ANIMATED SPRITES
-    range = magic//3500
-    range+=3
+    range = magic // 3500
+    range += 3
     print("=========================================")
     print(range)
     if range > 16:
@@ -174,19 +190,19 @@ def getRandomMagicCast(magic):  # CANNOT USE RANDOM STRING AS ROWS AND COLUMNS A
     elif num == 6:
         return (7, 5, 1, 1, 7, 5, 'ma_ca_5x7_4')
     elif num == 7:
-        return (7, 5, 1, 1, 7, 5,'ma_ca_5x7_5')
+        return (7, 5, 1, 1, 7, 5, 'ma_ca_5x7_5')
     elif num == 8:
-        return (7, 5, 1, 1, 7, 5,'ma_ca_5x7_6')
+        return (7, 5, 1, 1, 7, 5, 'ma_ca_5x7_6')
     elif num == 9:
-        return (7, 5, 1, 1, 7, 5,'ma_ca_5x7_7')
+        return (7, 5, 1, 1, 7, 5, 'ma_ca_5x7_7')
     elif num == 10:
-        return (7, 5, 1, 1, 7, 5,'ma_ca_5x7_8')
+        return (7, 5, 1, 1, 7, 5, 'ma_ca_5x7_8')
     elif num == 11:
         return (7, 5, 1, 1, 7, 5, 'ma_ca_5x7_9')
     elif num == 12:
         return (7, 5, 1, 1, 7, 5, 'ma_ca_5x7_10')
     elif num == 13:
-        return (7, 5, 1, 1, 7, 5,'ma_ca_5x7_11')
+        return (7, 5, 1, 1, 7, 5, 'ma_ca_5x7_11')
     elif num == 14:
         return (14, 5, 1, 1, 14, 5, 'ma_ca_5x14_1')
     elif num == 15:
@@ -234,4 +250,56 @@ def getRandomShowOff(magic):
     elif num == 14:
         return (7, 5, 1, 1, 7, 5, 'ma_sh_5x7_8')
 
+
+def getRandomMonster(tier):
+    range = 0
+
+    if tier == 1:
+        range = 7
+
+    if tier == 2:
+        range = 5
+
+    if tier == 3:
+        range = 7
+
+    num = random.randrange(1, range)
+
+    if tier == 1:
+        if num == 1:
+            return (True,20, 6, 1, 1, 10, 4, 'mo_t1_1')
+        elif num == 2:
+            return (True,14, 3, 1, 1, 7, 3, 'mo_t1_2')
+        elif num == 3:
+            return (True,4, 5, 1, 1, 2, 5, 'mo_t1_3')
+        elif num == 4:
+            return (True,2, 4, 1, 1, 1, 4, 'mo_t1_4')
+        elif num == 5:
+            return (True,2, 10, 1, 1, 1, 10, 'mo_t1_5')
+        elif num == 6:
+            return (False,8, 3, 1, 1, 4, 3, 'mo_t1_6')
+
+    if tier == 2:
+        if num == 1:
+            return (True,4, 4, 1, 1, 2, 4, 'mo_t2_1')
+        elif num == 2:
+            return (True,16, 10, 1, 1, 8, 9, 'mo_t2_2')
+        elif num == 3:
+            return (True,2, 8, 1, 1, 1, 8, 'mo_t2_3')
+        elif num == 4:
+            return (True,4, 4, 1, 1, 2, 4, 'mo_t2_4')
+
+    if tier == 3:
+        if num == 1:
+            return (True,8, 2, 1, 1, 4, 2, 'mo_t3_1')
+        elif num == 2:
+            return (True,10, 4, 1, 1, 5, 4, 'mo_t3_2')
+        elif num == 3:
+            return (True,10, 4, 1, 1, 5, 4, 'mo_t3_3')
+        elif num == 4:
+            return (True,6,2,1,1,3,2, 'mo_t3_4')
+        elif num == 5:
+            return (True,6,2,1,1,3,2, 'mo_t3_5')
+        elif num == 6:
+            return (True,8,4,1,1,4,2, 'mo_t3_6')
 

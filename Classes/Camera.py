@@ -55,10 +55,10 @@ class Camera:
                 self.dim.add(self.dim.copy().multiply(-self.zoomSensitivity))
 
     def ratioToCam(self):
-        return(self.dimCanv.copy().divideVector(self.dim).getX())
+        return(self.dimCanv.copy().divideVector(self.dim))
 
     def ratioToCanv(self):
-        return (self.dim.copy().divideVector(self.dimCanv).getX())
+        return (self.dim.copy().divideVector(self.dimCanv))
 
     def get(self):
         return(self.origin, self.dim.x)

@@ -75,7 +75,7 @@ def getMonster(arr):
                    arr['fps'], arr['idObject'], arr['hasFired'],
                    Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),
                    arr['spriteState'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'],
-                   arr['endRow'], arr['endColumn']))
+                   arr['endRow'], arr['endColumn'],arr['tier'],arr['aback']))
 
     for monster in monster_set_external:
         if monster.idObject == arr['idObject'] :

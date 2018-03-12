@@ -25,28 +25,28 @@ def checkClick():
     if left and mouse.releasedL:
         mouse.pressL()
 
-        for player1 in player_list:
+        for player in player_list:
 
 
-            if playerId==player1.idObject and not player1.hasFired:
+            if playerId==player.idObject and not player.hasFired:
                 #GET CLICK POSITION AND ADJUST FROM CANVAS TO WORLD
                 x, y = pygame.mouse.get_pos()
-                player1.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)#REFER TO CLASSES.OBJECTS ADJUSTMENT, (PYGAME SIMPLE GUI COMPATIBILITY ADJUSTMENT)
-                player1.hasFired = True
-                player1.particle.spriteSheet.resetLoop()
+                player.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)#REFER TO CLASSES.OBJECTS ADJUSTMENT, (PYGAME SIMPLE GUI COMPATIBILITY ADJUSTMENT)
+                player.hasFired = True
+                player.particle.spriteSheet.resetLoop()
 
                 # ARCHERY
-                if player1.weapon==1:
+                if player.weapon==1:
 
-                    player1.setCorrectAnimation(2)
-                    vector= player1.clickPosition.copy()
+                    player.setCorrectAnimation(2)
+                    vector= player.clickPosition.copy()
 
-                    if player1.range<10: pass
+                    if player.range<10: pass
                     #SET WEAPON
-                    weapon=Weapon(player1.particle.pos.copy(),player1.particle.vel.copy(),0,player1.particle.pos.copy(),0,0,0,getRandomArrow(player1.range),spriteDictionary,1,getUid(),1,1,1,1,1,1,True,False,player1.range)
+                    weapon=Weapon(player.particle.pos.copy(), player.particle.vel.copy(), 0, player.particle.pos.copy(), 0, 0, 0, getRandomArrow(player.range), spriteDictionary, 1, getUid(), 1, 1, 1, 1, 1, 1, True, False, player.range)
                     #DEFINE RANGE AND VEL
-                    weapon.particle.maxRange=player1.range/2
-                    weapon.particle.maxVel=player1.range/2
+                    weapon.particle.maxRange= player.range / 2
+                    weapon.particle.maxVel= player.range / 2
                     if weapon.particle.maxRange>1500:
                         weapon.particle.maxRange=1500
                     if weapon.particle.maxVel>1000:
@@ -70,25 +70,25 @@ def checkClick():
                     weapon_set.add(weapon)
 
                 # MAGIC
-                if player1.weapon == 2:
+                if player.weapon == 2:
 
-                    player1.hasFired = True
-                    player1.particle.spriteSheet.resetLoop()
-                    player1.setCorrectAnimation(3)
-                    vector = player1.clickPosition.copy()
+                    player.hasFired = True
+                    player.particle.spriteSheet.resetLoop()
+                    player.setCorrectAnimation(3)
+
                     # simplegui-pygame screen position adjustment
 
 
                     #SET MAGIC SPRITE ATTACK ANIMATION
-                    numRows,numCol,startRow,startCol,endRow,endCol,key=getRandomMagicWeapon(player1.magic)
+                    numRows,numCol,startRow,startCol,endRow,endCol,key=getRandomMagicWeapon(player.magic)
                     #SET MAGIC SPRITE WEAPON WITH The above
                     print(numRows,numCol,key)
-                    weapon = Weapon(player1.clickPosition.copy(), Vector(0,0), 0,
-                                    player1.clickPosition.copy(), 0, 0, 0,key, spriteDictionary,
-                                    20, getUid(), numRows, numCol, startRow, startCol, endRow,endCol, False, True, player1.magic)
+                    weapon = Weapon(player.clickPosition.copy(), Vector(0, 0), 0,
+                                    player.clickPosition.copy(), 0, 0, 0, key, spriteDictionary,
+                                    20, getUid(), numRows, numCol, startRow, startCol, endRow, endCol, False, True, player.magic)
                     #BIND SPRITE TO PLAYER and PLAYER TO SPRITE to remember who kills who
-                    weapon.idPlayer=player1.idObject
-                    player1.magicId=weapon.idObject
+                    weapon.idPlayer=player.idObject
+                    player.magicId=weapon.idObject
 
                     weapon_set.add(weapon)
 
@@ -96,34 +96,41 @@ def checkClick():
 
                     # SET MAGIC SPRITE CASTING ANIMATION USE PARTICLE CLASS ADD TO VISUAL SET
                     #SHIFT ALL MAGIC SPRITES UP FOR PLAYER AS HE IS SMALL
-                    pos=player1.particle.pos.copy()
+                    pos=player.particle.pos.copy()
                     pos.y-=30
-                    numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMagicCast(player1.magic)
+                    numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMagicCast(player.magic)
                     particle=Particle(True,pos,Vector(0,0),0,pos,0,0,0,0,key,spriteDictionary,20,False,True,getUid(),numRows,numCol,startRow,startCol,endRow,endCol)
                     visual_set.add(particle)
-                #
+
+
                 # MAGIC
-                if player1.weapon == 3:
-                    player1.hasFired = True
-                    player1.particle.spriteSheet.resetLoop()
-                    player1.setCorrectAnimation(3)
-                    vector = player1.clickPosition.copy()
+                if player.weapon == 3:
+                    player.hasFired = True
+                    player.particle.spriteSheet.resetLoop()
+                    player.setCorrectAnimation(3)
+                    vector = player.clickPosition.copy()
 
 
                     # SET MAGIC SPRITE SHOWOFF ANIMATION USE PARTICLE CLASS ADD TO VISUAL SET
                     # SHIFT ALL MAGIC SPRITES UP FOR PLAYER AS HE IS SMALL AND ADD A VERTICAL VELOCITY
-                    pos = player1.particle.pos.copy()
+                    pos = player.particle.pos.copy()
                     pos.y -= 30
-                    numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomShowOff(player1.magic)
-                    particle = Particle(True, pos,Vector(0,100), 0, pos, 0, 0, 0, 0, key, spriteDictionary, 20,
+                    numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomShowOff(player.magic)
+
+                    particle = Particle(True, pos,Vector(0,0), 0, pos, 20,300, 0, 0, key, spriteDictionary, 20,
                                         False, True, getUid(), numRows, numCol, startRow, startCol, endRow, endCol)
+                    print(player.particle.pos.copy().subtract(Vector(0,100)))
+                    particle.moveRange(player.particle.pos.copy().subtract(Vector(0, 100)))
+                    print(particle.nextPos)
+                    print(player.particle.pos)
+                    # particle.vel.negate()#bug, don't know why, needs negation...
                     visual_set.add(particle)
 
 
-                if player1.hasFired:
-                    player1.particle.vel.multiply(0)
-                    player1.particle.nextPosTime = time.time()
-                    player1.particle.nextPos = player1.particle.pos
+                if player.hasFired:
+                    player.particle.vel.multiply(0)
+                    player.particle.nextPosTime = time.time()
+                    player.particle.nextPos = player.particle.pos
 
 
         mouse.pressL()
@@ -136,15 +143,15 @@ def checkClick():
     if right and mouse.releasedR:
         mouse.pressR()
 
-        for player1 in player_list:
+        for player in player_list:
 
-            if player1.idObject==playerId and player1.hasFired==False:
+            if player.idObject==playerId and player.hasFired==False:
                  #force finish fireing
                 x, y = pygame.mouse.get_pos()
-                player1.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)
-                player1.setCorrectAnimation(1)
-                vector = player1.clickPosition.copy()
-                player1.move(vector)
+                player.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)
+                player.setCorrectAnimation(1)
+                vector = player.clickPosition.copy()
+                player.move(vector)
 
 
 

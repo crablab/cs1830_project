@@ -41,7 +41,7 @@ from Classes.ClickHandler import checkClick
 
 from Classes.Objects import *
 from Loops.intro import introLoop, waitingLoop
-
+from Classes.MonsterAi import MonsterAi
 
 #-----START----GAME----CLOCK
 fps = simplegui_lib_fps.FPS()
@@ -49,26 +49,40 @@ fps.start()
 startTime = time.time()
 oldTime=time.time()
 
+#initiate Ai
+monsterAi=MonsterAi(20)
+monsterAi.spawnMonsters()
+
+
+
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
-    #
-#-----------------CLIENT PING-----------------------
-    if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
-        ping()
-#-----------RECIEVE ALL OBJECTS-------------------------
-    recieve()
-#-----------------SEND GAME STATES------------------------
-    communicate(gameState1)
+
+#========== GAME LOOPS NON MAIN =====================
 
     if(gameState1.intro):
         print("intro")
         introLoop(canvas)
+
     if gameState1.main and not gameState2.main:
         print("waiting")
         waitingLoop(canvas)
-    if(gameState1.main and gameState2.main):
-        # print("game")
 
+
+#================= NETWORKING ==============================
+
+#-----------------CLIENT PING-----------------------
+    if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
+        ping()
+#--------------RECIEVE ALL OBJECTS-------------------------
+    recieve()
+#-----------------SEND GAME STATES------------------------
+    communicate(gameState1)
+
+
+    if(gameState1.main and gameState2.main):
+
+#-----------IN MAIN LOOP NETWORKING-------------------------
         #Threading for adding to queues
 
         for object in weapon_set:
@@ -85,17 +99,22 @@ def draw(canvas):
                 communicate(player)
         # print("size:"+str(moving_set_external.__len__()))
 
+#================ NETWORKING END ================================
 
+#===================================================================
 
-    #-----CAM---UPDATE---
-        cam.zoom()
-        cam.move(playerId,player_list)
-    #----CLICK---HANDLER---
+#================ CLICK HANDLER =================================
+
         checkClick()
 
-    #  -------UPDATE-AND-DRAW---OBJECTS---BY---LAYER---PRIORITY
-    #------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
+#================ CLICK HANDLER END =================================
 
+#===================================================================
+
+#================ DRAW AND UPDATES =================================
+
+    #  -------UPDATE-AND-DRAW---OBJECTS---BY---LAYER---PRIORITY
+        monsterAi.update()
         for pbot in env_l1_set:
             pbot.update()
             pbot.draw(canvas,cam)
@@ -109,8 +128,7 @@ def draw(canvas):
             ve.update()
             ve.draw(canvas,cam)
 
-
-
+        # ------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
         for en2 in env_l2_list:
             for w in weapon_set:
                 if not w.particle.updated:
@@ -119,7 +137,6 @@ def draw(canvas):
                         w.update()
                         w.particle.updated=True
             for w in weapon_set_external:
-                #print(pe.pos)
                 if not w.particle.updated:
                     if  doCirclesIntersect(w.particle,en2):
                         w.update()
@@ -127,14 +144,12 @@ def draw(canvas):
                         w.updated=True
 
             for m in monster_set_external:
-                #print(pe.pos)
                 if not m.particle.updated:
                     if   doCirclesIntersect(m.particle, en2):
                         m.draw(canvas,cam)
                         m.update()
                         m.particle.updated=True
             for m in monster_set:
-                #print(pe.pos)
                 if not m.particle.updated:
                     if doCirclesIntersect(m.particle, en2) and m.particle.radius<2*en2.radius:#big monsters drawn on top for simplicity ( flying ones e.t.c.)
                         m.update()
@@ -143,8 +158,6 @@ def draw(canvas):
 
             for player in player_list:
                 if not player.particle.updated:
-                    # print(player.particle.radius)
-                    # print(player.particle.pos.getY())
                     if doCirclesIntersect(player.particle, en2):
                         player.update()
                         player.draw(canvas,cam)
@@ -153,8 +166,8 @@ def draw(canvas):
 
             en2.update()
             en2.draw(canvas, cam)
-# UPDATE those left then reset updates for all
 
+        # UPDATE those left then reset updates for all
         for w in weapon_set:
             if not w.particle.updated:
                 w.draw(canvas,cam)
@@ -178,8 +191,8 @@ def draw(canvas):
             pm.particle.updated=False
 
         for pp in player_list:
-            if pp.idObject==playerId:
-                cam.origin=pp.particle.pos.copy()
+            # if pp.idObject==playerId:
+            #     cam.origin=pp.particle.pos.copy()
 
             if not pp.particle.updated:
 
@@ -188,7 +201,11 @@ def draw(canvas):
             pp.particle.updated=False
 
         fps.draw_fct(canvas)
-    #--------COLLECT----MARKED---OBJECTS------------
+#====================== UPDATES DRAWING END =============================================
+
+#========================================================================================
+
+# ===================== GARBAGE REMOVAL =================================================
         removal_set=set()
 
         #WEAPON CLEANUP (MAGIC, ARROWS)
@@ -243,6 +260,39 @@ def draw(canvas):
         visual_set_external.difference_update(removal_set)
         removal_set.clear()
 
+# ========================= GARBAGE REMOVAL END ===============================================================
+
+ # ========================================================================================
+
+#  ======================== CAMERA UPDATE ===============================================================
+
+        cam.zoom()
+        cam.move(playerId, player_list)
+
+# ========================== CAMERA UPDATE END==============================================================
+
+# ========================================================================================
+
+# ========================== STATS DISPLAY ==============================================================
+
+        #DISPLAY STATS:
+        for player in player_list:
+            if player.idObject==playerId:
+                p1Life=player.life
+                p1Magic=player.magic
+                p1Range=player.range
+
+                p1Arrows=1
+                p1Spells=(p1Magic//3000+3)*2
+                if p1Range > 1000:
+                    p1Arrows=2
+                if p1Range > 10000:
+                    p1Arrows=3
+
+                if p1Range > 50000:
+                    p1Arrows=4
+
+        canvas.draw_text('Life: '+str(p1Life)+"     Magic: "+str(p1Magic)+"     Range: "+str(p1Range)+"     Arrows: "+str(p1Arrows)+"  Spells: "+str(p1Spells), (0,int(config['CANVAS']['CANVAS_HEIGHT'])-10), 23, "Black")
 
 frame = simpleguics2pygame.create_frame('Game', int(config['CANVAS']['CANVAS_WIDTH']), int(config['CANVAS']['CANVAS_HEIGHT']))
 frame.set_draw_handler(draw)

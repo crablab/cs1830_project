@@ -5,7 +5,7 @@ from Classes.Camera import Camera
 from Classes.Mouse import Mouse
 
 from Classes.SpriteAnimator import SpriteAnimator
-from Classes.Monster import Monster
+
 from Classes.Player import Player
 from Classes.Particle import Particle
 
@@ -334,6 +334,7 @@ spriteDictionary = {'ch_1': ch1,
                     'ma_sh_5x7_6': mag_sho_5x7_6,
                     'ma_sh_5x7_8': mag_sho_5x7_7,
                     'ma_sh_5x20_1': mag_sho_5x20_1,
+
                     'mo_t1_1': mon_t1_20_6_10_4_1,
                     'mo_t1_2': mon_t1_14_3_7_3_2,
                     'mo_t1_3': mon_t1_4_6_2_6_3,
@@ -366,7 +367,7 @@ spriteDictionary = {'ch_1': ch1,
 
 
 # CAMERA
-cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vector(CANVAS_WIDTH/4, CANVAS_HEIGHT/4))
+cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vector(int(config['CANVAS']['CANVAS_WIDTH'])/2,int(config['CANVAS']['CANVAS_HEIGHT'])/2))
 
 # PLAYER
 
