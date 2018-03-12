@@ -6,8 +6,7 @@ canvas_width = 720
 canvas_height = 480
 
 [NETWORKING]
-config_type = client
-
+config_type = server
 client_ip = localhost
 logging = False
 logging_level = low
