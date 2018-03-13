@@ -1,11 +1,11 @@
-import json, time, uuid, configparser
+import time, configparser
 from SimpleGUICS2Pygame import simplegui_lib_draw
-from Classes.Particle import Particle
+from Classes.Middle.Particle import Particle
 
-from Classes.Settings import SPRITE_FPS, SHOW_BOUNDARIES #this never seems to be used?
+from Classes.Settings import SHOW_BOUNDARIES #this never seems to be used?
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
-from Classes.Vector import Vector
+
 
 #exact copy of player but used for monsters and no preset animations
 class Monster:
@@ -23,6 +23,8 @@ class Monster:
         self.operationRange=0
         self.attackRange=0
         self.followDistance=0
+        self.returning=False
+        self.hasSelectedReturn=False
         self.tier=tier
         self.life = 0
         self.lifePrev=self.life
@@ -57,6 +59,12 @@ class Monster:
         self.particle.recieve(nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey, fps, numRows,
                               numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary)
 
+    def update(self):
+        self.particle.update()
+        self.setCorrectSpriteState()
+        self.checkFireCooldown()
+        self.currentTime = time.time()
+
     def setSpriteState(self,state):
         self.spriteState=state
         if state == 1:    # FIRST HALF OF SPRITE SHEET GOING LEFT
@@ -68,11 +76,7 @@ class Monster:
 
             self.particle.spriteSheet.endRow = self.particle.spriteSheet.numRows
             self.particle.spriteSheet.startRow = self.particle.spriteSheet.numRows / 2 + 1
-            print("======================")
-            print(self.particle.spriteSheet.startRow)
-            print(self.particle.spriteSheet.endRow)
-            print(self.particle.spriteSheet.numRows)
-            print(self.particle.spriteSheet.numColumns)
+
             self.particle.spriteSheet.currentRow += self.particle.spriteSheet.numRows / 2
 
         if self.aBack and self.spriteState==1 and self.particle.spriteSheet.startColumn<self.particle.spriteSheet.endColumn:
@@ -92,26 +96,33 @@ class Monster:
 
         self.particle.draw(canvas, cam)
         if SHOW_BOUNDARIES:
+            ratio = cam.ratioToCam()
+            radius1 = self.attackRange * ratio.getX()
+            radius2 = self.followDistance * ratio.getX()
+            canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius1, 1, 'Red')
+            canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius2, 1, 'Pink')
             simplegui_lib_draw.draw_rect(canvas, self.operationOrigin.copy().transformToCam(cam).subtract(
-            self.operationRange.copy().divide(2).multiplyVector(cam.ratioToCam())).getP(),
-                                     self.operationRange.copy().multiplyVector(cam.ratioToCam()).getP(), 1, 'White', fill_color=None)
+                self.operationRange.copy().multiplyVector(ratio)).getP(),
+                                         self.operationRange.copy().add(self.operationRange).multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
+
     def move(self, pos):
         self.particle.move(pos)
 
-    def update(self):
-        print(self.particle.spriteSheet.currentRow,self.particle.spriteSheet.currentColumn, self.particle.spriteSheet.numRows,self.particle.spriteSheet.numColumns,self.particle.spriteSheet.startRow,self.particle.spriteSheet.startColumn,self.particle.spriteSheet.endRow,self.particle.spriteSheet.endColumn)
-        self.particle.update()
-
+    def checkFireCooldown(self):
         if self.hasFired:
             self.fireCooldown+=time.time()-self.currentTime
             if self.fireCooldown>5:
                 self.hasFired=False
                 self.fireCooldown=0
 
-        self.currentTime = time.time()
     def turn(self, angle):
         self.particle.angle += angle
 
+    def setCorrectSpriteState(self):
+        if self.particle.pos.getX()-self.particle.nextPos.getX()<0 and not self.spriteState==2:
+            self.setSpriteState(2)
+        elif self.particle.pos.getX()-self.particle.nextPos.getX()>0 and not self.spriteState==1:
+            self.setSpriteState(1)
     def encode(self):
 
         data = {'spriteState': self.spriteState,

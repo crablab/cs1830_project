@@ -1,8 +1,8 @@
-import json, time, os, json, uuid, configparser
-from Classes.SpriteSheet import SpriteSheet
-from Classes.Vector import Vector
+import time, configparser
+from Classes.Middle.SpriteControl.SpriteSheet import SpriteSheet
+from Classes.Base.Vector import Vector
 from SimpleGUICS2Pygame import simplegui_lib_draw
-from Classes.Settings import * 
+from Classes.Settings import *
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
 
@@ -16,6 +16,7 @@ class Particle:
         self.idClass=2
         self.pos = pos
         self.vel = vel
+
         self.nextPos = nextPos
         self.nextPosTime = nextPosTime
         self.maxVel = maxVel
@@ -66,15 +67,13 @@ class Particle:
             # canvas.draw_circle(self.pos.getP(), self.radius, 1, 'White')
             # -------------------------------------------------
 
-            pos = self.pos.copy()
-            pictureSize = self.spriteSheet.animator.dimCamera.copy()
-            origin = cam.origin.copy()
-            distance = origin.copy().subtract(pos)
+
+            distance = cam.origin.copy().subtract(self.pos)
             if distance.getX() < 0:
                 distance.x *= -1
             if distance.getY() < 0:
                 distance.y *= -1
-            distance.subtract(pictureSize.multiply(2))
+            distance.subtract(self.spriteSheet.animator.dimCamera.copy().multiply(2))
             if distance.getX() < cam.dim.getX() / 2 and distance.getY() < cam.dim.getY() / 2:
                 # --------TESTING PURPOSES----DO NOT REMOVE-------------
                 #cam.dim = Vector(2600*2, 1400*2)
@@ -94,18 +93,16 @@ class Particle:
         self.vel.reflect(normal)
 
     def keepRange(self,pos,range):
-        print(pos,range)
-        distTarget = self.pos.copy().subtract(pos)
-        print(distTarget)
-        distRange=distTarget.copy()
-        distRange.negate()
-        print(distRange)
-        if distRange.length() != 0:
-            distRange.normalize().multiply(range)
-        if distTarget.length()-distRange.length()>0:
-            self.nextPos=pos
-            self.timeTo(self.maxVel)
-            self.vel.negate()
+        print("range: ",range)
+        distanceV=self.pos.copy().subtract(pos)
+        if distanceV.length() !=0:
+            distance=distanceV.length()
+            if distance>range:
+                difference=distance-range
+                distanceV.normalize().multiply(difference)
+                self.nextPos=self.pos.copy().subtract(distanceV)
+                self.timeTo(self.maxVel)
+                self.vel.negate()
 
     def moveRange(self, pos):
         dist = self.pos.copy().subtract(pos)
@@ -123,9 +120,7 @@ class Particle:
         self.timeTo(self.maxVel)
         self.vel.negate()
 
-    def update(self):
-        if self.updateSprite:
-            self.spriteSheet.update()
+    def updatePosVel(self):
         if self.pos.copy().subtract(self.nextPos).dot(self.vel) > 0:
             self.vel.multiply(0)
 
@@ -141,8 +136,14 @@ class Particle:
                 self.vel.multiply(time.time() - self.currentTime)
                 self.pos.add(self.vel)
 
-            self.currentTime = time.time()
-            self.pos.add(self.vel.copy().multiply(time.time() - self.currentTime))
+
+
+
+    def update(self):
+        if self.updateSprite:
+            self.spriteSheet.update()
+        if self.nextPos != self.pos:
+            self.updatePosVel()
         self.currentTime = time.time()
     def turn(self, angle):
         self.vel.rotate(self.angle + angle)

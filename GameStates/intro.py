@@ -6,7 +6,7 @@
 
 import pygame
 from SimpleGUICS2Pygame import simplegui_lib_draw
-from Classes.Objects import gameState1
+from Loading.Objects import gameState1
 #LOADING LIBRARIES
 
 def introLoop(canvas):

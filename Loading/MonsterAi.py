@@ -2,25 +2,26 @@
 
 import time
 import random
-from Classes.Vector import Vector
-from Classes.RandomGen import getRandomMagicWeapon, getRandomMagicCast, getRandomMonster
-from Classes.Weapon import Weapon
-from Classes.Particle import Particle
-from Classes.Monster import Monster
-from Classes.Objects import weapon_set, visual_set, spriteDictionary, getUid, playerId
+from Classes.Base.Vector import Vector
+from Loading.RandomGen import getRandomMagicWeapon, getRandomMagicCast, getRandomMonster
+from Classes.Super.Weapon import Weapon
+from Classes.Middle.Particle import Particle
+from Classes.Super.Monster import Monster
+from Loading.Objects import weapon_set, visual_set, spriteDictionary, getUid, playerId
 from Classes.Settings import MAP_WIDTH, MAP_HEIGHT
+
 # monsters spawned based on how far away from the map they are.
 # respawn by tier time
 
-from Classes.Objects import monster_set, player_list
-from Collisions.Collisions import doCirclesIntersect
+from Loading.Objects import monster_set, player_list
+from Classes.Functions.Collisions.Collisions import doCirclesIntersect,isPointInRect,isCircleInRect
 
 
 class MonsterAi:
     def __init__(self, numMonsters):
-        self.tier1Total = int(numMonsters * 0.6)
-        self.tier2Total = int(numMonsters * 0.3)
-        self.tier3Total = int(numMonsters * 0.1)
+        self.tier1Total = int(numMonsters * 0.5)
+        self.tier2Total = int(numMonsters * 0.4)
+        self.tier3Total = int(numMonsters * 0.3)
         self.tier1Current = 0
         self.tier2Current = 0
         self.tier3Current = 0
@@ -35,12 +36,16 @@ class MonsterAi:
         self.updateStatsTime = 0
         self.moveMonstersTime = 20
 
+        self.updateTime=0.1
     def update(self):
         self.updateCountdowns()
-        self.moveMonsters()
-        self.attack()
-        self.respawn()
-        self.updateSpriteState()
+        if self.updateTime>0.1:
+
+            self.moveMonsters()
+            self.attack()
+            self.respawn()
+            self.updateTime=0
+
         if self.updateStatsTime > 100:
             self.updateNum()
             self.updateStatsTime = 0
@@ -67,40 +72,52 @@ class MonsterAi:
         for a in range(0,t3):
             self.spawnT3()
 
-    def updateSpriteState(self):
-        for monster in monster_set:
-           # print(monster.spriteState)
-            if monster.particle.pos.getX()-monster.particle.nextPos.getX()<0 and not monster.spriteState==2:
-                monster.setSpriteState(2)
-            elif monster.particle.pos.getX()-monster.particle.nextPos.getX()>0 and not monster.spriteState==1:
-                monster.setSpriteState(1)
+
           #  print(monster.spriteState)
     def updateCountdowns(self):
-        difference = self.currentTime - time.time()
+        difference = time.time()-self.currentTime
         self.updateStatsTime += difference
         self.moveMonstersTime += difference
         self.tier1Respawn += difference
         self.tier2Respawn += difference
         self.tier3Respawn += difference
+        self.updateTime+=difference
+
+    def returnMonster(self,monster):
+        px = random.randrange(int(monster.operationOrigin.getX() - monster.operationRange.getX()),
+                              int(monster.operationOrigin.getX() + monster.operationRange.getX()))
+        py = random.randrange(int(monster.operationOrigin.getY() - monster.operationRange.getY()),
+                              int(monster.operationOrigin.getY() + monster.operationRange.getY()))
+        if px > MAP_WIDTH:
+            px = MAP_WIDTH
+        if px < 0:
+            px = 0
+        if py > MAP_HEIGHT:
+            py = MAP_HEIGHT
+        if py < 0:
+            py = 0
+        monster.particle.move(Vector(px, py))
 
     def moveMonsters(self):
         # CHOOSE A RANDOM POINT WITHIN OPERATING RANGE OF MONSTER AND MOVE THE MONSTER TO THAT LOCATION IF THE VELOCITY IS 0 and not fierin
-        for monster in monster_set:
-            if monster.particle.vel.getX() == 0 and monster.particle.vel.getY() == 0 and not monster.hasFired:
-                px = random.randrange(int(monster.operationOrigin.getX() - monster.operationRange.getX()),
-                                    int(monster.operationOrigin.getX() + monster.operationRange.getX()))
-                py = random.randrange(int(monster.operationOrigin.getY() - monster.operationRange.getY()),
-                                      int( monster.operationOrigin.getY() + monster.operationRange.getY()))
-                if px>MAP_WIDTH:
-                    px=MAP_WIDTH
-                if px<0:
-                    px=0
-                if py>MAP_HEIGHT:
-                    py=MAP_HEIGHT
-                if py<0:
-                    py=0
-                monster.particle.move(Vector(px, py))
-
+        if self.moveMonstersTime>5:
+            for monster in monster_set:
+                num=random.randrange(1,3)
+                if num==1 and not monster.hasFired and monster.particle.vel.getX() == 0 and monster.particle.vel.getY() == 0 :
+                    px = random.randrange(int(monster.operationOrigin.getX() - monster.operationRange.getX()),
+                                        int(monster.operationOrigin.getX() + monster.operationRange.getX()))
+                    py = random.randrange(int(monster.operationOrigin.getY() - monster.operationRange.getY()),
+                                          int( monster.operationOrigin.getY() + monster.operationRange.getY()))
+                    if px>MAP_WIDTH:
+                        px=MAP_WIDTH
+                    if px<0:
+                        px=0
+                    if py>MAP_HEIGHT:
+                        py=MAP_HEIGHT
+                    if py<0:
+                        py=0
+                    monster.particle.move(Vector(px, py))
+            self.moveMonstersTime=0
     def updateNum(self):
         self.tier1Current = 0
         self.tier2Current = 0
@@ -120,14 +137,29 @@ class MonsterAi:
 
         for monster in monster_set:
             if not monster.hasFired:
-            # SLIGHTLY LONG, JUST CHECKING IF WITHIN BOUNDARY OF OPERATION RECT
-                if monster.particle.pos.getX() < monster.operationOrigin.getX() + monster.operationRange.getX() or monster.particle.pos.getX() > monster.operationOrigin.getX() - monster.operationRange.getX() or monster.particle.pos.getY() < monster.operationOrigin.getY() + monster.operationRange.getY() or monster.particle.pos.getY() > monster.operationOrigin.getY() - monster.operationRange.getY():
-                    # CHECK IF PLAYER WITHIN ATTACK RANGE:
+                # SLIGHTLY LONG, JUST CHECKING IF WITHIN BOUNDARY OF OPERATION RECT
+                if isCircleInRect(monster.particle.pos,monster.followDistance, monster.operationOrigin, monster.operationRange) and not monster.returning:
+                    print("within rect")
+                    # CHECK IF PLAYEisCircleInRectR WITHIN ATTACK RANGE:
                     for player in player_list:
                         # CHECK IF PLAYER ATTACK RANGE (RADIUS) FROM SELF POSITION USE CIRCLE CIRCLE DETECTION.
-                        if doCirclesIntersect(monster.particle, player.particle):
-                            monster.particle.keepRange(player.particle.pos,monster.followDistance)  # artbitrary distance at which to keep range by monster tier
-                            self.fire(player, monster)
+                        if doCirclesIntersect(monster.particle.pos,monster.followDistance, player.particle.pos,player.particle.radius):
+                            monster.particle.keepRange(player.particle.pos,monster.attackRange)  # artbitrary distance at which to keep range by monster tier
+
+                            if doCirclesIntersect(monster.particle.pos, monster.attackRange, player.particle.pos,
+                                                  player.particle.radius):
+                                self.fire(player, monster)
+
+                else:
+                    monster.returning=True
+                    if not monster.hasSelectedReturn:
+                        self.returnMonster(monster)
+                    print("monster returning")
+                    if isPointInRect(monster.particle.pos, monster.operationOrigin, monster.operationRange):
+                        print("monstere returned")
+                        monster.returning=False
+                        monster.hasSelectedReturn=False
+
 
 
                 # IF HEALTH IS LOWER THAN PREVIOUS GENERATION I.E. ATTACKED, THEN RETALIATE ON CLOSEST OPPONENT
@@ -155,9 +187,27 @@ class MonsterAi:
         # SET MAGIC SPRITE ATTACK ANIMATION
         numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMagicWeapon(monster.magic)
         # SET MAGIC SPRITE WEAPON WITH The above
-        print(numRows, numCol, key)
-        weapon = Weapon(player.particle.pos.copy(), Vector(0, 0), 0,
-                        player.particle.pos.copy(), 0, 0, 0, key, spriteDictionary,
+        precisionX=random.randrange(0,90)
+        precisionY=random.randrange(0,90)
+        precisionY-=45
+        precisionX-=45
+        pos=player.particle.pos.copy().add(Vector(precisionX,precisionY))
+        radius=0
+        if monster.magic<500:
+            radius=15
+        if monster.magic<1000 and radius ==0:
+            radius=20
+        if monster.magic<5000 and radius==0:
+            radius=25
+        if monster.magic<20000 and radius==0:
+            radius=30
+        if monster.magic<50000 and radius==0:
+            radius=35
+        if monster.magic>50000 and radius==0:
+            radius=40
+
+        weapon = Weapon(pos, Vector(0, 0), 0,
+                        pos, 0, 0, radius, key, spriteDictionary,
                         20, getUid(), numRows, numCol, startRow, startCol, endRow, endCol, False, True, monster.magic)
         # BIND SPRITE TO MONSTER and MONSTER TO SPRITE to remember who kills who
         weapon.idPlayer = monster.idObject
@@ -187,6 +237,7 @@ class MonsterAi:
                      random.randint(int(MAP_HEIGHT / 2 - MAP_HEIGHT / 4),int( MAP_HEIGHT / 2 + MAP_HEIGHT / 4)))
         vel = Vector(0, 0)
         maxVel = 100  # why not
+
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(1)
         monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
                           numRows, numCol, startRow, startCol, endRow, endCol, 1,aBack)
@@ -194,53 +245,72 @@ class MonsterAi:
         monster.setSpriteState(2)
         monster.life = random.randrange(6000, 10000)
         monster.magic = random.randrange(200, 1000)
-        monster.attackRange = 150
-        monster.followDistance = 50
-        monster.operationRange = Vector(2000,2000)
-        monster.operationOrigin = pos
+        monster.attackRange = 200
+        monster.followDistance = 500
+        monster.operationRange = monster.particle.pos.copy().normalize().multiply(1000)
+        monster.operationOrigin = pos.copy()
         monster_set.add(monster)
 
     def spawnT2(
             self):  # WITHIN 25-75% OF MAP CENTER, OPERATION RANGE OF 3000, ATTACK RANGE OF 500 t1, 1500,t2, 2500 t3? for lols
-        num = random.randrange(1, 3)
-        adjustX = 0
-        adjustY = 0
-        if num == 2:
-            adjustX = int(MAP_WIDTH / 2)
-            adjustY =int( MAP_HEIGHT / 2)
-        # the following locations on the map X axis and y axis randomly:   \______XXXXX__________XXXXX_______\
-        pos = Vector(random.randint(int((MAP_WIDTH / 3)) + adjustX,int(((MAP_WIDTH / 3) * 2)) + adjustX),
-                     random.randint(int((MAP_HEIGHT / 3)) + adjustY, int(((MAP_HEIGHT / 3) * 2)) + adjustY))
+        topBand = Vector(random.randrange(0, int(MAP_WIDTH)),
+                         random.randrange(int(MAP_HEIGHT*0.1), int(MAP_HEIGHT * 0.25)))  # bottom 25% of map
 
-        vel = Vector(0, 0)
+        bottomBand = Vector(random.randrange(0, int(MAP_WIDTH)),
+                            random.randrange(int(MAP_HEIGHT * 0.75), int(MAP_HEIGHT*0.9)))  # top 25% of map
+
+        leftBand = Vector(random.randrange(int(MAP_WIDTH*0.1), int(MAP_WIDTH * 0.25)),
+                          random.randrange(0, int(MAP_HEIGHT)))  # left 25% of map
+
+        rightBand = Vector(random.randrange(int(MAP_WIDTH * 0.75), int(MAP_WIDTH*0.9)),
+                           random.randrange(0, int(MAP_HEIGHT)))  # right 25% of map
+
+        num = random.randrange(0, 400)
+        if num > 300:
+            pos = topBand
+        elif num > 200:
+            pos = bottomBand
+        elif num > 100:
+            pos = leftBand
+        else:
+            pos = rightBand
+
         maxVel = 120  # why not
-
+        vel=Vector(0,0)
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(2)
         monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
                           numRows, numCol, startRow, startCol, endRow, endCol, 2,aBack)
         monster.setSpriteState(2)
         monster.life = random.randrange(50000, 300000)
         monster.magic = random.randrange(10000, 30000)
-        monster.attackRange = 250
-        monster.followDistance = 100
-        monster.operationRange = Vector(2000,2000)
-        monster.operationOrigin = pos
+        monster.attackRange = 300
+        monster.followDistance = 700
+        monster.operationRange = monster.particle.pos.copy().normalize().multiply(1000)
+        monster.operationOrigin = pos.copy()
         monster_set.add(monster)
 
     def spawnT3(
             self):  # WITHIN 25% OF MAP CENTER, OPERATION RANGE OF 1000, ATTACK RANGE OF 500 t1, 1500,t2, 2500 t3? for lols
 
-        num = random.randrange(1, 3)
-        adjustX = 0
-        adjustY = 0
-        if num == 2:
-            adjustX = int(MAP_WIDTH * 0.75)
-            adjustY = int(MAP_HEIGHT * 0.75)
+        topBand=Vector(random.randrange(0,int(MAP_WIDTH)),random.randrange(0,int(MAP_HEIGHT*0.15)))#bottom 25% of map
+
+        bottomBand = Vector(random.randrange(0, int(MAP_WIDTH)),random.randrange(int(MAP_HEIGHT * 0.85), int(MAP_HEIGHT)))  # top 25% of map
+
+        leftBand=Vector(random.randrange(0,int(MAP_WIDTH*0.15)),random.randrange(0,int(MAP_HEIGHT)))#left 25% of map
+
+        rightBand = Vector(random.randrange(int(MAP_WIDTH * 0.85), int(MAP_WIDTH)), random.randrange(0, int(MAP_HEIGHT)))  # right 25% of map
+
+        num=random.randrange(0,400)
+        if num >300:
+            pos=topBand
+        elif num>200:
+            pos=bottomBand
+        elif num>100:
+            pos=leftBand
+        else:
+            pos=rightBand
+
         # the following locations on the map X axis and y axis randomly:   \XXXXX______________________XXXXX\
-
-
-        pos = Vector(random.randint(0+ adjustX,int( MAP_WIDTH / 4)+adjustX),
-                     random.randint(0+adjustY, int(MAP_HEIGHT / 4) +adjustY))
         vel = Vector(0, 0)
         maxVel = 200  # why not
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(3)
@@ -250,10 +320,10 @@ class MonsterAi:
 
         monster.life=random.randrange(500000,1000000)
         monster.magic=random.randrange(50000,100000)
-        monster.attackRange=750
-        monster.followDistance=200
-        monster.operationRange=Vector(2000,2000)
-        monster.operationOrigin=pos
+        monster.attackRange=500
+        monster.followDistance=1000
+        monster.operationRange= monster.particle.pos.copy().normalize().multiply(1000)
+        monster.operationOrigin=pos.copy()
 
 
         monster_set.add(monster)

@@ -1,9 +1,8 @@
 import random
 import configparser
-import uuid
-from Classes.Objects import env_l1_set, spriteDictionary, getUid, env_l2_list
-from Classes.Particle import Particle
-from Classes.Vector import Vector
+from Loading.Objects import env_l1_set, spriteDictionary, getUid, env_l2_list
+from Classes.Middle.Particle import Particle
+from Classes.Base.Vector import Vector
 from Classes.Settings import *
 
 config = configparser.ConfigParser()
@@ -25,7 +24,6 @@ def randomGrass():
     darkId = 3
 
     for x in range(0, int(width / 512)+1):
-        print(x)
         for y in range(0, int(height / 512)+1):
             winner = 0
             dh = random.randrange(80, 100) / 100
@@ -44,7 +42,7 @@ def randomGrass():
                 grass = getRandomString('en_l1_gs_l_', 5)
             # Grass
             pos = Vector(x * 512, y * 512)
-            print(pos)
+
             env_l1_set.add(Particle(False, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0,
                                     grass, spriteDictionary, 0.0001, False, False, getUid(), 1, 1, 1, 1, 1, 1))
 
@@ -57,7 +55,6 @@ def randomTrees():
     medId = 2
     darkId = 3
     cut = 20
-    print("------------------------")
     for y in range(-10, int(height / cut)-10):
         for x in range(-3, int(width / cut)-10):
 
@@ -89,7 +86,6 @@ def randomTrees():
                 pass
             else:
                 rand=random.randint(1,2)
-                print(rand)
                 if rand==1:
                     tree = getRandomString('en_l2_ts_1x1_', 22)
                     t1 = Particle(False, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0,
@@ -128,13 +124,11 @@ def getRandomArrow(range):
 def getRandomMagicWeapon(magic):  # CANFNOT USE RANDOM STRING AS ROWS AND COLUMNS ARE DIFFERENT FOR ANIMATED SPRITES
     range = magic // 3500
     range += 3
-    print("=========================================")
-    print(range)
+
     if range > 13:
         range = 13
     num = random.randrange(0, range)
-    print(range)
-    print(magic)
+
     if num == 0:
         return (4, 5, 1, 1, 4, 5, 'ma_at_5x4_1')
     elif num == 1:
@@ -167,13 +161,11 @@ def getRandomMagicWeapon(magic):  # CANFNOT USE RANDOM STRING AS ROWS AND COLUMN
 def getRandomMagicCast(magic):  # CANNOT USE RANDOM STRING AS ROWS AND COLUMNS ARE DIFFERENT FOR ANIMATED SPRITES
     range = magic // 3500
     range += 3
-    print("=========================================")
-    print(range)
+
     if range > 16:
         range = 16
     num = random.randrange(0, range)
-    print(range)
-    print(magic)
+
     if num == 0:
         return (4, 5, 1, 1, 4, 5, 'ma_ca_5x4_1')
     elif num == 1:
@@ -212,13 +204,11 @@ def getRandomMagicCast(magic):  # CANNOT USE RANDOM STRING AS ROWS AND COLUMNS A
 def getRandomShowOff(magic):
     range = magic // 3500
     range += 3
-    print("=========================================")
-    print(range)
+
     if range > 15:
         range = 15
     num = random.randrange(0, range)
-    print(range)
-    print(magic)
+
     if num == 0:
         return (4, 5, 1, 1, 4, 5, 'ma_sh_5x4_1')
     elif num == 1:
@@ -271,7 +261,7 @@ def getRandomMonster(tier):
         elif num == 2:
             return (True,14, 3, 1, 1, 7, 3, 'mo_t1_2')
         elif num == 3:
-            return (True,4, 5, 1, 1, 2, 5, 'mo_t1_3')
+            return (False,4, 5, 1, 1, 2, 5, 'mo_t1_3')
         elif num == 4:
             return (True,2, 4, 1, 1, 1, 4, 'mo_t1_4')
         elif num == 5:

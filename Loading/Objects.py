@@ -1,30 +1,26 @@
 from Classes.Settings import *
-from Classes.Vector import Vector
+from Classes.Base.Vector import Vector
 
-from Classes.Camera import Camera
-from Classes.Mouse import Mouse
+from Classes.Super.Camera import Camera
+from Handlers.Mouse import Mouse
 
-from Classes.SpriteAnimator import SpriteAnimator
+from Classes.Middle.SpriteControl.SpriteAnimator import SpriteAnimator
 
-from Classes.Player import Player
-from Classes.Particle import Particle
+from Classes.Super.Player import Player
 
-from Classes.GameStates import GameState
+from GameStates.GameStates import GameState
 import configparser
 
 config = configparser.ConfigParser()
 # Open file as writeable
 config.read_file(open('Classes/config'))
 
-import SimpleGUICS2Pygame
-from SimpleGUICS2Pygame import simpleguics2pygame
 import os
 import uuid
-import random
-
+from Classes.Functions.Collisions.CollisionHandler import createBroadPhaseList
 # ------------GAME STATES----------------
-gameState1 = GameState(True, False)
-gameState2 = GameState(True, False)
+gameState1 = GameState(False, True)
+gameState2 = GameState(False, True)
 
 # ---------------------ANY SETS/LISTS-----------------------
 player_list = []
@@ -36,6 +32,7 @@ weapon_set_external = set()
 env_l1_set = set()
 env_l2_list=[]
 env_l3_list=[]
+broadPL=createBroadPhaseList()
 
 
 monster_set = set()
@@ -52,12 +49,12 @@ def getUid():
 
 
 # ------------------ DICTIONARY OF ALL PICTURES LOCATIONS-----------------
-
+print('LOADING ASSETS')
 cwd = os.getcwd()
 
 ch1 = SpriteAnimator(cwd + '/img/Character/1.jpg')
 ch2 = SpriteAnimator(cwd + '/img/Character/2.jpg')
-
+print("characters loaded")
 env_l1_grass_d_1 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/1.jpg')
 env_l1_grass_d_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/2.jpg')
 env_l1_grass_d_3 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/3.jpg')
@@ -73,7 +70,7 @@ env_l1_grass_m_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/med/2.jpg
 env_l1_grass_m_3 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/med/3.jpg')
 env_l1_grass_m_4 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/med/4.jpg')
 env_l1_grass_m_5 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/med/5.jpg')
-print("ground")
+print("grass loaded")
 env_l1_ground_1 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/1.jpg')
 env_l1_ground_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/2.jpg')
 env_l1_ground_3 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/3.jpg')
@@ -83,12 +80,12 @@ env_l1_ground_6 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/6.jpg')
 env_l1_ground_7 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/7.jpg')
 env_l1_ground_8 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/8.jpg')
 env_l1_ground_9 = SpriteAnimator(cwd + '/img/Environment/Layer1/Ground/9.jpg')
+print("ground loaded")
 
-print("marker2")
 env_l2_trees_1x1_1 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/1.jpg')
 env_l2_trees_1x1_2 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/2.jpg')
 env_l2_trees_1x1_3 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/3.jpg')
-print("marker")
+
 env_l2_trees_1x1_4 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/4.jpg')
 env_l2_trees_1x1_5 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/5.jpg')
 env_l2_trees_1x1_6 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/6.jpg')
@@ -108,11 +105,11 @@ env_l2_trees_1x1_19 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/19
 env_l2_trees_1x1_20 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/20.jpg')
 env_l2_trees_1x1_21 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/21.jpg')
 env_l2_trees_1x1_22 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/1x1/22.jpg')
-print("marker3")
+
 
 env_l2_trees_6x5_1 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/6x5/1.jpg')
 env_l2_trees_15x4_1 = SpriteAnimator(cwd + '/img/Environment/Layer2/Trees/15x4/1.jpg')
-
+print("Trees loaded")
 mag_att_5x4_1 = SpriteAnimator(cwd + '/img/Magic/Attack/5x4/1.jpg')
 mag_att_5x4_2 = SpriteAnimator(cwd + '/img/Magic/Attack/5x4/2.jpg')
 mag_att_5x5_1 = SpriteAnimator(cwd + '/img/Magic/Attack/5x5/1.jpg')
@@ -126,7 +123,7 @@ mag_att_5x7_4 = SpriteAnimator(cwd + '/img/Magic/Attack/5x7/4.jpg')
 mag_att_5x7_5 = SpriteAnimator(cwd + '/img/Magic/Attack/5x7/5.jpg')
 mag_att_5x7_6 = SpriteAnimator(cwd + '/img/Magic/Attack/5x7/6.jpg')
 mag_att_5x11_1 = SpriteAnimator(cwd + '/img/Magic/Attack/5x11/1.jpg')
-print("marker4")
+
 mag_cas_5x4_1 = SpriteAnimator(cwd + '/img/Magic/Cast/5x4/1.jpg')
 mag_cas_5x4_2 = SpriteAnimator(cwd + '/img/Magic/Cast/5x4/2.jpg')
 mag_cas_5x4_3 = SpriteAnimator(cwd + '/img/Magic/Cast/5x4/3.jpg')
@@ -153,7 +150,7 @@ mag_def_5x5_2 = SpriteAnimator(cwd + '/img/Magic/Defence/5x5/2.jpg')
 mag_def_5x6_1 = SpriteAnimator(cwd + '/img/Magic/Defence/5x6/1.jpg')
 mag_def_5x6_2 = SpriteAnimator(cwd + '/img/Magic/Defence/5x6/2.jpg')
 mag_def_5x7_1 = SpriteAnimator(cwd + '/img/Magic/Defence/5x7/1.jpg')
-print("marker5")
+
 mag_reg_5x5_1 = SpriteAnimator(cwd + '/img/Magic/Regen/5x5/1.jpg')
 mag_reg_5x7_1 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/1.jpg')
 mag_reg_5x7_2 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/2.jpg')
@@ -164,7 +161,7 @@ mag_rev_5x5_1 = SpriteAnimator(cwd + '/img/Magic/Regen/5x5/1.jpg')
 mag_rev_5x7_1 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/1.jpg')
 mag_rev_5x7_2 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/2.jpg')
 mag_rev_5x7_3 = SpriteAnimator(cwd + '/img/Magic/Regen/5x7/3.jpg')
-
+print("Magic loaded")
 mag_sho_5x4_1 = SpriteAnimator(cwd + '/img/Magic/ShowOff/5x4/1.jpg')
 mag_sho_5x4_2 = SpriteAnimator(cwd + '/img/Magic/ShowOff/5x4/2.jpg')
 mag_sho_5x4_3 = SpriteAnimator(cwd + '/img/Magic/ShowOff/5x4/3.jpg')
@@ -184,7 +181,6 @@ mag_sho_5x20_1 = SpriteAnimator(cwd + '/img/Magic/ShowOff/5x20/1.jpg')
 # num rows num columns, end row,end column, id
 mon_t1_20_6_10_4_1 = SpriteAnimator(cwd + '/img/Monsters/Tier1/1.jpg')
 mon_t1_14_3_7_3_2 = SpriteAnimator(cwd + '/img/Monsters/Tier1/2.jpg')
-print("marker6")
 mon_t1_4_6_2_6_3 = SpriteAnimator(cwd + '/img/Monsters/Tier1/3.jpg')
 mon_t1_2_4_1_4_4 = SpriteAnimator(cwd + '/img/Monsters/Tier1/4.jpg')
 mon_t1_2_10_1_10_5 = SpriteAnimator(cwd + '/img/Monsters/Tier1/5.jpg')
@@ -199,7 +195,7 @@ mon_t3_10_4_5_4_3 = SpriteAnimator(cwd + '/img/Monsters/Tier3/3.jpg')
 mon_t3_6_2_3_2_4 = SpriteAnimator(cwd + '/img/Monsters/Tier3/4.jpg')
 mon_t3_6_2_3_2_5 = SpriteAnimator(cwd + '/img/Monsters/Tier3/5.jpg')
 mon_t3_8_8_4_2_6 = SpriteAnimator(cwd + '/img/Monsters/Tier3/6.jpg')
-
+print("Monsters Loaded")
 pro_t1_1 = SpriteAnimator(cwd + '/img/Projectiles/Tier1/1.jpg')
 pro_t2_1 = SpriteAnimator(cwd + '/img/Projectiles/Tier2/1.jpg')
 pro_t2_2 = SpriteAnimator(cwd + '/img/Projectiles/Tier2/2.jpg')
@@ -210,7 +206,7 @@ pro_t3_2 = SpriteAnimator(cwd + '/img/Projectiles/Tier3/2.jpg')
 pro_t3_3 = SpriteAnimator(cwd + '/img/Projectiles/Tier3/3.jpg')
 pro_t4_1 = SpriteAnimator(cwd + '/img/Projectiles/Tier4/1.jpg')
 pro_t4_2 = SpriteAnimator(cwd + '/img/Projectiles/Tier4/2.jpg')
-
+print("Projectiles Loaded")
 spriteDictionary = {'ch_1': ch1,
                     'ch_2': ch2,
                     'en_l1_gs_d_1': env_l1_grass_d_1,
@@ -364,8 +360,8 @@ spriteDictionary = {'ch_1': ch1,
                     'pr_t4_1': pro_t4_1,
                     'pr_t4_2': pro_t4_2}
 # -----------------------MOVING OBJECTS-------------------
-
-
+print("ASSETS LOADED")
+print("LOADING OBJECTS")
 # CAMERA
 cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vector(int(config['CANVAS']['CANVAS_WIDTH'])/2,int(config['CANVAS']['CANVAS_HEIGHT'])/2))
 
@@ -401,10 +397,12 @@ playerId = player1.idObject
 #     monster_set.add(dragon2)
 
 # -----------------------NON-MOVING OBJECTS------------------
-
-from Classes.RandomGen import randomGrass, randomTrees
+print("OBJECTS LOADED")
+from Loading.RandomGen import randomGrass, randomTrees
+print("GENERATING RANDOM ENVIRONMENT")
 randomGrass()
 randomTrees()
+print("ENVIRONMENT GENERATED")
 # t1=Particle(False, Vector(2500,2500), Vector(0, 0), 0, Vector(2500,2500), 0, 0, 0, 0,
 #                             'en_l2_ts_1x1_19', spriteDictionary, 0.0001, False, False, getUid(), 1, 1, 1, 1, 1, 1)
 # t1.radius/=3

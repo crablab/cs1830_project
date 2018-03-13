@@ -1,10 +1,9 @@
-from Classes.Vector import Vector
+from Classes.Base.Vector import Vector
 from Classes.Settings import CAM_MAX_MOVE_DIST
 
 import configparser
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
-import json
 import uuid
 import time
 class Camera:

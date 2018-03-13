@@ -1,11 +1,9 @@
-import json, time, uuid, configparser
+import time, configparser
 
-from Classes.Particle import Particle
-from Classes.Settings import SPRITE_FPS  # this never seems to be used?
+from Classes.Middle.Particle import Particle
 
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
-from Classes.Vector import Vector
 
 
 class Player:
@@ -50,18 +48,20 @@ class Player:
         self.particle.recieve(nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey, fps, numRows,
                               numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary)
 
-    def draw(self, canvas, cam):
 
+
+    def update(self):
+        self.particle.update()
+        self.setCorrectSpriteState()
+        self.currentTime = time.time()
+
+    def draw(self, canvas, cam):
         self.particle.draw(canvas, cam)
 
     def move(self, pos):
         self.particle.move(pos)
 
-    def update(self):
-        self.particle.update()
-
-        self.currentTime = time.time()
-
+    def setCorrectSpriteState(self):
         if self.spriteState == 0:
             self.setCorrectAnimation(1)
         # CORRECT SPRITE ROW AND UPDATE FPS
@@ -71,6 +71,8 @@ class Player:
 
         if self.particle.vel.getX() == 0 and self.particle.vel.getY() == 0 and not self.hasFired:
             self.particle.spriteSheet.currentColumn = 1
+
+
 
     def setCorrectAnimation(self,action):
         if action==1:

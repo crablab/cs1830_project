@@ -1,21 +1,19 @@
 import pygame
-from Classes.RandomGen import getRandomString,getRandomArrow,getRandomMagicWeapon,getRandomMagicCast,getRandomShowOff
+from Loading.RandomGen import getRandomArrow,getRandomMagicWeapon,getRandomMagicCast,getRandomShowOff
 
-from Classes.Vector import Vector
-from Classes.Objects import mouse,  player_list, cam, \
+from Classes.Base.Vector import Vector
+from Loading.Objects import mouse,  player_list, cam, \
     adjustment, spriteDictionary,playerId,weapon_set,getUid,visual_set
-from Classes.Weapon import Weapon
-from Classes.Particle import Particle
-from Classes.Settings import PARTICLE_VELOCITY, PARTICLE_RADIUS, PARTICLE_MAX_RANGE
-import configparser, json, uuid, os, random
+from Classes.Super.Weapon import Weapon
+from Classes.Middle.Particle import Particle
+from Classes.Settings import GOD_MODE
+import configparser
+
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
 
 config.read_file(open('Classes/config'))
 import time
-import math
-import uuid
-
 
 
 def checkClick():
@@ -82,7 +80,6 @@ def checkClick():
                     #SET MAGIC SPRITE ATTACK ANIMATION
                     numRows,numCol,startRow,startCol,endRow,endCol,key=getRandomMagicWeapon(player.magic)
                     #SET MAGIC SPRITE WEAPON WITH The above
-                    print(numRows,numCol,key)
                     weapon = Weapon(player.clickPosition.copy(), Vector(0, 0), 0,
                                     player.clickPosition.copy(), 0, 0, 0, key, spriteDictionary,
                                     20, getUid(), numRows, numCol, startRow, startCol, endRow, endCol, False, True, player.magic)
@@ -119,10 +116,8 @@ def checkClick():
 
                     particle = Particle(True, pos,Vector(0,0), 0, pos, 20,300, 0, 0, key, spriteDictionary, 20,
                                         False, True, getUid(), numRows, numCol, startRow, startCol, endRow, endCol)
-                    print(player.particle.pos.copy().subtract(Vector(0,100)))
                     particle.moveRange(player.particle.pos.copy().subtract(Vector(0, 100)))
-                    print(particle.nextPos)
-                    print(player.particle.pos)
+
                     # particle.vel.negate()#bug, don't know why, needs negation...
                     visual_set.add(particle)
 
@@ -146,13 +141,17 @@ def checkClick():
         for player in player_list:
 
             if player.idObject==playerId and player.hasFired==False:
+
                  #force finish fireing
                 x, y = pygame.mouse.get_pos()
                 player.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)
                 player.setCorrectAnimation(1)
                 vector = player.clickPosition.copy()
                 player.move(vector)
-
+                if GOD_MODE:
+                    player.particle.pos=vector
+                    player.particle.nextPos=vector
+                    player.particle.nextPosTime=vector
 
 
     elif right:

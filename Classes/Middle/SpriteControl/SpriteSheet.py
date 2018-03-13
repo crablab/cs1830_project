@@ -1,6 +1,4 @@
-import os
 import json
-from Classes.SpriteAnimator import SpriteAnimator
 import time
 
 class SpriteSheet:

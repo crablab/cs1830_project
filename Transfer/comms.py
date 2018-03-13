@@ -6,13 +6,12 @@
 # Networking class
                                           
 
-import queue, threading, time, pycurl, json, io, configparser
+import queue, threading, pycurl, io
 
 #Load the config
 # config = configparser.ConfigParser()
 # config.read_file(open('Classes/config'))
 
-from Classes.Settings import CONFIG_TYPE,CLIENT_IP, LOGGING, LOGGING_LEVEL
 from flask import Flask, request, Response
 from Transfer.JsonToObject import getObject
 import time

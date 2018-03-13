@@ -1,11 +1,9 @@
-import json, time, uuid, configparser
+import time, configparser
 
-from Classes.Particle import Particle
-from Classes.Settings import SPRITE_FPS  # this never seems to be used?
+from Classes.Middle.Particle import Particle
 
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
-from Classes.Vector import Vector
 
 
 # exact copy of player but used for monsters and no preset animations
@@ -18,7 +16,7 @@ class Weapon:
         self.idClass = 5
         self.idPlayer=0#set on weapon creation.
         self.idObject = idObject
-
+        self.updateSprite=True
         # non-vectors (attributes)
         self.damage = damage
         self.applied=False
@@ -30,17 +28,17 @@ class Weapon:
         self.removeOnAnimationLoop = removeOnAnimationLoop
 
         # sub class
-        self.particle = Particle(True, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,#0 is the range, as this is a weapon, no need.
+        self.particle = Particle(self.updateSprite, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,#0 is the range, as this is a weapon, no need.
                                  spriteDictionary, spriteFps,
                                  self.removeOnVelocity0, self.removeOnAnimationLoop,
                                  self.idObject, numRows, numColumns,
                                  startRow, startColumn, endRow,
                                  endColumn)
 
-    def recieve(self, nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey,
+    def recieve(self, nextPos, nextPosTime, maxVel, angle, spriteKey,
                 fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary):
 
-        self.particle.recieve(nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey, fps, numRows,
+        self.particle.recieve(nextPos, nextPosTime, maxVel, 0, angle, True, spriteKey, fps, numRows,
                               numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary)
 
     def draw(self, canvas, cam):
@@ -84,6 +82,6 @@ class Weapon:
             'startRow': self.particle.spriteSheet.startRow,
             'endRow': self.particle.spriteSheet.endRow,
             'endColumn': self.particle.spriteSheet.endColumn,
-            'damadge': self.damage}
+            'damage': self.damage}
 
         return data

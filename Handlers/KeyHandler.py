@@ -1,7 +1,6 @@
-import SimpleGUICS2Pygame
 from SimpleGUICS2Pygame import simpleguics2pygame
 
-from Classes.Objects import cam,player_list,playerId
+from Loading.Objects import cam,player_list,playerId
 
 def keyup(key):
     if key == simpleguics2pygame.KEY_MAP['r']:

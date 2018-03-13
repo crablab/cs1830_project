@@ -1,14 +1,14 @@
 # to read data into dictionary: data = json.loads(<json File>, object_hook=lambda d: namedtuple('<Object Name For Reference>', d.keys())(*d.values()))
-from Classes.Camera import Camera
-from Classes.Vector import Vector
-from Classes.Particle import Particle
-from Classes.Player import Player
-from Classes.Monster import Monster
-from Classes.Weapon import Weapon
-from Classes.Objects import weapon_set_external, player_list,monster_set_external,spriteDictionary, playerId,gameState2,visual_set_external
-from Classes.Objects import cam
+from Classes.Super.Camera import Camera
+from Classes.Base.Vector import Vector
+from Classes.Middle.Particle import Particle
+from Classes.Super.Player import Player
+from Classes.Super.Monster import Monster
+from Classes.Super.Weapon import Weapon
+from Loading.Objects import weapon_set_external, player_list,monster_set_external,spriteDictionary, playerId,gameState2,visual_set_external
+from Loading.Objects import cam
 import configparser
-from Classes.Settings import DEVELOPER_OPTIONS, LOGGING_LEVEL
+
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
 
@@ -26,7 +26,9 @@ def getWeapon(arr):
     for weapon in weapon_set_external:
         if weapon.idObject== arr['idObject']:
             exists=True
+
     if not exists:
+
         weapon_set_external.add(Weapon(Vector(arr['pos']['x'],arr['pos']['y']),Vector(arr['vel']['x'],arr['vel']['y']),
                                          arr['nextPosTime'],Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['maxVel'],
                                          arr['angle'], arr['radius'],arr['spriteKey'],spriteDictionary,arr['fps'],arr['idObject'],arr['numRows'],arr['numColumns'],arr['startRow'],
@@ -36,9 +38,9 @@ def getWeapon(arr):
 
     for weapon in weapon_set_external:
         if weapon.idObject==arr['idObject']:
+
             weapon.recieve(Vector(arr['nextPos']['x'], arr['nextPos']['y']),
-                             arr['nextPosTime'],arr['maxVel'],arr['maxRange'],arr['angle'],
-                             arr['updateSprite'],arr['spriteKey'],arr['fps'],arr['numRows'],
+                             arr['nextPosTime'],arr['maxVel'],arr['angle'],arr['spriteKey'],arr['fps'],arr['numRows'],
                              arr['numColumns'],arr['startRow'],arr['startColumn'],
                              arr['endRow'],arr['endColumn'],arr['radius'],spriteDictionary)
 

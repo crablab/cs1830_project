@@ -5,13 +5,10 @@
 #   "mmm" "mmm#" mm#mm  "#mmm" "mmm#"  #mm#
 
 #LOADING LIBRARIES
-import queue, threading, time, pycurl, json, io, sys, pygame, random, copy, configparser
-from flask import Flask, request, Response
-from SimpleGUICS2Pygame import simpleguics2pygame, simplegui_lib_fps
-from collections import namedtuple
-
+import sys, configparser
+from SimpleGUICS2Pygame import simplegui_lib_fps
+from SimpleGUICS2Pygame import simpleguics2pygame
 #LOADING SETTINGS
-from Classes.Settings import *
 config = configparser.ConfigParser()
 #Open file as writeable
 config.read_file(open('Classes/config'))
@@ -31,27 +28,23 @@ if(len(sys.argv) > 1):
 #config.read_file(open('Classes/config'))
 
 #LOAD INTERNAL CLASSES
-from Classes.Camera import Camera
-from Classes.Vector import Vector
-from Classes.Player import Player
-from Collisions.Collisions import doCirclesIntersect
 from Transfer.comms import communicate, recieve, ping
-from Classes.KeyHandler import keydown, keyup
-from Classes.ClickHandler import checkClick
+from Handlers.KeyHandler import keydown, keyup
+from Handlers.ClickHandler import checkClick
 
-from Classes.Objects import *
-from Loops.intro import introLoop, waitingLoop
-from Classes.MonsterAi import MonsterAi
+from Loading.Objects import *
+from GameStates.intro import introLoop, waitingLoop
+from Loading.MonsterAi import MonsterAi
 
 #-----START----GAME----CLOCK
 fps = simplegui_lib_fps.FPS()
 fps.start()
-startTime = time.time()
-oldTime=time.time()
 
 #initiate Ai
-monsterAi=MonsterAi(20)
+print("INITIALISING MONSTER CONTROLLER")
+monsterAi=MonsterAi(50)
 monsterAi.spawnMonsters()
+print("MONSTERS LOADED AND SPAWNED")
 
 
 
@@ -130,40 +123,6 @@ def draw(canvas):
 
         # ------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
         for en2 in env_l2_list:
-            for w in weapon_set:
-                if not w.particle.updated:
-                    if doCirclesIntersect(w.particle, en2):
-                        w.draw(canvas, cam)
-                        w.update()
-                        w.particle.updated=True
-            for w in weapon_set_external:
-                if not w.particle.updated:
-                    if  doCirclesIntersect(w.particle,en2):
-                        w.update()
-                        w.draw(canvas,cam)
-                        w.updated=True
-
-            for m in monster_set_external:
-                if not m.particle.updated:
-                    if   doCirclesIntersect(m.particle, en2):
-                        m.draw(canvas,cam)
-                        m.update()
-                        m.particle.updated=True
-            for m in monster_set:
-                if not m.particle.updated:
-                    if doCirclesIntersect(m.particle, en2) and m.particle.radius<2*en2.radius:#big monsters drawn on top for simplicity ( flying ones e.t.c.)
-                        m.update()
-                        m.draw(canvas,cam)
-                        m.particle.updated=True
-
-            for player in player_list:
-                if not player.particle.updated:
-                    if doCirclesIntersect(player.particle, en2):
-                        player.update()
-                        player.draw(canvas,cam)
-                        player.particle.updated=True
-
-
             en2.update()
             en2.draw(canvas, cam)
 
@@ -191,8 +150,8 @@ def draw(canvas):
             pm.particle.updated=False
 
         for pp in player_list:
-            # if pp.idObject==playerId:
-            #     cam.origin=pp.particle.pos.copy()
+            if pp.idObject==playerId:
+                cam.origin=pp.particle.pos.copy()
 
             if not pp.particle.updated:
 
