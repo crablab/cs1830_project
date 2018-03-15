@@ -240,19 +240,15 @@ class MonsterAi:
         maxVel = 100  # why not
 
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(1)
-        monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
-                          numRows, numCol, startRow, startCol, endRow, endCol, 1,aBack,False, random.randrange(6000, 10000))
+        monster = Monster(pos, vel, 0, pos, maxVel, 0, 50, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
+                          numRows, numCol, startRow, startCol, endRow, endCol, 1,aBack,False, random.randrange(6000, 10000),pos.copy(),
+                          pos.copy().normalize().multiply(1000),200,500)
 
         monster.setSpriteState(2)
 
         monster.totalLife = monster.life
         monster.magic = random.randrange(200, 1000)
         monster.range = random.randrange(200, 1000)
-        monster.attackRange = 200
-        monster.particle.radius=50
-        monster.followDistance = 500
-        monster.operationRange = monster.particle.pos.copy().normalize().multiply(1000)
-        monster.operationOrigin = pos.copy()
         monster_set.add(monster)
 
     def spawnT2(
@@ -282,18 +278,19 @@ class MonsterAi:
         maxVel = 120  # why not
         vel=Vector(0,0)
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(2)
-        monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
-                          numRows, numCol, startRow, startCol, endRow, endCol, 2,aBack,False,random.randrange(50000, 300000))
+        monster = Monster(pos, vel, 0, pos, maxVel, 0, 75, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
+                          numRows, numCol, startRow, startCol, endRow, endCol, 2,aBack,False,random.randrange(50000, 300000),
+        pos.copy(),
+        pos.copy().normalize().multiply(1000), 300, 700
+        )
         monster.setSpriteState(2)
 
         monster.totalLife=monster.life
         monster.magic = random.randrange(10000, 30000)
         monster.range = random.randrange(10000, 30000)
-        monster.particle.radius=75
-        monster.attackRange = 300
-        monster.followDistance = 700
-        monster.operationRange = monster.particle.pos.copy().normalize().multiply(1000)
-        monster.operationOrigin = pos.copy()
+
+
+
         monster_set.add(monster)
 
     def spawnT3(
@@ -321,17 +318,17 @@ class MonsterAi:
         vel = Vector(0, 0)
         maxVel = 200  # why not
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(3)
-        monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
-                          numRows, numCol, startRow, startCol, endRow, endCol, 3,aBack,False,random.randrange(500000,1000000))
+        monster = Monster(pos, vel, 0, pos, maxVel, 0, 100, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
+                          numRows, numCol, startRow, startCol, endRow, endCol, 3,aBack,False,random.randrange(500000,1000000),
+
+                  pos.copy(),
+                  pos.copy().normalize().multiply(1000), 500, 1000
+        )
         monster.setSpriteState(2)
 
         monster.life=random.randrange(500000,1000000)
         monster.totalLife = monster.life
         monster.magic=random.randrange(50000,100000)
-        monster.particle.radius=100
-        monster.attackRange=500
-        monster.followDistance=1000
-        monster.operationRange= monster.particle.pos.copy().normalize().multiply(1000)
         monster.operationOrigin=pos.copy()
 
 

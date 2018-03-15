@@ -11,7 +11,8 @@ config.read_file(open('Classes/config'))
 class Monster:
     def __init__(self, pos, vel, nextPosTime, nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps,
                  idObject, hasFired,
-                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn,tier,aBack,external,totalLife):
+                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn,tier,aBack,external,totalLife,operationOrigin,
+                 operationRange,attackRange,followDistance):
         # id's
         self.remove = False
         self.idClass = 4
@@ -19,10 +20,10 @@ class Monster:
         self.magicId = 0 #this is a space to attach a particle object id so we can link it to this class if there is one.
         self.external = external
         # non-vectors (attributes)
-        self.operationOrigin=0
-        self.operationRange=0
-        self.attackRange=0
-        self.followDistance=0
+        self.operationOrigin=operationOrigin
+        self.operationRange=operationRange
+        self.attackRange=attackRange
+        self.followDistance=followDistance
         self.returning=False
         self.hasSelectedReturn=False
         self.tier=tier
@@ -113,13 +114,14 @@ class Monster:
 
         if SHOW_MONSTER_THOUGHTS:
             ratio = cam.ratioToCam()
-            radius1 = self.attackRange * ratio.getX()
-            radius2 = self.followDistance * ratio.getX()
-            canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius1, 1, 'Red')
-            canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius2, 1, 'Pink')
-            simplegui_lib_draw.draw_rect(canvas, self.operationOrigin.copy().transformToCam(cam).subtract(
-                self.operationRange.copy().multiplyVector(ratio)).getP(),
-                                         self.operationRange.copy().add(self.operationRange).multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
+            radius1 = int(self.attackRange * ratio.getX())
+            radius2 = int(self.followDistance * ratio.getX())
+            if radius1 > 0 and radius2 >0:
+                canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius1, 1, 'Red')
+                canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius2, 1, 'Pink')
+                simplegui_lib_draw.draw_rect(canvas, self.operationOrigin.copy().transformToCam(cam).subtract(
+                    self.operationRange.copy().multiplyVector(ratio)).getP(),
+                                             self.operationRange.copy().add(self.operationRange).multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
 
     def move(self, pos):
         self.particle.move(pos)
@@ -157,6 +159,7 @@ class Monster:
                 'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
                 'endColumn': self.particle.spriteSheet.endColumn,
                 'magic':self.magic,'melee':self.melee,'range':self.range,'life':self.life,'magicId':self.magicId,'tier':self.tier,'aBack':self.aBack,
-                'external':True,'totalLife':self.totalLife}
+                'external':True,'totalLife':self.totalLife,'operationOrigin':{'x':self.operationOrigin.getX(),'y':self.operationOrigin.getY()},'operationRange':{'x':self.operationOrigin.getX(),'y':self.operationOrigin.getY()},
+                'attackRange':self.attackRange,'followDistance':self.followDistance}
 
         return data
