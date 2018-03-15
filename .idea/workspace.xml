@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="535d3321-3371-455d-b0a1-9ee7583f198c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Classes/Settings.py" afterPath="$PROJECT_DIR$/Classes/Settings.py" />
       <change beforePath="$PROJECT_DIR$/Classes/Super/Monster.py" afterPath="$PROJECT_DIR$/Classes/Super/Monster.py" />
       <change beforePath="$PROJECT_DIR$/Classes/config" afterPath="$PROJECT_DIR$/Classes/config" />
-      <change beforePath="$PROJECT_DIR$/Loading/MonsterAi.py" afterPath="$PROJECT_DIR$/Loading/MonsterAi.py" />
-      <change beforePath="$PROJECT_DIR$/Loading/Objects.py" afterPath="$PROJECT_DIR$/Loading/Objects.py" />
-      <change beforePath="$PROJECT_DIR$/Transfer/JsonToObject.py" afterPath="$PROJECT_DIR$/Transfer/JsonToObject.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,8 +41,8 @@
       <file leaf-file-name="Settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Classes/Settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1238">
-              <caret line="37" column="9" lean-forward="false" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+            <state relative-caret-position="490">
+              <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -72,7 +68,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MonsterAi.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MonsterAi.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Loading/MonsterAi.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1402">
@@ -87,8 +83,8 @@
       <file leaf-file-name="Monster.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Classes/Super/Monster.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="884">
-              <caret line="30" column="22" lean-forward="true" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
+            <state relative-caret-position="960">
+              <caret line="159" column="58" lean-forward="false" selection-start-line="159" selection-start-column="58" selection-end-line="159" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -107,8 +103,8 @@
       <file leaf-file-name="Objects.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Loading/Objects.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="21" column="34" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+            <state relative-caret-position="1054">
+              <caret line="31" column="18" lean-forward="true" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -116,11 +112,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config" pinned="false" current-in-tab="false">
+      <file leaf-file-name="config" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Classes/config">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+            <state relative-caret-position="306">
+              <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -158,7 +154,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>broadPhaseList</find>
       <find>particle.upda</find>
       <find>cut</find>
       <find>ai</find>
@@ -184,10 +179,11 @@
       <find>p</find>
       <find>magicId</find>
       <find>print</find>
-      <find>game</find>
       <find>client</find>
-      <find>c</find>
       <find>clien</find>
+      <find>game</find>
+      <find>totalLife</find>
+      <find>c</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -241,12 +237,12 @@
         <option value="$PROJECT_DIR$/GameLoop.py" />
         <option value="$PROJECT_DIR$/Handlers/KeyHandler.py" />
         <option value="$PROJECT_DIR$/Classes/Super/Camera.py" />
-        <option value="$PROJECT_DIR$/Classes/config" />
         <option value="$PROJECT_DIR$/Loading/Objects.py" />
         <option value="$PROJECT_DIR$/Classes/Settings.py" />
-        <option value="$PROJECT_DIR$/Classes/Super/Monster.py" />
         <option value="$PROJECT_DIR$/Transfer/JsonToObject.py" />
         <option value="$PROJECT_DIR$/Loading/MonsterAi.py" />
+        <option value="$PROJECT_DIR$/Classes/Super/Monster.py" />
+        <option value="$PROJECT_DIR$/Classes/config" />
       </list>
     </option>
   </component>
@@ -290,6 +286,12 @@
               <item name="cs1830" type="b2602c69:ProjectViewProjectNode" />
               <item name="cs1830" type="462c0819:PsiDirectoryNode" />
               <item name="Classes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cs1830" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cs1830" type="462c0819:PsiDirectoryNode" />
+              <item name="Classes" type="462c0819:PsiDirectoryNode" />
+              <item name="Super" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cs1830" type="b2602c69:ProjectViewProjectNode" />
@@ -800,14 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/config">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GameStates/intro.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -824,28 +818,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Loading/Objects.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="21" column="34" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1047">
           <caret line="40" column="12" lean-forward="false" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1238">
-          <caret line="37" column="9" lean-forward="false" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -866,11 +842,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Super/Monster.py">
+    <entry file="file://$PROJECT_DIR$/Loading/Objects.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="30" column="22" lean-forward="true" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="1054">
+          <caret line="31" column="18" lean-forward="true" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -881,6 +859,30 @@
           <folding>
             <marker date="1521107473493" expanded="true" signature="1580:1594" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Super/Monster.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="159" column="58" lean-forward="false" selection-start-line="159" selection-start-column="58" selection-end-line="159" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>

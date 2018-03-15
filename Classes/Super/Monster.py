@@ -157,6 +157,6 @@ class Monster:
                 'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
                 'endColumn': self.particle.spriteSheet.endColumn,
                 'magic':self.magic,'melee':self.melee,'range':self.range,'life':self.life,'magicId':self.magicId,'tier':self.tier,'aBack':self.aBack,
-                'external':True}
+                'external':True,'totalLife':self.totalLife}
 
         return data
