@@ -241,10 +241,10 @@ class MonsterAi:
 
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(1)
         monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
-                          numRows, numCol, startRow, startCol, endRow, endCol, 1,aBack,False)
+                          numRows, numCol, startRow, startCol, endRow, endCol, 1,aBack,False, random.randrange(6000, 10000))
 
         monster.setSpriteState(2)
-        monster.life = random.randrange(6000, 10000)
+
         monster.totalLife = monster.life
         monster.magic = random.randrange(200, 1000)
         monster.range = random.randrange(200, 1000)
@@ -283,9 +283,9 @@ class MonsterAi:
         vel=Vector(0,0)
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(2)
         monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
-                          numRows, numCol, startRow, startCol, endRow, endCol, 2,aBack,False)
+                          numRows, numCol, startRow, startCol, endRow, endCol, 2,aBack,False,random.randrange(50000, 300000))
         monster.setSpriteState(2)
-        monster.life = random.randrange(50000, 300000)
+
         monster.totalLife=monster.life
         monster.magic = random.randrange(10000, 30000)
         monster.range = random.randrange(10000, 30000)
@@ -322,13 +322,12 @@ class MonsterAi:
         maxVel = 200  # why not
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(3)
         monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
-                          numRows, numCol, startRow, startCol, endRow, endCol, 3,aBack,False)
+                          numRows, numCol, startRow, startCol, endRow, endCol, 3,aBack,False,random.randrange(500000,1000000))
         monster.setSpriteState(2)
 
         monster.life=random.randrange(500000,1000000)
         monster.totalLife = monster.life
         monster.magic=random.randrange(50000,100000)
-        monster.range= random.randrange(50000, 100000)
         monster.particle.radius=100
         monster.attackRange=500
         monster.followDistance=1000

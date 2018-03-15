@@ -9,11 +9,9 @@ Class Id's:
 
 #DISPLAY OPTIONS:
 DEVELOPER_OPTIONS = False #ALL PARTILE BOUNDARIES (NOT RECOMMENDED FOR FPS REASONS
-GOD_MODE=False
-
-SHOW_MONSTER_THOUGHTS=False #pink follow and return range if out of whit rectangle, red is attack range
-
-SHOW_COLLISION_TECH=False # white = detection of close together objects, Red=intercection of close together objects
+GOD_MODE=True
+SHOW_MONSTER_THOUGHTS=True #pink follow and return range if out of whit rectangle, red is attack range
+SHOW_COLLISION_TECH=True # white = detection of close together objects, Red=intercection of close together objects
 #MAP
 MAP_WIDTH = 15000
 MAP_HEIGHT = 15000
@@ -26,7 +24,7 @@ CANVAS_WIDTH = 1920
 CANVAS_HEIGHT = 1080
 
 #NETWORKING
-CONFIG_TYPE = 'client'
+CONFIG_TYPE = 'server'
 CLIENT_IP = 'localhost'
 LOGGING = True
 LOGGING_LEVEL = 'low'

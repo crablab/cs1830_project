@@ -11,7 +11,7 @@ config.read_file(open('Classes/config'))
 class Monster:
     def __init__(self, pos, vel, nextPosTime, nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps,
                  idObject, hasFired,
-                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn,tier,aBack,external):
+                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn,tier,aBack,external,totalLife):
         # id's
         self.remove = False
         self.idClass = 4
@@ -26,13 +26,13 @@ class Monster:
         self.returning=False
         self.hasSelectedReturn=False
         self.tier=tier
-        self.life = 0
+        self.life = totalLife
         self.lifePrev=self.life
         self.range = 0
         self.melee = 0
         self.magic = 0
         self.tier = 0
-        self.totalLife=0
+        self.totalLife=totalLife
 
         # vectors
         self.clickPosition = clickPosition

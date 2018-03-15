@@ -19,8 +19,8 @@ import os
 import uuid
 
 # ------------GAME STATES----------------
-gameState1 = GameState(False, True)
-gameState2 = GameState(False, True)
+gameState1 = GameState(True, False)
+gameState2 = GameState(True, False)
 
 # ---------------------ANY SETS/LISTS-----------------------
 player_list = []
