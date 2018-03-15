@@ -15,7 +15,7 @@ logging_level = low
 cam_move_sensitivity = 200
 cam_zoom_sensitivity = 0.03
 cam_min_zoom_dist = 100
-cam_max_zoom_dist = 10000
+cam_max_zoom_dist = 1000
 cam_min_move_dist = 2000
 
 [PARTICLE]

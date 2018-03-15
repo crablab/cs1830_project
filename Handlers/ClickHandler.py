@@ -26,12 +26,13 @@ def checkClick():
         for player in player_list:
 
 
-            if playerId==player.idObject and not player.hasFired:
+            if playerId==player.idObject and not player.hasFired and player.magicId==0:
                 #GET CLICK POSITION AND ADJUST FROM CANVAS TO WORLD
                 x, y = pygame.mouse.get_pos()
                 player.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)#REFER TO CLASSES.OBJECTS ADJUSTMENT, (PYGAME SIMPLE GUI COMPATIBILITY ADJUSTMENT)
                 player.hasFired = True
                 player.particle.spriteSheet.resetLoop()
+
 
                 # ARCHERY
                 if player.weapon==1:
@@ -61,9 +62,11 @@ def checkClick():
                     if y > 0:
                         weapon.particle.angle *= -1
                     #ADJUST SPAWNIG DISTANCE AWAY FROM PLAYER
-                    dist.multiply(weapon.particle.radius * 2)
-                    weapon.particle.pos.add(dist)
 
+                    player.magicId=weapon.idObject
+                    weapon.particle.radius=20
+                    dist.multiply(weapon.particle.radius * 2.5)
+                    weapon.particle.pos.add(dist)
                     #ADD WEAPON
                     weapon_set.add(weapon)
 
@@ -97,6 +100,7 @@ def checkClick():
                     pos.y-=30
                     numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMagicCast(player.magic)
                     particle=Particle(True,pos,Vector(0,0),0,pos,0,0,0,0,key,spriteDictionary,20,False,True,getUid(),numRows,numCol,startRow,startCol,endRow,endCol)
+
                     visual_set.add(particle)
 
 

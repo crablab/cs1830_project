@@ -31,7 +31,7 @@ if(len(sys.argv) > 1):
 from Transfer.comms import communicate, recieve, ping
 from Handlers.KeyHandler import keydown, keyup
 from Handlers.ClickHandler import checkClick
-
+from Classes.Functions.Collisions.CollisionHandler import BroadPhaseCollision
 from Loading.Objects import *
 from GameStates.intro import introLoop, waitingLoop
 from Loading.MonsterAi import MonsterAi
@@ -39,11 +39,12 @@ from Loading.MonsterAi import MonsterAi
 #-----START----GAME----CLOCK
 fps = simplegui_lib_fps.FPS()
 fps.start()
-
+collHandler=BroadPhaseCollision(200,200)
 #initiate Ai
 print("INITIALISING MONSTER CONTROLLER")
-monsterAi=MonsterAi(50)
+monsterAi=MonsterAi(30)
 monsterAi.spawnMonsters()
+
 print("MONSTERS LOADED AND SPAWNED")
 
 
@@ -122,44 +123,49 @@ def draw(canvas):
             ve.draw(canvas,cam)
 
         # ------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
-        for en2 in env_l2_list:
-            en2.update()
-            en2.draw(canvas, cam)
 
+
+
+
+        for en2 in env_l2_list: #draw unmarked objects
+            if not en2.drawn:
+                en2.draw(canvas, cam)
+        for pp in player_list:
+            if pp.idObject == playerId:
+                cam.origin = pp.particle.pos.copy()
+                pp.draw(canvas, cam)
+                pp.update()
         # UPDATE those left then reset updates for all
         for w in weapon_set:
-            if not w.particle.updated:
+            if not w.particle.drawn:
                 w.draw(canvas,cam)
                 w.update()
-            w.particle.updated=False
+            w.particle.drawn=False
         for w in weapon_set_external:
-            if not w.particle.updated:
+            if not w.particle.drawn:
                 w.draw(canvas,cam)
                 w.update()
-            w.particle.updated=False
+            w.particle.drawn=False
 
         for pm in monster_set_external:
-            if not pm.particle.updated:
+            if not pm.particle.drawn:
                 pm.draw(canvas,cam)
                 pm.update()
-            pm.particle.updated=False
+            pm.particle.drawn=False
         for pm in monster_set:
-            if not pm.particle.updated:
+            if not pm.particle.drawn:
                 pm.draw(canvas,cam)
                 pm.update()
-            pm.particle.updated=False
+            pm.particle.drawn=False
 
-        for pp in player_list:
-            if pp.idObject==playerId:
-                cam.origin=pp.particle.pos.copy()
-
-            if not pp.particle.updated:
-
-                pp.draw(canvas,cam)
-                pp.update()
-            pp.particle.updated=False
-
+        for en2 in env_l2_list: #draw marked objects and unmark
+            if en2.drawn:
+                en2.draw(canvas, cam)
+                # print("DRAWN")
+                en2.drawn=False
+            en2.update()
         fps.draw_fct(canvas)
+        collHandler.update(canvas,cam)
 #====================== UPDATES DRAWING END =============================================
 
 #========================================================================================
@@ -172,8 +178,14 @@ def draw(canvas):
 
             if weapon.particle.pos == weapon.particle.nextPos and weapon.particle.removeOnVelocity0:
                 removal_set.add(weapon)
+                for player in player_list:
+                    if player.idObject==playerId:
+                        player.magicId=0
             if weapon.particle.spriteSheet.hasLooped and weapon.particle.removeOnAnimationLoop:
                 removal_set.add(weapon)
+                for player in player_list:
+                    if player.idObject==playerId:
+                        player.magicId=0
         weapon_set.difference_update(removal_set)
         removal_set.clear()
 
@@ -187,7 +199,7 @@ def draw(canvas):
 
         #MONSTER_CLEANUP
         for monster in monster_set_external:
-            if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0:
+            if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0 or monster.remove:
                 removal_set.add(monster)
             if monster.particle.spriteSheet.hasLooped and monster.particle.removeOnAnimationLoop:
                 removal_set.add(monster)
@@ -195,7 +207,7 @@ def draw(canvas):
         monster_set_external.difference_update(removal_set)
         removal_set.clear()
         for monster in monster_set:
-            if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0:
+            if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0 or monster.remove:
                 removal_set.add(monster)
             if monster.particle.spriteSheet.hasLooped and monster.particle.removeOnAnimationLoop:
                 removal_set.add(monster)

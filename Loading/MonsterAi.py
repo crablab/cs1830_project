@@ -19,15 +19,15 @@ from Classes.Functions.Collisions.Collisions import doCirclesIntersect,isPointIn
 
 class MonsterAi:
     def __init__(self, numMonsters):
-        self.tier1Total = int(numMonsters * 0.5)
+        self.tier1Total = int(numMonsters * 1)
         self.tier2Total = int(numMonsters * 0.4)
         self.tier3Total = int(numMonsters * 0.3)
         self.tier1Current = 0
         self.tier2Current = 0
         self.tier3Current = 0
-        self.tier1SpawnRate = 100
-        self.tier2SpawnRate = 600
-        self.tier3SpawnRate = 1800
+        self.tier1SpawnRate = 60
+        self.tier2SpawnRate = 200
+        self.tier3SpawnRate = 500
         self.tier3Respawn = 0
         self.tier2Respawn = 0
         self.tier1Respawn = 0
@@ -139,7 +139,7 @@ class MonsterAi:
             if not monster.hasFired:
                 # SLIGHTLY LONG, JUST CHECKING IF WITHIN BOUNDARY OF OPERATION RECT
                 if isCircleInRect(monster.particle.pos,monster.followDistance, monster.operationOrigin, monster.operationRange) and not monster.returning:
-                    print("within rect")
+                   # print("within rect")
                     # CHECK IF PLAYEisCircleInRectR WITHIN ATTACK RANGE:
                     for player in player_list:
                         # CHECK IF PLAYER ATTACK RANGE (RADIUS) FROM SELF POSITION USE CIRCLE CIRCLE DETECTION.
@@ -154,6 +154,7 @@ class MonsterAi:
                     monster.returning=True
                     if not monster.hasSelectedReturn:
                         self.returnMonster(monster)
+
                     print("monster returning")
                     if isPointInRect(monster.particle.pos, monster.operationOrigin, monster.operationRange):
                         print("monstere returned")
@@ -233,19 +234,22 @@ class MonsterAi:
     def spawnT1(
             self):  # WITHIN 25% OF MAP CENTER, OPERATION RANGE OF 1000, ATTACK RANGE OF 500 t1, 1500,t2, 2500 t3? for lols
         # the following locations on the map X axis and y axis randomly:   \_________XXXXXX___________\
-        pos = Vector(random.randint(int(MAP_WIDTH / 2 - MAP_WIDTH / 4),int( MAP_WIDTH / 2 + MAP_WIDTH / 4)),
-                     random.randint(int(MAP_HEIGHT / 2 - MAP_HEIGHT / 4),int( MAP_HEIGHT / 2 + MAP_HEIGHT / 4)))
+        pos = Vector(random.randint(int(MAP_WIDTH / 2 - MAP_WIDTH / 3),int( MAP_WIDTH / 2 + MAP_WIDTH / 3)),
+                     random.randint(int(MAP_HEIGHT / 2 - MAP_HEIGHT / 3),int( MAP_HEIGHT / 2 + MAP_HEIGHT / 3)))
         vel = Vector(0, 0)
         maxVel = 100  # why not
 
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(1)
         monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
-                          numRows, numCol, startRow, startCol, endRow, endCol, 1,aBack)
+                          numRows, numCol, startRow, startCol, endRow, endCol, 1,aBack,False)
 
         monster.setSpriteState(2)
         monster.life = random.randrange(6000, 10000)
+        monster.totalLife = monster.life
         monster.magic = random.randrange(200, 1000)
+        monster.range = random.randrange(200, 1000)
         monster.attackRange = 200
+        monster.particle.radius=50
         monster.followDistance = 500
         monster.operationRange = monster.particle.pos.copy().normalize().multiply(1000)
         monster.operationOrigin = pos.copy()
@@ -279,10 +283,13 @@ class MonsterAi:
         vel=Vector(0,0)
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(2)
         monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
-                          numRows, numCol, startRow, startCol, endRow, endCol, 2,aBack)
+                          numRows, numCol, startRow, startCol, endRow, endCol, 2,aBack,False)
         monster.setSpriteState(2)
         monster.life = random.randrange(50000, 300000)
+        monster.totalLife=monster.life
         monster.magic = random.randrange(10000, 30000)
+        monster.range = random.randrange(10000, 30000)
+        monster.particle.radius=75
         monster.attackRange = 300
         monster.followDistance = 700
         monster.operationRange = monster.particle.pos.copy().normalize().multiply(1000)
@@ -315,11 +322,14 @@ class MonsterAi:
         maxVel = 200  # why not
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(3)
         monster = Monster(pos, vel, 0, pos, maxVel, 0, 0, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
-                          numRows, numCol, startRow, startCol, endRow, endCol, 3,aBack)
+                          numRows, numCol, startRow, startCol, endRow, endCol, 3,aBack,False)
         monster.setSpriteState(2)
 
         monster.life=random.randrange(500000,1000000)
+        monster.totalLife = monster.life
         monster.magic=random.randrange(50000,100000)
+        monster.range= random.randrange(50000, 100000)
+        monster.particle.radius=100
         monster.attackRange=500
         monster.followDistance=1000
         monster.operationRange= monster.particle.pos.copy().normalize().multiply(1000)

@@ -38,7 +38,7 @@ class Particle:
         self.dim = self.spriteSheet.animator.dimOriginal.copy().divideVector(Vector(self.spriteSheet.numColumns, self.spriteSheet.numRows))
         self.radius = radius
 
-        self.updated=False
+        self.drawn=False
         if radius==0:
             self.radius=self.dim.size()/4
 

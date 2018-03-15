@@ -14,7 +14,7 @@ class Player:
         self.remove = False
         self.idClass = 3
         self.idObject = idObject
-        self.magicId = 0  #this is a space to attach a particle object id so we can link it to this class if there is one.
+        self.magicId = 0 #this is a space to attach a particle object id so we can link it to this class if there is one.
         # non-vectors (attributes)
 
         # vectors
@@ -23,7 +23,7 @@ class Player:
         self.spriteState = spriteState
         self.currentTime = 0
         self.hasFired = hasFired
-
+        self.totalLife=6000
         self.life = 6000
         self.range = 600
         self.melee = 600 #OPTIONAL,NOT IMPLEMENTED (REQUIRES SPRITE STATES AND MORE TIME)

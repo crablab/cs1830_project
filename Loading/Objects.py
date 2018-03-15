@@ -17,7 +17,7 @@ config.read_file(open('Classes/config'))
 
 import os
 import uuid
-from Classes.Functions.Collisions.CollisionHandler import createBroadPhaseList
+
 # ------------GAME STATES----------------
 gameState1 = GameState(False, True)
 gameState2 = GameState(False, True)
@@ -32,7 +32,7 @@ weapon_set_external = set()
 env_l1_set = set()
 env_l2_list=[]
 env_l3_list=[]
-broadPL=createBroadPhaseList()
+
 
 
 monster_set = set()
@@ -369,9 +369,9 @@ cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vecto
 
 
 player1 = Player(
-    Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
+    Vector(int(MAP_WIDTH//2), int(MAP_HEIGHT//2)),
     Vector(int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_X']), int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_Y'])),
-    0, Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])),
+    0, Vector(int(MAP_WIDTH//2), int(MAP_HEIGHT//2)),
     int(config['PLAYER']['PLAYER_MAX_VELOCITY']),
     int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),20,
     config['PLAYER']['PLAYER_SPRITE'],

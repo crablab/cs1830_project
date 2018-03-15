@@ -1,6 +1,6 @@
 from Classes.Base.Vector import Vector
 from Classes.Settings import CAM_MAX_MOVE_DIST
-
+from Classes.Settings import GOD_MODE
 import configparser
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
@@ -20,7 +20,7 @@ class Camera:
         self.moveRight=False
         self.moveUp=False
         self.moveDown=False
-        self.maxMoveDist=CAM_MAX_MOVE_DIST
+
         self.maxZoomDist=int(config['CAMERA']['CAM_MAX_ZOOM_DIST'])
         self.minZoomDist = int(config['CAMERA']['CAM_MIN_ZOOM_DIST'])
         self.moveSensitivity=int(config['CAMERA']['CAM_MOVE_SENSITIVITY'])
@@ -34,22 +34,22 @@ class Camera:
                 pos = player.particle.pos.copy()
         self.currentTime=time.time()
 
-        if self.moveUp==True and pos.getY()-self.origin.getY()<self.maxMoveDist:
+        if self.moveUp==True and GOD_MODE:
             self.origin.add(Vector(0,-self.moveSensitivity))
-        if self.moveDown==True and self.origin.getY()-pos.getY()<pos.getY()+self.maxMoveDist:
+        if self.moveDown==True and GOD_MODE:
             self.origin.add(Vector(0,self.moveSensitivity))
 
-        if self.moveLeft == True:
+        if self.moveLeft == True and GOD_MODE:
             self.origin.add(Vector(-self.moveSensitivity,0))
-        if self.moveRight == True:
+        if self.moveRight == True and GOD_MODE:
             self.origin.add(Vector(self.moveSensitivity,0))
 
 
     def zoom(self):
-        if self.zoomOut == True and self.dim.x<self.maxZoomDist and self.dim.y<self.maxZoomDist:
+        if self.zoomOut == True and ((self.dim.x<self.maxZoomDist and self.dim.y<self.maxZoomDist)or GOD_MODE):
             self.dim.add(self.dim.copy().multiply(self.zoomSensitivity))
 
-        if self.zoomIn == True and self.dim.x>self.minZoomDist and self.dim.y>self.minZoomDist:
+        if self.zoomIn == True and ((self.dim.x>self.minZoomDist and self.dim.y>self.minZoomDist)or GOD_MODE):
 
                 self.dim.add(self.dim.copy().multiply(-self.zoomSensitivity))
 

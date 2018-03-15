@@ -77,7 +77,7 @@ def getMonster(arr):
                    arr['fps'], arr['idObject'], arr['hasFired'],
                    Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),
                    arr['spriteState'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'],
-                   arr['endRow'], arr['endColumn'],arr['tier'],arr['aBack']))
+                   arr['endRow'], arr['endColumn'],arr['tier'],arr['aBack'],arr['external']))
 
     for monster in monster_set_external:
         if monster.idObject == arr['idObject'] :
@@ -85,7 +85,7 @@ def getMonster(arr):
                            Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['nextPosTime'], arr['maxVel'],
                            arr['maxRange'], arr['angle'], arr['updateSprite'], arr['spriteKey'],
                            arr['fps'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'],
-                           arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary,arr['life'],arr['range'],arr['melee'],arr['magic'],arr['magicId'])
+                           arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary,arr['life'],arr['range'],arr['melee'],arr['magic'],arr['magicId'],arr['remove'])
 
 def getGameState(arr):
     if arr['main']:

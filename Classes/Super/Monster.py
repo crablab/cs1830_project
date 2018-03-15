@@ -1,8 +1,8 @@
 import time, configparser
 from SimpleGUICS2Pygame import simplegui_lib_draw
 from Classes.Middle.Particle import Particle
-
-from Classes.Settings import SHOW_BOUNDARIES #this never seems to be used?
+from Classes.Base.Vector import Vector
+from Classes.Settings import SHOW_MONSTER_THOUGHTS #this never seems to be used?
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
 
@@ -11,13 +11,13 @@ config.read_file(open('Classes/config'))
 class Monster:
     def __init__(self, pos, vel, nextPosTime, nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps,
                  idObject, hasFired,
-                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn,tier,aBack):
+                 clickPosition, spriteState, numRows, numColumns, startRow, startColumn, endRow, endColumn,tier,aBack,external):
         # id's
         self.remove = False
         self.idClass = 4
         self.idObject = idObject
         self.magicId = 0 #this is a space to attach a particle object id so we can link it to this class if there is one.
-
+        self.external = external
         # non-vectors (attributes)
         self.operationOrigin=0
         self.operationRange=0
@@ -32,6 +32,8 @@ class Monster:
         self.melee = 0
         self.magic = 0
         self.tier = 0
+        self.totalLife=0
+
         # vectors
         self.clickPosition = clickPosition
         # Sprite Attributes
@@ -41,6 +43,8 @@ class Monster:
         self.fireCooldown=0
         self.followDistance = self.tier * 200  # arbitrary can't be bothered to set settings
         self.aBack=aBack
+
+
         #sub class
         self.particle = Particle(True, pos, vel, nextPosTime, nextPos, maxVel, 0, angle, radius, spriteKey,
                                  spriteDictionary, spriteFps,
@@ -48,18 +52,20 @@ class Monster:
                                  endColumn)
 
     def recieve(self, hasFired, clickPosition, nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey,
-                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary,life,range,melee,magic,magicId):
+                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary,life,range,melee,magic,magicId,remove):
         self.magicId=magicId
         self.life=life
         self.melee=melee
         self.range=range
         self.magic=magic
+        self.remove=remove
         self.hasFired = hasFired
         self.clickPosition = clickPosition
         self.particle.recieve(nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey, fps, numRows,
                               numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary)
 
     def update(self):
+
         self.particle.update()
         self.setCorrectSpriteState()
         self.checkFireCooldown()
@@ -95,7 +101,17 @@ class Monster:
     def draw(self, canvas, cam):
 
         self.particle.draw(canvas, cam)
-        if SHOW_BOUNDARIES:
+
+        ratio = cam.ratioToCam()
+
+        percentage=-self.life/self.totalLife
+        simplegui_lib_draw.draw_rect(canvas, self.particle.pos.copy().add(Vector(0,-100)).transformToCam(cam).getP(),
+                                     Vector(100,20).multiplyVector(Vector(percentage,0.2)).multiplyVector(ratio).getP(), 1, 'Red', fill_color='red')
+
+
+
+
+        if SHOW_MONSTER_THOUGHTS:
             ratio = cam.ratioToCam()
             radius1 = self.attackRange * ratio.getX()
             radius2 = self.followDistance * ratio.getX()
@@ -140,6 +156,7 @@ class Monster:
                 'numRows': self.particle.spriteSheet.numRows, 'startColumn': self.particle.spriteSheet.startColumn,
                 'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
                 'endColumn': self.particle.spriteSheet.endColumn,
-                'magic':self.magic,'melee':self.melee,'range':self.range,'life':self.life,'magicId':self.magicId,'tier':self.tier,'aBack':self.aBack}
+                'magic':self.magic,'melee':self.melee,'range':self.range,'life':self.life,'magicId':self.magicId,'tier':self.tier,'aBack':self.aBack,
+                'external':True}
 
         return data

@@ -20,6 +20,7 @@ class Weapon:
         # non-vectors (attributes)
         self.damage = damage
         self.applied=False
+
         # vectors
 
         # Sprite Attributes
