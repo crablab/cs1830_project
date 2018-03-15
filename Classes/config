@@ -4,6 +4,7 @@ developer_options = 0
 [CANVAS]
 canvas_width = 720
 canvas_height = 480
+game_state = True
 
 [NETWORKING]
 config_type = client

@@ -19,8 +19,12 @@ import os
 import uuid
 
 # ------------GAME STATES----------------
-gameState1 = GameState(True, False)
-gameState2 = GameState(True, False)
+if('True' == config['CANVAS']['game_state']):
+     gameState1 = GameState(True, False)
+     gameState2 = GameState(True, False)
+else:
+     gameState1 = GameState(False, True)
+     gameState2 = GameState(False, True)
 
 # ---------------------ANY SETS/LISTS-----------------------
 player_list = []
