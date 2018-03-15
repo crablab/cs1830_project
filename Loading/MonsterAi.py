@@ -76,6 +76,7 @@ class MonsterAi:
           #  print(monster.spriteState)
     def updateCountdowns(self):
         difference = time.time()-self.currentTime
+
         self.updateStatsTime += difference
         self.moveMonstersTime += difference
         self.tier1Respawn += difference
@@ -212,8 +213,6 @@ class MonsterAi:
                         20, getUid(), numRows, numCol, startRow, startCol, endRow, endCol, False, True, monster.magic)
         # BIND SPRITE TO MONSTER and MONSTER TO SPRITE to remember who kills who
         weapon.idPlayer = monster.idObject
-        monster.magicId = weapon.idObject
-
         weapon_set.add(weapon)
 
         # SET MAGIC SPRITE CASTING ANIMATION USE PARTICLE CLASS ADD TO VISUAL SET
@@ -277,6 +276,7 @@ class MonsterAi:
 
         maxVel = 120  # why not
         vel=Vector(0,0)
+
         aBack,numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMonster(2)
         monster = Monster(pos, vel, 0, pos, maxVel, 0, 75, key, spriteDictionary, 15, getUid(), False, Vector(0, 0), 1,
                           numRows, numCol, startRow, startCol, endRow, endCol, 2,aBack,False,random.randrange(50000, 300000),
@@ -329,6 +329,7 @@ class MonsterAi:
         monster.life=random.randrange(500000,1000000)
         monster.totalLife = monster.life
         monster.magic=random.randrange(50000,100000)
+
         monster.operationOrigin=pos.copy()
 
 

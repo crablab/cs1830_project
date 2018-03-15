@@ -5,7 +5,7 @@ from Classes.Base.Vector import Vector
 from Classes.Settings import SHOW_MONSTER_THOUGHTS #this never seems to be used?
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
-
+import json
 
 #exact copy of player but used for monsters and no preset animations
 class Monster:
@@ -17,13 +17,14 @@ class Monster:
         self.remove = False
         self.idClass = 4
         self.idObject = idObject
-        self.magicId = 0 #this is a space to attach a particle object id so we can link it to this class if there is one.
         self.external = external
         # non-vectors (attributes)
         self.operationOrigin=operationOrigin
         self.operationRange=operationRange
         self.attackRange=attackRange
+        print("follow",followDistance)
         self.followDistance=followDistance
+        print(self.followDistance)
         self.returning=False
         self.hasSelectedReturn=False
         self.tier=tier
@@ -34,6 +35,7 @@ class Monster:
         self.magic = 0
         self.tier = 0
         self.totalLife=totalLife
+        self.hitByWeapon=0 #used for when external arrow hits local monster... need to save that arrows id as it can reapear even if removed locally
 
         # vectors
         self.clickPosition = clickPosition
@@ -42,7 +44,7 @@ class Monster:
         self.currentTime = 0
         self.hasFired = hasFired
         self.fireCooldown=0
-        self.followDistance = self.tier * 200  # arbitrary can't be bothered to set settings
+
         self.aBack=aBack
 
 
@@ -53,8 +55,8 @@ class Monster:
                                  endColumn)
 
     def recieve(self, hasFired, clickPosition, nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey,
-                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary,life,range,melee,magic,magicId,remove):
-        self.magicId=magicId
+                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary,life,range,melee,magic,remove):
+
         self.life=life
         self.melee=melee
         self.range=range
@@ -102,26 +104,26 @@ class Monster:
     def draw(self, canvas, cam):
 
         self.particle.draw(canvas, cam)
+        if SHOW_MONSTER_THOUGHTS:
+            ratio = cam.ratioToCam()
 
-        ratio = cam.ratioToCam()
-
-        percentage=-self.life/self.totalLife
-        simplegui_lib_draw.draw_rect(canvas, self.particle.pos.copy().add(Vector(0,-100)).transformToCam(cam).getP(),
-                                     Vector(100,20).multiplyVector(Vector(percentage,0.2)).multiplyVector(ratio).getP(), 1, 'Red', fill_color='red')
+            percentage=-self.life/self.totalLife
+            simplegui_lib_draw.draw_rect(canvas, self.particle.pos.copy().add(Vector(0,-100)).transformToCam(cam).getP(),
+                                         Vector(100,20).multiplyVector(Vector(percentage,0.2)).multiplyVector(ratio).getP(), 1, 'Red', fill_color='red')
 
 
 
 
         if SHOW_MONSTER_THOUGHTS:
             ratio = cam.ratioToCam()
+
             radius1 = int(self.attackRange * ratio.getX())
             radius2 = int(self.followDistance * ratio.getX())
-            if radius1 > 0 and radius2 >0:
-                canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius1, 1, 'Red')
-                canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius2, 1, 'Pink')
-                simplegui_lib_draw.draw_rect(canvas, self.operationOrigin.copy().transformToCam(cam).subtract(
-                    self.operationRange.copy().multiplyVector(ratio)).getP(),
-                                             self.operationRange.copy().add(self.operationRange).multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
+            canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius1, 1, 'Red')
+            canvas.draw_circle(self.particle.pos.copy().transformToCam(cam).getP(), radius2, 1, 'Pink')
+            simplegui_lib_draw.draw_rect(canvas, self.operationOrigin.copy().transformToCam(cam).subtract(
+                self.operationRange.copy().multiplyVector(ratio)).getP(),
+                                         self.operationRange.copy().add(self.operationRange).multiplyVector(ratio).getP(), 1, 'White', fill_color=None)
 
     def move(self, pos):
         self.particle.move(pos)
@@ -158,8 +160,8 @@ class Monster:
                 'numRows': self.particle.spriteSheet.numRows, 'startColumn': self.particle.spriteSheet.startColumn,
                 'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
                 'endColumn': self.particle.spriteSheet.endColumn,
-                'magic':self.magic,'melee':self.melee,'range':self.range,'life':self.life,'magicId':self.magicId,'tier':self.tier,'aBack':self.aBack,
-                'external':True,'totalLife':self.totalLife,'operationOrigin':{'x':self.operationOrigin.getX(),'y':self.operationOrigin.getY()},'operationRange':{'x':self.operationOrigin.getX(),'y':self.operationOrigin.getY()},
+                'magic':self.magic,'melee':self.melee,'range':self.range,'life':self.life,'tier':self.tier,'aBack':self.aBack,
+                'external':True,'totalLife':self.totalLife,'operationOrigin':{'x':self.operationOrigin.x,'y':self.operationOrigin.y},'operationRange':{'x':self.operationOrigin.x,'y':self.operationOrigin.y},
                 'attackRange':self.attackRange,'followDistance':self.followDistance}
-
+        b=json.dumps(data)
         return data

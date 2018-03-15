@@ -5,6 +5,7 @@ from SimpleGUICS2Pygame import simplegui_lib_draw
 from Classes.Settings import *
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
+import json
 
 class Particle:
 
@@ -178,5 +179,6 @@ class Particle:
                 'startRow':self.spriteSheet.startRow,
                 'endRow':self.spriteSheet.endRow,
                 'endColumn':self.spriteSheet.endColumn}
+        a=json.dumps(data)
 
         return data

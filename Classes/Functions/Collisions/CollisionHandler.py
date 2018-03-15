@@ -30,6 +30,7 @@ class BroadPhaseCollision:
         self.rangeY = MAP_HEIGHT // gridHeight
         self.gridWidth = gridWidth
         self.gridHeight = gridHeight
+        self.imunity=0 # make local monsters temporarily imune (like 0.2 seconds, in order to make sure arrow/magic is cleared after being used...
         # initialisation
         for i in range(0, self.rangeX + 2):
             x = []
@@ -57,19 +58,6 @@ class BroadPhaseCollision:
         self.populateGridSuper(weapon_set_external)
         self.populateGridSuper(weapon_set)
         self.populateGridBase(env_l2_list)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def checkInteractionBaseRemoved(self,object,i,j): #this is a collision between an Env object and anything else, we are only checking which to draw first :D, so no need for checking details in collision, we just want to know if they are close or not
         for object2 in self.grid[i][j]:
@@ -126,19 +114,52 @@ class BroadPhaseCollision:
         # 4=monster
         # 3=player
         if not object.applied:# if the weapon has already damaged pass
+            print("=========================================")
             for object2 in self.grid[i][j]:
                 if object2.idClass==2:
                     pass
                 elif object2.idClass==3: # a weapon hits a player
                     if object2.idObject==playerId:#local player close to projectile:
                         if doCirclesIntersect(object.particle.pos,object.particle.radius,object2.particle.pos,object2.particle.radius): #weapon hit local player: ig
+                            print("APPLIED")
                             object2.life-=object.damage #adjust life of player
                             object.particle.vel.multiply(0)#terminate velocity if projectile
                             object.particle.nextPos=object.particle.pos
                             object.particle.nextPosTime=time.time()
                             object.applied=True #terminate damage of weapon in case of future collisions
+                            print(object.idObject)
 
                             if SHOW_COLLISION_TECH: #draw collision for visual confirmation
+                                ratio = self.cam.ratioToCam()
+                                radius = object2.particle.radius * ratio.getX()
+                                self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
+                                                        radius,
+                                                        1, 'red')
+                                radius = object.particle.radius * ratio.getX()
+                                self.canvas.draw_circle(object.particle.pos.copy().transformToCam(self.cam).getP(),
+                                                        radius, 1,
+                                                        'red')
+
+                        else:
+                            if SHOW_COLLISION_TECH:
+                                ratio = self.cam.ratioToCam()
+                                radius = object2.particle.radius * ratio.getX()
+                                self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(), radius,
+                                                        1, 'White')
+                                radius = object.particle.radius * ratio.getX()
+                                self.canvas.draw_circle(object.particle.pos.copy().transformToCam(self.cam).getP(), radius, 1,
+                                                        'white')
+                    else: #object hits enemy player (remember to remove it lol :D
+                        if doCirclesIntersect(object.particle.pos, object.particle.radius, object2.particle.pos,
+                                              object2.particle.radius):  # weapon hit local player: ig
+                            print("APPLIED")
+                            object2.life -= object.damage  # adjust life of player (pretend)
+                            object.particle.vel.multiply(0)  # terminate velocity if projectile
+                            object.particle.nextPos = object.particle.pos
+                            object.particle.nextPosTime = time.time()
+
+                            object.applied = True  # terminate damage of weapon in case of future collisions
+                            if SHOW_COLLISION_TECH:  # draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -152,40 +173,61 @@ class BroadPhaseCollision:
                             if SHOW_COLLISION_TECH:
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
-                                self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(), radius,
+                                self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
+                                                        radius,
                                                         1, 'White')
                                 radius = object.particle.radius * ratio.getX()
-                                self.canvas.draw_circle(object.particle.pos.copy().transformToCam(self.cam).getP(), radius, 1,
+                                self.canvas.draw_circle(object.particle.pos.copy().transformToCam(self.cam).getP(),
+                                                        radius, 1,
                                                         'white')
+
                 elif object2.idClass==4:# a weapon hits a monster:
                     if not object2.external: # if the monster is local
                         if doCirclesIntersect(object2.particle.pos,object2.particle.radius,object.particle.pos,object.particle.radius): #weapon hit local monster
-                            object2.life -= object.damage  # adjust life of player
+                            print("APPLIED")
+                            print(object.idPlayer)
+                            object2.life -= object.damage  # adjust life of monster
                             object.particle.vel.multiply(0)  # terminate velocity if projectile
                             object.particle.nextPos = object.particle.pos
                             object.particle.nextPosTime = time.time()
                             object.applied = True  # terminate damage of weapon in case of future collisions
                             for player in player_list:
+                                print("playerId",player.idObject)
                                 if player.idObject==playerId:
-                                    if object.idObject==player.magicId:#the collision happened with this players weapon
-                                        player.magicId=0
+                                    print("player local id",playerId)
+
+                                    if object.idPlayer==playerId:#the collision happened with local players weapon
+
                                         if object2.life<0:
+                                            print("player recieved stats")
                                             object2.remove=True
                                             player.magic+=object2.magic/10
                                             player.melee+=object2.melee/10
                                             player.totalLife+=object2.totalLife/10
                                             player.range+=object2.range/10
-
-                            #if player kills monster:
-
-
-
-
-
-
-
-
-
+                                    else:# if collision happened with other player: just check for monsters life and remove if necesary
+                                        if object2.life<0:
+                                            print("player Not received stats")
+                                            object2.remove=True
+                    else:   # if it is external: assume the other party has detected collision, so remove object if intersection and life <0
+                        if doCirclesIntersect(object2.particle.pos, object2.particle.radius, object.particle.pos, object.particle.radius):
+                            #remove weapon otherwise it will keep hitting our poor monster:D
+                            object.particle.vel.multiply(0)  # terminate velocity if projectile
+                            object.particle.nextPos = object.particle.pos
+                            object.particle.nextPosTime = time.time()
+                            object.applied = True # place an applied marker
+                            print("APPLIED")
+                            object2.life -= object.damage # apply a pretend damage in case it hasent been removed ( not updated by other party, this way things are 100% removed)
+                            for player in player_list:# if local player kills external monster give him the stats, may have buggs, but at this point whatever.
+                                if player.idObject == playerId:
+                                    if object.idPlayer==playerId:  # the collision happened with this players weapon
+                                        if object2.life < 0:
+                                            object2.remove = True
+                                            print("player recieved stats")
+                                            player.magic += object2.magic / 10
+                                            player.melee += object2.melee / 10
+                                            player.totalLife += object2.totalLife / 10
+                                            player.range += object2.range / 10
                             if SHOW_COLLISION_TECH:  # draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
@@ -249,6 +291,8 @@ class BroadPhaseCollision:
                             self.checkInteractionSuper(object,i,j)
 
     def clear(self):
+        for monster in monster_set_external:
+            monster.hitByWeapon=0
         for i in range(0, self.rangeX):
             for j in range(0, self.rangeY):
                 self.grid[i][j].clear()

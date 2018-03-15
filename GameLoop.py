@@ -42,7 +42,7 @@ fps.start()
 collHandler=BroadPhaseCollision(200,200)
 #initiate Ai
 print("INITIALISING MONSTER CONTROLLER")
-monsterAi=MonsterAi(30)
+monsterAi=MonsterAi(10)
 monsterAi.spawnMonsters()
 
 print("MONSTERS LOADED AND SPAWNED")
@@ -66,8 +66,8 @@ def draw(canvas):
 #================= NETWORKING ==============================
 
 #-----------------CLIENT PING-----------------------
-    if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
-        ping()
+   # if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
+    ping()
 #--------------RECIEVE ALL OBJECTS-------------------------
     recieve()
 #-----------------SEND GAME STATES------------------------
@@ -76,22 +76,8 @@ def draw(canvas):
 
     if(gameState1.main and gameState2.main):
 
-#-----------IN MAIN LOOP NETWORKING-------------------------
-        #Threading for adding to queues
-
-        for object in weapon_set:
-            communicate(object)
-        for monster in monster_set:
-            communicate(monster)
-        for object in visual_set:
-            communicate(object)
-
-        #we don't to thread this as it is a small set
-        for player in player_list:
-            if player.idObject==playerId:
-                #print(player.particle.vel)
-                communicate(player)
-        # print("size:"+str(moving_set_external.__len__()))
+    # communicate objects just before garbage collection at end of game loop to ensure all most current
+    #data is sent before removal
 
 #================ NETWORKING END ================================
 
@@ -125,38 +111,35 @@ def draw(canvas):
         # ------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
 
 
-
-
+        print("=========================")
+        print(weapon_set.__len__())
+        print(weapon_set_external.__len__())
+        print(monster_set_external.__len__())
+        print(monster_set.__len__())
         for en2 in env_l2_list: #draw unmarked objects
             if not en2.drawn:
                 en2.draw(canvas, cam)
         for pp in player_list:
             if pp.idObject == playerId:
                 cam.origin = pp.particle.pos.copy()
-                pp.draw(canvas, cam)
-                pp.update()
+            pp.draw(canvas, cam)
+            pp.update()
         # UPDATE those left then reset updates for all
         for w in weapon_set:
-            if not w.particle.drawn:
-                w.draw(canvas,cam)
-                w.update()
-            w.particle.drawn=False
+            w.draw(canvas,cam)
+            w.update()
+
         for w in weapon_set_external:
-            if not w.particle.drawn:
-                w.draw(canvas,cam)
-                w.update()
-            w.particle.drawn=False
+            w.draw(canvas,cam)
+            w.update()
 
         for pm in monster_set_external:
-            if not pm.particle.drawn:
-                pm.draw(canvas,cam)
-                pm.update()
-            pm.particle.drawn=False
+            pm.draw(canvas,cam)
+            pm.update()
+
         for pm in monster_set:
-            if not pm.particle.drawn:
-                pm.draw(canvas,cam)
-                pm.update()
-            pm.particle.drawn=False
+            pm.draw(canvas,cam)
+            pm.update()
 
         for en2 in env_l2_list: #draw marked objects and unmark
             if en2.drawn:
@@ -168,7 +151,25 @@ def draw(canvas):
         collHandler.update(canvas,cam)
 #====================== UPDATES DRAWING END =============================================
 
-#========================================================================================
+#===========================SENDING STATES BEFORE GARBAGE COLLECTION=============================================================
+        # -----------IN MAIN LOOP NETWORKING-------------------------
+
+        for object in weapon_set:
+            # don't communicate it if it has been applied lol otherwise it's like continuous aoe damage good luck with that
+            if not object.applied and not object.sent:
+                communicate(object)
+                object.sent=True
+        for monster in monster_set:
+            communicate(monster)
+        for object in visual_set:
+            communicate(object)
+
+        # we don't to thread this as it is a small set
+        for player in player_list:
+            if player.idObject == playerId:
+                # print(player.particle.vel)
+                communicate(player)
+        print("size:" + str(player_list.__len__()))
 
 # ===================== GARBAGE REMOVAL =================================================
         removal_set=set()
@@ -178,14 +179,9 @@ def draw(canvas):
 
             if weapon.particle.pos == weapon.particle.nextPos and weapon.particle.removeOnVelocity0:
                 removal_set.add(weapon)
-                for player in player_list:
-                    if player.idObject==playerId:
-                        player.magicId=0
+
             if weapon.particle.spriteSheet.hasLooped and weapon.particle.removeOnAnimationLoop:
                 removal_set.add(weapon)
-                for player in player_list:
-                    if player.idObject==playerId:
-                        player.magicId=0
         weapon_set.difference_update(removal_set)
         removal_set.clear()
 

@@ -42,7 +42,7 @@ def getWeapon(arr):
             weapon.recieve(Vector(arr['nextPos']['x'], arr['nextPos']['y']),
                              arr['nextPosTime'],arr['maxVel'],arr['angle'],arr['spriteKey'],arr['fps'],arr['numRows'],
                              arr['numColumns'],arr['startRow'],arr['startColumn'],
-                             arr['endRow'],arr['endColumn'],arr['radius'],spriteDictionary)
+                             arr['endRow'],arr['endColumn'],arr['radius'],spriteDictionary,arr['applied'])
 
 def getVisual(arr):
     exists=False
@@ -90,7 +90,7 @@ def getMonster(arr):
                            Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['nextPosTime'], arr['maxVel'],
                            arr['maxRange'], arr['angle'], arr['updateSprite'], arr['spriteKey'],
                            arr['fps'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'],
-                           arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary,arr['life'],arr['range'],arr['melee'],arr['magic'],arr['magicId'],arr['remove'])
+                           arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary,arr['life'],arr['range'],arr['melee'],arr['magic'],arr['remove'])
 
 def getGameState(arr):
     if arr['main']:
@@ -127,7 +127,7 @@ def getPlayer(arr):
         if player.idObject == arr['idObject'] and arr['idObject'] != playerId:
             player.recieve(arr['hasFired'],Vector(arr['clickPosition']['x'], arr['clickPosition']['y']),Vector(arr['nextPos']['x'], arr['nextPos']['y']), arr['nextPosTime'],arr['maxVel'],
                            arr['maxRange'], arr['angle'], arr['updateSprite'], arr['spriteKey'],
-                arr['fps'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'], arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary,arr['life'],arr['range'],arr['melee'],arr['magic'],arr['magicId'])
+                arr['fps'], arr['numRows'], arr['numColumns'], arr['startRow'], arr['startColumn'], arr['endRow'], arr['endColumn'], arr['radius'], spriteDictionary,arr['life'],arr['range'],arr['melee'],arr['magic'])
 
 
 def getObject(j):

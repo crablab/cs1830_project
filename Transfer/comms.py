@@ -114,8 +114,10 @@ class client:
 
                 if(config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print("Pushing to queue at " + str(time.time()))
                 for value in content:
+                    if (config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(
+                        value)
+
                     value = json.dumps(value)
-                    #if(config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(value)
                     self.recieved.put(value)
 
 

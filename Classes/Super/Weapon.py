@@ -4,7 +4,7 @@ from Classes.Middle.Particle import Particle
 
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
-
+import json
 
 # exact copy of player but used for monsters and no preset animations
 class Weapon:
@@ -20,6 +20,7 @@ class Weapon:
         # non-vectors (attributes)
         self.damage = damage
         self.applied=False
+        self.sent=False #the above has a bug that i can't solve, continuous damage application accross network, so I will limit to sending this object once
 
         # vectors
 
@@ -37,11 +38,11 @@ class Weapon:
                                  endColumn)
 
     def recieve(self, nextPos, nextPosTime, maxVel, angle, spriteKey,
-                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary):
+                fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary,applied):
 
         self.particle.recieve(nextPos, nextPosTime, maxVel, 0, angle, True, spriteKey, fps, numRows,
                               numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary)
-
+        self.applied=applied
     def draw(self, canvas, cam):
         self.particle.draw(canvas, cam)
 
@@ -76,7 +77,7 @@ class Weapon:
             'idClass': self.idClass,
 
             'currentTime': self.currentTime,
-
+            'applied':self.applied,
             'numColumns': self.particle.spriteSheet.numColumns,
             'numRows': self.particle.spriteSheet.numRows,
             'startColumn': self.particle.spriteSheet.startColumn,
@@ -84,5 +85,5 @@ class Weapon:
             'endRow': self.particle.spriteSheet.endRow,
             'endColumn': self.particle.spriteSheet.endColumn,
             'damage': self.damage}
-
+        e=json.dumps(data)
         return data

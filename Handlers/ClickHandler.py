@@ -26,7 +26,7 @@ def checkClick():
         for player in player_list:
 
 
-            if playerId==player.idObject and not player.hasFired and player.magicId==0:
+            if playerId==player.idObject and not player.hasFired:
                 #GET CLICK POSITION AND ADJUST FROM CANVAS TO WORLD
                 x, y = pygame.mouse.get_pos()
                 player.clickPosition = Vector(x, y).subtract(adjustment).transformFromCam(cam)#REFER TO CLASSES.OBJECTS ADJUSTMENT, (PYGAME SIMPLE GUI COMPATIBILITY ADJUSTMENT)
@@ -63,7 +63,7 @@ def checkClick():
                         weapon.particle.angle *= -1
                     #ADJUST SPAWNIG DISTANCE AWAY FROM PLAYER
 
-                    player.magicId=weapon.idObject
+                    weapon.idPlayer=playerId
                     weapon.particle.radius=20
                     dist.multiply(weapon.particle.radius * 2.5)
                     weapon.particle.pos.add(dist)
@@ -88,7 +88,7 @@ def checkClick():
                                     20, getUid(), numRows, numCol, startRow, startCol, endRow, endCol, False, True, player.magic)
                     #BIND SPRITE TO PLAYER and PLAYER TO SPRITE to remember who kills who
                     weapon.idPlayer=player.idObject
-                    player.magicId=weapon.idObject
+                    weapon.idPlayer=playerId
 
                     weapon_set.add(weapon)
 
@@ -155,7 +155,7 @@ def checkClick():
                 if GOD_MODE:
                     player.particle.pos=vector
                     player.particle.nextPos=vector
-                    player.particle.nextPosTime=vector
+                    player.particle.nextPosTime=time.time()
 
 
     elif right:

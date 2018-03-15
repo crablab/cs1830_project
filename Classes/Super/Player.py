@@ -4,7 +4,7 @@ from Classes.Middle.Particle import Particle
 
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
-
+import json
 
 class Player:
     def __init__(self, pos, vel, nextPosTime, nextPos, maxVel, angle, radius, spriteKey, spriteDictionary, spriteFps,
@@ -14,8 +14,6 @@ class Player:
         self.remove = False
         self.idClass = 3
         self.idObject = idObject
-        self.magicId = 0 #this is a space to attach a particle object id so we can link it to this class if there is one.
-        # non-vectors (attributes)
 
         # vectors
         self.clickPosition = clickPosition
@@ -23,6 +21,7 @@ class Player:
         self.spriteState = spriteState
         self.currentTime = 0
         self.hasFired = hasFired
+
         self.totalLife=6000
         self.life = 6000
         self.range = 600
@@ -37,8 +36,8 @@ class Player:
 
     def recieve(self, hasFired, clickPosition, nextPos, nextPosTime, maxVel, maxRange, angle, updateSprite, spriteKey,
                 fps, numRows, numColumns, startRow, startColumn, endRow, endColumn, radius, spriteDictionary, life,
-                range, melee, magic, magicId):
-        self.magicId = magicId
+                range, melee, magic):
+
         self.life = life
         self.melee = melee
         self.range = range
@@ -186,21 +185,32 @@ class Player:
     def encode(self):
 
         data = {'spriteState': self.spriteState,
-                'clickPosition': {'x': self.clickPosition.x, 'y': self.clickPosition.y}, 'hasFired': self.hasFired,
-                'idObject': self.idObject, 'idClass': self.idClass,
+                'clickPosition': {'x': self.clickPosition.x, 'y': self.clickPosition.y},
+                'hasFired': self.hasFired,
+                'idObject': self.idObject,
+                'idClass': self.idClass,
                 'pos': {'x': self.particle.pos.x, 'y': self.particle.pos.y},
-                'vel': {'x': self.particle.vel.x, 'y': self.particle.vel.y}, 'maxVel': self.particle.maxVel,
-                'angle': self.particle.angle, 'radius': self.particle.radius, 'spriteKey': self.particle.spriteKey,
+                'vel': {'x': self.particle.vel.x, 'y': self.particle.vel.y},
+                'maxVel': self.particle.maxVel,
+                'angle': self.particle.angle,
+                'radius': self.particle.radius,
+                'spriteKey': self.particle.spriteKey,
                 'currentTime': self.currentTime,
                 'nextPos': {'x': self.particle.nextPos.x, 'y': self.particle.nextPos.y},
                 'nextPosTime': self.particle.nextPosTime,
-                'fps': self.particle.spriteSheet.fps, 'remove': self.remove,
-                'updateSprite': self.particle.updateSprite, 'maxRange': self.particle.maxRange,
+                'fps': self.particle.spriteSheet.fps,
+                'remove': self.remove,
+                'updateSprite': self.particle.updateSprite,
+                'maxRange': self.particle.maxRange,
                 'numColumns': self.particle.spriteSheet.numColumns,
-                'numRows': self.particle.spriteSheet.numRows, 'startColumn': self.particle.spriteSheet.startColumn,
-                'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
+                'numRows': self.particle.spriteSheet.numRows,
+                'startColumn': self.particle.spriteSheet.startColumn,
+                'startRow': self.particle.spriteSheet.startRow,
+                'endRow': self.particle.spriteSheet.endRow,
                 'endColumn': self.particle.spriteSheet.endColumn,
-                'magic': self.magic, 'melee': self.melee, 'range': self.range, 'life': self.life,
-                'magicId': self.magicId}
-
+                'magic': self.magic,
+                'melee': self.melee,
+                'range': self.range,
+                'life': self.life,}
+        c=json.dumps(data)
         return data
