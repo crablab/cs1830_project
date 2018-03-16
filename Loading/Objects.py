@@ -1,12 +1,16 @@
 from Classes.Settings import *
 from Classes.Base.Vector import Vector
 
+from SimpleGUICS2Pygame import simpleguics2pygame
+
 from Classes.Super.Camera import Camera
 from Handlers.Mouse import Mouse
 
 from Classes.Middle.SpriteControl.SpriteAnimator import SpriteAnimator
 
 from Classes.Super.Player import Player
+
+from Loading.Sound import SoundManager
 
 from GameStates.GameStates import GameState
 import configparser
@@ -417,3 +421,15 @@ print("ENVIRONMENT GENERATED")
 # tree = Particle(True, Vector(2500, 2500), Vector(0, 0), 0, Vector(2500, 2500), 200, 0, 0, 0, 'en_l1_tr', spriteDictionary,
 #                 1, False, False, getUid(), 4, 15, 1, 1, 4, 15)
 #
+
+# -----------------------SOUNDS------------------
+sound_bg = simpleguics2pygame._load_local_sound(cwd + '/sound/background.wav')
+sound_bg.set_volume(0.1)
+sound_loaded = simpleguics2pygame._load_local_sound(cwd + '/sound/loadingcomplete.wav')
+sound_loaded.set_volume(0.2)
+
+sound_dict = {
+     "bg":sound_bg,
+     "lc":sound_loaded}
+
+sound_manager = SoundManager(sound_dict)
