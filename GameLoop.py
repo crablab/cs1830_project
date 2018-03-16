@@ -57,6 +57,9 @@ sound_manager.setContinuousBG("bg")
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
 
+    ##cos want background music in loading screen
+    sound_manager.update()
+
 #========== GAME LOOPS NON MAIN =====================
 
     if(gameState1.intro):
