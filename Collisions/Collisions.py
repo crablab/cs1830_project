@@ -244,14 +244,14 @@ class CollisionLine(CollisionShape):
         self.pos_vector_1 = pos_vector_1
         self.pos_vector_2 = pos_vector_2
     
-
+"""
 a = CollisionRectangle(Vector(50,50), 10, 90)
 b = CollisionRectangle(Vector(70,70), 5, 80)
 c = CollisionCircle(Vector(70,70), 10)
 d = CollisionLine(Vector(70,90),Vector(90,70))
 e = CollisionLine(Vector(200,200),Vector(10,10))
 
-"""
+
 print(d.doesCollide(e))
 print(e.doesCollide(d))
 print(d.doesCollide(a))
