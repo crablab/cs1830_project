@@ -60,7 +60,9 @@ cwd = os.getcwd()
 
 ch1 = SpriteAnimator(cwd + '/img/Character/1.jpg')
 ch2 = SpriteAnimator(cwd + '/img/Character/2.jpg')
-print("characters loaded")
+
+ho1 = SpriteAnimator(cwd + '/img/Environment/Buildings/House/1.jpg')
+
 env_l1_grass_d_1 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/1.jpg')
 env_l1_grass_d_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/2.jpg')
 env_l1_grass_d_3 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/3.jpg')
@@ -215,6 +217,9 @@ pro_t4_2 = SpriteAnimator(cwd + '/img/Projectiles/Tier4/2.jpg')
 print("Projectiles Loaded")
 spriteDictionary = {'ch_1': ch1,
                     'ch_2': ch2,
+
+                    'ho_1':ho1,
+                    
                     'en_l1_gs_d_1': env_l1_grass_d_1,
                     'en_l1_gs_d_2': env_l1_grass_d_2,
                     'en_l1_gs_d_3': env_l1_grass_d_3,
