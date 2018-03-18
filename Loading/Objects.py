@@ -1,5 +1,5 @@
 from SimpleGUICS2Pygame import simpleguics2pygame
-
+from Classes.Super.Home import Home
 #from Classes.Settings import *
 from Classes.Base.Vector import Vector
 
@@ -213,6 +213,11 @@ pro_t3_3 = SpriteAnimator(cwd + '/img/Projectiles/Tier3/3.jpg')
 pro_t4_1 = SpriteAnimator(cwd + '/img/Projectiles/Tier4/1.jpg')
 pro_t4_2 = SpriteAnimator(cwd + '/img/Projectiles/Tier4/2.jpg')
 print("Projectiles Loaded")
+
+house = SpriteAnimator(cwd + '/img/House/house.jpg')
+portal = SpriteAnimator(cwd + '/img/House/portal.jpg')
+print("House and Portals Loaded")
+
 spriteDictionary = {'ch_1': ch1,
                     'ch_2': ch2,
                     'en_l1_gs_d_1': env_l1_grass_d_1,
@@ -364,21 +369,23 @@ spriteDictionary = {'ch_1': ch1,
                     'pr_t3_3': pro_t3_2,
                     'pr_t3_4': pro_t3_3,
                     'pr_t4_1': pro_t4_1,
-                    'pr_t4_2': pro_t4_2}
+                    'pr_t4_2': pro_t4_2,
+                    'house':house,
+                    'portal':portal}
 
 # -----------------------MOVING OBJECTS-------------------
 print("ASSETS LOADED")
 print("LOADING OBJECTS")
 # CAMERA
-cam = Camera(Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])), Vector(int(config['CANVAS']['CANVAS_WIDTH'])*4,int(config['CANVAS']['CANVAS_HEIGHT'])*4))
+cam = Camera(Vector(-10000,-10000), Vector(int(config['CANVAS']['CANVAS_WIDTH'])*4,int(config['CANVAS']['CANVAS_HEIGHT'])*4))
 
 # PLAYER
 
 
 player1 = Player(
-    Vector(int(config['MAP']['WIDTH'])//2, int(config['MAP']['HEIGHT'])//2),
+    Vector(-10000,-10000),
     Vector(int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_X']), int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_Y'])),
-    0, Vector(int(config['MAP']['WIDTH'])//2, int(config['MAP']['HEIGHT'])//2),
+    0, Vector(-10000,-10000),
     int(config['PLAYER']['PLAYER_MAX_VELOCITY']),
     int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),20,
     config['PLAYER']['PLAYER_SPRITE'],
@@ -398,6 +405,8 @@ print("GENERATING RANDOM ENVIRONMENT")
 randomGrass()
 randomTrees()
 print("ENVIRONMENT GENERATED")
+
+home=Home(Vector(-10000,-10000),Vector(-10900,-9900),Vector(int(config['MAP']['WIDTH'])//2, int(config['MAP']['HEIGHT'])//2),spriteDictionary)
 
 # music = simpleguics2pygame._load_local_sound('Music/main.ogg')
 # music.play()

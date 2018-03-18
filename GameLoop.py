@@ -44,7 +44,7 @@ collHandler=BroadPhaseCollision(200,200)
 #initiate Ai
 monsterAi=MonsterAi(0)
 print("INITIALISING MONSTER CONTROLLER")
-monsterAi=MonsterAi(10)
+monsterAi=MonsterAi(5)
 monsterAi.spawnMonsters()
 
 print("MONSTERS LOADED AND SPAWNED")
@@ -100,6 +100,7 @@ def draw(canvas):
 
     #  -------UPDATE-AND-DRAW---OBJECTS---BY---LAYER---PRIORITY
         monsterAi.update()
+
         for pbot in env_l1_set:
             pbot.update()
             pbot.draw(canvas,cam)
@@ -112,6 +113,10 @@ def draw(canvas):
         for ve in visual_set_external:
             ve.update()
             ve.draw(canvas,cam)
+        home.draw(canvas, cam)
+        for player in player_list:
+            if player.idObject == playerId:
+                home.update(player)
 
         # ------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
 

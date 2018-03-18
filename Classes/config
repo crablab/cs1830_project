@@ -1,5 +1,5 @@
 [DEVELOPER]
-developer_options = 0
+developer_options = 1
 god_mode = False
 show_monster_thoughts = False
 show_collision = False
