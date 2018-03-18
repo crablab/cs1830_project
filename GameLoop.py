@@ -48,13 +48,17 @@ monsterAi=MonsterAi(10)
 monsterAi.spawnMonsters()
 
 print("MONSTERS LOADED AND SPAWNED")
-# music.play()
-# music.rewind()
-# music.set_volume(1)
+
+###SOUND TO GET JIST
+sound_manager.playSound("lc")
+sound_manager.setContinuousBG("bg")
+###
 
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
 
+    ##cos want background music in loading screen
+    sound_manager.update()
 
 #========== GAME LOOPS NON MAIN =====================
 
