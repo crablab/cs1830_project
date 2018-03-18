@@ -147,7 +147,7 @@ def checkClick():
                 player.setCorrectAnimation(1)
                 vector = player.clickPosition.copy()
                 player.move(vector)
-                if bool(config['DEVELOPER']['GOD_MODE']=='True'):
+                if (config['DEVELOPER']['GOD_MODE'])=='True':
                     player.particle.pos=vector
                     player.particle.nextPos=vector
                     player.particle.nextPosTime=time.time()

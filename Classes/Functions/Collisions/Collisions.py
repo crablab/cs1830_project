@@ -19,8 +19,10 @@ def isCircleInRect(posC,radius,posR,dim):
     return False
 
 def isPointInRect(point,rectOrigin,rectDim):
-    xIn=point.getX()>rectOrigin.getX()-rectDim.getX() and point.getX()<rectOrigin.getX()+rectDim.getX()
-    yIn=point.getY()>rectOrigin.getY()-rectDim.getY() and point.getY()<rectOrigin.getY()+rectDim.getY()
+    x=rectDim.copy().divide(2).getX()
+    y = rectDim.copy().divide(2).getY()
+    xIn=point.getX()>rectOrigin.getX()-x and point.getX()<rectOrigin.getX()+x
+    yIn=point.getY()>rectOrigin.getY()-y and point.getY()<rectOrigin.getY()+y
 
     return xIn and yIn
 
