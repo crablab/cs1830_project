@@ -58,6 +58,8 @@ def getUid():
 print('LOADING ASSETS')
 cwd = os.getcwd()
 
+splash = simpleguics2pygame.load_image(cwd + '/img/spash.jpg')
+
 ch1 = SpriteAnimator(cwd + '/img/Character/1.jpg')
 ch2 = SpriteAnimator(cwd + '/img/Character/2.jpg')
 

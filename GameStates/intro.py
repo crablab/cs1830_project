@@ -6,7 +6,7 @@
 
 import pygame
 from SimpleGUICS2Pygame import simplegui_lib_draw
-from Loading.Objects import gameState1
+from Loading.Objects import gameState1, splash
 #LOADING LIBRARIES
 
 def introLoop(canvas):
@@ -17,10 +17,10 @@ def introLoop(canvas):
 
         gameState1.introToMain()
 
-    canvas.draw_text('welcome to the game Press anywhere to start', (150, 200), 30, "Magenta")
-
-    simplegui_lib_draw.draw_rect(canvas, (250,250),
-                                 (100,100), 1, 'Black', fill_color='Black')
+    canvas.draw_text('Press anywhere to start', (150, 200), 30, "Magenta")
+    canvas.draw_image(splash, (900/2, 600/2), (900, 600), (150, 200), (400, 400), 0)
+    print(splash.get_width())
+    #simplegui_lib_draw.draw_rect(canvas, (250,250), (100,100), 1, 'Black', fill_color='Black')
 
 
 def waitingLoop(canvas):

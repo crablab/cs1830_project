@@ -13,7 +13,7 @@ tree_range = 20000
 [CANVAS]
 canvas_width = 480
 canvas_height = 480
-game_state = False
+game_state = True
 
 [NETWORKING]
 config_type = client
