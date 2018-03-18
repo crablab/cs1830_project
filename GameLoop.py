@@ -1,12 +1,10 @@
-#    mmm   mmmm  mmm     mmmm   mmmm   mmmm
-#  m"   " #"   "   #    #    # "   "# m"  "m
-#  #      "#mmm    #    "mmmm"   mmm" #  m #
-#  #          "#   #    #   "#     "# #    #
-#   "mmm" "mmm#" mm#mm  "#mmm" "mmm#"  #mm#
-
-#LOADING LIBRARIES
-
-
+print("""\
+   mmm   mmmm  mmm     mmmm   mmmm   mmmm
+ m"   " #"   "   #    #    # "   "# m"  "m
+ #      "#mmm    #    "mmmm"   mmm" #  m #
+ #          "#   #    #   "#     "# #    #
+  "mmm" "mmm#" mm#mm  "#mmm" "mmm#"  #mm#
+""")
 
 import sys, configparser
 from SimpleGUICS2Pygame import simplegui_lib_fps

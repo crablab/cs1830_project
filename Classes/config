@@ -18,7 +18,7 @@ game_state = False
 [NETWORKING]
 config_type = server
 client_ip = 10.2.76.93
-logging = False
+logging = True
 logging_level = low
 
 [CAMERA]

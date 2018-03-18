@@ -111,15 +111,9 @@ class client:
 
                 #get the json
                 content = json.loads(storage.getvalue().decode('UTF-8'))
-                # print(content)
                 if(config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print("Pushing to queue at " + str(time.time()))
                 for value in content:
-                    if (config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(
-                        value)
-                    # print("======================before=================")
-                    # print("before:", value
-                    # print("======================after=================")
-
+                    if (config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(value)
                     self.recieved.put(value)
 
 
