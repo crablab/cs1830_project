@@ -51,7 +51,7 @@ print("MONSTERS LOADED AND SPAWNED")
 
 ###SOUND TO GET JIST
 sound_manager.playSound("lc")
-sound_manager.setContinuousBG("bg")
+sound_manager.setContinuousBackgroundList(["bg"])
 ###
 
 #--------------GAME-----LOOP-------------------
