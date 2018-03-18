@@ -70,7 +70,6 @@ def draw(canvas):
 #-----------------CLIENT PING-----------------------
    # if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
     if (config['MAP']['TWO_PLAYER'])=='True':
-        print("two player false")
         ping()
     #--------------RECIEVE ALL OBJECTS-------------------------
         for a in range(0,100):
@@ -154,7 +153,6 @@ def draw(canvas):
 #===========================SENDING STATES BEFORE GARBAGE COLLECTION=============================================================
         # -----------IN MAIN LOOP NETWORKING-------------------------
         if (config['MAP']['TWO_PLAYER'])=='True':
-            print("two player false")
             for object in weapon_set:
                 # don't communicate it if it has been applied lol otherwise it's like continuous aoe damage good luck with that
                 if not object.applied and not object.sent:
@@ -258,10 +256,26 @@ def draw(canvas):
 
                 if p1Range > 50000:
                     p1Arrows=4
+        #Update the labels
+        life.set_text('Life: ' + str(p1Life))
+        magic.set_text('Magic: ' + str(p1Magic))
+        rng.set_text('Range: ' + str(p1Range))
+        arrows.set_text('Arrows: ' + str(p1Arrows))
+        spells.set_text('Spells: '+ str(p1Spells))
 
-        canvas.draw_text('Life: '+str(p1Life)+"     Magic: "+str(p1Magic)+"     Range: "+str(p1Range)+"     Arrows: "+str(p1Arrows)+"  Spells: "+str(p1Spells), (0,int(config['CANVAS']['CANVAS_HEIGHT'])-10), 23, "Black")
-
+##
+## Init
+##
 frame = simpleguics2pygame.create_frame('Game', int(config['CANVAS']['CANVAS_WIDTH']), int(config['CANVAS']['CANVAS_HEIGHT']))
+frame.set_canvas_background('Black')
+#Labels
+life = frame.add_label('Life: ')
+magic = frame.add_label('Magic: ')
+rng = frame.add_label('Ranfe: ')
+arrows = frame.add_label('Arrows: ')
+spells = frame.add_label('Spells: ')
+remote = frame.add_label('Remote Addr: ' + config['NETWORKING']['client_ip'])
+
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)

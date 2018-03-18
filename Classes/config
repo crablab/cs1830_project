@@ -1,6 +1,6 @@
 [DEVELOPER]
 developer_options = 0
-god_mode = False
+god_mode = True
 show_monster_thoughts = False
 show_collision = False
 
@@ -16,7 +16,7 @@ canvas_height = 480
 game_state = False
 
 [NETWORKING]
-config_type = server
+config_type = client
 client_ip = 10.2.76.93
 logging = True
 logging_level = low
