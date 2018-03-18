@@ -365,6 +365,7 @@ spriteDictionary = {'ch_1': ch1,
                     'pr_t3_4': pro_t3_3,
                     'pr_t4_1': pro_t4_1,
                     'pr_t4_2': pro_t4_2}
+
 # -----------------------MOVING OBJECTS-------------------
 print("ASSETS LOADED")
 print("LOADING OBJECTS")
