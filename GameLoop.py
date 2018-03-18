@@ -6,6 +6,8 @@
 
 #LOADING LIBRARIES
 
+
+
 import sys, configparser
 from SimpleGUICS2Pygame import simplegui_lib_fps
 from SimpleGUICS2Pygame import simpleguics2pygame
@@ -44,7 +46,7 @@ collHandler=BroadPhaseCollision(200,200)
 #initiate Ai
 monsterAi=MonsterAi(0)
 print("INITIALISING MONSTER CONTROLLER")
-monsterAi=MonsterAi(30)
+monsterAi=MonsterAi(10)
 monsterAi.spawnMonsters()
 
 print("MONSTERS LOADED AND SPAWNED")
@@ -69,7 +71,7 @@ def draw(canvas):
 
 #-----------------CLIENT PING-----------------------
    # if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
-    if TWO_PLAYER:
+    if config['MAP']['TWO_PLAYER']:
         ping()
     #--------------RECIEVE ALL OBJECTS-------------------------
         for a in range(0,100):
@@ -152,7 +154,7 @@ def draw(canvas):
 
 #===========================SENDING STATES BEFORE GARBAGE COLLECTION=============================================================
         # -----------IN MAIN LOOP NETWORKING-------------------------
-        if TWO_PLAYER:
+        if config['MAP']['TWO_PLAYER']:
             for object in weapon_set:
                 # don't communicate it if it has been applied lol otherwise it's like continuous aoe damage good luck with that
                 if not object.applied and not object.sent:

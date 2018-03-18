@@ -1,20 +1,17 @@
-# REMEMBER: SIMULATE YOUR SHOT AGAINST MONSTER TO CHECK IF KILLED, IF SO, ADD STATS TO PLAYER, THE MONSTER WILL BE REMOVED ON THE OTHER SIDE
-
-import time
-import random
+import time, random, configparser
 from Classes.Base.Vector import Vector
 from Loading.RandomGen import getRandomMagicWeapon, getRandomMagicCast, getRandomMonster
 from Classes.Super.Weapon import Weapon
 from Classes.Middle.Particle import Particle
 from Classes.Super.Monster import Monster
 from Loading.Objects import weapon_set, visual_set, spriteDictionary, getUid, playerId
-from Classes.Settings import MAP_WIDTH, MAP_HEIGHT
-
-# monsters spawned based on how far away from the map they are.
-# respawn by tier time
-
 from Loading.Objects import monster_set, player_list
 from Classes.Functions.Collisions.Collisions import doCirclesIntersect, isPointInRect, isCircleInRect
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
+
+MAP_WIDTH = int(config['MAP']['WIDTH'])
+MAP_HEIGHT = int(config['MAP']['HEIGHT'])
 
 
 class MonsterAi:

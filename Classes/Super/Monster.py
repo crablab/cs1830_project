@@ -2,7 +2,6 @@ import time, configparser
 from SimpleGUICS2Pygame import simplegui_lib_draw
 from Classes.Middle.Particle import Particle
 from Classes.Base.Vector import Vector
-from Classes.Settings import SHOW_MONSTER_THOUGHTS #this never seems to be used?
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
 import json
@@ -102,7 +101,7 @@ class Monster:
     def draw(self, canvas, cam):
 
         self.particle.draw(canvas, cam)
-        if SHOW_MONSTER_THOUGHTS:
+        if config['DEVELOPER']['SHOW_MONSTER_THOUGHTS']:
             ratio = cam.ratioToCam()
 
             percentage=-self.life/self.totalLife
@@ -112,7 +111,7 @@ class Monster:
 
 
 
-        if SHOW_MONSTER_THOUGHTS:
+        if config['DEVELOPER']['SHOW_MONSTER_THOUGHTS']:
             ratio = cam.ratioToCam()
 
             radius1 = int(self.attackRange * ratio.getX())

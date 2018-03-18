@@ -1,6 +1,6 @@
 from SimpleGUICS2Pygame import simpleguics2pygame
 
-from Classes.Settings import *
+#from Classes.Settings import *
 from Classes.Base.Vector import Vector
 
 from Classes.Super.Camera import Camera
@@ -369,15 +369,15 @@ spriteDictionary = {'ch_1': ch1,
 print("ASSETS LOADED")
 print("LOADING OBJECTS")
 # CAMERA
-cam = Camera(Vector(PLAYER_INITIAL_POSITION_X, PLAYER_INITIAL_POSITION_Y), Vector(int(config['CANVAS']['CANVAS_WIDTH'])*4,int(config['CANVAS']['CANVAS_HEIGHT'])*4))
+cam = Camera(Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])), Vector(int(config['CANVAS']['CANVAS_WIDTH'])*4,int(config['CANVAS']['CANVAS_HEIGHT'])*4))
 
 # PLAYER
 
 
 player1 = Player(
-    Vector(int(MAP_WIDTH//2), int(MAP_HEIGHT//2)),
+    Vector(int(config['MAP']['WIDTH'])//2, int(config['MAP']['HEIGHT'])//2),
     Vector(int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_X']), int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_Y'])),
-    0, Vector(int(MAP_WIDTH//2), int(MAP_HEIGHT//2)),
+    0, Vector(int(config['MAP']['WIDTH'])//2, int(config['MAP']['HEIGHT'])//2),
     int(config['PLAYER']['PLAYER_MAX_VELOCITY']),
     int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),20,
     config['PLAYER']['PLAYER_SPRITE'],
@@ -390,18 +390,6 @@ player1.setSpriteState(3)
 player_list.append(player1)
 playerId = player1.idObject
 
-# if (bool(config['NETWORKING']['CONFIG_TYPE'] == "server")):
-#     dragon = Monster(Vector(0, 2500), Vector(100, 0), 0, Vector(0, 2500), 150, 0, 0, 'whiteDragon', spriteDictionary,
-#                      25, getUid(), False, Vector(0, 0), 1, 5, 4, 1, 1, 5, 4)
-#     dragon.move(Vector(10000, 2500))
-#     monster_set.add(dragon)
-#
-# elif bool((config['NETWORKING']['CONFIG_TYPE'] == "client")):
-#     dragon2 = Monster(Vector(0, 3000), Vector(100, 0), 0, Vector(0, 3000), 150, 0, 0, 'greenDragon', spriteDictionary,
-#                       25, getUid(), False, Vector(0, 0), 1, 5, 4, 1, 1, 5, 4)
-#     dragon2.move(Vector(10000, 2500))
-#     monster_set.add(dragon2)
-
 # -----------------------NON-MOVING OBJECTS------------------
 print("OBJECTS LOADED")
 from Loading.RandomGen import randomGrass, randomTrees
@@ -409,14 +397,6 @@ print("GENERATING RANDOM ENVIRONMENT")
 randomGrass()
 randomTrees()
 print("ENVIRONMENT GENERATED")
-# t1=Particle(False, Vector(2500,2500), Vector(0, 0), 0, Vector(2500,2500), 0, 0, 0, 0,
-#                             'en_l2_ts_1x1_19', spriteDictionary, 0.0001, False, False, getUid(), 1, 1, 1, 1, 1, 1)
-# t1.radius/=3
-# env_l2_list.append(t1)
 
-
-# tree = Particle(True, Vector(2500, 2500), Vector(0, 0), 0, Vector(2500, 2500), 200, 0, 0, 0, 'en_l1_tr', spriteDictionary,
-#                 1, False, False, getUid(), 4, 15, 1, 1, 4, 15)
-#
 # music = simpleguics2pygame._load_local_sound('Music/main.ogg')
 # music.play()

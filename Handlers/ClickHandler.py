@@ -1,19 +1,14 @@
 import pygame
 from Loading.RandomGen import getRandomArrow,getRandomMagicWeapon,getRandomMagicCast,getRandomShowOff
-
 from Classes.Base.Vector import Vector
 from Loading.Objects import mouse,  player_list, cam, \
     adjustment, spriteDictionary,playerId,weapon_set,getUid,visual_set
 from Classes.Super.Weapon import Weapon
 from Classes.Middle.Particle import Particle
-from Classes.Settings import GOD_MODE
-import configparser
+import configparser, time
 
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
-
-config.read_file(open('Classes/config'))
-import time
 
 
 def checkClick():
@@ -152,7 +147,7 @@ def checkClick():
                 player.setCorrectAnimation(1)
                 vector = player.clickPosition.copy()
                 player.move(vector)
-                if GOD_MODE:
+                if bool(config['DEVELOPER']['GOD_MODE']):
                     player.particle.pos=vector
                     player.particle.nextPos=vector
                     player.particle.nextPosTime=time.time()

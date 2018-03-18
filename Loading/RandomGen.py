@@ -3,9 +3,8 @@ import configparser
 from Loading.Objects import env_l1_set, spriteDictionary, getUid, env_l2_list
 from Classes.Middle.Particle import Particle
 from Classes.Base.Vector import Vector
-from Classes.Settings import *
-
 config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 
 
 def getRandomString(string, range):
@@ -16,7 +15,7 @@ def getRandomString(string, range):
 
 
 def randomGrass():
-    width, height = MAP_WIDTH, MAP_HEIGHT
+    width, height = int(config['MAP']['WIDTH']), int(config['MAP']['HEIGHT'])
     # Calculate some random grass values
 
     lightId = 1
@@ -48,7 +47,7 @@ def randomGrass():
 
 
 def randomTrees():
-    width, height = MAP_WIDTH, MAP_HEIGHT
+    width, height = int(config['MAP']['WIDTH']), int(config['MAP']['HEIGHT'])
     # Calculate some random grass values
 
     lightId = 1
@@ -77,7 +76,7 @@ def randomTrees():
             # Grass
             pos = Vector(x * cut, y * cut)
 
-            num = random.randrange(0, TREE_PROB_RANGE)
+            num = random.randrange(0, int(config['MAP']['TREE_RANGE']))
             tree = getRandomString('en_l2_ts_1x1_', 22)
             t1 = Particle(False, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0,
                           tree, spriteDictionary, 0.0001, False, False, getUid(), 1, 1, 1, 1, 1, 1)

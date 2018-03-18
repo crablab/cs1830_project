@@ -1,14 +1,23 @@
 [DEVELOPER]
 developer_options = 0
+god_mode = false
+show_monster_thoughts = false
+show_collision = false
+
+[MAP]
+width = 10000
+height = 10000
+two_player = true
+tree_range = 20000
 
 [CANVAS]
-canvas_width = 1920
-canvas_height = 1080
-game_state = False
+canvas_width = 480
+canvas_height = 480
+game_state = true
 
 [NETWORKING]
-config_type = server
-client_ip = localhost
+config_type = client
+client_ip = 10.2.76.93
 logging = False
 logging_level = low
 
@@ -40,4 +49,3 @@ player_initial_position_x = 2500
 player_initial_position_y = 2500
 player_sprite_fps = 10
 player_sprite = ch_1
-

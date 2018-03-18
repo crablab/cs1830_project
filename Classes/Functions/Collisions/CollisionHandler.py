@@ -1,4 +1,3 @@
-from Classes.Settings import MAP_WIDTH, MAP_HEIGHT,SHOW_COLLISION_TECH
 from Loading.Objects import monster_set, monster_set_external, player_list, playerId, env_l2_list,weapon_set,weapon_set_external
 from Classes.Functions.Collisions.Collisions import doCirclesIntersect
 from Loading.Objects import visual_set
@@ -6,6 +5,9 @@ from Classes.Middle.Particle import Particle
 from Classes.Base.Vector import Vector
 from Loading.RandomGen import getRandomMagicDef
 from Loading.Objects import spriteDictionary,getUid
+import configparser
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 # CLASS DESCRIPTION:
 # Takes care of any action that contains any sort of collisions, this means drawing objects as they collide with trees radius and drawing is decided upon who hits who...
 # perhaps not the best structure as i'm writing this on the fly and don't have time to thing about better structuring.
@@ -30,8 +32,8 @@ class BroadPhaseCollision:
         self.grid = []
         self.cam=0
         self.canvas=0
-        self.rangeX = MAP_WIDTH // gridWidth
-        self.rangeY = MAP_HEIGHT // gridHeight
+        self.rangeX = int(config['MAP']['WIDTH']) // gridWidth
+        self.rangeY = int(config['MAP']['HEIGHT']) // gridHeight
         self.gridWidth = gridWidth
         self.gridHeight = gridHeight
         self.imunity=0 # make local monsters temporarily imune (like 0.2 seconds, in order to make sure arrow/magic is cleared after being used...
@@ -69,7 +71,7 @@ class BroadPhaseCollision:
                 if object2.pos.getY()>object.pos.getY():
                     object.drawn=True
             else:
-                if SHOW_COLLISION_TECH:
+                if config['DEVELOPER']['show_collision']:
                     ratio = self.cam.ratioToCam()
                     radius = object2.particle.radius * ratio.getX()
                     self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(), radius, 1, 'White')
@@ -79,7 +81,7 @@ class BroadPhaseCollision:
 
                 if doCirclesIntersect(object2.particle.pos,object2.particle.radius,object.pos,object.radius):
                     object.drawn=True
-                    if SHOW_COLLISION_TECH:
+                    if config['DEVELOPER']['show_collision']:
                         ratio = self.cam.ratioToCam()
                         radius = object.radius * ratio.getX()
                         self.canvas.draw_circle(object.pos.copy().transformToCam(self.cam).getP(), radius, 1, 'Red')
@@ -140,7 +142,7 @@ class BroadPhaseCollision:
 
                                 visual_set.add(particle)
 
-                            if SHOW_COLLISION_TECH: #draw collision for visual confirmation
+                            if config['DEVELOPER']['show_collision']: #draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -152,7 +154,7 @@ class BroadPhaseCollision:
                                                         'red')
 
                         else:
-                            if SHOW_COLLISION_TECH:
+                            if config['DEVELOPER']['show_collision']:
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(), radius,
@@ -169,7 +171,7 @@ class BroadPhaseCollision:
                             object.particle.nextPosTime = time.time()
 
                             object.applied = True  # terminate damage of weapon in case of future collisions
-                            if SHOW_COLLISION_TECH:  # draw collision for visual confirmation
+                            if config['DEVELOPER']['show_collision']:  # draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -180,7 +182,7 @@ class BroadPhaseCollision:
                                                         radius, 1,
                                                         'red')
                         else:
-                            if SHOW_COLLISION_TECH:
+                            if config['DEVELOPER']['show_collision']:
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -241,7 +243,7 @@ class BroadPhaseCollision:
                                             player.melee += object2.melee / 10
                                             player.totalLife += object2.totalLife / 10
                                             player.range += object2.range / 10
-                            if SHOW_COLLISION_TECH:  # draw collision for visual confirmation
+                            if config['DEVELOPER']['show_collision']:  # draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -252,7 +254,7 @@ class BroadPhaseCollision:
                                                         radius, 1,
                                                         'red')
                         else:
-                            if SHOW_COLLISION_TECH:
+                            if config['DEVELOPER']['show_collision']:
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -311,7 +313,7 @@ class BroadPhaseCollision:
                 self.grid[i][j].clear()
 
     def checkInside(self, x, y):
-        if x > MAP_WIDTH or x < 0 or y > MAP_HEIGHT or y < 0:
+        if x > int(config['MAP']['WIDTH']) or x < 0 or y > int(config['MAP']['HEIGHT']) or y < 0:
             return False
         return True
 

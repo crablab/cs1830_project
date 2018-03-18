@@ -7,11 +7,6 @@
                                           
 
 import queue, threading, pycurl, io
-
-#Load the config
-# config = configparser.ConfigParser()
-# config.read_file(open('Classes/config'))
-
 from flask import Flask, request, Response
 from Transfer.JsonToObject import getObject
 import time
@@ -140,7 +135,7 @@ elif bool((config['NETWORKING']['CONFIG_TYPE'] == "client")):
 
 
 def ping():
-    if bool((config['NETWORKING']['LOGGING']))and  (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS'])))   : print("Pinging remote peer")
+    if bool(config['NETWORKING']['LOGGING']) and  (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS'])))   : print("Pinging remote peer")
     com.send.put({'idClass': 0})
 
 def communicate(object):
