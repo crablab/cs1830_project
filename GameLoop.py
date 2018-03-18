@@ -1,10 +1,11 @@
-#    mmm   mmmm  mmm     mmmm   mmmm   mmmm
-#  m"   " #"   "   #    #    # "   "# m"  "m
-#  #      "#mmm    #    "mmmm"   mmm" #  m #
-#  #          "#   #    #   "#     "# #    #
-#   "mmm" "mmm#" mm#mm  "#mmm" "mmm#"  #mm#
+print("""\
+   mmm   mmmm  mmm     mmmm   mmmm   mmmm
+ m"   " #"   "   #    #    # "   "# m"  "m
+ #      "#mmm    #    "mmmm"   mmm" #  m #
+ #          "#   #    #   "#     "# #    #
+  "mmm" "mmm#" mm#mm  "#mmm" "mmm#"  #mm#
+""")
 
-#LOADING LIBRARIES
 import sys, configparser
 from SimpleGUICS2Pygame import simplegui_lib_fps
 from SimpleGUICS2Pygame import simpleguics2pygame
@@ -41,6 +42,7 @@ fps = simplegui_lib_fps.FPS()
 fps.start()
 collHandler=BroadPhaseCollision(200,200)
 #initiate Ai
+monsterAi=MonsterAi(0)
 print("INITIALISING MONSTER CONTROLLER")
 monsterAi=MonsterAi(10)
 monsterAi.spawnMonsters()
@@ -52,8 +54,6 @@ sound_manager.playSound("lc")
 sound_manager.setContinuousBG("bg")
 ###
 
-
-
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
 
@@ -63,11 +63,9 @@ def draw(canvas):
 #========== GAME LOOPS NON MAIN =====================
 
     if(gameState1.intro):
-        print("intro")
         introLoop(canvas)
 
     if gameState1.main and not gameState2.main:
-        print("waiting")
         waitingLoop(canvas)
 
 
@@ -75,11 +73,13 @@ def draw(canvas):
 
 #-----------------CLIENT PING-----------------------
    # if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
-    ping()
-#--------------RECIEVE ALL OBJECTS-------------------------
-    recieve()
+    if (config['MAP']['TWO_PLAYER'])=='True':
+        ping()
+    #--------------RECIEVE ALL OBJECTS-------------------------
+        for a in range(0,100):
+            recieve()
 #-----------------SEND GAME STATES------------------------
-    communicate(gameState1)
+
 
 
     if(gameState1.main and gameState2.main):
@@ -119,11 +119,7 @@ def draw(canvas):
         # ------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
 
 
-        print("=========================")
-        print(weapon_set.__len__())
-        print(weapon_set_external.__len__())
-        print(monster_set_external.__len__())
-        print(monster_set.__len__())
+
         for en2 in env_l2_list: #draw unmarked objects
             if not en2.drawn:
                 en2.draw(canvas, cam)
@@ -152,7 +148,6 @@ def draw(canvas):
         for en2 in env_l2_list: #draw marked objects and unmark
             if en2.drawn:
                 en2.draw(canvas, cam)
-                # print("DRAWN")
                 en2.drawn=False
             en2.update()
         fps.draw_fct(canvas)
@@ -161,23 +156,22 @@ def draw(canvas):
 
 #===========================SENDING STATES BEFORE GARBAGE COLLECTION=============================================================
         # -----------IN MAIN LOOP NETWORKING-------------------------
-
-        for object in weapon_set:
-            # don't communicate it if it has been applied lol otherwise it's like continuous aoe damage good luck with that
-            if not object.applied and not object.sent:
+        if (config['MAP']['TWO_PLAYER'])=='True':
+            for object in weapon_set:
+                # don't communicate it if it has been applied lol otherwise it's like continuous aoe damage good luck with that
+                if not object.applied and not object.sent:
+                    communicate(object)
+                    object.sent=True
+            for monster in monster_set:
+                communicate(monster)
+            for object in visual_set:
                 communicate(object)
-                object.sent=True
-        for monster in monster_set:
-            communicate(monster)
-        for object in visual_set:
-            communicate(object)
 
-        # we don't to thread this as it is a small set
-        for player in player_list:
-            if player.idObject == playerId:
-                # print(player.particle.vel)
-                communicate(player)
-        print("size:" + str(player_list.__len__()))
+            # we don't to thread this as it is a small set
+            for player in player_list:
+                if player.idObject == playerId:
+                    communicate(player)
+
 
 # ===================== GARBAGE REMOVAL =================================================
         removal_set=set()
@@ -207,8 +201,8 @@ def draw(canvas):
                 removal_set.add(monster)
             if monster.particle.spriteSheet.hasLooped and monster.particle.removeOnAnimationLoop:
                 removal_set.add(monster)
-
         monster_set_external.difference_update(removal_set)
+
         removal_set.clear()
         for monster in monster_set:
             if monster.particle.pos == monster.particle.nextPos and monster.particle.removeOnVelocity0 or monster.remove:
@@ -266,10 +260,26 @@ def draw(canvas):
 
                 if p1Range > 50000:
                     p1Arrows=4
+        #Update the labels
+        life.set_text('Life: ' + str(p1Life))
+        magic.set_text('Magic: ' + str(p1Magic))
+        rng.set_text('Range: ' + str(p1Range))
+        arrows.set_text('Arrows: ' + str(p1Arrows))
+        spells.set_text('Spells: '+ str(p1Spells))
 
-        canvas.draw_text('Life: '+str(p1Life)+"     Magic: "+str(p1Magic)+"     Range: "+str(p1Range)+"     Arrows: "+str(p1Arrows)+"  Spells: "+str(p1Spells), (0,int(config['CANVAS']['CANVAS_HEIGHT'])-10), 23, "Black")
-
+##
+## Init
+##
 frame = simpleguics2pygame.create_frame('Game', int(config['CANVAS']['CANVAS_WIDTH']), int(config['CANVAS']['CANVAS_HEIGHT']))
+frame.set_canvas_background('Black')
+#Labels
+life = frame.add_label('Life: ')
+magic = frame.add_label('Magic: ')
+rng = frame.add_label('Ranfe: ')
+arrows = frame.add_label('Arrows: ')
+spells = frame.add_label('Spells: ')
+remote = frame.add_label('Remote Addr: ' + config['NETWORKING']['client_ip'])
+
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)

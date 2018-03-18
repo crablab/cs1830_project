@@ -2,7 +2,6 @@ import time, configparser
 from SimpleGUICS2Pygame import simplegui_lib_draw
 from Classes.Middle.Particle import Particle
 from Classes.Base.Vector import Vector
-from Classes.Settings import SHOW_MONSTER_THOUGHTS #this never seems to be used?
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
 import json
@@ -22,9 +21,7 @@ class Monster:
         self.operationOrigin=operationOrigin
         self.operationRange=operationRange
         self.attackRange=attackRange
-        print("follow",followDistance)
         self.followDistance=followDistance
-        print(self.followDistance)
         self.returning=False
         self.hasSelectedReturn=False
         self.tier=tier
@@ -104,7 +101,7 @@ class Monster:
     def draw(self, canvas, cam):
 
         self.particle.draw(canvas, cam)
-        if SHOW_MONSTER_THOUGHTS:
+        if config['DEVELOPER']['SHOW_MONSTER_THOUGHTS']=='True':
             ratio = cam.ratioToCam()
 
             percentage=-self.life/self.totalLife
@@ -114,7 +111,7 @@ class Monster:
 
 
 
-        if SHOW_MONSTER_THOUGHTS:
+        if config['DEVELOPER']['SHOW_MONSTER_THOUGHTS']=='True':
             ratio = cam.ratioToCam()
 
             radius1 = int(self.attackRange * ratio.getX())
@@ -144,7 +141,6 @@ class Monster:
         elif self.particle.pos.getX()-self.particle.nextPos.getX()>0 and not self.spriteState==1:
             self.setSpriteState(1)
     def encode(self):
-
         data = {'spriteState': self.spriteState,
                 'clickPosition': {'x': self.clickPosition.x, 'y': self.clickPosition.y}, 'hasFired': self.hasFired,
                 'idObject': self.idObject, 'idClass': self.idClass,
@@ -161,7 +157,7 @@ class Monster:
                 'startRow': self.particle.spriteSheet.startRow, 'endRow': self.particle.spriteSheet.endRow,
                 'endColumn': self.particle.spriteSheet.endColumn,
                 'magic':self.magic,'melee':self.melee,'range':self.range,'life':self.life,'tier':self.tier,'aBack':self.aBack,
-                'external':True,'totalLife':self.totalLife,'operationOrigin':{'x':self.operationOrigin.x,'y':self.operationOrigin.y},'operationRange':{'x':self.operationOrigin.x,'y':self.operationOrigin.y},
+                'external':True,'totalLife':self.totalLife,'operationOrigin':{'x':self.operationOrigin.x,'y':self.operationOrigin.y},'operationRange':{'x':self.operationRange.x,'y':self.operationRange.y},
                 'attackRange':self.attackRange,'followDistance':self.followDistance}
         b=json.dumps(data)
         return data

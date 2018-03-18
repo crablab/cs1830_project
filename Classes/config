@@ -1,22 +1,31 @@
 [DEVELOPER]
 developer_options = 0
+god_mode = True
+show_monster_thoughts = False
+show_collision = False
+
+[MAP]
+width = 10000
+height = 10000
+two_player = False
+tree_range = 20000
 
 [CANVAS]
-canvas_width = 1500
-canvas_height = 800
-game_state = True
+canvas_width = 480
+canvas_height = 480
+game_state = False
 
 [NETWORKING]
 config_type = client
 client_ip = 10.2.76.93
-logging = False
+logging = True
 logging_level = low
 
 [CAMERA]
 cam_move_sensitivity = 200
 cam_zoom_sensitivity = 0.03
 cam_min_zoom_dist = 100
-cam_max_zoom_dist = 1000
+cam_max_zoom_dist = 1250
 cam_min_move_dist = 2000
 
 [PARTICLE]

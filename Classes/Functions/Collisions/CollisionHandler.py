@@ -1,7 +1,13 @@
-from Classes.Settings import MAP_WIDTH, MAP_HEIGHT,SHOW_COLLISION_TECH
 from Loading.Objects import monster_set, monster_set_external, player_list, playerId, env_l2_list,weapon_set,weapon_set_external
 from Classes.Functions.Collisions.Collisions import doCirclesIntersect
-
+from Loading.Objects import visual_set
+from Classes.Middle.Particle import Particle
+from Classes.Base.Vector import Vector
+from Loading.RandomGen import getRandomMagicDef
+from Loading.Objects import spriteDictionary,getUid
+import configparser
+config = configparser.ConfigParser()
+config.read_file(open('Classes/config'))
 # CLASS DESCRIPTION:
 # Takes care of any action that contains any sort of collisions, this means drawing objects as they collide with trees radius and drawing is decided upon who hits who...
 # perhaps not the best structure as i'm writing this on the fly and don't have time to thing about better structuring.
@@ -26,8 +32,8 @@ class BroadPhaseCollision:
         self.grid = []
         self.cam=0
         self.canvas=0
-        self.rangeX = MAP_WIDTH // gridWidth
-        self.rangeY = MAP_HEIGHT // gridHeight
+        self.rangeX = int(config['MAP']['WIDTH']) // gridWidth
+        self.rangeY = int(config['MAP']['HEIGHT']) // gridHeight
         self.gridWidth = gridWidth
         self.gridHeight = gridHeight
         self.imunity=0 # make local monsters temporarily imune (like 0.2 seconds, in order to make sure arrow/magic is cleared after being used...
@@ -65,7 +71,7 @@ class BroadPhaseCollision:
                 if object2.pos.getY()>object.pos.getY():
                     object.drawn=True
             else:
-                if SHOW_COLLISION_TECH:
+                if config['DEVELOPER']['show_collision']=='True':
                     ratio = self.cam.ratioToCam()
                     radius = object2.particle.radius * ratio.getX()
                     self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(), radius, 1, 'White')
@@ -75,7 +81,7 @@ class BroadPhaseCollision:
 
                 if doCirclesIntersect(object2.particle.pos,object2.particle.radius,object.pos,object.radius):
                     object.drawn=True
-                    if SHOW_COLLISION_TECH:
+                    if config['DEVELOPER']['show_collision']=='True':
                         ratio = self.cam.ratioToCam()
                         radius = object.radius * ratio.getX()
                         self.canvas.draw_circle(object.pos.copy().transformToCam(self.cam).getP(), radius, 1, 'Red')
@@ -114,22 +120,29 @@ class BroadPhaseCollision:
         # 4=monster
         # 3=player
         if not object.applied:# if the weapon has already damaged pass
-            print("=========================================")
             for object2 in self.grid[i][j]:
                 if object2.idClass==2:
                     pass
                 elif object2.idClass==3: # a weapon hits a player
                     if object2.idObject==playerId:#local player close to projectile:
                         if doCirclesIntersect(object.particle.pos,object.particle.radius,object2.particle.pos,object2.particle.radius): #weapon hit local player: ig
-                            print("APPLIED")
                             object2.life-=object.damage #adjust life of player
                             object.particle.vel.multiply(0)#terminate velocity if projectile
                             object.particle.nextPos=object.particle.pos
                             object.particle.nextPosTime=time.time()
                             object.applied=True #terminate damage of weapon in case of future collisions
-                            print(object.idObject)
+                            if object2.life > object2.totalLife / 2:  # if players's health is greater that half then stick on a defence magic sprite for visual
+                                pos = object2.particle.pos.copy()
 
-                            if SHOW_COLLISION_TECH: #draw collision for visual confirmation
+                                numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMagicDef(
+                                    object2.magic)
+                                particle = Particle(True, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0, key, spriteDictionary,
+                                                    20, False, True, getUid(), numRows, numCol, startRow, startCol,
+                                                    endRow, endCol)
+
+                                visual_set.add(particle)
+
+                            if config['DEVELOPER']['show_collision']=='True': #draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -141,7 +154,7 @@ class BroadPhaseCollision:
                                                         'red')
 
                         else:
-                            if SHOW_COLLISION_TECH:
+                            if config['DEVELOPER']['show_collision']=='True':
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(), radius,
@@ -152,14 +165,13 @@ class BroadPhaseCollision:
                     else: #object hits enemy player (remember to remove it lol :D
                         if doCirclesIntersect(object.particle.pos, object.particle.radius, object2.particle.pos,
                                               object2.particle.radius):  # weapon hit local player: ig
-                            print("APPLIED")
                             object2.life -= object.damage  # adjust life of player (pretend)
                             object.particle.vel.multiply(0)  # terminate velocity if projectile
                             object.particle.nextPos = object.particle.pos
                             object.particle.nextPosTime = time.time()
 
                             object.applied = True  # terminate damage of weapon in case of future collisions
-                            if SHOW_COLLISION_TECH:  # draw collision for visual confirmation
+                            if config['DEVELOPER']['show_collision']=='True':  # draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -170,7 +182,7 @@ class BroadPhaseCollision:
                                                         radius, 1,
                                                         'red')
                         else:
-                            if SHOW_COLLISION_TECH:
+                            if config['DEVELOPER']['show_collision']=='True':
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -184,22 +196,28 @@ class BroadPhaseCollision:
                 elif object2.idClass==4:# a weapon hits a monster:
                     if not object2.external: # if the monster is local
                         if doCirclesIntersect(object2.particle.pos,object2.particle.radius,object.particle.pos,object.particle.radius): #weapon hit local monster
-                            print("APPLIED")
-                            print(object.idPlayer)
+
                             object2.life -= object.damage  # adjust life of monster
                             object.particle.vel.multiply(0)  # terminate velocity if projectile
                             object.particle.nextPos = object.particle.pos
                             object.particle.nextPosTime = time.time()
                             object.applied = True  # terminate damage of weapon in case of future collisions
+                            if object2.life>object2.totalLife/2:# if monster's health is greater that half then stick on a defence magic sprite for visual
+                                pos = object2.particle.pos.copy()
+
+                                numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMagicDef(object2.magic)
+                                particle = Particle(True, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0, key, spriteDictionary,
+                                                    20, False, True, getUid(), numRows, numCol, startRow, startCol,
+                                                    endRow, endCol)
+
+                                visual_set.add(particle)
+
                             for player in player_list:
-                                print("playerId",player.idObject)
                                 if player.idObject==playerId:
-                                    print("player local id",playerId)
 
                                     if object.idPlayer==playerId:#the collision happened with local players weapon
 
                                         if object2.life<0:
-                                            print("player recieved stats")
                                             object2.remove=True
                                             player.magic+=object2.magic/10
                                             player.melee+=object2.melee/10
@@ -207,7 +225,6 @@ class BroadPhaseCollision:
                                             player.range+=object2.range/10
                                     else:# if collision happened with other player: just check for monsters life and remove if necesary
                                         if object2.life<0:
-                                            print("player Not received stats")
                                             object2.remove=True
                     else:   # if it is external: assume the other party has detected collision, so remove object if intersection and life <0
                         if doCirclesIntersect(object2.particle.pos, object2.particle.radius, object.particle.pos, object.particle.radius):
@@ -216,19 +233,17 @@ class BroadPhaseCollision:
                             object.particle.nextPos = object.particle.pos
                             object.particle.nextPosTime = time.time()
                             object.applied = True # place an applied marker
-                            print("APPLIED")
                             object2.life -= object.damage # apply a pretend damage in case it hasent been removed ( not updated by other party, this way things are 100% removed)
                             for player in player_list:# if local player kills external monster give him the stats, may have buggs, but at this point whatever.
                                 if player.idObject == playerId:
                                     if object.idPlayer==playerId:  # the collision happened with this players weapon
                                         if object2.life < 0:
                                             object2.remove = True
-                                            print("player recieved stats")
                                             player.magic += object2.magic / 10
                                             player.melee += object2.melee / 10
                                             player.totalLife += object2.totalLife / 10
                                             player.range += object2.range / 10
-                            if SHOW_COLLISION_TECH:  # draw collision for visual confirmation
+                            if config['DEVELOPER']['show_collision']=='True':  # draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -239,7 +254,7 @@ class BroadPhaseCollision:
                                                         radius, 1,
                                                         'red')
                         else:
-                            if SHOW_COLLISION_TECH:
+                            if config['DEVELOPER']['show_collision']=='True':
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -298,7 +313,7 @@ class BroadPhaseCollision:
                 self.grid[i][j].clear()
 
     def checkInside(self, x, y):
-        if x > MAP_WIDTH or x < 0 or y > MAP_HEIGHT or y < 0:
+        if x > int(config['MAP']['WIDTH']) or x < 0 or y > int(config['MAP']['HEIGHT']) or y < 0:
             return False
         return True
 

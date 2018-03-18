@@ -7,11 +7,6 @@
                                           
 
 import queue, threading, pycurl, io
-
-#Load the config
-# config = configparser.ConfigParser()
-# config.read_file(open('Classes/config'))
-
 from flask import Flask, request, Response
 from Transfer.JsonToObject import getObject
 import time
@@ -35,17 +30,20 @@ class FlaskAppWrapper(object):
         self.app.add_url_rule(endpoint, endpoint_name, handler, methods=["POST"])
 
     def action():
+        # print("performing action")
         #get the dictionary of the message
         jsonData = request.get_json(force=True)
         #if(config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(jsonData)
         #seperate into the queue
+        # print(jsonData)
         for value in jsonData:
-            com.recieved.put(json.dumps(value))
+            com.recieved.put(value)
         #set the body to empty
         body = json.dumps([])
 
         if(bool(config['NETWORKING']['LOGGING'] )and bool(config['NETWORKING']['LOGGING_LEVEL'] == "high")): print("Amalgmating response at " + str(time.time()))
         while(not com.send.empty()):
+            # print("to send", com.send.qsize())
             data = json.loads(body)
             data.append(com.send.get())
             body = json.dumps(data)
@@ -85,7 +83,7 @@ class client:
             #only start a curl if we actually have something to send
             if(not self.send.empty()):
                 if(bool(config['NETWORKING']['LOGGING']) and bool(config['NETWORKING']['LOGGING_LEVEL'] == "high")): print("Starting cURL at " + str(time.time()))
-                
+                # print("requesting")
                 c = pycurl.Curl()
                 storage = io.BytesIO()
 
@@ -98,10 +96,12 @@ class client:
                 #set the body to empty
                 body = json.dumps([])
                 if(bool(config['NETWORKING']['LOGGING']) and bool(config['NETWORKING']['LOGGING_LEVEL'] == "high")): print("Amalgmating cURL at " + str(time.time()))
-                while(not self.send.empty()):
+                while (not com.send.empty()):
+                    # print("to send",com.send.qsize())
                     data = json.loads(body)
-                    data.append(self.send.get())
+                    data.append(com.send.get())
                     body = json.dumps(data)
+
 
                 c.setopt(pycurl.POSTFIELDS, body)
                 if(bool(config['NETWORKING']['LOGGING']) and bool(config['NETWORKING']['LOGGING_LEVEL'] == "high")): print("Making cURL at " + str(time.time()))
@@ -111,34 +111,35 @@ class client:
 
                 #get the json
                 content = json.loads(storage.getvalue().decode('UTF-8'))
-
                 if(config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print("Pushing to queue at " + str(time.time()))
                 for value in content:
-                    if (config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(
-                        value)
-
-                    value = json.dumps(value)
+                    if (config['NETWORKING']['LOGGING'] and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(value)
                     self.recieved.put(value)
+
 
 
 if (bool(config['NETWORKING']['CONFIG_TYPE'] == "server")):
     com = server()
+    com.send.maxsize=35
+
 elif bool((config['NETWORKING']['CONFIG_TYPE'] == "client")):
     com = client(config['NETWORKING']['CLIENT_IP'], 5027)
+    com.send.maxsize=35
+
+
 
 def ping():
-    if bool((config['NETWORKING']['LOGGING']))and  (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS'])))   : print("Pinging remote peer")
+    if bool(config['NETWORKING']['LOGGING']) and  (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS'])))   : print("Pinging remote peer")
     com.send.put({'idClass': 0})
 
 def communicate(object):
     com.send.put(object.encode())
 
+
 def recieve():
     if(bool(config['NETWORKING']['LOGGING']) and bool(config['NETWORKING']['LOGGING_LEVEL'] == "high")): print("Queue size: " + str(com.recieved.qsize()))
 
-    while(not com.recieved.empty()):
+    if not com.recieved.empty():
+        # print("recieved : ",com.recieved.qsize())
         obj=com.recieved.get()
-
-        if(bool(config['NETWORKING']['LOGGING']) and  (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS'])))): print("Pulling from queue at " + str(time.time()))
-
         getObject(obj)

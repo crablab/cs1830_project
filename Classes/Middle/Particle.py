@@ -2,7 +2,6 @@ import time, configparser
 from Classes.Middle.SpriteControl.SpriteSheet import SpriteSheet
 from Classes.Base.Vector import Vector
 from SimpleGUICS2Pygame import simplegui_lib_draw
-from Classes.Settings import *
 config = configparser.ConfigParser()
 config.read_file(open('Classes/config'))
 import json
@@ -83,7 +82,7 @@ class Particle:
                 #1cam.dim=Vector(1300,700)
 
             # DEVELOPER OPTION:
-            if (DEVELOPER_OPTIONS):
+            if (bool(int(config['DEVELOPER']['DEVELOPER_OPTIONS']))):
                 ratio = cam.ratioToCam()
                 radius=self.radius*ratio.getX()
                 canvas.draw_circle(self.pos.copy().transformToCam(cam).getP(), radius, 1, 'White')
