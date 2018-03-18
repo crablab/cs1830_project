@@ -3,12 +3,16 @@ from Classes.Super.Home import Home
 #from Classes.Settings import *
 from Classes.Base.Vector import Vector
 
+from SimpleGUICS2Pygame import simpleguics2pygame
+
 from Classes.Super.Camera import Camera
 from Handlers.Mouse import Mouse
 
 from Classes.Middle.SpriteControl.SpriteAnimator import SpriteAnimator
 
 from Classes.Super.Player import Player
+
+from Loading.Sound import SoundManager
 
 from GameStates.GameStates import GameState
 import configparser
@@ -60,7 +64,9 @@ cwd = os.getcwd()
 
 ch1 = SpriteAnimator(cwd + '/img/Character/1.jpg')
 ch2 = SpriteAnimator(cwd + '/img/Character/2.jpg')
-print("characters loaded")
+
+ho1 = SpriteAnimator(cwd + '/img/Environment/Buildings/House/1.jpg')
+
 env_l1_grass_d_1 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/1.jpg')
 env_l1_grass_d_2 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/2.jpg')
 env_l1_grass_d_3 = SpriteAnimator(cwd + '/img/Environment/Layer1/Grass/dark/3.jpg')
@@ -221,6 +227,9 @@ print("House and Portals Loaded")
 
 spriteDictionary = {'ch_1': ch1,
                     'ch_2': ch2,
+
+                    'ho_1':ho1,
+                    
                     'en_l1_gs_d_1': env_l1_grass_d_1,
                     'en_l1_gs_d_2': env_l1_grass_d_2,
                     'en_l1_gs_d_3': env_l1_grass_d_3,
@@ -411,7 +420,21 @@ randomGrass()
 randomTrees()
 print("ENVIRONMENT GENERATED")
 
+
 home=Home(Vector(-10000,-10000),Vector(-10900,-9900),Vector(int(config['MAP']['WIDTH'])//2, int(config['MAP']['HEIGHT'])//2),spriteDictionary)
 
-# music = simpleguics2pygame._load_local_sound('Music/main.ogg')
-# music.play()
+# tree = Particle(True, Vector(2500, 2500), Vector(0, 0), 0, Vector(2500, 2500), 200, 0, 0, 0, 'en_l1_tr', spriteDictionary,
+#                 1, False, False, getUid(), 4, 15, 1, 1, 4, 15)
+#
+
+# -----------------------SOUNDS------------------
+sound_bg = simpleguics2pygame._load_local_sound(cwd + '/sound/background.wav')
+sound_bg.set_volume(0.1)
+sound_loaded = simpleguics2pygame._load_local_sound(cwd + '/sound/loadingcomplete.wav')
+sound_loaded.set_volume(0.2)
+
+sound_dict = {
+     "bg":sound_bg,
+     "lc":sound_loaded}
+
+sound_manager = SoundManager(sound_dict)
