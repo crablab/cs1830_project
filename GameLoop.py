@@ -106,17 +106,21 @@ def draw(canvas):
         for pbot in env_l3_list:
             pbot.update()
             pbot.draw(canvas,cam)
-        for v in visual_set:
-            v.update()
-            v.draw(canvas,cam)
-        for ve in visual_set_external:
-            ve.update()
-            ve.draw(canvas,cam)
+
         home.draw(canvas, cam)
         for player in player_list:
             if player.idObject == playerId:
                 home.update(player)
 
+        for v in visual_set:
+                v.update()
+                v.draw(canvas,cam)
+        
+        
+        for ve in visual_set_external:
+            ve.update()
+            ve.draw(canvas,cam)
+       
         # ------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
 
 

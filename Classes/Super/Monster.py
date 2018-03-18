@@ -101,12 +101,11 @@ class Monster:
     def draw(self, canvas, cam):
 
         self.particle.draw(canvas, cam)
-        if config['DEVELOPER']['SHOW_MONSTER_THOUGHTS']=='True':
-            ratio = cam.ratioToCam()
 
-            percentage=-self.life/self.totalLife
-            simplegui_lib_draw.draw_rect(canvas, self.particle.pos.copy().add(Vector(0,-100)).transformToCam(cam).getP(),
-                                         Vector(100,20).multiplyVector(Vector(percentage,0.2)).multiplyVector(ratio).getP(), 1, 'Red', fill_color='red')
+        ratio = cam.ratioToCam()
+        percentage=-self.life/self.totalLife
+        simplegui_lib_draw.draw_rect(canvas, self.particle.pos.copy().add(Vector(0,-100)).transformToCam(cam).getP(),
+                                     Vector(100,20).multiplyVector(Vector(percentage,0.2)).multiplyVector(ratio).getP(), 1, 'Red', fill_color='red')
 
 
 

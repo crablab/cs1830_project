@@ -131,6 +131,7 @@ class BroadPhaseCollision:
                             object.particle.nextPos=object.particle.pos
                             object.particle.nextPosTime=time.time()
                             object.applied=True #terminate damage of weapon in case of future collisions
+
                             if object2.life > object2.totalLife / 2:  # if players's health is greater that half then stick on a defence magic sprite for visual
                                 pos = object2.particle.pos.copy()
 
@@ -142,6 +143,24 @@ class BroadPhaseCollision:
 
                                 visual_set.add(particle)
 
+                            if object2.life < 0:
+                                object2.particle.pos=Vector(-10000,-10000)#teleport to house
+                                object2.particle.nextPos=Vector(-10000,-10000)
+
+                                object2.particle.nextPosTime=time.time()
+
+                                object2.magic*=0.6
+                                object2.melee*=0.6
+                                object2.range*=0.6
+                                object2.totalLife*=0.6
+                                object2.life=object2.life
+
+                                pos = object2.particle.pos.copy()
+
+                                particle = Particle(True, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0, 'respawn', spriteDictionary,
+                                                    3,False, True, getUid(),4,5,1,1,4,5)
+                                visual_set.add(particle)
+
                             if config['DEVELOPER']['show_collision']=='True': #draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
@@ -151,7 +170,7 @@ class BroadPhaseCollision:
                                 radius = object.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object.particle.pos.copy().transformToCam(self.cam).getP(),
                                                         radius, 1,
-                                                        'red')
+                                                         'red')
 
                         else:
                             if config['DEVELOPER']['show_collision']=='True':
@@ -222,6 +241,7 @@ class BroadPhaseCollision:
                                             player.magic+=object2.magic/10
                                             player.melee+=object2.melee/10
                                             player.totalLife+=object2.totalLife/10
+                                            player.life+=object2.totalLife/10
                                             player.range+=object2.range/10
                                     else:# if collision happened with other player: just check for monsters life and remove if necesary
                                         if object2.life<0:
@@ -242,6 +262,7 @@ class BroadPhaseCollision:
                                             player.magic += object2.magic / 10
                                             player.melee += object2.melee / 10
                                             player.totalLife += object2.totalLife / 10
+                                            player.life += object2.totalLife / 10
                                             player.range += object2.range / 10
                             if config['DEVELOPER']['show_collision']=='True':  # draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()

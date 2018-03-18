@@ -216,6 +216,7 @@ print("Projectiles Loaded")
 
 house = SpriteAnimator(cwd + '/img/House/house.jpg')
 portal = SpriteAnimator(cwd + '/img/House/portal.jpg')
+respawn=SpriteAnimator(cwd+ '/img/Magic/revive/5x4/1.jpg')
 print("House and Portals Loaded")
 
 spriteDictionary = {'ch_1': ch1,
@@ -359,6 +360,8 @@ spriteDictionary = {'ch_1': ch1,
                     'mo_t3_5': mon_t3_6_2_3_2_5,
                     'mo_t3_6': mon_t3_8_8_4_2_6,
 
+
+
                     'pr_t1_1': pro_t1_1,
                     'pr_t2_1': pro_t2_1,
                     'pr_t2_2': pro_t2_2,
@@ -370,6 +373,8 @@ spriteDictionary = {'ch_1': ch1,
                     'pr_t3_4': pro_t3_3,
                     'pr_t4_1': pro_t4_1,
                     'pr_t4_2': pro_t4_2,
+
+                    'respawn':respawn,
                     'house':house,
                     'portal':portal}
 

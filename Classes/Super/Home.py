@@ -12,18 +12,19 @@ class Home:
         self.prevTime=time.time()
 
     def update(self,player):
-        self.house.update()
-        self.portalH.update()
-        self.portalM.update()
+        if player.particle.pos.getX()<-1000:
+            self.house.update()
+            self.block(player)
+            self.portalM.update()
+
         self.teleport(player)
-        self.block(player)
         self.teleportCountDown+=time.time()-self.prevTime
-        print(self.teleportCountDown)
         self.prevTime=time.time()
+        self.portalH.update()
 
     def teleport(self,player):
         if self.teleportCountDown>120:
-            if player.particle.pos.getX()>-100:
+            if player.particle.pos.getX()>-1000:
                 if doCirclesIntersect(player.particle.pos,player.particle.radius,self.portalM.pos,self.portalM.radius):
                     self.teleportCountDown=0
                     player.particle.pos=self.portalH.pos.copy()
@@ -31,7 +32,7 @@ class Home:
                     player.particle.nextPos=self.portalH.pos.copy()
                     print(player.particle.pos,self.portalH.pos)
                     return
-            if player.particle.pos.getX() < -100:
+            if player.particle.pos.getX() < -1000:
                 if doCirclesIntersect(player.particle.pos,player.particle.radius,self.portalH.pos,self.portalH.radius):
                     self.teleportCountDown=0
                     player.particle.pos=self.portalM.pos.copy()
@@ -40,12 +41,11 @@ class Home:
                     return
 
     def block(self,player):
-        print("true")
-        if player.particle.pos.getX()<-100:
+        if player.particle.pos.getX()<-1000:
+            player.life=player.totalLife #while in the house life is at max.
             if not isPointInRect(player.particle.pos,self.house.pos,self.house.dim.copy()) and player.particle.vel.copy().dot(player.particle.pos.copy().subtract(self.house.pos))>0:
                 player.particle.vel.multiply(0)
 
-                print("false")
                 player.particle.nextPos=player.particle.pos
                 player.particle.nextPosTime=time.time()
 
