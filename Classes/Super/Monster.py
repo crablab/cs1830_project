@@ -101,7 +101,7 @@ class Monster:
     def draw(self, canvas, cam):
 
         self.particle.draw(canvas, cam)
-        if config['DEVELOPER']['SHOW_MONSTER_THOUGHTS']:
+        if config['DEVELOPER']['SHOW_MONSTER_THOUGHTS']=='True':
             ratio = cam.ratioToCam()
 
             percentage=-self.life/self.totalLife
@@ -111,7 +111,7 @@ class Monster:
 
 
 
-        if config['DEVELOPER']['SHOW_MONSTER_THOUGHTS']:
+        if config['DEVELOPER']['SHOW_MONSTER_THOUGHTS']=='True':
             ratio = cam.ratioToCam()
 
             radius1 = int(self.attackRange * ratio.getX())

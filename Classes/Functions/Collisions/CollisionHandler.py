@@ -71,7 +71,7 @@ class BroadPhaseCollision:
                 if object2.pos.getY()>object.pos.getY():
                     object.drawn=True
             else:
-                if config['DEVELOPER']['show_collision']:
+                if config['DEVELOPER']['show_collision']=='True':
                     ratio = self.cam.ratioToCam()
                     radius = object2.particle.radius * ratio.getX()
                     self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(), radius, 1, 'White')
@@ -81,7 +81,7 @@ class BroadPhaseCollision:
 
                 if doCirclesIntersect(object2.particle.pos,object2.particle.radius,object.pos,object.radius):
                     object.drawn=True
-                    if config['DEVELOPER']['show_collision']:
+                    if config['DEVELOPER']['show_collision']=='True':
                         ratio = self.cam.ratioToCam()
                         radius = object.radius * ratio.getX()
                         self.canvas.draw_circle(object.pos.copy().transformToCam(self.cam).getP(), radius, 1, 'Red')
@@ -142,7 +142,7 @@ class BroadPhaseCollision:
 
                                 visual_set.add(particle)
 
-                            if config['DEVELOPER']['show_collision']: #draw collision for visual confirmation
+                            if config['DEVELOPER']['show_collision']=='True': #draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -154,7 +154,7 @@ class BroadPhaseCollision:
                                                         'red')
 
                         else:
-                            if config['DEVELOPER']['show_collision']:
+                            if config['DEVELOPER']['show_collision']=='True':
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(), radius,
@@ -171,7 +171,7 @@ class BroadPhaseCollision:
                             object.particle.nextPosTime = time.time()
 
                             object.applied = True  # terminate damage of weapon in case of future collisions
-                            if config['DEVELOPER']['show_collision']:  # draw collision for visual confirmation
+                            if config['DEVELOPER']['show_collision']=='True':  # draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -182,7 +182,7 @@ class BroadPhaseCollision:
                                                         radius, 1,
                                                         'red')
                         else:
-                            if config['DEVELOPER']['show_collision']:
+                            if config['DEVELOPER']['show_collision']=='True':
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -243,7 +243,7 @@ class BroadPhaseCollision:
                                             player.melee += object2.melee / 10
                                             player.totalLife += object2.totalLife / 10
                                             player.range += object2.range / 10
-                            if config['DEVELOPER']['show_collision']:  # draw collision for visual confirmation
+                            if config['DEVELOPER']['show_collision']=='True':  # draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),
@@ -254,7 +254,7 @@ class BroadPhaseCollision:
                                                         radius, 1,
                                                         'red')
                         else:
-                            if config['DEVELOPER']['show_collision']:
+                            if config['DEVELOPER']['show_collision']=='True':
                                 ratio = self.cam.ratioToCam()
                                 radius = object2.particle.radius * ratio.getX()
                                 self.canvas.draw_circle(object2.particle.pos.copy().transformToCam(self.cam).getP(),

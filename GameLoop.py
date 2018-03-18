@@ -71,7 +71,8 @@ def draw(canvas):
 
 #-----------------CLIENT PING-----------------------
    # if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
-    if config['MAP']['TWO_PLAYER']:
+    if (config['MAP']['TWO_PLAYER'])=='True':
+        print("two player false")
         ping()
     #--------------RECIEVE ALL OBJECTS-------------------------
         for a in range(0,100):
@@ -154,7 +155,8 @@ def draw(canvas):
 
 #===========================SENDING STATES BEFORE GARBAGE COLLECTION=============================================================
         # -----------IN MAIN LOOP NETWORKING-------------------------
-        if config['MAP']['TWO_PLAYER']:
+        if (config['MAP']['TWO_PLAYER'])=='True':
+            print("two player false")
             for object in weapon_set:
                 # don't communicate it if it has been applied lol otherwise it's like continuous aoe damage good luck with that
                 if not object.applied and not object.sent:
