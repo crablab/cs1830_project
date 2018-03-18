@@ -49,3 +49,4 @@ player_initial_position_x = 2500
 player_initial_position_y = 2500
 player_sprite_fps = 10
 player_sprite = ch_1
+
