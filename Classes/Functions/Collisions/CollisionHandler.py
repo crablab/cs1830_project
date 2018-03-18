@@ -1,7 +1,11 @@
 from Classes.Settings import MAP_WIDTH, MAP_HEIGHT,SHOW_COLLISION_TECH
 from Loading.Objects import monster_set, monster_set_external, player_list, playerId, env_l2_list,weapon_set,weapon_set_external
 from Classes.Functions.Collisions.Collisions import doCirclesIntersect
-
+from Loading.Objects import visual_set
+from Classes.Middle.Particle import Particle
+from Classes.Base.Vector import Vector
+from Loading.RandomGen import getRandomMagicDef
+from Loading.Objects import spriteDictionary,getUid
 # CLASS DESCRIPTION:
 # Takes care of any action that contains any sort of collisions, this means drawing objects as they collide with trees radius and drawing is decided upon who hits who...
 # perhaps not the best structure as i'm writing this on the fly and don't have time to thing about better structuring.
@@ -125,6 +129,16 @@ class BroadPhaseCollision:
                             object.particle.nextPos=object.particle.pos
                             object.particle.nextPosTime=time.time()
                             object.applied=True #terminate damage of weapon in case of future collisions
+                            if object2.life > object2.totalLife / 2:  # if players's health is greater that half then stick on a defence magic sprite for visual
+                                pos = object2.particle.pos.copy()
+
+                                numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMagicDef(
+                                    object2.magic)
+                                particle = Particle(True, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0, key, spriteDictionary,
+                                                    20, False, True, getUid(), numRows, numCol, startRow, startCol,
+                                                    endRow, endCol)
+
+                                visual_set.add(particle)
 
                             if SHOW_COLLISION_TECH: #draw collision for visual confirmation
                                 ratio = self.cam.ratioToCam()
@@ -186,6 +200,16 @@ class BroadPhaseCollision:
                             object.particle.nextPos = object.particle.pos
                             object.particle.nextPosTime = time.time()
                             object.applied = True  # terminate damage of weapon in case of future collisions
+                            if object2.life>object2.totalLife/2:# if monster's health is greater that half then stick on a defence magic sprite for visual
+                                pos = object2.particle.pos.copy()
+
+                                numRows, numCol, startRow, startCol, endRow, endCol, key = getRandomMagicDef(object2.magic)
+                                particle = Particle(True, pos, Vector(0, 0), 0, pos, 0, 0, 0, 0, key, spriteDictionary,
+                                                    20, False, True, getUid(), numRows, numCol, startRow, startCol,
+                                                    endRow, endCol)
+
+                                visual_set.add(particle)
+
                             for player in player_list:
                                 if player.idObject==playerId:
 

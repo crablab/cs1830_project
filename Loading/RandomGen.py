@@ -202,6 +202,34 @@ def getRandomMagicCast(magic):  # CANNOT USE RANDOM STRING AS ROWS AND COLUMNS A
     elif num == 15:
         return (14, 5, 1, 1, 14, 5, 'ma_ca_5x14_2')
 
+def getRandomMagicDef(magic):
+    range = magic // 3500
+    range += 3
+
+    if range > 8:
+        range = 8
+    num = random.randrange(0, range)
+
+    if num == 0:
+        return (4, 5, 1, 1, 4, 5, 'ma_de_5x4_1')
+    elif num == 1:
+        return (4, 5, 1, 1, 4, 5, 'ma_de_5x4_2')
+    elif num == 2:
+        return (4, 5, 1, 1, 4, 5, 'ma_de_5x4_3')
+    elif num == 3:
+        return 4, 5, 1, 1, 4, 5, 'ma_de_5x4_4'
+    elif num == 4:
+        return (5, 5, 1, 1, 5, 5, 'ma_de_5x5_1')
+    elif num == 5:
+        return (5, 5, 1, 1, 5, 5, 'ma_de_5x5_2')
+    elif num == 6:
+        return (6, 5, 1, 1, 6, 5, 'ma_de_5x6_1')
+    elif num == 7:
+        return (6, 5, 1, 1, 6, 5, 'ma_de_5x6_2')
+    elif num == 8:
+        return (7, 5, 1, 1, 7, 5, 'ma_de_5x7_1')
+
+
 
 def getRandomShowOff(magic):
     range = magic // 3500

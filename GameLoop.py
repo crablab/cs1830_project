@@ -44,7 +44,7 @@ collHandler=BroadPhaseCollision(200,200)
 #initiate Ai
 monsterAi=MonsterAi(0)
 print("INITIALISING MONSTER CONTROLLER")
-monsterAi=MonsterAi(10)
+monsterAi=MonsterAi(30)
 monsterAi.spawnMonsters()
 
 print("MONSTERS LOADED AND SPAWNED")
@@ -69,10 +69,11 @@ def draw(canvas):
 
 #-----------------CLIENT PING-----------------------
    # if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
-    ping()
-#--------------RECIEVE ALL OBJECTS-------------------------
-    for a in range(0,100):
-        recieve()
+    if TWO_PLAYER:
+        ping()
+    #--------------RECIEVE ALL OBJECTS-------------------------
+        for a in range(0,100):
+            recieve()
 #-----------------SEND GAME STATES------------------------
 
 
@@ -151,20 +152,21 @@ def draw(canvas):
 
 #===========================SENDING STATES BEFORE GARBAGE COLLECTION=============================================================
         # -----------IN MAIN LOOP NETWORKING-------------------------
-        for object in weapon_set:
-            # don't communicate it if it has been applied lol otherwise it's like continuous aoe damage good luck with that
-            if not object.applied and not object.sent:
+        if TWO_PLAYER:
+            for object in weapon_set:
+                # don't communicate it if it has been applied lol otherwise it's like continuous aoe damage good luck with that
+                if not object.applied and not object.sent:
+                    communicate(object)
+                    object.sent=True
+            for monster in monster_set:
+                communicate(monster)
+            for object in visual_set:
                 communicate(object)
-                object.sent=True
-        for monster in monster_set:
-            communicate(monster)
-        for object in visual_set:
-            communicate(object)
 
-        # we don't to thread this as it is a small set
-        for player in player_list:
-            if player.idObject == playerId:
-                communicate(player)
+            # we don't to thread this as it is a small set
+            for player in player_list:
+                if player.idObject == playerId:
+                    communicate(player)
 
 
 # ===================== GARBAGE REMOVAL =================================================

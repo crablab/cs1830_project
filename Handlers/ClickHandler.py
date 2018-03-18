@@ -104,7 +104,7 @@ def checkClick():
                     visual_set.add(particle)
 
 
-                # MAGIC
+                # MAGIC SHOWING OFF
                 if player.weapon == 3:
                     player.hasFired = True
                     player.particle.spriteSheet.resetLoop()
