@@ -1,12 +1,13 @@
 [DEVELOPER]
 developer_options = 0
-god_mode = True
+god_mode = False
+
 show_monster_thoughts = False
 show_collision = False
 
 [MAP]
-width = 10000
-height = 10000
+width = 7000
+height = 7000
 two_player = False
 tree_range = 20000
 
@@ -14,6 +15,7 @@ tree_range = 20000
 canvas_width = 480
 canvas_height = 480
 game_state = True
+
 
 [NETWORKING]
 config_type = client

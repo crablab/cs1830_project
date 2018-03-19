@@ -3,11 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="535d3321-3371-455d-b0a1-9ee7583f198c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+
+      <change beforePath="$PROJECT_DIR$/Classes/Functions/Collisions/CollisionHandler.py" afterPath="$PROJECT_DIR$/Classes/Functions/Collisions/CollisionHandler.py" />
+      <change beforePath="$PROJECT_DIR$/Classes/Super/Home.py" afterPath="$PROJECT_DIR$/Classes/Super/Home.py" />
+      <change beforePath="$PROJECT_DIR$/Classes/Super/Monster.py" afterPath="$PROJECT_DIR$/Classes/Super/Monster.py" />
+      <change beforePath="$PROJECT_DIR$/Classes/config" afterPath="$PROJECT_DIR$/Classes/config" />
       <change beforePath="$PROJECT_DIR$/GameLoop.py" afterPath="$PROJECT_DIR$/GameLoop.py" />
-      <change beforePath="$PROJECT_DIR$/GameStates/GameStates.py" afterPath="$PROJECT_DIR$/GameStates/GameStates.py" />
-      <change beforePath="$PROJECT_DIR$/GameStates/intro.py" afterPath="$PROJECT_DIR$/GameStates/intro.py" />
+      <change beforePath="$PROJECT_DIR$/Handlers/ClickHandler.py" afterPath="$PROJECT_DIR$/Handlers/ClickHandler.py" />
       <change beforePath="$PROJECT_DIR$/Loading/Objects.py" afterPath="$PROJECT_DIR$/Loading/Objects.py" />
-      <change beforePath="$PROJECT_DIR$/img/splash.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/img/Magic/revive/5x4/1.png" afterPath="$PROJECT_DIR$/img/Magic/revive/5x4/1.jpg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,6 +27,7 @@
     <SUITE FILE_PATH="coverage/cs1830$GameLoop__1_.coverage" NAME="GameLoop (1) Coverage Results" MODIFIED="1520959147743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cs1830$JsonToObject.coverage" NAME="JsonToObject Coverage Results" MODIFIED="1519925717525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Transfer" />
     <SUITE FILE_PATH="coverage/cs1830$GameLoop__2_.coverage" NAME="GameLoop (2) Coverage Results" MODIFIED="1521424793223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+
     <SUITE FILE_PATH="coverage/cs1830$Classes.coverage" NAME="Classes Coverage Results" MODIFIED="1519869300078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
@@ -46,6 +51,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1062">
               <caret line="61" column="24" lean-forward="false" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="24" />
+
               <folding />
             </state>
           </provider>
@@ -56,6 +62,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="815">
               <caret line="64" column="24" lean-forward="false" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
+
               <folding />
             </state>
           </provider>
@@ -70,6 +77,7 @@
                 <element signature="e#224#237#0" expanded="true" />
                 <marker date="1521424793210" expanded="true" signature="1289:1332" ph="..." />
               </folding>
+
             </state>
           </provider>
         </entry>
@@ -80,6 +88,7 @@
             <state relative-caret-position="450">
               <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
               <folding />
+
             </state>
           </provider>
         </entry>
@@ -89,6 +98,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="18">
               <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="3" selection-end-column="40" />
+
               <folding />
             </state>
           </provider>
@@ -107,6 +117,7 @@
             <state relative-caret-position="234">
               <caret line="13" column="12" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="12" />
               <folding />
+
             </state>
           </provider>
         </entry>
@@ -116,6 +127,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="522">
               <caret line="31" column="85" lean-forward="false" selection-start-line="31" selection-start-column="85" selection-end-line="31" selection-end-column="85" />
+
               <folding />
             </state>
           </provider>
@@ -126,6 +138,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="163">
               <caret line="57" column="40" lean-forward="false" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
+
               <folding />
             </state>
           </provider>
@@ -146,8 +159,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -159,6 +172,7 @@
       <find>self.follow</find>
       <find>nextPosTime</find>
       <find>for monster in monster</find>
+
       <find>nextPos</find>
       <find>draw</find>
       <find>c</find>
@@ -180,7 +194,10 @@
       <find>getW</find>
       <find>god</find>
       <find>GOD</find>
+      <find>player</find>
+      <find>cam</find>
       <find>false</find>
+
       <find>Truea</find>
       <find>house</find>
     </findStrings>
@@ -192,6 +209,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Classes/ParticleCircle.py" />
+
         <option value="$PROJECT_DIR$/Classes/ParticleSquare.py" />
         <option value="$PROJECT_DIR$/Classes/GameState.py" />
         <option value="$PROJECT_DIR$/Loops/main.py" />
@@ -224,7 +242,6 @@
         <option value="$PROJECT_DIR$/Classes/Assigment.html" />
         <option value="$USER_HOME$/Downloads/JSexample.html" />
         <option value="$PROJECT_DIR$/Loading/RandomGen.py" />
-        <option value="$PROJECT_DIR$/Classes/Functions/Collisions/Collisions.py" />
         <option value="$PROJECT_DIR$/Handlers/KeyHandler.py" />
         <option value="$PROJECT_DIR$/Classes/Middle/Particle.py" />
         <option value="$PROJECT_DIR$/Classes/Super/Player.py" />
@@ -233,15 +250,15 @@
         <option value="$PROJECT_DIR$/Transfer/comms.py" />
         <option value="$PROJECT_DIR$/Transfer/JsonToObject.py" />
         <option value="$PROJECT_DIR$/Classes/Settings.py" />
+
         <option value="$PROJECT_DIR$/Classes/Functions/Collisions/CollisionHandler.py" />
-        <option value="$PROJECT_DIR$/Classes/Super/Monster.py" />
-        <option value="$PROJECT_DIR$/Handlers/ClickHandler.py" />
-        <option value="$PROJECT_DIR$/Classes/Super/Camera.py" />
+        <option value="$PROJECT_DIR$/Classes/Super/Home.py" />
         <option value="$PROJECT_DIR$/Classes/config" />
         <option value="$PROJECT_DIR$/GameStates/GameStates.py" />
         <option value="$PROJECT_DIR$/GameLoop.py" />
         <option value="$PROJECT_DIR$/Loading/Objects.py" />
         <option value="$PROJECT_DIR$/GameStates/intro.py" />
+
       </list>
     </option>
   </component>
@@ -253,6 +270,7 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1263" />
+
     <option name="y" value="27" />
     <option name="width" value="1867" />
     <option name="height" value="1594" />
@@ -304,6 +322,17 @@
             <path>
               <item name="cs1830" type="b2602c69:ProjectViewProjectNode" />
               <item name="cs1830" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cs1830" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cs1830" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="House" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cs1830" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cs1830" type="462c0819:PsiDirectoryNode" />
               <item name="Loading" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -321,19 +350,19 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Classes/Super" />
+      <recent name="$PROJECT_DIR$/Loading" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Game/Classes" />
+      <recent name="$PROJECT_DIR$/Game/Declarations" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/img/Environment/Layer2/Trees/15x4" />
       <recent name="$PROJECT_DIR$/img/Environment/Layer2/Trees/6x5" />
       <recent name="$PROJECT_DIR$/img/Monsters/Tier3" />
       <recent name="$PROJECT_DIR$/img/Monsters/Tier2" />
       <recent name="$PROJECT_DIR$/Classes" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Loading" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/Game/Classes" />
-      <recent name="$PROJECT_DIR$/Game/Declarations" />
-      <recent name="$PROJECT_DIR$/Game/Classes/Super" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -485,6 +514,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11526946" sideWeight="0.86132973" order="7" side_tool="false" content_ui="tabs" />
+
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12905823" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -514,6 +544,7 @@
       <window_info id="Concurrent Activities Diagram" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32865623" sideWeight="0.49782962" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3737525" sideWeight="0.49063772" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -641,6 +672,7 @@
         <state />
       </provider>
     </entry>
+
     <entry file="file://$PROJECT_DIR$/img/Monsters/Tier1/2.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -695,94 +727,14 @@
     <entry file="file://$PROJECT_DIR$/Classes/Assigment.html" />
     <entry file="file://$USER_HOME$/Downloads/JSexample.html" />
     <entry file="file://$PROJECT_DIR$/Handlers/Mouse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="19" column="29" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Handlers/KeyHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Middle/SpriteControl/SpriteAnimator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="118" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1727">
-          <caret line="51" column="17" lean-forward="false" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Middle/Particle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="53" lean-forward="false" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Transfer/comms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2232">
-          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Transfer/JsonToObject.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1825">
-          <caret line="151" column="9" lean-forward="false" selection-start-line="151" selection-start-column="9" selection-end-line="151" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/Settings.py" />
-    <entry file="file://$PROJECT_DIR$/LICENSE">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Functions/Collisions/Collisions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Functions/Collisions/CollisionHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4482">
-          <caret line="256" column="76" lean-forward="false" selection-start-line="256" selection-start-column="76" selection-end-line="256" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Classes/Super/Weapon.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -790,10 +742,158 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Middle/SpriteControl/SpriteAnimator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="118" />
+
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/House/portal.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Super/Camera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Transfer/JsonToObject.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="53" lean-forward="false" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Transfer/comms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2178">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Loading/MonsterAi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1206">
-          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+        <state relative-caret-position="4428">
+          <caret line="254" column="67" lean-forward="false" selection-start-line="254" selection-start-column="67" selection-end-line="254" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Settings.py" />
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1854">
+          <caret line="106" column="24" lean-forward="true" selection-start-line="106" selection-start-column="24" selection-end-line="106" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Regen/5x7/2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Regen/5x7/3.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Regen/5x7/4.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Regen/5x7/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/Regen/5x5/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/revive/5x7/3.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/revive/5x7/2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/revive/5x7/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/Magic/revive/5x4/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Functions/Collisions/CollisionHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="164" column="61" lean-forward="false" selection-start-line="164" selection-start-column="61" selection-end-line="164" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Handlers/Mouse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="29" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Middle/Particle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="22" column="155" lean-forward="false" selection-start-line="22" selection-start-column="155" selection-end-line="22" selection-end-column="155" />
+
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GameStates/intro.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="e#224#237#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -841,9 +941,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/Super/Player.py">
+
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="31" column="85" lean-forward="false" selection-start-line="31" selection-start-column="85" selection-end-line="31" selection-end-column="85" />
+        <state relative-caret-position="198">
+          <caret line="14" column="31" lean-forward="false" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -852,6 +953,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+
           <folding />
         </state>
       </provider>
@@ -860,6 +962,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
           <caret line="57" column="40" lean-forward="false" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
+
           <folding />
         </state>
       </provider>
@@ -872,7 +975,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GameLoop.py">
+    <entry file="file://$PROJECT_DIR$/Loading/Objects.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1062">
           <caret line="61" column="24" lean-forward="false" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="24" />

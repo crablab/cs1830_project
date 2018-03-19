@@ -44,17 +44,20 @@ collHandler=BroadPhaseCollision(200,200)
 #initiate Ai
 monsterAi=MonsterAi(0)
 print("INITIALISING MONSTER CONTROLLER")
-monsterAi=MonsterAi(10)
+monsterAi=MonsterAi(5)
 monsterAi.spawnMonsters()
 
 print("MONSTERS LOADED AND SPAWNED")
-# music.play()
-# music.rewind()
-# music.set_volume(1)
+
+###SOUND TO GET JIST
+sound_manager.setContinuousBackgroundList(["bg_1","bg_2","bg_3","bg_4"])
+###
 
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
 
+    ##cos want background music in loading screen
+    sound_manager.update()
 
 #========== GAME LOOPS NON MAIN =====================
 
@@ -100,19 +103,28 @@ def draw(canvas):
 
     #  -------UPDATE-AND-DRAW---OBJECTS---BY---LAYER---PRIORITY
         monsterAi.update()
+
         for pbot in env_l1_set:
             pbot.update()
             pbot.draw(canvas,cam)
         for pbot in env_l3_list:
             pbot.update()
             pbot.draw(canvas,cam)
+
+        home.draw(canvas, cam)
+        for player in player_list:
+            if player.idObject == playerId:
+                home.update(player)
+
         for v in visual_set:
-            v.update()
-            v.draw(canvas,cam)
+                v.update()
+                v.draw(canvas,cam)
+        
+        
         for ve in visual_set_external:
             ve.update()
             ve.draw(canvas,cam)
-
+       
         # ------------place all objects into list to choose which to draw first, not sure if this is expensive, but we shall try-----------
 
 

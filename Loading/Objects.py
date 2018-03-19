@@ -1,7 +1,9 @@
 from SimpleGUICS2Pygame import simpleguics2pygame
-
+from Classes.Super.Home import Home
 #from Classes.Settings import *
 from Classes.Base.Vector import Vector
+
+from SimpleGUICS2Pygame import simpleguics2pygame
 
 from Classes.Super.Camera import Camera
 from Handlers.Mouse import Mouse
@@ -9,6 +11,8 @@ from Handlers.Mouse import Mouse
 from Classes.Middle.SpriteControl.SpriteAnimator import SpriteAnimator
 
 from Classes.Super.Player import Player
+
+from Loading.Sound import SoundManager
 
 from GameStates.GameStates import GameState
 import configparser
@@ -221,6 +225,12 @@ pro_t3_3 = SpriteAnimator(cwd + '/img/Projectiles/Tier3/3.jpg')
 pro_t4_1 = SpriteAnimator(cwd + '/img/Projectiles/Tier4/1.jpg')
 pro_t4_2 = SpriteAnimator(cwd + '/img/Projectiles/Tier4/2.jpg')
 print("Projectiles Loaded")
+
+house = SpriteAnimator(cwd + '/img/House/house.jpg')
+portal = SpriteAnimator(cwd + '/img/House/portal.jpg')
+respawn=SpriteAnimator(cwd+ '/img/Magic/revive/5x4/1.jpg')
+print("House and Portals Loaded")
+
 spriteDictionary = {'ch_1': ch1,
                     'ch_2': ch2,
 
@@ -365,6 +375,8 @@ spriteDictionary = {'ch_1': ch1,
                     'mo_t3_5': mon_t3_6_2_3_2_5,
                     'mo_t3_6': mon_t3_8_8_4_2_6,
 
+
+
                     'pr_t1_1': pro_t1_1,
                     'pr_t2_1': pro_t2_1,
                     'pr_t2_2': pro_t2_2,
@@ -375,21 +387,25 @@ spriteDictionary = {'ch_1': ch1,
                     'pr_t3_3': pro_t3_2,
                     'pr_t3_4': pro_t3_3,
                     'pr_t4_1': pro_t4_1,
-                    'pr_t4_2': pro_t4_2}
+                    'pr_t4_2': pro_t4_2,
+
+                    'respawn':respawn,
+                    'house':house,
+                    'portal':portal}
 
 # -----------------------MOVING OBJECTS-------------------
 print("ASSETS LOADED")
 print("LOADING OBJECTS")
 # CAMERA
-cam = Camera(Vector(int(config['PLAYER']['PLAYER_INITIAL_POSITION_X']), int(config['PLAYER']['PLAYER_INITIAL_POSITION_Y'])), Vector(int(config['CANVAS']['CANVAS_WIDTH'])*4,int(config['CANVAS']['CANVAS_HEIGHT'])*4))
+cam = Camera(Vector(-10000,-10000), Vector(int(config['CANVAS']['CANVAS_WIDTH'])*4,int(config['CANVAS']['CANVAS_HEIGHT'])*4))
 
 # PLAYER
 
 
 player1 = Player(
-    Vector(int(config['MAP']['WIDTH'])//2, int(config['MAP']['HEIGHT'])//2),
+    Vector(-10000,-10000),
     Vector(int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_X']), int(config['PLAYER']['PLAYER_INITIAL_VELOCITY_Y'])),
-    0, Vector(int(config['MAP']['WIDTH'])//2, int(config['MAP']['HEIGHT'])//2),
+    0, Vector(-10000,-10000),
     int(config['PLAYER']['PLAYER_MAX_VELOCITY']),
     int(config['PLAYER']['PLAYER_INITIAL_ANGLE']),20,
     config['PLAYER']['PLAYER_SPRITE'],
@@ -410,5 +426,27 @@ randomGrass()
 randomTrees()
 print("ENVIRONMENT GENERATED")
 
-# music = simpleguics2pygame._load_local_sound('Music/main.ogg')
-# music.play()
+
+home=Home(Vector(-10000,-10000),Vector(-10900,-9900),Vector(int(config['MAP']['WIDTH'])//2, int(config['MAP']['HEIGHT'])//2),spriteDictionary)
+
+# tree = Particle(True, Vector(2500, 2500), Vector(0, 0), 0, Vector(2500, 2500), 200, 0, 0, 0, 'en_l1_tr', spriteDictionary,
+#                 1, False, False, getUid(), 4, 15, 1, 1, 4, 15)
+#
+
+# -----------------------SOUNDS------------------
+sound_bg_1 = simpleguics2pygame._load_local_sound(cwd + '/sound/bg1.wav')
+sound_bg_1.set_volume(0.1)
+sound_bg_2 = simpleguics2pygame._load_local_sound(cwd + '/sound/bg2.wav')
+sound_bg_2.set_volume(0.1)
+sound_bg_3 = simpleguics2pygame._load_local_sound(cwd + '/sound/bg3.wav')
+sound_bg_3.set_volume(0.1)
+sound_bg_4 = simpleguics2pygame._load_local_sound(cwd + '/sound/bg4.wav')
+sound_bg_4.set_volume(0.1)
+
+sound_dict = {
+     "bg_1":sound_bg_1,
+     "bg_2":sound_bg_2,
+     "bg_3":sound_bg_3,
+     "bg_4":sound_bg_4}
+
+sound_manager = SoundManager(sound_dict)
