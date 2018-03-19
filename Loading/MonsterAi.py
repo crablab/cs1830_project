@@ -147,7 +147,7 @@ class MonsterAi:
                         #THEN CHECK FOR WITHIN ATTACK RANGE
 
                         if doCirclesIntersect(monster.particle.pos, monster.followDistance, player.particle.pos,
-                                              player.particle.radius) and monster.magic>player.magic:
+                                              player.particle.radius) :
                             monster.particle.keepRange(player.particle.pos,
                                                        monster.attackRange)  # artbitrary distance at which to keep range by monster tier
                             print("intercection follow ",monster.particle.pos," , ", monster.followDistance," , ", player.particle.pos," , ",

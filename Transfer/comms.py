@@ -142,4 +142,5 @@ def recieve():
     if not com.recieved.empty():
         # print("recieved : ",com.recieved.qsize())
         obj=com.recieved.get()
+        print(obj)
         getObject(obj)

@@ -15,15 +15,15 @@ class Home:
         if player.particle.pos.getX()<-1000:
             self.house.update()
             self.block(player)
-            self.portalM.update()
+            self.portalH.update()
 
         self.teleport(player)
         self.teleportCountDown+=time.time()-self.prevTime
         self.prevTime=time.time()
-        self.portalH.update()
+        self.portalM.update()
 
     def teleport(self,player):
-        if self.teleportCountDown>120:
+        if self.teleportCountDown>20:
             if player.particle.pos.getX()>-1000:
                 if doCirclesIntersect(player.particle.pos,player.particle.radius,self.portalM.pos,self.portalM.radius):
                     self.teleportCountDown=0

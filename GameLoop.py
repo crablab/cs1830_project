@@ -44,7 +44,7 @@ collHandler=BroadPhaseCollision(200,200)
 #initiate Ai
 monsterAi=MonsterAi(0)
 print("INITIALISING MONSTER CONTROLLER")
-monsterAi=MonsterAi(5)
+monsterAi=MonsterAi(7)
 monsterAi.spawnMonsters()
 
 print("MONSTERS LOADED AND SPAWNED")
@@ -57,7 +57,7 @@ sound_manager.setContinuousBackgroundList(["bg_1","bg_2","bg_3","bg_4"])
 def draw(canvas):
     
     # Send game state every loop we're networking
-    if(config['MAP']['TWO_PLAYER'] == 'true'):
+    if(config['MAP']['TWO_PLAYER'] == 'True'):
         communicate(gameState1)
 
     ##cos want background music in loading screen
@@ -80,8 +80,8 @@ def draw(canvas):
     if (config['MAP']['TWO_PLAYER'] and config['NETWORKING']['CONFIG_TYPE'] == 'client')=='True':
         ping()
     #--------------RECIEVE ALL OBJECTS-------------------------
-        for a in range(0,100):
-            recieve()
+    for a in range(0,100):
+        recieve()
 #-----------------SEND GAME STATES------------------------
 
 
