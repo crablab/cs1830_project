@@ -413,13 +413,19 @@ print("ENVIRONMENT GENERATED")
 #
 
 # -----------------------SOUNDS------------------
-sound_bg = simpleguics2pygame._load_local_sound(cwd + '/sound/background.wav')
-sound_bg.set_volume(0.1)
-sound_loaded = simpleguics2pygame._load_local_sound(cwd + '/sound/loadingcomplete.wav')
-sound_loaded.set_volume(0.2)
+sound_bg_1 = simpleguics2pygame._load_local_sound(cwd + '/sound/bg1.wav')
+sound_bg_1.set_volume(0.1)
+sound_bg_2 = simpleguics2pygame._load_local_sound(cwd + '/sound/bg2.wav')
+sound_bg_2.set_volume(0.1)
+sound_bg_3 = simpleguics2pygame._load_local_sound(cwd + '/sound/bg3.wav')
+sound_bg_3.set_volume(0.1)
+sound_bg_4 = simpleguics2pygame._load_local_sound(cwd + '/sound/bg4.wav')
+sound_bg_4.set_volume(0.1)
 
 sound_dict = {
-     "bg":sound_bg,
-     "lc":sound_loaded}
+     "bg_1":sound_bg_1,
+     "bg_2":sound_bg_2,
+     "bg_3":sound_bg_3,
+     "bg_4":sound_bg_4}
 
 sound_manager = SoundManager(sound_dict)

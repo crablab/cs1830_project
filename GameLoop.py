@@ -50,8 +50,7 @@ monsterAi.spawnMonsters()
 print("MONSTERS LOADED AND SPAWNED")
 
 ###SOUND TO GET JIST
-sound_manager.playSound("lc")
-sound_manager.setContinuousBackgroundList(["bg"])
+sound_manager.setContinuousBackgroundList(["bg_1","bg_2","bg_3","bg_4"])
 ###
 
 #--------------GAME-----LOOP-------------------
