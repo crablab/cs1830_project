@@ -33,7 +33,7 @@ class FlaskAppWrapper(object):
         # print("performing action")
         #get the dictionary of the message
         jsonData = request.get_json(force=True)
-        if(bool(config['NETWORKING']['LOGGING']) and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(jsonData)
+        if(config['NETWORKING']['LOGGING'] == 'true' and config['NETWORKING']['LOGGING_LEVEL'] == "high"): print(jsonData)
         #seperate into the queue
         # print(jsonData)
         for value in jsonData:
