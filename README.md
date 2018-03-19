@@ -25,7 +25,9 @@ By default, it will run in single player. To run in multiplayer you need to chan
 
 You can also override whether you are a server/client via an argument on the command line. 
 
-When it loads, you will get a nice screen telling you to click. Make sure you hit space before doing so (it fires some JSON)
+Server needs to be started before the client (obviously).
+
+When it loads, you will get a nice screen telling you you're waiting for player 2. Make sure you hit space before doing so (it fires some JSON). 
 
 If the connection fails the game may continue to run but with no data being sent. 
 
