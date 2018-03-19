@@ -1,5 +1,13 @@
 # cs1830
 
+|         | % Contribution |
+|---------|----------------|
+| Octavio | 55             |
+| Hugh    | 30             |
+| Zach    | 10             |
+| Nissan  | 2.5            |
+| Greg    | 2.5            |
+
 Ideas board: https://docs.google.com/document/d/1_0hMUYIG_HRFGZmB0RdLcXk4QeVVlYxAIiLZAO06mQw/edit?usp=sharing
 
 SETTINGS: located in classes/config
