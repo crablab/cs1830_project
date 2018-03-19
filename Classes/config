@@ -21,7 +21,7 @@ game_state = True
 config_type = client
 client_ip = 10.2.76.93
 logging = True
-logging_level = low
+logging_level = high
 
 [CAMERA]
 cam_move_sensitivity = 200

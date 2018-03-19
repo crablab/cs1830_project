@@ -37,6 +37,8 @@ We benchmark normal running between 18 FPS (on a Thinkpad) to 25 FPS on a better
 
 ## PROJECT STRUCTURE:
 
+```
+
 CS1830/                                                # main project Files
     .gitignore
     GameLoop.py
@@ -86,3 +88,4 @@ CS1830/                                                # main project Files
         comms.py
         JsonToObject.py
 
+```
