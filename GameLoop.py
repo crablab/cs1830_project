@@ -34,7 +34,7 @@ from Handlers.KeyHandler import keydown, keyup
 from Handlers.ClickHandler import checkClick
 from Classes.Functions.Collisions.CollisionHandler import BroadPhaseCollision
 from Loading.Objects import *
-from GameStates.intro import introLoop, waitingLoop
+from GameStates.intro import introLoop, waitingLoop,storyLoop
 from Loading.MonsterAi import MonsterAi
 
 #-----START----GAME----CLOCK
@@ -60,7 +60,8 @@ def draw(canvas):
 
     if(gameState1.intro):
         introLoop(canvas)
-
+    if gameState1.story:
+        storyLoop(canvas)
     if gameState1.main and not gameState2.main:
         waitingLoop(canvas)
 
@@ -274,6 +275,7 @@ magic = frame.add_label('Magic: ')
 rng = frame.add_label('Ranfe: ')
 arrows = frame.add_label('Arrows: ')
 spells = frame.add_label('Spells: ')
+
 remote = frame.add_label('Remote Addr: ' + config['NETWORKING']['client_ip'])
 
 frame.set_draw_handler(draw)
