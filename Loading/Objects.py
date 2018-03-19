@@ -61,7 +61,13 @@ def getUid():
 # ------------------ DICTIONARY OF ALL PICTURES LOCATIONS-----------------
 print('LOADING ASSETS')
 cwd = os.getcwd()
+link=cwd + '/img/splash.jpg'
+splash = simpleguics2pygame.load_image(link)
+link=cwd + '/img/story.jpg'
 
+story = simpleguics2pygame.load_image(link)
+print(story.get_height())
+print(splash.get_width())
 ch1 = SpriteAnimator(cwd + '/img/Character/1.jpg')
 ch2 = SpriteAnimator(cwd + '/img/Character/2.jpg')
 
