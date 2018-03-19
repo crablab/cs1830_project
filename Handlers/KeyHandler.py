@@ -44,6 +44,4 @@ def keydown(key):
         cam.moveUp = True
     elif key == simpleguics2pygame.KEY_MAP['down']:
         cam.moveDown = True
-    elif key == simpleguics2pygame.KEY_MAP['space']:
-        communicate(gameState1)
 
