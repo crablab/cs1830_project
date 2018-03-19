@@ -55,7 +55,10 @@ sound_manager.setContinuousBackgroundList(["bg_1","bg_2","bg_3","bg_4"])
 
 #--------------GAME-----LOOP-------------------
 def draw(canvas):
-    communicate(gameState1)
+    
+    # Send game state every loop we're networking
+    if(config['MAP']['TWO_PLAYER'] == 'true'):
+        communicate(gameState1)
 
     ##cos want background music in loading screen
     sound_manager.update()
@@ -73,8 +76,8 @@ def draw(canvas):
 #================= NETWORKING ==============================
 
 #-----------------CLIENT PING-----------------------
-   # if (config['NETWORKING']['CONFIG_TYPE'] == 'client'):
-    if (config['MAP']['TWO_PLAYER'])=='True':
+    #Force client to ping server
+    if (config['MAP']['TWO_PLAYER'] and config['NETWORKING']['CONFIG_TYPE'] == 'client')=='True':
         ping()
     #--------------RECIEVE ALL OBJECTS-------------------------
         for a in range(0,100):
@@ -181,7 +184,6 @@ def draw(canvas):
             for player in player_list:
                 if player.idObject == playerId:
                     communicate(player)
-
 
 # ===================== GARBAGE REMOVAL =================================================
         removal_set=set()

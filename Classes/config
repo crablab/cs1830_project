@@ -7,16 +7,16 @@ show_collision = False
 [MAP]
 width = 7000
 height = 7000
-two_player = True
+two_player = False
 tree_range = 20000
 
 [CANVAS]
 canvas_width = 480
 canvas_height = 480
-game_state = True
+game_state = False
 
 [NETWORKING]
-config_type = server
+config_type = client
 client_ip = 10.2.76.93
 logging = False
 logging_level = low
